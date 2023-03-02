@@ -12,17 +12,13 @@ namespace Backend.Handlers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly RoleManager<IdentityRole<int>> _roleManager;
         private readonly IMapper _mapper;
-        private readonly AppDbContext _context;
 
-        public AuthHandler(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<int>> roleManager, IMapper mapper, AppDbContext context)
+        public AuthHandler(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
             _mapper = mapper;
-            _context = context;
         }
 
         public async Task<UserGet> Login(UserLogin data)
@@ -41,17 +37,15 @@ namespace Backend.Handlers
             return result;
         }
 
-        private async Task<User> GetUser(UserLogin data)
+        public async Task<bool> Logout()
         {
-            MailAddress _;
-            return MailAddress.TryCreate(data.UserName,out _) ?
-                await _userManager.FindByEmailAsync(data.UserName) :
-                await _userManager.FindByNameAsync(data.UserName);
+            await _signInManager.SignOutAsync();
+            return true;
         }
 
-        public async Task<UserGet> GetUser(ClaimsPrincipal claims)
+        public async Task<UserGet> GetProfile(ClaimsPrincipal claims)
         {
-            User user = await _userManager.GetUserAsync(claims);
+            User? user = await _userManager.GetUserAsync(claims);
 
             if(user is null)
             {
@@ -64,10 +58,12 @@ namespace Backend.Handlers
             return result;
         }
 
-        public async Task<bool> Logout()
+        private async Task<User> GetUser(UserLogin data)
         {
-            await _signInManager.SignOutAsync();
-            return true;
+            MailAddress _;
+            return MailAddress.TryCreate(data.UserName, out _) ?
+                await _userManager.FindByEmailAsync(data.UserName) :
+                await _userManager.FindByNameAsync(data.UserName);
         }
     }
 }

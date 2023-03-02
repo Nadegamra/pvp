@@ -16,12 +16,10 @@ namespace Backend.Controllers
     [Authorize]
     public class AuthController: ControllerBase
     {
-        private readonly IConfiguration _configuration;
         private readonly AuthHandler _usersHandler;
 
-        public AuthController(IConfiguration configuration, AuthHandler usersHandler)
+        public AuthController(AuthHandler usersHandler)
         {
-            _configuration = configuration;
             _usersHandler = usersHandler;
         }
 
@@ -49,10 +47,10 @@ namespace Backend.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("profile")]
-        public async Task<ActionResult> Profile()
+        [HttpGet("getProfile")]
+        public async Task<ActionResult> GetProfile()
         {
-            UserGet result = await _usersHandler.GetUser(User);
+            UserGet result = await _usersHandler.GetProfile(User);
             return Ok(result);
         }
     }
