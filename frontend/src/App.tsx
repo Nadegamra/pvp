@@ -1,10 +1,9 @@
 import React from 'react';
-import './App.css';
 import AppRoutes from './components/routing/AppRoutes';
 
 function App() {
     return (
-        <div>
+        <div className="bg-bg-primary h-[100vh] w-full">
             <AppRoutes />
         </div>
     );

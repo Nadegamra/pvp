@@ -10,7 +10,7 @@ const headers = {
 };
 
 export async function login(loginCredentials: UserLogin) {
-    return api.post(`login`, loginCredentials);
+    return api.post(`login`, loginCredentials, headers);
 }
 
 export async function logout() {

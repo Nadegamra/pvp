@@ -5,16 +5,11 @@ import { UserGet, UserLogin } from '../models/User';
 export default interface AuthContextProps {
     user?: UserGet;
     loading: boolean;
-    login: (loginData: UserLogin) => void;
+    login: (loginData: UserLogin) => Promise<string>;
     logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextProps>({
-    user: undefined,
-    loading: false,
-    login: (loginData: UserLogin) => null,
-    logout: () => null
-});
+const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<UserGet>();
@@ -29,7 +24,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .finally(() => setLoadingInitial(false));
     }, []);
 
-    async function handleLogin(loginData: UserLogin) {
+    async function handleLogin(loginData: UserLogin): Promise<string> {
         setLoading(true);
 
         return login(loginData)
@@ -46,7 +41,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             });
     }
 
-    async function handleLogout() {
+    function handleLogout() {
         logout()
             .then(() => {
                 setUser(undefined);
