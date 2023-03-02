@@ -1,5 +1,6 @@
 using Backend.Data;
 using Backend.Data.Models;
+using Backend.Handlers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -58,6 +59,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddTransient<UserManager<User>>();
 builder.Services.AddTransient<RoleManager<IdentityRole<int>>>();
+
+builder.Services.AddTransient<AuthHandler>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
