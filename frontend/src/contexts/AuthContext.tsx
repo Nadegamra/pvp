@@ -13,13 +13,13 @@ const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<UserGet>();
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const [loadingInitial, setLoadingInitial] = useState<boolean>(true);
 
     useEffect(() => {
         getProfile()
             .then((result) => {
-                setUser(result.data ?? undefined);
+                setUser(result.data === '' ? undefined : result.data);
             })
             .finally(() => setLoadingInitial(false));
     }, []);
@@ -31,13 +31,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .then((result) => {
                 setUser(result.data);
                 setLoading(false);
-                location.reload();
+                window.location.href = '/profile';
                 return '';
             })
             .catch((error) => {
                 setUser(undefined);
                 setLoading(false);
-                return error.response.data;
+                console.log(error);
+                return error.response === undefined ? error.message : error.response.data;
             });
     }
 
@@ -56,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             login: handleLogin,
             logout: handleLogout
         }),
-        [user]
+        [user, loading]
     );
 
     return (

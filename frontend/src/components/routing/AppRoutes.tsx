@@ -8,6 +8,7 @@ import AppRoute from './AppRoute';
 
 export default function AppRoutes() {
     const { user } = useAuth();
+
     return (
         <Routes>
             <Route path="/" element={<HomePage />} />
