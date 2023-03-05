@@ -5,11 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
+    //Package Manager Console: Update-Database
+
     //Username: admin@admin.com
     //Password: Password123!
 
-    //Username: user@example.com
-    //Password: User123!
+    //Username: customer@example.com
+    //Password: Password123!
+
+    //Username: company@example.com
+    //Password: Password123!
 
     [ApiController]
     [Route("[controller]")]

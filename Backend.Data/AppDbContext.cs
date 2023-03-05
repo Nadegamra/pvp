@@ -13,13 +13,16 @@ namespace Backend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<IdentityRole<int>>().HasData(new IdentityRole<int> { Id = 1, Name = "admin", NormalizedName = "ADMIN" },
-                                                            new IdentityRole<int> { Id = 2, Name = "user", NormalizedName = "USER" });
+                                                            new IdentityRole<int> { Id = 2, Name = "customer", NormalizedName = "CUSTOMER" },
+                                                            new IdentityRole<int> { Id = 3, Name = "company", NormalizedName = "COMPANY"});
 
-            modelBuilder.Entity<User>().HasData(new User { Id = 1, UserName = "admin@admin.com", NormalizedUserName = "ADMIN@ADMIN.COM", Email = "admin@admin.com", NormalizedEmail = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==", SecurityStamp = Guid.NewGuid().ToString()},
-                                                new User { Id = 2, UserName = "user@example.com", NormalizedUserName = "USER@EXAMPLE.COM", Email = "user@example.com", NormalizedEmail = "USER@EXAMPLE.COM", PasswordHash = "AQAAAAEAACcQAAAAEBD9ni3Ia0a/4ymfYFqItSYbeGLAeOfgH0vfPKkwwxjodulOXkEL95NAfP2VOEctQA==", SecurityStamp = Guid.NewGuid().ToString()});
+            modelBuilder.Entity<User>().HasData(new User { Id = 1, FirstName = "Admy", LastName = "Nisterson", UserName = "admin@admin.com", NormalizedUserName = "ADMIN@ADMIN.COM", Email = "admin@admin.com", NormalizedEmail = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==", SecurityStamp = Guid.NewGuid().ToString()},
+                                                new User { Id = 2, FirstName = "Cuzy", LastName= "Tomerson", UserName = "customer@example.com", NormalizedUserName = "CUSTOMER@EXAMPLE.COM", Email = "customer@example.com", NormalizedEmail = "CUSTOMER@EXAMPLE.COM", PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==", SecurityStamp = Guid.NewGuid().ToString()},
+                                                new User { Id = 3, FirstName = "Komi", LastName = "Panison", UserName = "company@example.com", NormalizedUserName = "COMPANY@EXAMPLE.COM", Email = "company@example.com", NormalizedEmail = "COMPANY@EXAMPLE.COM", PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==", SecurityStamp = Guid.NewGuid().ToString() });
 
             modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int> { UserId = 1, RoleId = 1 },
-                                                                 new IdentityUserRole<int> { UserId = 2, RoleId = 2 });
+                                                                 new IdentityUserRole<int> { UserId = 2, RoleId = 2 },
+                                                                 new IdentityUserRole<int> { UserId = 3, RoleId = 3 });
 
             base.OnModelCreating(modelBuilder);
         }

@@ -98,17 +98,17 @@ namespace Backend.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d9fc73f8-2f3f-45c3-8487-f0bf5715f36d",
+                            ConcurrencyStamp = "89968b66-2458-4a6b-95ee-01d0407efa49",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
-                            FirstName = "",
-                            LastName = "",
+                            FirstName = "Admy",
+                            LastName = "Nisterson",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7bba0086-389a-4620-b4d2-b9ce84e9e219",
+                            SecurityStamp = "246f7458-feb4-4e49-a9a9-78739ab786f5",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -116,19 +116,37 @@ namespace Backend.Data.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5a112d61-77ee-4959-bcab-b36de530e247",
-                            Email = "user@example.com",
+                            ConcurrencyStamp = "abc2e6f3-23ab-44f8-80ca-8ac65c552c1c",
+                            Email = "customer@example.com",
                             EmailConfirmed = false,
-                            FirstName = "",
-                            LastName = "",
+                            FirstName = "Cuzy",
+                            LastName = "Tomerson",
                             LockoutEnabled = false,
-                            NormalizedEmail = "USER@EXAMPLE.COM",
-                            NormalizedUserName = "USER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBD9ni3Ia0a/4ymfYFqItSYbeGLAeOfgH0vfPKkwwxjodulOXkEL95NAfP2VOEctQA==",
+                            NormalizedEmail = "CUSTOMER@EXAMPLE.COM",
+                            NormalizedUserName = "CUSTOMER@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "49b8de66-14fe-426f-8cda-10686b65740d",
+                            SecurityStamp = "8eda8fce-b50c-4438-a1ca-a294b8a347aa",
                             TwoFactorEnabled = false,
-                            UserName = "user@example.com"
+                            UserName = "customer@example.com"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a325c84f-b9f3-415b-ba27-d16607c79e9c",
+                            Email = "company@example.com",
+                            EmailConfirmed = false,
+                            FirstName = "Komi",
+                            LastName = "Panison",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "COMPANY@EXAMPLE.COM",
+                            NormalizedUserName = "COMPANY@EXAMPLE.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6e6c2a3d-a514-495c-897e-fc269d1b7d52",
+                            TwoFactorEnabled = false,
+                            UserName = "company@example.com"
                         });
                 });
 
@@ -168,8 +186,14 @@ namespace Backend.Data.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "user",
-                            NormalizedName = "USER"
+                            Name = "customer",
+                            NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "company",
+                            NormalizedName = "COMPANY"
                         });
                 });
 
@@ -262,6 +286,11 @@ namespace Backend.Data.Migrations
                         {
                             UserId = 2,
                             RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 3
                         });
                 });
 

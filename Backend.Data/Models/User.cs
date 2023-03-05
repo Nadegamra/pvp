@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//TODO: Create more sensible attributes for when User is a company
+
 namespace Backend.Data.Models
 {
     public class User: IdentityUser<int>
