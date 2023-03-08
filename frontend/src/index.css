@@ -1,13 +1,38 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    [data-theme='light'] {
+        --color-bg-primary: hsl(236, 33%, 92%);
+        --color-bg-secondary: hsl(0, 0%, 98%);
+        --color-bg-tertiary: hsl(235, 19%, 95%);
+        --color-bg-extra: rgb(20, 50, 255);
+        --color-text-primary: black;
+        --color-text-secondary: #aaaaaa;
+        --color-text-tertiary: white;
+        --color-text-hover: rgb(37 99 235);
+    }
+    [data-theme='dark'] {
+        --color-bg-primary: hsl(235, 21%, 11%);
+        --color-bg-secondary: hsl(235, 24%, 19%);
+        --color-bg-tertiary: hsl(234, 22%, 30%);
+        --color-bg-extra: rgb(20, 50, 255);
+        --color-text-primary: white;
+        --color-text-secondary: #aaaaaa;
+        --color-text-tertiary: black;
+        --color-text-hover: rgb(37 99 235);
+    }
 }
