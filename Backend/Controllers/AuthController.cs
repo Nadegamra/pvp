@@ -29,6 +29,22 @@ namespace Backend.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult<string>> Register([FromBody] UserRegister registerModel)
+        {
+            UserGet result;
+            try
+            {
+                result = await _usersHandler.Register(registerModel, "user");
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login([FromBody] UserLogin loginModel)
         {

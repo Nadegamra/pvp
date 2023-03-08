@@ -1,17 +1,20 @@
 import React, { useState, useContext, createContext, useEffect, useMemo } from 'react';
-import { getProfile, login, logout } from '../api/AuthApi';
-import { UserGet, UserLogin } from '../models/User';
+import { getProfile, login, logout, register } from '../api/AuthApi';
+import { UserGet, UserLogin, UserRegister } from '../models/User';
 
 export default interface AuthContextProps {
     user?: UserGet;
     loading: boolean;
     login: (loginData: UserLogin) => Promise<string>;
+    loginStatus: boolean;
+    register: (registerData: UserRegister) => Promise<string>;
     logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+    const [loginStatus, setLoginStatus] = useState(false);
     const [user, setUser] = useState<UserGet>();
     const [loading, setLoading] = useState<boolean>(false);
     const [loadingInitial, setLoadingInitial] = useState<boolean>(true);
@@ -19,10 +22,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         getProfile()
             .then((result) => {
-                setUser(result.data === '' ? undefined : result.data);
+                if (result.data === ''){
+                    setUser(new UserGet(0, '', '', '', '', '', false));
+                    setLoginStatus(false);
+                }
+                else{
+                    setUser(result.data);
+                    setLoginStatus(true);
+                }
+                
             })
             .finally(() => setLoadingInitial(false));
-    }, []);
+    }, [loginStatus, loading]);
 
     async function handleLogin(loginData: UserLogin): Promise<string> {
         setLoading(true);
@@ -42,6 +53,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             });
     }
 
+    async function handleRegister(registerData: UserRegister): Promise<string> {
+        setLoading(true);
+        return register(registerData)
+            .then((result) => {
+                setLoginStatus(true);
+                setUser(result.data);
+                setLoading(false);
+                return '';
+            })
+            .catch((error) => {
+                setLoginStatus(false);
+                setUser(new UserGet(0, '', '', '', '', '', false));
+                setLoading(false);
+                return error.response.data
+            });
+    }
+
     function handleLogout() {
         logout()
             .then(() => {
@@ -52,12 +80,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const memoedValue = useMemo(
         () => ({
+            loginStatus,
             user,
             loading,
             login: handleLogin,
-            logout: handleLogout
+            logout: handleLogout,
+            register: handleRegister
         }),
-        [user, loading]
+        [loginStatus]
     );
 
     return (
@@ -68,3 +98,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export const useAuth = () => useContext(AuthContext);
+
+
