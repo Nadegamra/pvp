@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchBar from './components/routing/SearchBar.component';
 import AppRoutes from './components/routing/AppRoutes';
+import SearchBar from './components/routing/SearchBar.component';
 
 function App() {
     return (
