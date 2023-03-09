@@ -8,6 +8,7 @@ namespace Backend
     {
         public MappingProfile(): base("mapper") {
             CreateMap<User, UserGet>(MemberList.None);
+            CreateMap<UserRegister, User>(MemberList.None);
         }
     }
 }

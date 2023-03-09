@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         getProfile()
             .then((result) => {
                 if (result.data === ''){
-                    setUser(new UserGet(0, '', '', '', '', '', false));
+                    setUser(undefined);
                 }
                 else{
                     setUser(result.data);
