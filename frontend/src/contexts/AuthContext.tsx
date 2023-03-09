@@ -6,7 +6,6 @@ export default interface AuthContextProps {
     user?: UserGet;
     loading: boolean;
     login: (loginData: UserLogin) => Promise<string>;
-    loginStatus: boolean;
     register: (registerData: UserRegister) => Promise<string>;
     logout: () => void;
 }
@@ -14,7 +13,6 @@ export default interface AuthContextProps {
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [loginStatus, setLoginStatus] = useState(false);
     const [user, setUser] = useState<UserGet>();
     const [loading, setLoading] = useState<boolean>(false);
     const [loadingInitial, setLoadingInitial] = useState<boolean>(true);
@@ -24,16 +22,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .then((result) => {
                 if (result.data === ''){
                     setUser(new UserGet(0, '', '', '', '', '', false));
-                    setLoginStatus(false);
                 }
                 else{
                     setUser(result.data);
-                    setLoginStatus(true);
                 }
                 
             })
             .finally(() => setLoadingInitial(false));
-    }, [loginStatus, loading]);
+    }, [loading]);
 
     async function handleLogin(loginData: UserLogin): Promise<string> {
         setLoading(true);
@@ -57,16 +53,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(true);
         return register(registerData)
             .then((result) => {
-                setLoginStatus(true);
                 setUser(result.data);
                 setLoading(false);
                 return '';
             })
             .catch((error) => {
-                setLoginStatus(false);
-                setUser(new UserGet(0, '', '', '', '', '', false));
+                setUser(undefined);
                 setLoading(false);
-                return error.response.data
+                return error.response.data === undefined ? error.message : error.response.data;
             });
     }
 
@@ -80,14 +74,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const memoedValue = useMemo(
         () => ({
-            loginStatus,
             user,
             loading,
             login: handleLogin,
             logout: handleLogout,
             register: handleRegister
         }),
-        [loginStatus]
+        [user, loading]
     );
 
     return (
