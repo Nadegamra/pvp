@@ -38,6 +38,7 @@ export default function RegisterPage() {
                         className="w-[220px] bg-bg-secondary border-b-[1px] focus:outline-none"
                         placeholder="Username"
                         {...register('username', { required: true })}
+                        disabled={auth.loading}
                     />
                     {errors.username?.type === 'required' ? (
                         <p className="mb-[15px] text-[10px] text-[rgb(255,0,0)]">
@@ -51,6 +52,7 @@ export default function RegisterPage() {
                         className="w-[220px] bg-bg-secondary border-b-[1px] focus:outline-none"
                         placeholder="First name"
                         {...register('firstName', { required: true })}
+                        disabled={auth.loading}
                     />
                     {errors.firstName?.type === 'required' ? (
                         <p className="mb-[15px] text-[10px] text-[rgb(255,0,0)]">
@@ -64,6 +66,7 @@ export default function RegisterPage() {
                         className="w-[220px] bg-bg-secondary border-b-[1px] focus:outline-none"
                         placeholder="Last name"
                         {...register('lastName', { required: true })}
+                        disabled={auth.loading}
                     />
                     {errors.lastName?.type === 'required' ? (
                         <p className="mb-[15px] text-[10px] text-[rgb(255,0,0)]">
@@ -77,6 +80,7 @@ export default function RegisterPage() {
                         className="w-[220px] bg-bg-secondary border-b-[1px] focus:outline-none"
                         placeholder="Email"
                         {...register('email', { required: true })}
+                        disabled={auth.loading}
                     />
                     {errors.email?.type === 'required' ? (
                         <p className="mb-[15px] text-[10px] text-[rgb(255,0,0)]">
@@ -97,6 +101,7 @@ export default function RegisterPage() {
                                 }
                             }
                         })}
+                        disabled={auth.loading}
                     />
                     {errors.emailConfirmed?.type === 'required' ? (
                         <p className="mb-[15px] text-[10px] text-[rgb(255,0,0)]">
@@ -114,6 +119,7 @@ export default function RegisterPage() {
                         className="w-[220px] bg-bg-secondary border-b-[1px] focus:outline-none"
                         placeholder="Password"
                         {...register('password', { required: true })}
+                        disabled={auth.loading}
                     />
                     {errors.password?.type === 'required' ? (
                         <p className="mb-[15px] text-[10px] text-[rgb(255,0,0)]">
@@ -122,12 +128,18 @@ export default function RegisterPage() {
                     ) : (
                         <div className="mb-[30px]"></div>
                     )}
+                </div>
                 <div className="flex flex-col mx-auto items-center">
-                    <button type="submit" className="bg-bg-extra w-[100px] rounded-lg p-1">
-                        Register
-                    </button>
-                </div>
-                </div>
+                        <button type="submit" className="bg-bg-extra w-[150px] rounded-lg p-1"
+                            disabled={auth.loading}>
+                            Register
+                        </button>
+                    </div>
+                {auth.loading && (
+                    <div className="flex items-center justify-center pt-16">
+                        <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                    </div>
+                )}
                 <div className="mt-[10px] text-[10px] text-[rgb(255,0,0)] text-center">{error}</div>
             </div>
         </form>

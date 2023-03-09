@@ -35,7 +35,7 @@ namespace Backend.Controllers
             UserGet result;
             try
             {
-                result = await _usersHandler.Register(registerModel, "user");
+                result = await _usersHandler.Register(registerModel, "customer");
                 return Ok(result);
             }
             catch (Exception ex)
