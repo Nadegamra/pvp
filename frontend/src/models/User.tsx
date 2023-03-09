@@ -37,3 +37,21 @@ export class UserLogin {
         this.rememberPassword = rememberPassword;
     }
 }
+
+export class UserRegister {
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    emailConfirmed: string;
+    password: string;
+    
+    constructor(username: string, firstName: string, lastName: string, email: string, emailConfirmed: string, password: string){
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.emailConfirmed = emailConfirmed;
+        this.password = password;
+    }
+}

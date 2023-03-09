@@ -1,11 +1,12 @@
 import React, { useState, useContext, createContext, useEffect, useMemo } from 'react';
-import { getProfile, login, logout } from '../api/AuthApi';
-import { UserGet, UserLogin } from '../models/User';
+import { getProfile, login, logout, register } from '../api/AuthApi';
+import { UserGet, UserLogin, UserRegister } from '../models/User';
 
 export default interface AuthContextProps {
     user?: UserGet;
     loading: boolean;
     login: (loginData: UserLogin) => Promise<string>;
+    register: (registerData: UserRegister) => Promise<string>;
     logout: () => void;
 }
 
@@ -19,10 +20,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         getProfile()
             .then((result) => {
-                setUser(result.data === '' ? undefined : result.data);
+                if (result.data === ''){
+                    setUser(undefined);
+                }
+                else{
+                    setUser(result.data);
+                }
+                
             })
             .finally(() => setLoadingInitial(false));
-    }, []);
+    }, [loading]);
 
     async function handleLogin(loginData: UserLogin): Promise<string> {
         setLoading(true);
@@ -42,6 +49,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             });
     }
 
+    async function handleRegister(registerData: UserRegister): Promise<string> {
+        setLoading(true);
+        return register(registerData)
+            .then((result) => {
+                setUser(result.data);
+                setLoading(false);
+                return '';
+            })
+            .catch((error) => {
+                setUser(undefined);
+                setLoading(false);
+                return error.response.data === undefined ? error.message : error.response.data;
+            });
+    }
+
     function handleLogout() {
         logout()
             .then(() => {
@@ -55,7 +77,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             user,
             loading,
             login: handleLogin,
-            logout: handleLogout
+            logout: handleLogout,
+            register: handleRegister
         }),
         [user, loading]
     );
@@ -68,3 +91,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export const useAuth = () => useContext(AuthContext);
+
+
