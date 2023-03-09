@@ -1,12 +1,17 @@
 import React from 'react';
+import Header from './components/routing/header/Header';
 import AppRoutes from './components/routing/AppRoutes';
-import SearchBar from './components/routing/SearchBar.component';
 
 function App() {
     return (
-        <div className="bg-bg-primary h-[100vh] w-full">
-            <AppRoutes />
-            <SearchBar />
+        <div className="h-[100vh]">
+            <div className="bg-bg-primary text-t-primary min-h-full">
+                <div className="sticky top-0">
+                    <Header />
+                </div>
+                <AppRoutes />
+                <div className="sticky bottom-0"></div>
+            </div>
         </div>
     );
 }
