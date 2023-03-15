@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getProfile } from '../../../api/AuthApi';
-import { useAuth } from '../../../contexts/AuthContext';
+import { getProfile } from '../../api/AuthApi';
+import { useAuth } from '../../contexts/AuthContext';
 function Header() {
     const [darkmode, setDarkmode] = useState<boolean>(
         (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
@@ -25,7 +25,7 @@ function Header() {
 
     return (
         <div>
-            {auth.user!==undefined ? (
+            {auth.user !== undefined ? (
                 <div className="w-[100%] h-[50px] bg-bg-secondary">
                     <div className="flex flex-row h-[50px]">
                         <div className="flex flex-row w-[50px] my-auto mr-[20px]">
