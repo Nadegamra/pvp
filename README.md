@@ -13,9 +13,15 @@ Esame Kauno Technologijos Universiteto studentai ir kuriame projektą, kurio spr
 
 ## Frontend paleidimas:
 
-Platforma reikalauja NPM paketo. NPM paketo įdiegimas:
+Platforma reikalauja Javascript paketų menedžerio NPM". NPM galima įdiegti su šia komanda:
 
 #### `curl -qL https://www.npmjs.com/install.sh | sh`
+
+Prieš paleidžiant programą reikia įvykdyti komanda:
+
+#### `npm install`
+
+(Komanda reikia vykdyti frontend aplanke)
 
 Paleidimas:
 
@@ -23,8 +29,10 @@ Paleidimas:
 
 ## Backend paleidimas:
 
-Norint pilnai išbandyti platformą reikia paleisti duomenų bazę. Paleidimas reikalauja įdiegto ASP.NET paketo Visual Studio.
+Norint pilnai išbandyti platformą reikia sukurti lokalią duomenų bazę'.  Projektas duomenų bazės valdymui naudoja Entity Framework Core (EF Core) paketą.
 
 Paleidimas:
 
-#### `Database-Install`
+#### `Update-Database`
+
+Prisijungimus prie duomenų bazės galima rasti AuthController.cs faile.
