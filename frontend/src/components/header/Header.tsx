@@ -87,10 +87,10 @@ function Header() {
                 <div className="h-[50px] bg-bg-secondary flex">
                     <div className="flex-1"></div>
                     <div className="my-auto">
-                        <Link to="/login" className="pr-[30px]">
+                        <Link to="/login" className="pr-[30px] cursor-pointer select-none">
                             <ButtonText>Login</ButtonText>
                         </Link>
-                        <Link to="/register" className="pr-[0px]">
+                        <Link to="/register" className="pr-[0px] cursor-pointer select-none">
                             <ButtonText>Register</ButtonText>
                         </Link>
                     </div>
