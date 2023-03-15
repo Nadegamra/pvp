@@ -1,23 +1,18 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getProfile } from '../../api/AuthApi';
 import { useAuth } from '../../contexts/AuthContext';
+
 function Header() {
     const [darkmode, setDarkmode] = useState<boolean>(
         (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
     );
     const [state, setState] = useState<number>(0);
     const auth = useAuth();
-    const [isAdmin, setIsAdmin] = useState<boolean>(false);
     const toggleDarkMode = (darkmode: boolean) => {
         setDarkmode(darkmode);
         localStorage.setItem('data-theme', darkmode ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', darkmode ? 'dark' : 'light');
     };
-    useEffect(() => {
-        document.documentElement.setAttribute('data-theme', darkmode ? 'dark' : 'light');
-        getProfile().then((response) => setIsAdmin(response.data.role === 'admin'));
-    }, []);
 
     const ButtonText = ({ children }: { children: ReactNode }) => {
         return <b className="hover:text-t-hover">{children}</b>;
