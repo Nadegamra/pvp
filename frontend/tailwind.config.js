@@ -26,6 +26,7 @@ module.exports = {
         fontSize: {
             'fs-heading': "20px",
             'fs-primary': "15px",
+            'fs-secondary': "11px",
         },
     }
 }
