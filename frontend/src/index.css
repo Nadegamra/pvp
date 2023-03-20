@@ -16,9 +16,9 @@ code {
 
 @layer base {
     [data-theme='light'] {
-        --color-bg-primary: hsl(236, 33%, 92%);
-        --color-bg-secondary: hsl(0, 0%, 98%);
-        --color-bg-tertiary: hsl(235, 19%, 95%);
+        --color-bg-primary: #e1e8ea;
+        --color-bg-secondary: #a3c6c4;
+        --color-bg-tertiary: rgb(240, 240, 245);
         --color-bg-extra: rgb(20, 50, 255);
         --color-text-primary: black;
         --color-text-secondary: #aaaaaa;
@@ -26,12 +26,12 @@ code {
         --color-text-hover: rgb(37 99 235);
     }
     [data-theme='dark'] {
-        --color-bg-primary: hsl(235, 21%, 11%);
-        --color-bg-secondary: hsl(235, 24%, 19%);
-        --color-bg-tertiary: hsl(234, 22%, 30%);
+        --color-bg-primary: #354649;
+        --color-bg-secondary: #6c7a89;
+        --color-bg-tertiary: #3c3f5d;
         --color-bg-extra: rgb(20, 50, 255);
         --color-text-primary: white;
-        --color-text-secondary: #aaaaaa;
+        --color-text-secondary: #e0e7e9;
         --color-text-tertiary: black;
         --color-text-hover: rgb(37 99 235);
     }
