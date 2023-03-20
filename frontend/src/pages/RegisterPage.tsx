@@ -10,6 +10,7 @@ interface UserRegisterPlus {
     email: string;
     emailConfirmed: string;
     password: string;
+    passwordConfirmed: string;
 }
 
 export default function RegisterPage() {
@@ -22,7 +23,7 @@ export default function RegisterPage() {
     const onSubmit: SubmitHandler<UserRegisterPlus> = () => {
         auth.register(
             new UserRegister(
-                watch('username'),
+                watch('email'),
                 watch('firstName'),
                 watch('lastName'),
                 watch('email'),
@@ -40,17 +41,6 @@ export default function RegisterPage() {
             <div className="w-80 bg-bg-secondary pb-5 rounded">
                 <div className="py-6 text-fs-heading text-center">Register</div>
                 <div className="mx-[30px]">
-                    <input
-                        type="username"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
-                        placeholder="Username"
-                        {...register('username', { required: true })}
-                        disabled={auth.loading}
-                    />
-                    <p className="mb-3 text-fs-secondary text-danger-500 h-3">
-                        {errors.username?.type === 'required' ? 'Username is required' : ''}
-                    </p>
-
                     <input
                         type="firstName"
                         className="w-full bg-bg-secondary border-b focus:outline-none"
@@ -85,28 +75,6 @@ export default function RegisterPage() {
                     </p>
 
                     <input
-                        type="email"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
-                        placeholder="Repeat Email"
-                        {...register('emailConfirmed', {
-                            required: true,
-                            validate: (emailConfirmed: string) => {
-                                if (watch('email') != emailConfirmed) {
-                                    return 'match';
-                                }
-                            }
-                        })}
-                        disabled={auth.loading}
-                    />
-                    <p className="mb-3 text-fs-secondary text-danger-500 h-3">
-                        {errors.emailConfirmed?.type === 'required'
-                            ? 'Repeating the email is required'
-                            : errors.emailConfirmed?.type === 'validate'
-                            ? 'Emails do not match'
-                            : ''}
-                    </p>
-
-                    <input
                         type="password"
                         className="w-full bg-bg-secondary border-b focus:outline-none"
                         placeholder="Password"
@@ -115,6 +83,28 @@ export default function RegisterPage() {
                     />
                     <p className="mb-3 text-fs-secondary text-danger-500 h-3">
                         {errors.password?.type === 'required' ? 'Password is required' : ''}
+                    </p>
+
+                    <input
+                        type="password"
+                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        placeholder="Repeat Password"
+                        {...register('passwordConfirmed', {
+                            required: true,
+                            validate: (passwordConfirmed: string) => {
+                                if (watch('password') != passwordConfirmed) {
+                                    return 'match';
+                                }
+                            }
+                        })}
+                        disabled={auth.loading}
+                    />
+                    <p className="mb-3 text-fs-secondary text-danger-500 h-3">
+                        {errors.passwordConfirmed?.type === 'required'
+                            ? 'Repeating the password is required'
+                            : errors.passwordConfirmed?.type === 'validate'
+                            ? 'Passwords do not match'
+                            : ''}
                     </p>
                 </div>
                 <div className="flex flex-col items-center pt-3">
