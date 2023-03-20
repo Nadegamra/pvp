@@ -115,15 +115,13 @@ export default function RegisterPage() {
                         Register
                     </button>
                 </div>
-                <div className="mt-[10px] text-fs-secondary text-danger-500 text-center">
-                    {error}
-                </div>
-                {auth.loading && (
-                    <div className="flex items-center justify-center pt-16">
-                        <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
-                    </div>
-                )}
             </div>
+            <div className="pt-4 text-fs-secondary text-danger-500 text-center">{error}</div>
+            {auth.loading && (
+                <div className="flex items-center justify-center pt-10">
+                    <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                </div>
+            )}
         </form>
     );
 }
