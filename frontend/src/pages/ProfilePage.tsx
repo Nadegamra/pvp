@@ -19,8 +19,17 @@ function ProfilePage() {
                         <span className="text-danger-500">UNCONFIRMED</span>
                     )}
                 </div>
-                <div>First Name: {user?.firstName}</div>
-                <div>Last Name: {user?.lastName}</div>
+                {user !== undefined && user.role !== 'company' ? (
+                    <div>
+                        <div>First Name: {user?.firstName}</div>
+                        <div>Last Name: {user?.lastName}</div>
+                    </div>
+                ) : (
+                    <div>
+                        <div>Company code: {user?.companyCode}</div>
+                        <div>Company name: {user?.companyName}</div>
+                    </div>
+                )}
                 <div>Account level: {user?.role}</div>
             </div>
         </div>

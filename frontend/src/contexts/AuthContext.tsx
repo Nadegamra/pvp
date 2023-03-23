@@ -1,12 +1,12 @@
 import React, { useState, useContext, createContext, useEffect, useMemo } from 'react';
-import { getProfile, login, logout, register } from '../api/AuthApi';
-import { UserGet, UserLogin, UserRegister } from '../models/User';
+import { getProfile, login, logout, register, registerCompany } from '../api/AuthApi';
+import { UserGet, UserLogin, CustomerRegister, UserRole, CompanyRegister } from '../models/User';
 
 export default interface AuthContextProps {
     user?: UserGet;
     loading: boolean;
     login: (loginData: UserLogin) => Promise<string>;
-    register: (registerData: UserRegister) => Promise<string>;
+    register: (registerData: CustomerRegister | CompanyRegister, role: UserRole) => Promise<string>;
     logout: () => void;
 }
 
@@ -20,13 +20,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         getProfile()
             .then((result) => {
-                if (result.data === ''){
+                if (result.data === '') {
                     setUser(undefined);
-                }
-                else{
+                } else {
                     setUser(result.data);
                 }
-                
             })
             .finally(() => setLoadingInitial(false));
     }, [loading]);
@@ -48,20 +46,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 return error.response === undefined ? error.message : error.response.data;
             });
     }
-
-    async function handleRegister(registerData: UserRegister): Promise<string> {
+    // TODO: remove automatic login and require to confirm email first
+    async function handleRegister(
+        registerData: CustomerRegister | CompanyRegister,
+        role: UserRole
+    ): Promise<string> {
         setLoading(true);
-        return register(registerData)
-            .then((result) => {
-                setUser(result.data);
-                setLoading(false);
-                return '';
-            })
-            .catch((error) => {
-                setUser(undefined);
-                setLoading(false);
-                return error.response.data === undefined ? error.message : error.response.data;
-            });
+        if (role == UserRole.customer) {
+            return register(registerData as CustomerRegister)
+                .then((result) => {
+                    setUser(result.data);
+                    setLoading(false);
+                    return '';
+                })
+                .catch((error) => {
+                    setUser(undefined);
+                    setLoading(false);
+                    return error.response.data === undefined ? error.message : error.response.data;
+                });
+        }
+        // else if(role == UserRole.company) {
+        else {
+            return registerCompany(registerData as CompanyRegister)
+                .then((result) => {
+                    setUser(result.data);
+                    setLoading(false);
+                    return '';
+                })
+                .catch((error) => {
+                    setUser(undefined);
+                    setLoading(false);
+                    return error.response.data === undefined ? error.message : error.response.data;
+                });
+        }
     }
 
     function handleLogout() {
@@ -91,5 +108,3 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export const useAuth = () => useContext(AuthContext);
-
-
