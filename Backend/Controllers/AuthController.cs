@@ -30,12 +30,28 @@ namespace Backend.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<ActionResult<string>> Register([FromBody] UserRegister registerModel)
+        public async Task<ActionResult<string>> RegisterCustomer([FromBody] CustomerRegister registerModel)
         {
             UserGet result;
             try
             {
-                result = await _usersHandler.Register(registerModel, "customer");
+                result = await _usersHandler.Register(registerModel);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost("admin/register/company")]
+        public async Task<ActionResult<string>> RegisterCompany([FromBody] CompanyRegister registerModel)
+        {
+            UserGet result;
+            try
+            {
+                result = await _usersHandler.Register(registerModel);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -50,7 +50,7 @@ function LoginPage() {
                         <input
                             id="remember"
                             type="checkbox"
-                            className="form-checkbox mr-[10px] w-4 h-4 rounded hover:bg-bg-extra checked:bg-bg-extra bg-bg-secondary focus:ring-0 focus:outline-none"
+                            className="form-checkbox mr-[10px] w-4 h-4 rounded hover:bg-bg-extra checked:bg-bg-extra bg-bg-secondary focus:ring-0 focus:outline-none border-t-primary border-t-t-primary"
                             {...register('rememberPassword')}
                             disabled={loading}
                         />

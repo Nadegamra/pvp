@@ -17,5 +17,29 @@ namespace Backend.Data.Models
 
         [Required, StringLength(256), ProtectedPersonalData]
         public string LastName { get; set; } = String.Empty;
+
+        [Required, StringLength(10), ProtectedPersonalData]
+        public string CompanyCode { get; set; } = String.Empty;
+
+        [Required, StringLength(256), ProtectedPersonalData]
+        public string CompanyName { get; set; } = String.Empty;
+
+        [Required, StringLength(64), ProtectedPersonalData]
+        public string Country { get; set; } = String.Empty;
+
+        [Required, StringLength(64), ProtectedPersonalData]
+        public string County { get; set; } = String.Empty;
+
+        [Required, StringLength(64), ProtectedPersonalData]
+        public string City { get; set; } = String.Empty;
+
+        [Required, StringLength(64), ProtectedPersonalData]
+        public string Street { get; set; } = String.Empty;
+
+        [Required, StringLength(5), ProtectedPersonalData]
+        public string StreetNo { get; set; } = String.Empty;
+
+        [Required, StringLength(10), ProtectedPersonalData]
+        public string PostCode { get; set; } = String.Empty;
     }
 }
