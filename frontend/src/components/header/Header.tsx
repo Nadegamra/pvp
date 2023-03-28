@@ -22,14 +22,18 @@ function Header() {
         <div>
             {auth.user !== undefined ? (
                 <div className="h-[50px] bg-bg-secondary flex">
+                    <Link to="/" className="pl-3 cursor-pointer select-none my-auto">
+                        <ButtonText>Home</ButtonText>
+                    </Link>
                     <div className="flex-1"></div>
+                    <Link to="/faq" className="pr-7 cursor-pointer select-none my-auto">
+                        <ButtonText>FAQ</ButtonText>
+                    </Link>
                     <div className="mt-4 flex flex-col items-end">
-                        <button>
-                            <span
-                                className="material-symbols-outlined cursor-pointer select-none"
-                                onClick={() => setState(state == 2 ? 0 : 2)}>
-                                settings
-                            </span>
+                        <button
+                            className="material-symbols-outlined cursor-pointer select-none"
+                            onClick={() => setState(state == 2 ? 0 : 2)}>
+                            settings
                         </button>
                         <button
                             onClick={() => {
@@ -85,16 +89,22 @@ function Header() {
                 </div>
             ) : (
                 <div className="h-[50px] bg-bg-secondary flex">
+                    <Link to="/" className="pl-3 cursor-pointer select-none my-auto">
+                        <ButtonText>Home</ButtonText>
+                    </Link>
                     <div className="flex-1"></div>
                     <div className="my-auto">
-                        <Link to="/login" className="pr-[30px] cursor-pointer select-none">
+                        <Link to="/faq" className="pr-7 cursor-pointer select-none">
+                            <ButtonText>FAQ</ButtonText>
+                        </Link>
+                        <Link to="/login" className="pr-7 cursor-pointer select-none">
                             <ButtonText>Login</ButtonText>
                         </Link>
-                        <Link to="/register" className="pr-[0px] cursor-pointer select-none">
+                        <Link to="/register" className="pr-0 cursor-pointer select-none">
                             <ButtonText>Register</ButtonText>
                         </Link>
                     </div>
-                    <div className="mt-4 mx-7 flex flex-col items-end w-[30px]">
+                    <div className="mt-4 mx-7 flex flex-col items-end w-7">
                         <button>
                             <span
                                 className="material-symbols-outlined cursor-pointer select-none"
@@ -108,7 +118,7 @@ function Header() {
                                 setState(0);
                             }}>
                             {state === 2 && (
-                                <ul className="relative w-[200px] mt-4 bg-bg-secondary p-3">
+                                <ul className="relative w-52 mt-4 bg-bg-secondary p-3">
                                     {darkmode ?? false ? (
                                         <span className="material-symbols-outlined align-middle pr-3">
                                             light_mode
