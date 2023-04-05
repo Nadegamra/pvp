@@ -22,14 +22,14 @@ namespace Backend.Handlers
             _mapper = mapper;
         }
 
-        public async Task<UserGet> Register(UserRegister data, string rolename)
+        public async Task<UserGet> Register(CustomerRegister data)
         {
             
-            var result = await _userManager.CreateAsync(_mapper.Map<UserRegister, User>(data), data.Password);
+            var result = await _userManager.CreateAsync(_mapper.Map<CustomerRegister, User>(data), data.Password);
             if (result.Succeeded)
             {
                 User user = await _userManager.FindByEmailAsync(data.Email);
-                await _userManager.AddToRoleAsync(user, rolename);
+                await _userManager.AddToRoleAsync(user, "customer");
                 await _userManager.UpdateAsync(user);
                 await _signInManager.SignInAsync(user, isPersistent: false);
                 return _mapper.Map<User, UserGet>(user);
@@ -44,6 +44,30 @@ namespace Backend.Handlers
                 throw new Exception(errors);
             }
         }
+
+        public async Task<UserGet> Register(CompanyRegister data)
+        {
+
+            var result = await _userManager.CreateAsync(_mapper.Map<CompanyRegister, User>(data), data.Password);
+            if (result.Succeeded)
+            {
+                User user = await _userManager.FindByEmailAsync(data.Email);
+                await _userManager.AddToRoleAsync(user, "company");
+                await _userManager.UpdateAsync(user);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return _mapper.Map<User, UserGet>(user);
+            }
+            else
+            {
+                string errors = "";
+                foreach (var error in result.Errors)
+                {
+                    errors += error.Code + error.Description + "\n";
+                }
+                throw new Exception(errors);
+            }
+        }
+
         public async Task<UserGet> Login(UserLogin data)
         {
             User user = await GetUser(data);

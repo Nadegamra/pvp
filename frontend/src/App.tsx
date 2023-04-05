@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './components/routing/header/Header';
+import Header from './components/header/Header';
 import AppRoutes from './components/routing/AppRoutes';
 
 function App() {
@@ -15,6 +15,5 @@ function App() {
         </div>
     );
 }
-
 
 export default App;

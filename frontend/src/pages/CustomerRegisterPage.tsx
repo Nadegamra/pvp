@@ -1,23 +1,19 @@
 import { useAuth } from '../contexts/AuthContext';
-import { CompanyRegister, UserRole } from '../models/User';
+import { CustomerRegister, UserRole } from '../models/User';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 
 interface UserRegisterPlus {
     username: string;
-    companyCode: string;
-    companyName: string;
+    firstName: string;
+    lastName: string;
     email: string;
     emailConfirmed: string;
     password: string;
     passwordConfirmed: string;
-<<<<<<< HEAD
-    status: string;
-=======
->>>>>>> dbd5d5a7ca2844c32334767dab58eff557a1c881
 }
 
-export default function CompanyRegisterPage() {
+export default function CustomerRegisterPage() {
     const {
         register,
         handleSubmit,
@@ -26,19 +22,14 @@ export default function CompanyRegisterPage() {
     } = useForm<UserRegisterPlus>();
     const onSubmit: SubmitHandler<UserRegisterPlus> = () => {
         auth.register(
-            new CompanyRegister(
+            new CustomerRegister(
                 watch('email'),
-                watch('companyCode'),
-                watch('companyName'),
+                watch('firstName'),
+                watch('lastName'),
                 watch('email'),
-<<<<<<< HEAD
-                watch('password'),
-                watch('status')
-=======
                 watch('password')
->>>>>>> dbd5d5a7ca2844c32334767dab58eff557a1c881
             ),
-            UserRole.company
+            UserRole.customer
         ).then((response) => setError(response));
     };
     const [error, setError] = useState('');
@@ -51,23 +42,25 @@ export default function CompanyRegisterPage() {
                 <div className="py-6 text-fs-heading text-center">Register</div>
                 <div className="mx-[30px]">
                     <input
+                        type="firstName"
                         className="w-full bg-bg-secondary border-b focus:outline-none"
-                        placeholder="Company code"
-                        {...register('companyCode', { required: true })}
+                        placeholder="First name"
+                        {...register('firstName', { required: true })}
                         disabled={auth.loading}
                     />
                     <p className="mb-3 text-fs-secondary text-danger-500 h-3">
-                        {errors.companyCode?.type === 'required' ? 'Company code is required' : ''}
+                        {errors.firstName?.type === 'required' ? 'First name is required' : ''}
                     </p>
 
                     <input
+                        type="lastName"
                         className="w-full bg-bg-secondary border-b focus:outline-none"
-                        placeholder="Company name"
-                        {...register('companyName', { required: true })}
+                        placeholder="Last name"
+                        {...register('lastName', { required: true })}
                         disabled={auth.loading}
                     />
                     <p className="mb-3 text-fs-secondary text-danger-500 h-3">
-                        {errors.companyName?.type === 'required' ? 'Company name is required' : ''}
+                        {errors.lastName?.type === 'required' ? 'Last name is required' : ''}
                     </p>
 
                     <input
