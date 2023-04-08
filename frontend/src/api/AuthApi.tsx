@@ -18,8 +18,13 @@ export async function register(registerCredentials: CustomerRegister) {
 }
 
 export async function registerCompany(registerCredentials: CompanyRegister) {
-    return api.post(`admin/register/company`, registerCredentials, headers);
+    return api.post(`admin/register/company`, { ...registerCredentials, status: "pending" }, headers);
 }
+
+export async function approveRegistrationRequest(companyId: string) {
+    return api.put(`admin/companies/approve`, { status: "approved" });
+}
+
 
 export async function logout() {
     return api.post(`logout`, null, headers);
