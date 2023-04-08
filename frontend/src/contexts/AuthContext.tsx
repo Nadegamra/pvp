@@ -1,5 +1,5 @@
 import React, { useState, useContext, createContext, useEffect, useMemo } from 'react';
-import { getProfile, login, logout, register, registerCompany } from '../api/AuthApi';
+import { getProfile, login, logout, register, registerCompany, approveRegistrationRequest } from '../api/AuthApi';
 import { UserGet, UserLogin, CustomerRegister, UserRole, CompanyRegister } from '../models/User';
 
 export default interface AuthContextProps {
@@ -8,6 +8,7 @@ export default interface AuthContextProps {
     login: (loginData: UserLogin) => Promise<string>;
     register: (registerData: CustomerRegister | CompanyRegister, role: UserRole) => Promise<string>;
     logout: () => void;
+    approveRegistrationRequest: (companyId: string) => Promise<string>;
 }
 
 const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
@@ -65,9 +66,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     return error.response.data === undefined ? error.message : error.response.data;
                 });
         }
-        // else if(role == UserRole.company) {
+        //else if(role == UserRole.company) {
         else {
-            return registerCompany(registerData as CompanyRegister)
+            const companyData = registerData as CompanyRegister;
+            companyData.status = "pending";
+            return registerCompany(companyData)
                 .then((result) => {
                     setUser(result.data);
                     setLoading(false);
@@ -80,6 +83,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 });
         }
     }
+
+    async function handleApproveRequest(companyId: string): Promise<string> {
+        setLoading(true);
+        return approveRegistrationRequest(companyId)
+            .then((result) => {
+                setUser(result.data);
+                setLoading(false);
+                return '';
+            })
+            .catch((error) => {
+                setUser(undefined);
+                setLoading(false);
+                return error.response.data === undefined ? error.message : error.response.data;
+            });
+    }
+    
+
 
     function handleLogout() {
         logout()
@@ -95,7 +115,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             loading,
             login: handleLogin,
             logout: handleLogout,
-            register: handleRegister
+            register: handleRegister,
+            approveRegistrationRequest: handleApproveRequest
         }),
         [user, loading]
     );
