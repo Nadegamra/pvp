@@ -90,19 +90,22 @@ export class CompanyRegister {
     companyName: string;
     email: string;
     password: string;
+    status: string;
 
     constructor(
         username: string,
         companyCode: string,
         companyName: string,
         email: string,
-        password: string
+        password: string,
+        status: string
     ) {
         this.username = username;
         this.companyCode = companyCode;
         this.companyName = companyName;
         this.email = email;
         this.password = password;
+        this.status = status;
     }
 }
 
