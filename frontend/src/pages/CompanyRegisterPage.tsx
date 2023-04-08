@@ -11,10 +11,7 @@ interface UserRegisterPlus {
     emailConfirmed: string;
     password: string;
     passwordConfirmed: string;
-<<<<<<< HEAD
     status: string;
-=======
->>>>>>> dbd5d5a7ca2844c32334767dab58eff557a1c881
 }
 
 export default function CompanyRegisterPage() {
@@ -31,12 +28,8 @@ export default function CompanyRegisterPage() {
                 watch('companyCode'),
                 watch('companyName'),
                 watch('email'),
-<<<<<<< HEAD
                 watch('password'),
                 watch('status')
-=======
-                watch('password')
->>>>>>> dbd5d5a7ca2844c32334767dab58eff557a1c881
             ),
             UserRole.company
         ).then((response) => setError(response));
