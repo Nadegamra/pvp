@@ -15,7 +15,7 @@ function Header() {
     };
 
     const ButtonText = ({ children }: { children: ReactNode }) => {
-        return <b className="hover:text-t-hover">{children}</b>;
+        return <b className="hover:text-t-hover text-fs-h2">{children}</b>;
     };
 
     return (
@@ -104,7 +104,7 @@ function Header() {
                             <ButtonText>Register</ButtonText>
                         </Link>
                     </div>
-                    <div className="mt-4 mx-7 flex flex-col items-end w-7">
+                    <div className="my-auto mx-7 flex flex-col items-end">
                         <button>
                             <span
                                 className="material-symbols-outlined cursor-pointer select-none"
@@ -118,7 +118,7 @@ function Header() {
                                 setState(0);
                             }}>
                             {state === 2 && (
-                                <ul className="relative w-52 mt-4 bg-bg-secondary p-3">
+                                <ul className="fixed w-52 mt-4 bg-bg-secondary p-3 transform translate-x-[-200px]">
                                     {darkmode ?? false ? (
                                         <span className="material-symbols-outlined align-middle pr-3">
                                             light_mode

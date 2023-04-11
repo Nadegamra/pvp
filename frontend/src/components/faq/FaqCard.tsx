@@ -41,7 +41,7 @@ function FaqCardButton({
         <h2 className="mb-0" id={'heading' + id}>
             {pos === 'top' ? (
                 <button
-                    className="group flex w-full items-center rounded-t-[15px] border-0 py-4 px-5 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none [&:not([data-te-collapse-collapsed])]:text-t-primary dark:[&:not([data-te-collapse-collapsed])]:text-bg-extra [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                    className="group text-fs-h2 font-bold flex w-full items-center rounded-t-[15px] border-0 py-4 px-5 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none [&:not([data-te-collapse-collapsed])]:text-t-primary dark:[&:not([data-te-collapse-collapsed])]:text-bg-extra [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
                     type="button"
                     data-te-collapse-init
                     data-te-target={'#collapse' + id}
@@ -66,7 +66,7 @@ function FaqCardButton({
                 </button>
             ) : (
                 <button
-                    className="group flex w-full items-center rounded-t-[15px] border-0 py-4 px-5 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none [&:not([data-te-collapse-collapsed])]:text-t-primary dark:[&:not([data-te-collapse-collapsed])]:text-bg-extra [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
+                    className="group text-fs-h2 font-bold flex w-full items-center rounded-t-[15px] border-0 py-4 px-5 text-left text-base text-neutral-800 transition [overflow-anchor:none] hover:z-[2] focus:z-[3] focus:outline-none [&:not([data-te-collapse-collapsed])]:text-t-primary dark:[&:not([data-te-collapse-collapsed])]:text-bg-extra [&:not([data-te-collapse-collapsed])]:[box-shadow:inset_0_-1px_0_rgba(75,85,99)]"
                     type="button"
                     data-te-collapse-init
                     data-te-collapse-collapsed
@@ -112,7 +112,7 @@ function FaqCardContent({
                     data-te-collapse-item
                     data-te-collapse-show
                     aria-labelledby={'heading' + id}>
-                    <div className="py-4 px-5">{content}</div>
+                    <div className="py-4 px-5 text-fs-primary">{content}</div>
                 </div>
             ) : (
                 <div
@@ -120,7 +120,7 @@ function FaqCardContent({
                     data-te-collapse-item
                     aria-labelledby={'heading' + id}
                     className="hidden">
-                    <div className="py-4 px-5">{content}</div>
+                    <div className="py-4 px-5 text-fs-primary">{content}</div>
                 </div>
             )}
         </div>

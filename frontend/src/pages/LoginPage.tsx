@@ -20,16 +20,16 @@ function LoginPage() {
                 login(data).then((error) => setError(error));
             })}>
             <div className="w-80 bg-bg-secondary pb-5 rounded">
-                <div className="py-6 text-fs-heading text-center">Login</div>
+                <div className="py-6 text-fs-h1 text-center">Login</div>
                 <div className="mx-[30px]">
                     <input
                         type="text"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
                         placeholder="Username"
                         {...register('username', { required: true })}
                         disabled={loading}
                     />
-                    <p className="mb-3 text-fs-secondary text-danger-500 h-3">
+                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.username?.type === 'required' ? 'Username is required' : ''}
                     </p>
 
@@ -40,13 +40,13 @@ function LoginPage() {
                         {...register('password', { required: true })}
                         disabled={loading}
                     />
-                    <p className="mb-3 text-fs-secondary text-danger-500 h-3">
+                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.password?.type === 'required' ? 'Password is required' : ''}
                     </p>
 
                     <label
                         htmlFor="remember"
-                        className="text-left text-fs-primary pb-[2px] cursor-pointer">
+                        className="text-left pb-[2px] cursor-pointer text-fs-primary">
                         <input
                             id="remember"
                             type="checkbox"
@@ -58,7 +58,7 @@ function LoginPage() {
                     </label>
                     <br />
                 </div>
-                <div className="flex flex-col items-center pt-5">
+                <div className="flex flex-col items-center pt-5 text-fs-h2">
                     <button
                         className="bg-bg-extra py-1 px-7 rounded"
                         type="submit"
@@ -67,7 +67,7 @@ function LoginPage() {
                     </button>
                 </div>
             </div>
-            <div className="pt-4 text-fs-secondary text-danger-500 text-center">{error}</div>
+            <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>
             {loading && (
                 <div className="flex items-center justify-center pt-10">
                     <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>

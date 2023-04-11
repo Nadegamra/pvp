@@ -3,7 +3,7 @@ import FaqCard from '../components/faq/FaqCard';
 function FAQPage() {
     return (
         <div className="pb-10">
-            <div className="text-fs-heading font-bold m-5">Dažnai užduodami klausimai</div>
+            <div className="text-fs-h1 font-bold m-5">Dažnai užduodami klausimai</div>
             <FaqCard
                 id={1}
                 pos="top"
