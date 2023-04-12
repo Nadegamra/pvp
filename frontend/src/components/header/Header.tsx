@@ -26,6 +26,9 @@ function Header() {
                         <ButtonText>Home</ButtonText>
                     </Link>
                     <div className="flex-1"></div>
+                    <Link to="/contacts" className="pr-7 cursor-pointer select-none my-auto">
+                        <ButtonText>Contacts</ButtonText>
+                    </Link>
                     <Link to="/faq" className="pr-7 cursor-pointer select-none my-auto">
                         <ButtonText>FAQ</ButtonText>
                     </Link>
@@ -94,6 +97,9 @@ function Header() {
                     </Link>
                     <div className="flex-1"></div>
                     <div className="my-auto">
+                        <Link to="/contacts" className="pr-7 cursor-pointer select-none my-auto">
+                            <ButtonText>Contacts</ButtonText>
+                        </Link>
                         <Link to="/faq" className="pr-7 cursor-pointer select-none">
                             <ButtonText>FAQ</ButtonText>
                         </Link>
