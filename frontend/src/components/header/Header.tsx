@@ -69,7 +69,7 @@ function Header() {
                     </span>
                     {header.settingsShown && (
                         <div
-                            className="fixed mt-5 translate-x-[-180px] w-[190px] bg-bg-secondary p-3"
+                            className="fixed mt-5 translate-x-[-180px] w-[190px] bg-bg-secondary p-3 rounded-lg"
                             onClick={() => {
                                 toggleDarkMode(!darkmode);
                             }}>
@@ -94,7 +94,7 @@ function Header() {
                             </span>
                         </button>
                         {header.profileShown && (
-                            <div className="fixed mt-5 translate-x-[-110px] w-[120px] bg-bg-secondary p-3">
+                            <div className="fixed mt-5 translate-x-[-110px] w-[120px] bg-bg-secondary p-3 rounded-lg">
                                 <Link
                                     onClick={() => header.hideAll()}
                                     to="/profile"
