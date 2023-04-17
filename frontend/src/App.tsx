@@ -7,16 +7,14 @@ function App() {
     const header = useHeader();
 
     return (
-        <div className="h-[100vh]">
-            <div className="bg-bg-primary text-t-primary min-h-full">
-                <div className="sticky top-0">
-                    <Header />
-                </div>
-                <div onClick={() => header.hideAll()}>
-                    <AppRoutes />
-                </div>
-                <div className="sticky bottom-0"></div>
+        <div className="flex flex-col bg-bg-primary text-t-primary min-h-[100vh]">
+            <div className="sticky top-0">
+                <Header />
             </div>
+            <div className="flex-1" onClick={() => header.hideAll()}>
+                <AppRoutes />
+            </div>
+            <div className="sticky bottom-0">Footer</div>
         </div>
     );
 }

@@ -39,14 +39,14 @@ function Header() {
                 <div className="flex-1" onClick={() => header.hideAll()}></div>
                 <Link
                     to="/faq"
-                    className="cursor-pointer select-none my-auto"
+                    className="cursor-pointer select-none my-auto mr-7"
                     onClick={() => header.hideAll()}>
                     <ButtonText>FAQ</ButtonText>
                 </Link>
                 {auth.user === undefined && (
                     <Link
                         to="/login"
-                        className="px-7 cursor-pointer select-none my-auto"
+                        className="cursor-pointer select-none my-auto mr-7"
                         onClick={() => header.hideAll()}>
                         <ButtonText>Login</ButtonText>
                     </Link>
@@ -54,12 +54,12 @@ function Header() {
                 {auth.user === undefined && (
                     <Link
                         to="/register"
-                        className="cursor-pointer select-none my-auto"
+                        className="cursor-pointer select-none my-auto mr-7"
                         onClick={() => header.hideAll()}>
                         <ButtonText>Register</ButtonText>
                     </Link>
                 )}
-                <div className="ml-10 my-auto">
+                <div className="mr-7 my-auto">
                     <span
                         className="material-symbols-outlined cursor-pointer select-none"
                         onClick={() =>
@@ -83,7 +83,7 @@ function Header() {
                     )}
                 </div>
                 {auth.user !== undefined && (
-                    <div className="mx-10 my-auto">
+                    <div className="mr-7 my-auto">
                         <button>
                             <span
                                 className="material-symbols-outlined  cursor-pointer select-none"
@@ -99,10 +99,10 @@ function Header() {
                                     onClick={() => header.hideAll()}
                                     to="/profile"
                                     className="pb-1">
-                                    <span className="material-symbols-outlined pr-3 align-middle">
+                                    <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
                                         person
                                     </span>
-                                    Profile
+                                    <span className="cursor-pointer select-none">Profile</span>
                                 </Link>
                                 <button
                                     className="pt-1"
@@ -113,7 +113,7 @@ function Header() {
                                     <span className="material-symbols-outlined pr-3 align-middle">
                                         logout
                                     </span>
-                                    Logout
+                                    <span className="cursor-pointer select-none">Logout</span>
                                 </button>
                             </div>
                         )}

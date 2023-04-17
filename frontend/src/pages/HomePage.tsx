@@ -1,6 +1,6 @@
 function HomePage() {
     return (
-        <div className="h-[100vh]">
+        <div>
             <div>Konsolių nuoma</div>
             <div>Platformos pavadinimas</div>
             <div className="flex flex-row content-around">
