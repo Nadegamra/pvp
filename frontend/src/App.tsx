@@ -14,7 +14,7 @@ function App() {
             <div className="flex-1" onClick={() => header.hideAll()}>
                 <AppRoutes />
             </div>
-            <div className="sticky bottom-0">Footer</div>
+            <div className="h-20 bg-bg-secondary">Footer</div>
         </div>
     );
 }
