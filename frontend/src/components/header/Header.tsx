@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useHeader } from '../../contexts/HeaderContext';
 
+export const ButtonText = ({ children }: { children: ReactNode }) => {
+    return <b className="hover:text-t-hover text-fs-h2">{children}</b>;
+};
+
 function Header() {
     const [darkmode, setDarkmode] = useState<boolean>(
         (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
@@ -12,10 +16,6 @@ function Header() {
         setDarkmode(darkmode);
         localStorage.setItem('data-theme', darkmode ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', darkmode ? 'dark' : 'light');
-    };
-
-    const ButtonText = ({ children }: { children: ReactNode }) => {
-        return <b className="hover:text-t-hover text-fs-h2">{children}</b>;
     };
 
     const header = useHeader();
