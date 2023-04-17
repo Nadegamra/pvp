@@ -8,6 +8,7 @@ import AppRoute from './AppRoute';
 import CompanyRegisterPage from '../../pages/CompanyRegisterPage';
 import RegistrationApprovePage from '../../pages/RegistrationApprovePage';
 import FAQPage from '../../pages/FAQPage';
+import ContactInfoPage from '../../pages/ContactInfoPage';
 
 export default function AppRoutes() {
     const { user } = useAuth();
@@ -16,6 +17,7 @@ export default function AppRoutes() {
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contacts" element={<ContactInfoPage />} />
             <Route element={<AppRoute condition={user === undefined} redirectionPath="/" />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<CustomerRegisterPage />} />
@@ -28,7 +30,6 @@ export default function AppRoutes() {
                 <Route path="/registerCompany" element={<CompanyRegisterPage />} />
                 <Route path="/approveCompany" element={<RegistrationApprovePage />} />
             </Route>
-            
         </Routes>
     );
 }

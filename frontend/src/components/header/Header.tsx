@@ -38,6 +38,12 @@ function Header() {
                 </Link>
                 <div className="flex-1" onClick={() => header.hideAll()}></div>
                 <Link
+                    to="/contacts"
+                    className="cursor-pointer select-none my-auto mr-7"
+                    onClick={() => header.hideAll()}>
+                    <ButtonText>Contacts</ButtonText>
+                </Link>
+                <Link
                     to="/faq"
                     className="cursor-pointer select-none my-auto mr-7"
                     onClick={() => header.hideAll()}>
