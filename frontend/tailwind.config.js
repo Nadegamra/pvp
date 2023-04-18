@@ -25,9 +25,9 @@ module.exports = {
             'ff-primary': `var(${'--font-family-primary'})`,
         },
         fontSize: {
-            'fs-heading': "20px",
-            'fs-primary': "15px",
-            'fs-secondary': "11px",
+            'fs-h1': "25px",
+            'fs-h2': "16px",
+            'fs-primary': "12px",
         },
     }
 }
