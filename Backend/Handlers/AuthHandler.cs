@@ -1,11 +1,14 @@
-﻿using Backend.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using System.Net.Mail;
+﻿using Backend.Data;
+using Backend.Data.Models;
 using Backend.Data.Views;
-using AutoMapper;
-using Backend.Data;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Net.Mail;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Backend.Handlers
 {
@@ -24,53 +27,49 @@ namespace Backend.Handlers
 
         public async Task<UserGet> Register(CustomerRegister data)
         {
-            
-            var result = await _userManager.CreateAsync(_mapper.Map<CustomerRegister, User>(data), data.Password);
+            var user = _mapper.Map<User>(data);
+            user.UserName = data.Email;
+
+            var result = await _userManager.CreateAsync(user, data.Password);
+
             if (result.Succeeded)
             {
-                User user = await _userManager.FindByEmailAsync(data.Email);
                 await _userManager.AddToRoleAsync(user, "customer");
-                await _userManager.UpdateAsync(user);
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return _mapper.Map<User, UserGet>(user);
+
+                return _mapper.Map<UserGet>(user);
             }
             else
             {
-                string errors = "";
-                foreach (var error in result.Errors)
-                {
-                    errors += error.Code + error.Description + "\n";
-                }
+                string errors = string.Join("\n", result.Errors.Select(e => e.Description));
                 throw new Exception(errors);
             }
         }
 
         public async Task<UserGet> Register(CompanyRegister data)
         {
+            var user = _mapper.Map<User>(data);
+            user.UserName = data.Email;
 
-            var result = await _userManager.CreateAsync(_mapper.Map<CompanyRegister, User>(data), data.Password);
+            var result = await _userManager.CreateAsync(user, data.Password);
+
             if (result.Succeeded)
             {
-                User user = await _userManager.FindByEmailAsync(data.Email);
                 await _userManager.AddToRoleAsync(user, "company");
-                await _userManager.UpdateAsync(user);
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return _mapper.Map<User, UserGet>(user);
+
+                return _mapper.Map<UserGet>(user);
             }
             else
             {
-                string errors = "";
-                foreach (var error in result.Errors)
-                {
-                    errors += error.Code + error.Description + "\n";
-                }
+                string errors = string.Join("\n", result.Errors.Select(e => e.Description));
                 throw new Exception(errors);
             }
         }
 
         public async Task<UserGet> Login(UserLogin data)
         {
-            User user = await GetUser(data);
+            var user = await GetUser(data);
             var signInResult = await _signInManager.PasswordSignInAsync(user, data.Password, data.RememberPassword, false);
 
             if (!signInResult.Succeeded)
@@ -78,10 +77,10 @@ namespace Backend.Handlers
                 throw new ArgumentException("Login credentials are incorrect");
             }
 
-            UserGet result = _mapper.Map<User, UserGet>(user);
-            result.Role = (await _userManager.GetRolesAsync(user)).First();
+            var userGet = _mapper.Map<UserGet>(user);
+            userGet.Role = (await _userManager.GetRolesAsync(user)).First();
 
-            return result;
+            return userGet;
         }
 
         public async Task<bool> Logout()
@@ -92,18 +91,30 @@ namespace Backend.Handlers
 
         public async Task<UserGet> GetProfile(ClaimsPrincipal claims)
         {
-            User? user = await _userManager.GetUserAsync(claims);
+            var user = await _userManager.GetUserAsync(claims);
 
-            if(user is null)
+            if (user is null)
             {
                 return null;
             }
 
-            UserGet result = _mapper.Map<User, UserGet>(user);
-            result.Role = (await _userManager.GetRolesAsync(user)).First();
+            var userGet = _mapper.Map<UserGet>(user);
+            userGet.Role = (await _userManager.GetRolesAsync(user)).First();
 
-            return result;
+            return userGet;
         }
+        public async Task<List<CompanyRegistrationRequest>> GetCompanyRegistrationRequests()
+        {
+            var users = await _userManager.Users.ToListAsync();
+
+            var companyRegistrationRequests = users
+                .Where(u => _userManager.IsInRoleAsync(u, "company").Result && !u.CompanyApproved)
+                .Select(u => _mapper.Map<CompanyRegistrationRequest>(u))
+                .ToList();
+
+            return companyRegistrationRequests;
+        }
+
 
         private async Task<User> GetUser(UserLogin data)
         {
