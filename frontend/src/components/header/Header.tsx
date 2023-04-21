@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useHeader } from '../../contexts/HeaderContext';
 import { useTranslation } from 'react-i18next';
+import ReactCountryFlag from 'react-country-flag';
 
 function Header() {
     const { t, i18n } = useTranslation();
@@ -56,7 +57,7 @@ function Header() {
                         to="/login"
                         className="cursor-pointer select-none my-auto mr-7"
                         onClick={() => header.hideAll()}>
-                        <ButtonText>Login</ButtonText>
+                        <ButtonText>{t('header.login')}</ButtonText>
                     </Link>
                 )}
                 {auth.user === undefined && (
@@ -64,17 +65,9 @@ function Header() {
                         to="/register"
                         className="cursor-pointer select-none my-auto mr-7"
                         onClick={() => header.hideAll()}>
-                        <ButtonText>Register</ButtonText>
+                        <ButtonText>{t('header.register')}</ButtonText>
                     </Link>
                 )}
-                <div className="mr-7 my-auto">
-                    <button className="pr-1" value="en" onClick={() => i18n.changeLanguage('en')}>
-                        en
-                    </button>
-                    <button value="lt" onClick={() => i18n.changeLanguage('lt')}>
-                        lt
-                    </button>
-                </div>
                 <div className="mr-7 my-auto">
                     <span
                         className="material-symbols-outlined cursor-pointer select-none"
@@ -84,19 +77,34 @@ function Header() {
                         settings
                     </span>
                     {header.settingsShown && (
-                        <div
-                            className="fixed mt-5 translate-x-[-180px] w-[190px] bg-bg-secondary p-3 rounded-lg"
-                            onClick={() => {
-                                toggleDarkMode(!darkmode);
-                            }}>
+                        <div className="fixed mt-5 translate-x-[-180px] w-[190px] bg-bg-secondary p-3 rounded-lg">
+                            <div
+                                onClick={() => {
+                                    toggleDarkMode(!darkmode);
+                                }}>
+                                <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
+                                    {darkmode ?? false ? 'light_mode' : 'dark_mode'}
+                                </span>
+                                <span className="cursor-pointer select-none">
+                                    {darkmode ?? false
+                                        ? t('header.settings.light')
+                                        : t('header.settings.dark')}
+                                </span>
+                            </div>
                             <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
-                                {darkmode ?? false ? 'light_mode' : 'dark_mode'}
+                                translate
                             </span>
-                            <span className="cursor-pointer select-none">
-                                {darkmode ?? false
-                                    ? t('header.settings.light')
-                                    : t('header.settings.dark')}
-                            </span>
+                            <button
+                                className="pr-4"
+                                value="en"
+                                onClick={() => i18n.changeLanguage('en')}>
+                                <ReactCountryFlag countryCode="GB" svg />
+                                en
+                            </button>
+                            <button value="lt" onClick={() => i18n.changeLanguage('lt')}>
+                                <ReactCountryFlag countryCode="LT" svg />
+                                lt
+                            </button>
                         </div>
                     )}
                 </div>
