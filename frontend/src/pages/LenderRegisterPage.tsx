@@ -1,5 +1,5 @@
 import { useAuth } from '../contexts/AuthContext';
-import { CustomerRegister, UserRole } from '../models/User';
+import { CustomerRegister, CompanyRegister,  UserRole } from '../models/User';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState } from 'react';
 
@@ -13,9 +13,11 @@ interface UserRegisterPlus {
     passwordConfirmed: string;
     companyCode?: string;
     companyName?: string;
+    isCompany?: boolean;
+    status?: boolean;
 }
 
-export default function CustomerRegisterPage() {
+export default function LenderRegisterPage() {
     const {
         register,
         handleSubmit,
@@ -28,7 +30,9 @@ export default function CustomerRegisterPage() {
                   companyCode: watch('companyCode'),
                   companyName: watch('companyName'),
                   email: watch('email'),
-                  password: watch('password')
+                  password: watch('password'),
+                  username: watch('username'),
+                  status: watch('status')
               }
             : {
                   firstName: watch('firstName'),
@@ -36,7 +40,16 @@ export default function CustomerRegisterPage() {
                   email: watch('email'),
                   password: watch('password')
               };
-        auth.register(new CustomerRegister(user), UserRole.customer).then((response) => setError(response));
+        if (!watch('isCompany') && !user.firstName) {
+            setError('First name is required');
+            return;
+        }
+            
+        const customerRegister = watch('isCompany')
+            ? new CompanyRegister(user.username ?? '', user.companyName ?? '', user.companyCode ?? '', user.email, user.password, user.status)
+            : new CustomerRegister(user.email, user.firstName  ?? '', user.lastName  ?? '', user.email, user.password);
+            
+        auth.register(customerRegister, UserRole.customer).then((response) => setError(response));
     };
     const [error, setError] = useState('');
     const auth = useAuth();
@@ -143,7 +156,8 @@ export default function CustomerRegisterPage() {
                                     ? 'Passwords do not match'
                                     : ''}
                             </p>
-                        
+                        </> 
+                    )}                          
             </div>
                 <div className="flex flex-col items-center pt-3">
                     <button

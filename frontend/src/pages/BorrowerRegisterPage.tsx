@@ -14,7 +14,7 @@ interface UserRegisterPlus {
     status: string;
 }
 
-export default function CompanyRegisterPage() {
+export default function BorrowerRegisterPage() {
     const {
         register,
         handleSubmit,
