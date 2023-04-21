@@ -13,6 +13,7 @@ interface UserRegisterPlus {
     passwordConfirmed: string;
 }
 
+
 export default function CustomerRegisterPage() {
     const {
         register,
