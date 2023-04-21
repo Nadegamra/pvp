@@ -1,10 +1,11 @@
-import React from 'react';
-import Header from './components/header/Header';
-import AppRoutes from './components/routing/AppRoutes';
-import { useHeader } from './contexts/HeaderContext';
+import React from 'react'
+import Header from './components/header/Header'
+import AppRoutes from './components/routing/AppRoutes'
+import { useHeader } from './contexts/HeaderContext'
+import Footer from './components/footer/Footer'
 
 function App() {
-    const header = useHeader();
+    const header = useHeader()
 
     return (
         <div className="flex flex-col bg-bg-primary text-t-primary min-h-[100vh]">
@@ -14,9 +15,11 @@ function App() {
             <div className="flex-1" onClick={() => header.hideAll()}>
                 <AppRoutes />
             </div>
-            <div className="h-20 bg-bg-secondary">Footer</div>
+            <div onClick={() => header.hideAll()}>
+                <Footer />
+            </div>
         </div>
-    );
+    )
 }
 
-export default App;
+export default App

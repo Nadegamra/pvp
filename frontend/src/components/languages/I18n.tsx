@@ -116,6 +116,13 @@ i18n
                         username: 'Email',
                         password: 'Password',
                         rememberMe: 'Remember Me'
+                    },
+                    footer: {
+                        contacts: 'Contacts',
+                        faq: 'Frequently asked questions',
+                        register: 'Lender registration page',
+                        registerRequest: 'Submit borrower registration request',
+                        languages: 'Available languages: '
                     }
                 }
             },
@@ -218,6 +225,13 @@ i18n
                         username: 'El paštas',
                         password: 'Slaptažodis',
                         rememberMe: 'Prisimink mane'
+                    },
+                    footer: {
+                        contacts: 'Kontaktai',
+                        faq: 'Dažnai užduodami klausimai',
+                        register: 'Skolintojų registracijos puslapis',
+                        registerRequest: 'Pateikti besiskolinančio registracijos prašymą',
+                        languages: 'Galimos kalbos: '
                     }
                 }
             }
