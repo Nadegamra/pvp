@@ -1,42 +1,40 @@
-﻿using Backend.Data.Views;
+﻿using Backend.Data.Models;
+using Backend.Data.Views;
 using Backend.Handlers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
-    //Package Manager Console: Update-Database
-
-    //Username: admin@admin.com
-    //Password: Password123!
-
-    //Username: customer@example.com
-    //Password: Password123!
-
-    //Username: company@example.com
-    //Password: Password123!
-
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
-    public class AuthController: ControllerBase
+    public class AuthController : ControllerBase
     {
-        private readonly AuthHandler _usersHandler;
+        private readonly AuthHandler _authHandler;
+        private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
-        public AuthController(AuthHandler usersHandler)
+        public AuthController(AuthHandler authHandler, UserManager<User> userManager, IMapper mapper)
         {
-            _usersHandler = usersHandler;
+            _authHandler = authHandler;
+            _userManager = userManager;
+            _mapper = mapper;
         }
 
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public async Task<ActionResult<string>> RegisterCustomer([FromBody] CustomerRegister registerModel)
+        [HttpPost("register-customer")]
+        public async Task<ActionResult<UserGet>> RegisterCustomer(CustomerRegister data)
         {
-            UserGet result;
             try
             {
-                result = await _usersHandler.Register(registerModel);
-                return Ok(result);
+                var user = await _authHandler.Register(data);
+                return Ok(user);
             }
             catch (Exception ex)
             {
@@ -45,13 +43,47 @@ namespace Backend.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        [HttpPost("admin/register/company")]
-        public async Task<ActionResult<string>> RegisterCompany([FromBody] CompanyRegister registerModel)
+        [HttpGet("company-registration-requests")]
+        public async Task<List<CompanyRegistrationRequest>> GetCompanyRegistrationRequests()
         {
-            UserGet result;
+            var users = await _userManager.Users.ToListAsync();
+
+            var companyRegistrationRequests = users
+                .Where(u => _userManager.IsInRoleAsync(u, "company").Result && !u.CompanyApproved)
+                .Select(u => new CompanyRegistrationRequest(_userManager, _mapper)
+                {
+                    CompanyName = u.CompanyName,
+                    CompanyCode = u.CompanyCode,
+                    Email = u.Email,
+                    PhoneNumber = u.PhoneNumber,
+                    Address = $"{u.StreetNo} {u.Street}, {u.City}, {u.County}, {u.Country} {u.PostCode}",
+                })
+                .ToList();
+
+            return companyRegistrationRequests;
+        }
+    
+
+    [HttpPost("login")]
+        public async Task<ActionResult<UserGet>> Login(UserLogin data)
+        {
             try
             {
-                result = await _usersHandler.Register(registerModel);
+                var user = await _authHandler.Login(data);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("logout")]
+        public async Task<ActionResult<bool>> Logout()
+        {
+            try
+            {
+                var result = await _authHandler.Logout();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -60,35 +92,23 @@ namespace Backend.Controllers
             }
         }
 
-        [AllowAnonymous]
-        [HttpPost("login")]
-        public async Task<ActionResult<string>> Login([FromBody] UserLogin loginModel)
+        [Authorize]
+        [HttpGet("profile")]
+        public async Task<ActionResult<UserGet>> GetProfile()
         {
-            UserGet result;
             try
             {
-                result = await _usersHandler.Login(loginModel);
-                return Ok(result);
+                var user = await _authHandler.GetProfile(HttpContext.User);
+                if (user is null)
+                {
+                    return NotFound();
+                }
+                return Ok(user);
             }
             catch (Exception ex)
             {
-                return BadRequest("Login credentials are invalid");
+                return BadRequest(ex.Message);
             }
-        }
-
-        [HttpPost("logout")]
-        public async Task<ActionResult> Logout()
-        {
-            await _usersHandler.Logout();
-            return Ok();
-        }
-
-        [AllowAnonymous]
-        [HttpGet("getProfile")]
-        public async Task<ActionResult> GetProfile()
-        {
-            UserGet result = await _usersHandler.GetProfile(User);
-            return Ok(result);
         }
     }
 }

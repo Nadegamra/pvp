@@ -156,7 +156,7 @@ export default function CustomerRegisterPage() {
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>
             {auth.loading && (
-               <div className="flex items-center justify-center pt-10">
+                <div className="flex items-center justify-center pt-10">
                     <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
                 </div>
             )}
