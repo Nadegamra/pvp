@@ -20,5 +20,6 @@
         public string? Street { get; set; }
         public string? StreetNo { get; set; }
         public string? PostCode { get; set; }
+        public bool? IsCompany { get; set; }
     }
 }

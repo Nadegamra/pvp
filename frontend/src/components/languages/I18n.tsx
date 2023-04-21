@@ -1,6 +1,6 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
 
 i18n
     // detect user language
@@ -103,7 +103,7 @@ i18n
                         borrowers1: 'For Borrowers',
                         borrowers2:
                             'We can offer you a new source of consoles for rent for your business. You can borrow consoles from us for a fixed daily rate.',
-                        borrowers3: 'Registration',
+                        borrowers3: 'Submit registration request',
                         lenders1: 'For Lenders',
                         lenders2:
                             "Do you have rarely used consoles? Maybe you bought a console for a specific game and don't use it anymore? Or do you just want to get your money back for it? In that case, this platform is for you.",
@@ -205,7 +205,7 @@ i18n
                         borrowers1: 'Besiskolinantiems',
                         borrowers2:
                             'Jūsų verslui galime pasiūlyti naują konsolių šaltinį nuomai. Pas mus galite skolintis konsoles nuomai už fiksuotą dieninį tarifą.',
-                        borrowers3: 'Registracija',
+                        borrowers3: 'Pateikti registracijos prašymą',
                         lenders1: 'Skolintojams',
                         lenders2:
                             'Ar jūs turite retai naudojamų konsolių? Galbūt jums pinigų nusipirktisekančios kartos konsolei? Ar tiesiog norite atgauti pinigus sumokėtus užją? Tokiu atveju ši platforma yra skirta jums.',
@@ -222,6 +222,6 @@ i18n
                 }
             }
         }
-    });
+    })
 
-export default i18n;
+export default i18n

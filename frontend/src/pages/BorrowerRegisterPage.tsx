@@ -1,41 +1,45 @@
-import { useAuth } from '../contexts/AuthContext';
-import { CompanyRegister, UserRole } from '../models/User';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext'
+import { RegisterLegal, UserRole } from '../models/User'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useState } from 'react'
+import { submitRegisterRequest } from '../api/AuthApi'
 
 interface UserRegisterPlus {
-    username: string;
-    companyCode: string;
-    companyName: string;
-    email: string;
-    emailConfirmed: string;
-    password: string;
-    passwordConfirmed: string;
-    status: string;
+    username: string
+    companyCode: string
+    companyName: string
+    email: string
+    emailConfirmed: string
+    password: string
+    passwordConfirmed: string
+    status: string
 }
 
-export default function CompanyRegisterPage() {
+export default function BorrowerRegisterPage() {
     const {
         register,
         handleSubmit,
         watch,
         formState: { errors }
-    } = useForm<UserRegisterPlus>();
+    } = useForm<UserRegisterPlus>()
     const onSubmit: SubmitHandler<UserRegisterPlus> = () => {
-        auth.register(
-            new CompanyRegister(
+        setError('')
+        submitRegisterRequest(
+            new RegisterLegal(
                 watch('email'),
                 watch('companyCode'),
                 watch('companyName'),
                 watch('email'),
-                watch('password'),
-                watch('status')
-            ),
-            UserRole.company
-        ).then((response) => setError(response));
-    };
-    const [error, setError] = useState('');
-    const auth = useAuth();
+                watch('password')
+            )
+        )
+            .then((response) => {
+                // Notify user that the action was successful
+            })
+            .catch((error) => setError(error))
+    }
+    const [error, setError] = useState('')
+    const auth = useAuth()
     return (
         <form
             className="flex flex-col items-center select-none bg-bg-primary text-t-primary pt-10"
@@ -93,7 +97,7 @@ export default function CompanyRegisterPage() {
                             required: true,
                             validate: (passwordConfirmed: string) => {
                                 if (watch('password') != passwordConfirmed) {
-                                    return 'match';
+                                    return 'match'
                                 }
                             }
                         })}
@@ -123,5 +127,5 @@ export default function CompanyRegisterPage() {
                 </div>
             )}
         </form>
-    );
+    )
 }

@@ -2,16 +2,16 @@
 
 namespace Backend.Data.Views
 {
-    public class CustomerRegister
+    public class RegisterLegal
     {
         [Required]
         public string Username { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public string CompanyCode { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public string CompanyName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]

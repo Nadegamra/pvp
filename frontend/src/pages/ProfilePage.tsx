@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react'
+import { useAuth } from '../contexts/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 function ProfilePage() {
-    const { t } = useTranslation();
-    const { user } = useAuth();
+    const { t } = useTranslation()
+    const { user } = useAuth()
     useEffect(() => {
-        console.log(user);
-    }, []);
+        console.log(user)
+    }, [])
     return (
         <div className="flex justify-center content-center">
             <div className="text-t-primary bg-bg-secondary w-[30rem] mt-20 rounded-lg p-5">
@@ -21,10 +21,10 @@ function ProfilePage() {
                     {user?.emailConfirmed ?? false ? (
                         <span className="text-success-500">{t('profile.confirmed')}</span>
                     ) : (
-                        <span className="text-danger-500">{t('profile.unconfimed')}</span>
+                        <span className="text-danger-500">{t('profile.unconfirmed')}</span>
                     )}
                 </div>
-                {user !== undefined && user.role !== 'company' ? (
+                {user !== undefined && !user.isCompany ? (
                     <div>
                         <div>
                             {t('profile.firstName')}
@@ -49,7 +49,7 @@ function ProfilePage() {
                 )}
             </div>
         </div>
-    );
+    )
 }
 
-export default ProfilePage;
+export default ProfilePage

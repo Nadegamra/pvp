@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 //TODO: Create more sensible attributes for when User is a company
 
@@ -41,19 +36,6 @@ namespace Backend.Data.Models
 
         [Required, StringLength(10), ProtectedPersonalData]
         public string PostCode { get; set; } = String.Empty;
-
-        public bool CompanyApproved { get; set; }
-
-        public ICollection<UserRole> Roles { get; set; }
-        public class UserRole : IdentityUserRole<string>
-        {
-            public virtual User User { get; set; }
-            public virtual Role Role { get; set; }
-        }
-
-        public class Role : IdentityRole
-        {
-            public ICollection<UserRole> Users { get; set; }
-        }
+        public bool IsCompany { get; set; } = false;
     }
 }
