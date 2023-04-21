@@ -8,6 +8,7 @@ module.exports = {
     content: [
         "./src/**/*.{js,jsx,ts,tsx}",
         "./index.html",
+        "./node_modules/tw-elements/dist/js/**/*.js"
     ],
     theme: {
         colors: {
@@ -24,9 +25,9 @@ module.exports = {
             'ff-primary': `var(${'--font-family-primary'})`,
         },
         fontSize: {
-            'fs-heading': "20px",
-            'fs-primary': "15px",
-            'fs-secondary': "11px",
+            'fs-h1': "25px",
+            'fs-h2': "16px",
+            'fs-primary': "12px",
         },
     }
 }

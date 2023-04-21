@@ -3,9 +3,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import HomePage from '../../pages/HomePage';
 import LoginPage from '../../pages/LoginPage';
 import ProfilePage from '../../pages/ProfilePage';
-import CustomerRegisterPage from '../../pages/CustomerRegisterPage';
+import CustomerRegisterPage from '../../pages/LenderRegisterPage';
 import AppRoute from './AppRoute';
-import CompanyRegisterPage from '../../pages/CompanyRegisterPage';
+import CompanyRegisterPage from '../../pages/BorrowerRegisterPage';
+import RegistrationApprovePage from '../../pages/RegistrationApprovePage';
+import FAQPage from '../../pages/FAQPage';
+import ContactInfoPage from '../../pages/ContactInfoPage';
 
 export default function AppRoutes() {
     const { user } = useAuth();
@@ -13,6 +16,8 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contacts" element={<ContactInfoPage />} />
             <Route element={<AppRoute condition={user === undefined} redirectionPath="/" />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<CustomerRegisterPage />} />
@@ -23,6 +28,7 @@ export default function AppRoutes() {
             <Route
                 element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/login" />}>
                 <Route path="/registerCompany" element={<CompanyRegisterPage />} />
+                <Route path="/approveCompany" element={<RegistrationApprovePage />} />
             </Route>
         </Routes>
     );
