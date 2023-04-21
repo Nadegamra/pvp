@@ -7,6 +7,8 @@ import { AuthProvider } from './contexts/AuthContext';
 import 'tw-elements';
 import { HeaderProvider } from './contexts/HeaderContext';
 
+import './components/languages/I18n';
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <React.StrictMode>

@@ -2,8 +2,11 @@ import { ReactNode, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useHeader } from '../../contexts/HeaderContext';
+import { useTranslation } from 'react-i18next';
+import ReactCountryFlag from 'react-country-flag';
 
 function Header() {
+    const { t, i18n } = useTranslation();
     const [darkmode, setDarkmode] = useState<boolean>(
         (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
     );
@@ -34,27 +37,27 @@ function Header() {
                     to="/"
                     className="pl-3 cursor-pointer select-none my-auto"
                     onClick={() => header.hideAll()}>
-                    <ButtonText>Home</ButtonText>
+                    <ButtonText>{t('header.home')}</ButtonText>
                 </Link>
                 <div className="flex-1" onClick={() => header.hideAll()}></div>
                 <Link
                     to="/contacts"
                     className="cursor-pointer select-none my-auto mr-7"
                     onClick={() => header.hideAll()}>
-                    <ButtonText>Contacts</ButtonText>
+                    <ButtonText>{t('header.contacts')}</ButtonText>
                 </Link>
                 <Link
                     to="/faq"
                     className="cursor-pointer select-none my-auto mr-7"
                     onClick={() => header.hideAll()}>
-                    <ButtonText>FAQ</ButtonText>
+                    <ButtonText>{t('header.FAQ')}</ButtonText>
                 </Link>
                 {auth.user === undefined && (
                     <Link
                         to="/login"
                         className="cursor-pointer select-none my-auto mr-7"
                         onClick={() => header.hideAll()}>
-                        <ButtonText>Login</ButtonText>
+                        <ButtonText>{t('header.login')}</ButtonText>
                     </Link>
                 )}
                 {auth.user === undefined && (
@@ -62,7 +65,7 @@ function Header() {
                         to="/register"
                         className="cursor-pointer select-none my-auto mr-7"
                         onClick={() => header.hideAll()}>
-                        <ButtonText>Register</ButtonText>
+                        <ButtonText>{t('header.register')}</ButtonText>
                     </Link>
                 )}
                 <div className="mr-7 my-auto">
@@ -74,17 +77,34 @@ function Header() {
                         settings
                     </span>
                     {header.settingsShown && (
-                        <div
-                            className="fixed mt-5 translate-x-[-180px] w-[190px] bg-bg-secondary p-3 rounded-lg"
-                            onClick={() => {
-                                toggleDarkMode(!darkmode);
-                            }}>
+                        <div className="fixed mt-5 translate-x-[-180px] w-[190px] bg-bg-secondary p-3 rounded-lg">
+                            <div
+                                onClick={() => {
+                                    toggleDarkMode(!darkmode);
+                                }}>
+                                <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
+                                    {darkmode ?? false ? 'light_mode' : 'dark_mode'}
+                                </span>
+                                <span className="cursor-pointer select-none">
+                                    {darkmode ?? false
+                                        ? t('header.settings.light')
+                                        : t('header.settings.dark')}
+                                </span>
+                            </div>
                             <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
-                                {darkmode ?? false ? 'light_mode' : 'dark_mode'}
+                                translate
                             </span>
-                            <span className="cursor-pointer select-none">
-                                Toggle {darkmode ?? false ? 'light' : 'dark'} mode
-                            </span>
+                            <button
+                                className="pr-4"
+                                value="en"
+                                onClick={() => i18n.changeLanguage('en')}>
+                                <ReactCountryFlag countryCode="GB" svg />
+                                en
+                            </button>
+                            <button value="lt" onClick={() => i18n.changeLanguage('lt')}>
+                                <ReactCountryFlag countryCode="LT" svg />
+                                lt
+                            </button>
                         </div>
                     )}
                 </div>
@@ -100,7 +120,7 @@ function Header() {
                             </span>
                         </button>
                         {header.profileShown && (
-                            <div className="fixed mt-5 translate-x-[-110px] w-[120px] bg-bg-secondary p-3 rounded-lg">
+                            <div className="fixed mt-5 translate-x-[-110px] w-[130px] bg-bg-secondary p-3 rounded-lg">
                                 <Link
                                     onClick={() => header.hideAll()}
                                     to="/profile"
@@ -108,7 +128,9 @@ function Header() {
                                     <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
                                         person
                                     </span>
-                                    <span className="cursor-pointer select-none">Profile</span>
+                                    <span className="cursor-pointer select-none">
+                                        {t('header.profile.profile')}
+                                    </span>
                                 </Link>
                                 <button
                                     className="pt-1"
@@ -119,7 +141,9 @@ function Header() {
                                     <span className="material-symbols-outlined pr-3 align-middle">
                                         logout
                                     </span>
-                                    <span className="cursor-pointer select-none">Logout</span>
+                                    <span className="cursor-pointer select-none">
+                                        {t('header.profile.logout')}
+                                    </span>
                                 </button>
                             </div>
                         )}
