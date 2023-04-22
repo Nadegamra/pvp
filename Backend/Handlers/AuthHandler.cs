@@ -3,12 +3,11 @@ using Backend.Data.Models;
 using Backend.Data.Views;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Net.Mail;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Backend.Handlers
 {
@@ -17,54 +16,22 @@ namespace Backend.Handlers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
+        private readonly AppDbContext _context;
 
-        public AuthHandler(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
+        public AuthHandler(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+            _context = context;
         }
 
-        public async Task<UserGet> Register(CustomerRegister data)
+        private async Task<User> GetUser(UserLogin data)
         {
-            var user = _mapper.Map<User>(data);
-            user.UserName = data.Email;
-
-            var result = await _userManager.CreateAsync(user, data.Password);
-
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, "customer");
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
-                return _mapper.Map<UserGet>(user);
-            }
-            else
-            {
-                string errors = string.Join("\n", result.Errors.Select(e => e.Description));
-                throw new Exception(errors);
-            }
-        }
-
-        public async Task<UserGet> Register(CompanyRegister data)
-        {
-            var user = _mapper.Map<User>(data);
-            user.UserName = data.Email;
-
-            var result = await _userManager.CreateAsync(user, data.Password);
-
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, "company");
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
-                return _mapper.Map<UserGet>(user);
-            }
-            else
-            {
-                string errors = string.Join("\n", result.Errors.Select(e => e.Description));
-                throw new Exception(errors);
-            }
+            MailAddress _;
+            return MailAddress.TryCreate(data.UserName, out _) ?
+                await _userManager.FindByEmailAsync(data.UserName) :
+                await _userManager.FindByNameAsync(data.UserName);
         }
 
         public async Task<UserGet> Login(UserLogin data)
@@ -88,7 +55,6 @@ namespace Backend.Handlers
             await _signInManager.SignOutAsync();
             return true;
         }
-
         public async Task<UserGet> GetProfile(ClaimsPrincipal claims)
         {
             var user = await _userManager.GetUserAsync(claims);
@@ -103,25 +69,114 @@ namespace Backend.Handlers
 
             return userGet;
         }
-        public async Task<List<CompanyRegistrationRequest>> GetCompanyRegistrationRequests()
+
+        public async Task<UserGet> Register(RegisterPhysical data)
         {
-            var users = await _userManager.Users.ToListAsync();
+            var user = _mapper.Map<User>(data);
+            user.UserName = data.Email;
 
-            var companyRegistrationRequests = users
-                .Where(u => _userManager.IsInRoleAsync(u, "company").Result && !u.CompanyApproved)
-                .Select(u => _mapper.Map<CompanyRegistrationRequest>(u))
-                .ToList();
+            var result = await _userManager.CreateAsync(user, data.Password);
 
-            return companyRegistrationRequests;
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "lender");
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                return _mapper.Map<UserGet>(user);
+            }
+            else
+            {
+                string errors = string.Join("\n", result.Errors.Select(e => e.Description));
+                throw new Exception(errors);
+            }
         }
 
-
-        private async Task<User> GetUser(UserLogin data)
+        public async Task<UserGet> Register(RegisterLegal data)
         {
-            MailAddress _;
-            return MailAddress.TryCreate(data.UserName, out _) ?
-                await _userManager.FindByEmailAsync(data.UserName) :
-                await _userManager.FindByNameAsync(data.UserName);
+            var user = _mapper.Map<User>(data);
+            user.UserName = data.Email;
+
+            var result = await _userManager.CreateAsync(user, data.Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "lender");
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                return _mapper.Map<UserGet>(user);
+            }
+            else
+            {
+                string errors = string.Join("\n", result.Errors.Select(e => e.Description));
+                throw new Exception(errors);
+            }
+        }
+
+        public async Task<UserGet> RegisterBorrower(RegisterLegal data)
+        {
+            var user = _mapper.Map<User>(data);
+            user.UserName = data.Email;
+
+            var result = await _userManager.CreateAsync(user, data.Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "borrower");
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                return _mapper.Map<UserGet>(user);
+            }
+            else
+            {
+                string errors = string.Join("\n", result.Errors.Select(e => e.Description));
+                throw new Exception(errors);
+            }
+        }
+
+        public async Task<List<RegistrationRequest>> GetRegistrationRequests()
+        {
+            return _context.RegistrationRequests.Select(x => x).ToList();
+        }
+
+        public async Task<RegistrationRequest> SubmitRegistrationRequest(RegistrationRequest request)
+        {
+            request.DateCreated= DateTime.Now;
+            var result = await _context.RegistrationRequests.AddAsync(request);
+
+            await _context.SaveChangesAsync();
+
+            return result.Entity;
+        }
+        public async Task<bool> ApproveRegistrationRequest(RegistrationRequestApproval requestApproval)
+        {
+            var request = await _context.RegistrationRequests.Where(x => x.Id == requestApproval.RequestId).FirstOrDefaultAsync();
+            if (request == null)
+            {
+                throw new ArgumentOutOfRangeException("Request with this id does not exist");
+            }
+
+            _context.RegistrationRequests.Remove(request);
+            await _context.SaveChangesAsync();
+
+            if (!requestApproval.IsApproved)
+            {
+                return false;
+            }
+
+            RegisterLegal dto = _mapper.Map<RegistrationRequest, RegisterLegal>(request);
+
+            try
+            {
+                return (await Register(dto) != null);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            
+
+
         }
     }
 }

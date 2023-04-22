@@ -4,12 +4,7 @@ using Backend.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers
 {
@@ -28,43 +23,7 @@ namespace Backend.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("register-customer")]
-        public async Task<ActionResult<UserGet>> RegisterCustomer(CustomerRegister data)
-        {
-            try
-            {
-                var user = await _authHandler.Register(data);
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [Authorize(Roles = "admin")]
-        [HttpGet("company-registration-requests")]
-        public async Task<List<CompanyRegistrationRequest>> GetCompanyRegistrationRequests()
-        {
-            var users = await _userManager.Users.ToListAsync();
-
-            var companyRegistrationRequests = users
-                .Where(u => _userManager.IsInRoleAsync(u, "company").Result && !u.CompanyApproved)
-                .Select(u => new CompanyRegistrationRequest(_userManager, _mapper)
-                {
-                    CompanyName = u.CompanyName,
-                    CompanyCode = u.CompanyCode,
-                    Email = u.Email,
-                    PhoneNumber = u.PhoneNumber,
-                    Address = $"{u.StreetNo} {u.Street}, {u.City}, {u.County}, {u.Country} {u.PostCode}",
-                })
-                .ToList();
-
-            return companyRegistrationRequests;
-        }
-    
-
-    [HttpPost("login")]
+        [HttpPost("login")]
         public async Task<ActionResult<UserGet>> Login(UserLogin data)
         {
             try
@@ -104,6 +63,79 @@ namespace Backend.Controllers
                     return NotFound();
                 }
                 return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("register/lender/physical")]
+        public async Task<ActionResult<UserGet>> RegisterPhysical(RegisterPhysical data)
+        {
+            try
+            {
+                var user = await _authHandler.Register(data);
+                user.Role = "lender";
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("register/lender/legal")]
+        public async Task<ActionResult<UserGet>> RegisterLegal(RegisterLegal data)
+        {
+            try
+            {
+                var user = await _authHandler.Register(data);
+                user.Role = "lender";
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("register/borrower/request")]
+        public async Task<ActionResult<RegistrationRequest>> SubmitRequest(RegistrationRequest request)
+        {
+            try
+            {
+                var requests = await _authHandler.SubmitRegistrationRequest(request);
+                return Ok(requests);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost("register/borrower/confirm")]
+        public async Task<ActionResult> ApproveRequest(RegistrationRequestApproval requestApproval)
+        {
+            try
+            {
+                var result = await _authHandler.ApproveRegistrationRequest(requestApproval);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpGet("register/borrower/getAll")]
+        public async Task<ActionResult<List<RegistrationRequest>>> GetCompanyRegistrationRequests()
+        {
+            try
+            {
+                var requests = await _authHandler.GetRegistrationRequests();
+                return Ok(requests);
             }
             catch (Exception ex)
             {

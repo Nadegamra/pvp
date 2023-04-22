@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 function HomePage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation()
     return (
         <div>
             <div className="bg-bg-tertiary py-3 pt-32">
@@ -39,7 +39,7 @@ function HomePage() {
                     {t('home.borrowers2')}
                     <div className="mt-5">
                         <Link
-                            to="#"
+                            to="/registerBorrower"
                             className="cursor-pointer select-none my-auto mr-7 bg-bg-extra p-3 rounded-lg w-64">
                             {t('home.borrowers3')}
                         </Link>
@@ -62,7 +62,7 @@ function HomePage() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
-export default HomePage;
+export default HomePage

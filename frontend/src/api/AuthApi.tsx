@@ -1,35 +1,42 @@
-import axios from 'axios';
-import { UserLogin, CustomerRegister, CompanyRegister } from '../models/User';
+import axios from 'axios'
+import { UserLogin, RegisterPhysical, RegisterLegal, RegisterRequestApproval } from '../models/User'
 
 const api = axios.create({
     baseURL: 'https://localhost:44351/Auth/'
-});
+})
 
 const headers = {
     withCredentials: true
-};
+}
 
 export async function login(loginCredentials: UserLogin) {
-    return api.post(`login`, loginCredentials, headers);
+    return api.post(`login`, loginCredentials, headers)
 }
-
-export async function register(registerCredentials: CustomerRegister) {
-    return api.post(`register`, registerCredentials, headers);
-}
-
-export async function registerCompany(registerCredentials: CompanyRegister) {
-    return api.post(`admin/register/company`, { ...registerCredentials, status: "pending" }, headers);
-}
-
-export async function approveRegistrationRequest(companyId: string) {
-    return api.put(`admin/companies/approve`, { status: "approved" });
-}
-
 
 export async function logout() {
-    return api.post(`logout`, null, headers);
+    return api.post(`logout`, null, headers)
 }
 
 export async function getProfile() {
-    return api.get(`getProfile`, headers);
+    return api.get(`profile`, headers)
+}
+
+export async function registerLenderPhysical(registerCredentials: RegisterPhysical) {
+    return api.post(`register/lender/physical`, registerCredentials, headers)
+}
+
+export async function registerLenderLegal(registerCredentials: RegisterLegal) {
+    return api.post(`register/lender/legal`, registerCredentials, headers)
+}
+
+export async function submitRegisterRequest(registerCredentials: RegisterLegal) {
+    return api.post(`register/borrower/request`, registerCredentials, headers)
+}
+
+export async function getRegisterRequests() {
+    return api.get(`register/borrower/getAll`, headers)
+}
+
+export async function approveRegistrationRequest(approval: RegisterRequestApproval) {
+    return api.post(`register/borrower/confirm`, approval, headers)
 }

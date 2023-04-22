@@ -8,10 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 
 builder.Services.AddControllers();
-
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -23,22 +22,18 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Add swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 });
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
-
 builder.Services.AddIdentity<User, IdentityRole<int>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
-
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = true;
@@ -57,11 +52,16 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SameSite = SameSiteMode.None;
 });
 
+// Add database
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+
+// Add services to the DI container.
 builder.Services.AddTransient<UserManager<User>>();
 builder.Services.AddTransient<RoleManager<IdentityRole<int>>>();
-
 builder.Services.AddTransient<AuthHandler>();
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
