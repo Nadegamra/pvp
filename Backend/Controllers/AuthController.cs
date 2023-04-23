@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+
+
 namespace Backend.Controllers
 {
     [ApiController]
