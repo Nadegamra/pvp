@@ -1,9 +1,11 @@
 using Backend.Data;
 using Backend.Data.Models;
 using Backend.Handlers;
+using Backend.Properties;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -57,6 +59,8 @@ string connectionString = builder.Configuration.GetConnectionString("DefaultConn
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+
+builder.Services.Configure<CloudinaryConfig>(builder.Configuration.GetSection("ImageStorage"));
 
 // Add services to the DI container.
 builder.Services.AddTransient<UserManager<User>>();
