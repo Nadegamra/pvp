@@ -2,16 +2,25 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
 namespace Backend.Data
 {
     public class AppDbContext: IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<RegistrationRequest> RegistrationRequests { get; set; }
+        
+        public DbSet<Models.Console> Consoles  { get; set; }
+        public DbSet<Accessory> Accessories { get; set; }
+        public DbSet<Image> Images { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Models.Console>()
+                .HasMany(a => a.Images)
+                .WithOne(c => c.Console)
+                .HasForeignKey(a => a.ConsoleId);
+
             modelBuilder.Entity<IdentityRole<int>>().HasData(new IdentityRole<int> { Id = 1, Name = "admin", NormalizedName = "ADMIN" },
                                                             new IdentityRole<int> { Id = 2, Name = "lender", NormalizedName = "LENDER" },
                                                             new IdentityRole<int> { Id = 3, Name = "borrower", NormalizedName = "BORROWER"});

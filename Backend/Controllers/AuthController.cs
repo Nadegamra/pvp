@@ -1,10 +1,10 @@
 ﻿using Backend.Data.Models;
-using Backend.Data.Views;
 using Backend.Handlers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using Backend.Data.Views.User;
 
 namespace Backend.Controllers
 {

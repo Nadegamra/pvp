@@ -1,17 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Data.Views
+namespace Backend.Data.Views.User
 {
-    public class RegisterPhysical
+    public class RegisterLegal
     {
         [Required]
         public string Username { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public string CompanyCode { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public string CompanyName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]

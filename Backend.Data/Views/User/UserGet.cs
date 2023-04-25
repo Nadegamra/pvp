@@ -1,4 +1,4 @@
-﻿namespace Backend.Data.Views
+﻿namespace Backend.Data.Views.User
 {
     public class UserGet
     {

@@ -66,6 +66,9 @@ builder.Services.Configure<CloudinaryConfig>(builder.Configuration.GetSection("I
 builder.Services.AddTransient<UserManager<User>>();
 builder.Services.AddTransient<RoleManager<IdentityRole<int>>>();
 builder.Services.AddTransient<AuthHandler>();
+builder.Services.AddTransient<ConsolesHandler>();
+builder.Services.AddTransient<AccessoriesHandler>();
+builder.Services.AddTransient<ImagesHandler>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
