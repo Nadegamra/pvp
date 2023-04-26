@@ -8,6 +8,11 @@ namespace Backend.Data
     public class AppDbContext: IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<RegistrationRequest> RegistrationRequests { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,6 +29,46 @@ namespace Backend.Data
                                                                  new IdentityUserRole<int> { UserId = 2, RoleId = 2 },
                                                                  new IdentityUserRole<int> { UserId = 3, RoleId = 3 });
 
+            modelBuilder.Entity<Category>().HasData(
+                new Category {Id = 1, Name = "Console", Description = ""});
+
+            modelBuilder.Entity<Manufacturer>().HasData(
+                new Manufacturer { Id = 1, Name = "PlayStation", Description = "" },
+                new Manufacturer { Id = 2, Name = "Microsoft", Description = "" },
+                new Manufacturer { Id = 3, Name = "Nintendo", Description = "" },
+                new Manufacturer { Id = 4, Name = "Sega", Description = "" });
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id = 1, ManufacturerId = 1, CategoryId = 1, Name = "PS5",
+                    Description = "There is no description for this product", CurrentDiscount = 0.0m,
+                    PriceEurNoTaxes = 23.12m
+                },
+                new Product
+                {
+                    Id = 2, ManufacturerId = 1, CategoryId = 1, Name = "PS4",
+                    Description = "There is no description for this product", CurrentDiscount = 0.0m,
+                    PriceEurNoTaxes = 25.15m
+                },
+                new Product
+                {
+                    Id = 3, ManufacturerId = 2, CategoryId = 1, Name = "XBOX ONE S",
+                    Description = "There is no description for this product", CurrentDiscount = 0.0m,
+                    PriceEurNoTaxes = 36.13m
+                },
+                new Product
+                {
+                    Id = 4, ManufacturerId = 2, CategoryId = 1, Name = "XBOX ONE X",
+                    Description = "There is no description for this product", CurrentDiscount = 0.0m,
+                    PriceEurNoTaxes = 32.56m
+                },
+                new Product
+                {
+                    Id = 5, ManufacturerId = 3, CategoryId = 1, Name = "Nintendo Switch",
+                    Description = "There is no description for this product", CurrentDiscount = 0.0m,
+                    PriceEurNoTaxes = 39.99m
+                });
             base.OnModelCreating(modelBuilder);
         }
     }

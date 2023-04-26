@@ -9,6 +9,7 @@ import BorrowerRegisterPage from '../../pages/BorrowerRegisterPage'
 import RegistrationApprovePage from '../../pages/RegistrationApprovePage'
 import FAQPage from '../../pages/FAQPage'
 import ContactInfoPage from '../../pages/ContactInfoPage'
+import ProductAddPage from '../../pages/ProductAddPage';
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -25,6 +26,7 @@ export default function AppRoutes() {
             </Route>
             <Route element={<AppRoute condition={user !== undefined} redirectionPath="/login" />}>
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/products/add" element={<ProductAddPage />} />
             </Route>
             <Route
                 element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/login" />}>
