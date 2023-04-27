@@ -28,30 +28,23 @@ namespace Backend.Handlers
         }
         public async Task<ConsoleDtoGet> AddConsoleAsync(ConsoleDtoAdd consoleDto)
         {
-            try
+            List<ImageDtoAdd> images = consoleDto.Images.ToList();
+
+            // Add Console
+            Data.Models.Console console = _mapper.Map<ConsoleDtoAdd, Data.Models.Console>(consoleDto);
+            console.Images = null;
+            var res = _context.Consoles.Add(console);
+            await _context.SaveChangesAsync();
+
+            //Add Images
+            for (int i = 0; i < images.Count; i++)
             {
-                // Add Console
-                Data.Models.Console console = _mapper.Map<ConsoleDtoAdd, Data.Models.Console>(consoleDto);
-                var res = _context.Consoles.Add(console);
-                await _context.SaveChangesAsync();
-
-                //Add Images
-                List<ImageDtoAdd> images = consoleDto.Images.ToList();
-                for (int i = 0; i < images.Count; i++)
-                {
-                    images[i].ConsoleId = res.Entity.Id;
-                    await _imagesHandler.AddImageAsync(images[i]);
-                }
-
-                Data.Models.Console result = _context.Consoles.Include(x => x.Images).Where(x => x.Id == res.Entity.Id).First();
-                return _mapper.Map<Data.Models.Console, ConsoleDtoGet>(result);
+                images[i].ConsoleId = res.Entity.Id;
+                await _imagesHandler.AddImageAsync(images[i]);
             }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            
 
+            Data.Models.Console result = _context.Consoles.Include(x => x.Images).Where(x => x.Id == res.Entity.Id).First();
+            return _mapper.Map<Data.Models.Console, ConsoleDtoGet>(result);
         }
         public async Task<ConsoleDtoGet> UpdateConsoleAsync(ConsoleDtoUpdate consoleDto)
         {

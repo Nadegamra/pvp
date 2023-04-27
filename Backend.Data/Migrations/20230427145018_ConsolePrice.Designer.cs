@@ -3,6 +3,7 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230427145018_ConsolePrice")]
+    partial class ConsolePrice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,13 +68,6 @@ namespace Backend.Data.Migrations
                             DailyPrice = 8m,
                             Description = "Microsoft Xbox One",
                             Name = "Xbox One"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DailyPrice = 9m,
-                            Description = "Sony Playstation 5",
-                            Name = "Playstation 5"
                         });
                 });
 
@@ -126,30 +122,6 @@ namespace Backend.Data.Migrations
                             Description = "",
                             Name = "3.jpeg",
                             Path = "d0sid8ixuhrgcx4melbs"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ConsoleId = 2,
-                            Description = "",
-                            Name = "P5.webp",
-                            Path = "tmhke7yuza1v9zhourmc"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ConsoleId = 2,
-                            Description = "",
-                            Name = "P5.jpeg",
-                            Path = "hjzaamg3uuftq1vsgctt"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ConsoleId = 2,
-                            Description = "",
-                            Name = "P5.png",
-                            Path = "dnj7iggkdupgcl9wdide"
                         });
                 });
 
@@ -308,7 +280,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "f43b79f0-f67e-4f3a-9698-ab41575a6022",
+                            ConcurrencyStamp = "3a2ff31b-d4f8-4870-a825-b5cc53e5295d",
                             Country = "",
                             County = "",
                             Email = "admin@admin.com",
@@ -322,7 +294,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostCode = "",
-                            SecurityStamp = "beb57e8d-c77b-405f-9e7a-780498421def",
+                            SecurityStamp = "524d0db3-f1ea-41ce-8a47-c9a6bb3f4265",
                             Street = "",
                             StreetNo = "",
                             TwoFactorEnabled = false,
@@ -335,7 +307,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "a887db35-d6a2-4b10-92da-a34d8d39aa80",
+                            ConcurrencyStamp = "1ab61072-67ea-49de-92be-c75d5f205d75",
                             Country = "",
                             County = "",
                             Email = "customer@example.com",
@@ -349,7 +321,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostCode = "",
-                            SecurityStamp = "ca44bcf8-99cf-49dd-b20b-2909591e0eab",
+                            SecurityStamp = "8c5d5da4-99c7-47bd-912e-e643bff86188",
                             Street = "",
                             StreetNo = "",
                             TwoFactorEnabled = false,
@@ -362,7 +334,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "123456",
                             CompanyName = "UAB „Tikra įmonė“",
-                            ConcurrencyStamp = "05582702-5122-4d58-9e82-b5899c1ee869",
+                            ConcurrencyStamp = "3d0c37e3-973f-4ebb-b59c-b2fb14c7da38",
                             Country = "",
                             County = "",
                             Email = "company@example.com",
@@ -376,7 +348,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostCode = "",
-                            SecurityStamp = "7f28a548-b3d3-4785-9e05-ea0485e2ae73",
+                            SecurityStamp = "050af067-16fb-4c1a-8fef-8fd7e8d42679",
                             Street = "",
                             StreetNo = "",
                             TwoFactorEnabled = false,

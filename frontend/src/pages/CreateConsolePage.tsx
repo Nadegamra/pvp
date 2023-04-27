@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { addConsole } from '../api/ConsolesApi'
 import { ConsoleAdd } from '../models/Console'
 import { ImageAdd } from '../models/Image'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
     name: string
@@ -20,6 +21,7 @@ const toBase64 = (file: File): Promise<string> =>
     })
 
 function CreateConsolePage() {
+    const { t } = useTranslation()
     const {
         register,
         watch,
@@ -34,13 +36,15 @@ function CreateConsolePage() {
             onSubmit={handleSubmit(async (data) => {
                 setError('')
                 const images: ImageAdd[] = []
-
                 for (let i = 0; i < data.images.length; i++) {
                     const image = data.images.item(i)
                     if (image !== null) {
-                        images.push(
-                            new ImageAdd(image.name, '', -1, (await toBase64(image)).substring(23))
-                        )
+                        let base64 = await toBase64(image)
+                        do {
+                            base64 = base64.substring(1)
+                        } while (base64[0] != ',')
+                        base64 = base64.substring(1)
+                        images.push(new ImageAdd(image.name, '', -1, base64))
                     }
                 }
 
@@ -50,56 +54,67 @@ function CreateConsolePage() {
                     data.dailyPrice,
                     images
                 )
-                console.log(consoleAdd)
-                addConsole(consoleAdd)
+                addConsole(consoleAdd).then((response) => {
+                    window.location.href = '/admin/consoles'
+                })
             })}>
             <div className="w-[400px] bg-bg-secondary p-7 rounded">
-                <div className="py-6 text-fs-h1 text-center">New Console</div>
+                <div className="py-6 text-fs-h1 text-center">
+                    {t('consoleManagementForm.newConsole') ?? ''}
+                </div>
                 <div className="mx-[10px]">
                     <input
                         type="text"
                         className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
-                        placeholder="Name"
+                        placeholder={t('consoleManagementForm.name') ?? ''}
                         {...register('name', { required: true })}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.name?.type === 'required' ? 'Name is required' : ''}
+                        {errors.name?.type === 'required'
+                            ? t('consoleManagementForm.nameError')
+                            : ''}
                     </p>
 
                     <input
                         type="text"
                         className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
-                        placeholder="Description"
+                        placeholder={t('consoleManagementForm.description') ?? ''}
                         {...register('description', { required: true })}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.description?.type === 'required' ? 'Description is required' : ''}
+                        {errors.description?.type === 'required'
+                            ? t('consoleManagementForm.descriptionError')
+                            : ''}
                     </p>
 
                     <input
                         type="number"
                         className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
-                        placeholder="Daily Price"
+                        placeholder={t('consoleManagementForm.dailyPrice') ?? ''}
                         {...register('dailyPrice', { required: true })}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.dailyPrice?.type === 'required' ? 'Daily price is required' : ''}
+                        {errors.dailyPrice?.type === 'required'
+                            ? t('consoleManagementForm.dailyPriceError')
+                            : ''}
                     </p>
 
                     <input
                         type="file"
                         multiple
                         className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
-                        placeholder="Images"
+                        placeholder={t('consoleManagementForm.images') ?? ''}
                         {...register('images', { required: true })}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.images?.type === 'required' ? 'Images are required' : ''}
+                        {errors.images?.type === 'required'
+                            ? t('consoleManagementForm.imagesError')
+                            : ''}
                     </p>
                 </div>
                 <div className="flex flex-col items-center pt-5 text-fs-h2">
                     <button className="bg-bg-extra py-1 px-7 rounded" type="submit">
-                        Create
+                        {t('consoleManagementForm.create') ?? ''}
                     </button>
                 </div>
             </div>

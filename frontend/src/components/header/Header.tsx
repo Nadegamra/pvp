@@ -1,34 +1,34 @@
-import { ReactNode, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { useHeader } from '../../contexts/HeaderContext';
-import { useTranslation } from 'react-i18next';
-import ReactCountryFlag from 'react-country-flag';
+import { ReactNode, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
+import { useHeader } from '../../contexts/HeaderContext'
+import { useTranslation } from 'react-i18next'
+import ReactCountryFlag from 'react-country-flag'
 
 function Header() {
-    const { t, i18n } = useTranslation();
+    const { t, i18n } = useTranslation()
     const [darkmode, setDarkmode] = useState<boolean>(
         (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
-    );
-    const auth = useAuth();
+    )
+    const auth = useAuth()
     const toggleDarkMode = (darkmode: boolean) => {
-        setDarkmode(darkmode);
-        localStorage.setItem('data-theme', darkmode ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', darkmode ? 'dark' : 'light');
-    };
+        setDarkmode(darkmode)
+        localStorage.setItem('data-theme', darkmode ? 'dark' : 'light')
+        document.documentElement.setAttribute('data-theme', darkmode ? 'dark' : 'light')
+    }
 
     const ButtonText = ({ children }: { children: ReactNode }) => {
-        return <b className="hover:text-t-hover text-fs-h2">{children}</b>;
-    };
+        return <b className="hover:text-t-hover text-fs-h2">{children}</b>
+    }
 
-    const header = useHeader();
+    const header = useHeader()
 
     useEffect(() => {
         document.documentElement.setAttribute(
             'data-theme',
             localStorage.getItem('data-theme') ?? 'dark'
-        );
-    }, []);
+        )
+    }, [])
 
     return (
         <div>
@@ -68,6 +68,14 @@ function Header() {
                         <ButtonText>{t('header.register')}</ButtonText>
                     </Link>
                 )}
+                {auth.user !== undefined && auth.user.role === 'admin' && (
+                    <Link
+                        to="/admin/consoles"
+                        className="cursor-pointer select-none my-auto mr-7"
+                        onClick={() => header.hideAll()}>
+                        <ButtonText>{t('header.manageConsoles')}</ButtonText>
+                    </Link>
+                )}
                 <div className="mr-7 my-auto">
                     <span
                         className="material-symbols-outlined cursor-pointer select-none"
@@ -80,7 +88,7 @@ function Header() {
                         <div className="fixed mt-5 translate-x-[-180px] w-[190px] bg-bg-secondary p-3 rounded-lg">
                             <div
                                 onClick={() => {
-                                    toggleDarkMode(!darkmode);
+                                    toggleDarkMode(!darkmode)
                                 }}>
                                 <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
                                     {darkmode ?? false ? 'light_mode' : 'dark_mode'}
@@ -135,8 +143,8 @@ function Header() {
                                 <button
                                     className="pt-1"
                                     onClick={() => {
-                                        auth.logout();
-                                        header.hideAll();
+                                        auth.logout()
+                                        header.hideAll()
                                     }}>
                                     <span className="material-symbols-outlined pr-3 align-middle">
                                         logout
@@ -151,7 +159,7 @@ function Header() {
                 )}
             </div>
         </div>
-    );
+    )
 }
 
-export default Header;
+export default Header

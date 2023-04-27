@@ -51,7 +51,6 @@ namespace Backend.Controllers
         {
             try
             {
-                //return Ok(consoleDto.Images.First().Stream);
 
                 var result = await _handler.AddConsoleAsync(consoleDto);
 

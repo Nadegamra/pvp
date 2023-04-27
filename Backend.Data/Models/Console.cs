@@ -10,7 +10,7 @@ namespace Backend.Data.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string DailyPrice { get; set; }
-        public ICollection<Image> Images { get; set; }
+        public decimal DailyPrice { get; set; }
+        public ICollection<Image>? Images { get; set; }
     }
 }

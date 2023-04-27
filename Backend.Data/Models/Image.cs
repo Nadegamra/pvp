@@ -8,7 +8,7 @@ namespace Backend.Data.Models
 {
     public class Image: BaseModel
     {
-        public string Path { get; set; } = string.Empty;
+        public string Path { get; set; }
         public string Name { get; set; }
         public string Description { get; set; } = "";
         public int ConsoleId { get; set; }

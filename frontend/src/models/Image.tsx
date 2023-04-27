@@ -41,3 +41,7 @@ export class ImageUpdate {
         this.description = description
     }
 }
+
+export function imagePathToURL(path: string, width: number) {
+    return `https://res.cloudinary.com/drzqsbvky/image/upload/w_${width}/${path}`
+}

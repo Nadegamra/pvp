@@ -33,6 +33,18 @@ namespace Backend.Data
                                                                  new IdentityUserRole<int> { UserId = 2, RoleId = 2 },
                                                                  new IdentityUserRole<int> { UserId = 3, RoleId = 3 });
 
+            modelBuilder.Entity<Models.Console>().HasData(new Models.Console { Id = 1, Name = "Xbox One", Description = "Microsoft Xbox One", DailyPrice = 8 },
+                                                          new Models.Console { Id = 2, Name = "Playstation 5", Description = "Sony Playstation 5", DailyPrice = 9});
+
+            modelBuilder.Entity<Image>().HasData(new Image { Id = 1, Path = "gvoktfyvobny0j2umvtt", Name = "1.jpeg", Description = "", ConsoleId = 1 },
+                                                new Image { Id = 2, Path = "owdqtg9fodxw8ubvmavs", Name = "2.jpeg", Description = "", ConsoleId = 1 },
+                                                new Image { Id = 3, Path = "d0sid8ixuhrgcx4melbs", Name = "3.jpeg", Description = "", ConsoleId = 1 },
+                                                new Image { Id = 4, Path = "tmhke7yuza1v9zhourmc", Name = "P5.webp", Description = "", ConsoleId = 2 },
+                                                new Image { Id = 5, Path = "hjzaamg3uuftq1vsgctt", Name = "P5.jpeg", Description = "", ConsoleId = 2 },
+                                                new Image { Id = 6, Path = "dnj7iggkdupgcl9wdide", Name = "P5.png", Description = "", ConsoleId = 2 }
+                                                );
+
+
             base.OnModelCreating(modelBuilder);
         }
     }

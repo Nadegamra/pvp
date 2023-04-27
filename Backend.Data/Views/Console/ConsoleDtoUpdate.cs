@@ -11,7 +11,7 @@ namespace Backend.Data.Views.Console
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string DailyPrice { get; set; }
+        public decimal DailyPrice { get; set; }
         public ICollection<ImageDtoUpdate> Images { get; set; }
     }
 }
