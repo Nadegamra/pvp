@@ -29,7 +29,8 @@ function ConsolesManagementPage() {
                 <Link
                     className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
                     to={`/admin/consoles/${console.id}`}>
-                    <img src={imagePathToURL(console.images[0].path, 250)} alt="" />
+                    {console.images.length > 0 && <img src={imagePathToURL(console.images[0].path, 250)} alt={console.images[0].name} />}
+                    
                     <div className="text-t-secondary text-center">{console.name}</div>
                 </Link>
             ))}
