@@ -11,6 +11,6 @@ namespace Backend.Data.Views.Console
         public string Name { get; set; }
         public string Description { get; set; } = "";
         public int ConsoleId { get; set; }
-        public Stream Stream { get; set; }
+        public string Stream { get; set; }
     }
 }

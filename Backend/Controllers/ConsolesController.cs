@@ -51,6 +51,8 @@ namespace Backend.Controllers
         {
             try
             {
+                //return Ok(consoleDto.Images.First().Stream);
+
                 var result = await _handler.AddConsoleAsync(consoleDto);
 
                 return Ok(result);
@@ -58,10 +60,10 @@ namespace Backend.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.InnerException.Message);
             }
         }
-        [HttpPatch("update")]
+        [HttpPut("update")]
         public async Task<ActionResult> UpdateConsole(ConsoleDtoUpdate consoleDto)
         {
             try

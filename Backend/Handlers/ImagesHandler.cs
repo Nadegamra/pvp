@@ -31,24 +31,30 @@ namespace Backend.Handlers
         {
             return _mapper.Map<Image,ImageDtoGet>(_context.Images.Where(x => x.Id == id).First());
         }
-        public async Task<ImageDtoGet> AddImageAsync(ImageDtoAdd imageDto)
+        public async Task AddImageAsync(ImageDtoAdd imageDto)
         {
-            // Cloudinary
+
+            byte[] bytes = Convert.FromBase64String(imageDto.Stream);
+
+            var stream = new MemoryStream(bytes);
+
+            //Cloudinary
             var cloudinary = new Cloudinary(new Account(_config.Value.Cloud, _config.Value.ApiKey, _config.Value.ApiSecret));
             var uploadParams = new ImageUploadParams()
             {
-                File = new FileDescription("file.jpg", imageDto.Stream)
+                File = new FileDescription("file.jpg", stream)
             };
             var uploadResult = cloudinary.Upload(uploadParams);
 
+
             // Database
-            Image image = _mapper.Map<ImageDtoAdd, Image>(imageDto);
+            Image image = new Image { Name = imageDto.Name, Path = uploadResult.PublicId, Description = imageDto.Description, ConsoleId = imageDto.ConsoleId };
             image.Path = uploadResult.PublicId;
 
             await _context.Images.AddAsync(image);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<Image, ImageDtoGet>(image);
+            return;
         }
         public async Task<ImageDtoGet> UpdateImageAsync(ImageDtoUpdate imageDto)
         {

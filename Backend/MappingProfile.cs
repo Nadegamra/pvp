@@ -30,7 +30,11 @@ namespace Backend
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.DailyPrice, opt => opt.MapFrom(src => src.DailyPrice))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images));
-            CreateMap<ConsoleDtoGet, Data.Models.Console>()
+            CreateMap<ConsoleDtoAdd, Data.Models.Console>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.DailyPrice, opt => opt.MapFrom(src => src.DailyPrice));
+            CreateMap<ConsoleDtoUpdate, Data.Models.Console>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
@@ -38,6 +42,7 @@ namespace Backend
             CreateMap<Image, ImageDtoGet>(MemberList.None);
             CreateMap<ImageDtoAdd, Image>(MemberList.None);
             CreateMap<ImageDtoUpdate, Image>(MemberList.None);
+
         }
     }
 }

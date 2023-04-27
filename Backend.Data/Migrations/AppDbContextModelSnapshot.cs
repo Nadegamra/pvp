@@ -34,7 +34,7 @@ namespace Backend.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Accessories");
+                    b.ToTable("Accessories", (string)null);
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Console", b =>
@@ -57,7 +57,7 @@ namespace Backend.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Consoles");
+                    b.ToTable("Consoles", (string)null);
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Image", b =>
@@ -85,7 +85,7 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("ConsoleId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("Backend.Data.Models.RegistrationRequest", b =>
@@ -115,7 +115,7 @@ namespace Backend.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RegistrationRequests");
+                    b.ToTable("RegistrationRequests", (string)null);
                 });
 
             modelBuilder.Entity("Backend.Data.Models.User", b =>
