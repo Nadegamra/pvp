@@ -10,7 +10,7 @@ const ButtonText = ({ children }: { children: ReactNode }) => {
 function Footer() {
     const { t, i18n } = useTranslation()
     return (
-        <div className="bg-bg-secondary grid grid-rows-2 grid-cols-3 p-5 gap-10">
+        <div className="bg-bg-secondary grid grid-rows-2 grid-cols-3 p-3 gap-5">
             <Link to="/contacts" className="cursor-pointer select-none my-auto mr-7">
                 <ButtonText>{t('footer.contacts')}</ButtonText>
             </Link>
