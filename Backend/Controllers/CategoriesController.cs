@@ -50,7 +50,7 @@ namespace Backend.Controllers
             }
         }
         [HttpPost("add")]
-        [Authorize(Roles = "lender")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> AddCategory([FromBody]CategoryAdd category)
         {
             try
@@ -63,7 +63,7 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Authorize(Roles = "lender")]
+        [Authorize(Roles = "admin")]
         [HttpDelete("remove")]
         public async Task<ActionResult> RemoveCategory(int id)
         {
@@ -77,7 +77,7 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Authorize(Roles = "lender")]
+        [Authorize(Roles = "admin")]
         [HttpPatch("update")]
         public async Task<ActionResult> UpdateCategory([FromBody]CategoryUpdate category)
         {

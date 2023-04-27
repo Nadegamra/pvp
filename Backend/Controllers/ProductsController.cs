@@ -72,20 +72,7 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Authorize(Roles = "lender")]
-        [HttpPost("addUnits")]
-        public async Task<ActionResult<ProductGet>> AddUnits([FromBody] ProductAddUnits info)
-        {
-            try
-            {
-                var result = _mapper.Map<Product, ProductGet>(await _handler.AddUnits(info.ProductId,info.Units));
-                return Ok(result);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
+
         [Authorize(Roles = "lender")]
         [HttpPatch("update")]
         public async Task<ActionResult<ProductGet>> UpdateProduct([FromBody]ProductUpdate product)

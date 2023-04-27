@@ -12,8 +12,6 @@ namespace Backend.Data.Views.Product
         public string Description { get; set; }
         public decimal CurrentDiscount { get; set; }
         public decimal PriceEurNoTaxes { get; set; }
-        public int UnitsAvailable { get; set; }
-        public int? Rating { get; set; }
         public virtual ICollection<ProductImageGet>? Images { get; set; }
         
     }

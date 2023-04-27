@@ -46,7 +46,7 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Authorize(Roles = "lender")]
+        [Authorize(Roles = "admin")]
         [HttpPost("add")]
         public async Task<ActionResult> AddManufacturer([FromBody]ManufacturerAdd manufacturer)
         {
@@ -60,7 +60,7 @@ namespace Backend.Controllers
                return BadRequest(e.Message);
             }
         }
-        [Authorize(Roles = "lender")]
+        [Authorize(Roles = "admin")]
         [HttpPatch("update")]
         public async Task<ActionResult> UpdateManufacturer([FromBody]ManufacturerUpdate manufacturer)
         {
@@ -74,7 +74,7 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [Authorize(Roles = "lender")]
+        [Authorize(Roles = "admin")]
         [HttpDelete("remove")]
         public async Task<ActionResult> RemoveManufacturer(int id)
         {

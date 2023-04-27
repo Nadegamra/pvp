@@ -7,9 +7,8 @@ namespace Backend.Data.Models
     {
         public string Description { get; set; }
         [Required]
-        public string DisplaySizeURL { get; set; }
-        [Required]
-        public string ThumbnailURL { get; set; }
+        public string Path { get; set; }
+
         [ForeignKey("Product")]
         public int? ProductId { get; set; }
         public Product? Product { get; set; }

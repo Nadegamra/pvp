@@ -31,18 +31,6 @@ namespace Backend.Handlers.Products
             return result.Entity;
         }
 
-        public async Task<Product> AddUnits(int productId, int units)
-        {
-            Product? product = await _context.Products.Where(x => x.Id == productId).FirstOrDefaultAsync();
-            if(product == null)
-            {
-                throw new Exception("This product does not exist");
-            }
-            product.UnitsAvailable += units;
-            var result = _context.Products.Update(product);
-            await _context.SaveChangesAsync();
-            return result.Entity;
-        }
 
         public async Task<List<Product>> GetCategoryProducts(int categoryId)
         {

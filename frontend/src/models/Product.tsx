@@ -8,8 +8,6 @@ export class ProductGet {
     description: string;
     currentDiscount: number;
     priceEurNoTaxes: number;
-    unitsAvailable: number;
-    rating: number;
     images: ProductImageGet[];
 
 
@@ -21,8 +19,6 @@ export class ProductGet {
         description: string,
         currentDiscount: number,
         priceEurNoTaxes: number,
-        unitsAvailable: number,
-        rating: number,
         images: ProductImageGet[],
     ) {
         this.id = id;
@@ -32,8 +28,6 @@ export class ProductGet {
         this.description = description;
         this.currentDiscount = currentDiscount;
         this.priceEurNoTaxes = priceEurNoTaxes;
-        this.unitsAvailable = unitsAvailable;
-        this.rating = rating;
         this.images = images;
     }
 }

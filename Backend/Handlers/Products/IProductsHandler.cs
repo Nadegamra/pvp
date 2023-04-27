@@ -12,6 +12,5 @@ namespace Backend.Handlers.Products
         public Task RemoveProduct(int productId);
         public Task<Image> AddImage(Image image);
         public Task RemoveImage(int imageId);
-        public Task<Product> AddUnits(int productId, int units);
     }
 }

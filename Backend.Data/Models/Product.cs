@@ -17,10 +17,6 @@ namespace Backend.Data.Models
         public decimal CurrentDiscount { get; set; }
         [Required]
         public decimal PriceEurNoTaxes { get; set; }
-        public int UnitsAvailable { get; set; } = 0;
-        public int UnitsReserved { get; set; } = 0;
-        [NotMapped]
-        public int? Rating { get; set; }
         public virtual ICollection<Image> Images { get; set; }
     }
 }
