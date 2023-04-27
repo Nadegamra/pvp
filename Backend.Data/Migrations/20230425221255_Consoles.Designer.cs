@@ -3,6 +3,7 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230425221255_Consoles")]
+    partial class Consoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +46,9 @@ namespace Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<decimal>("DailyPrice")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<string>("DailyPrice")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -57,22 +61,6 @@ namespace Backend.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Consoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DailyPrice = 8m,
-                            Description = "Microsoft Xbox One",
-                            Name = "Xbox One"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DailyPrice = 9m,
-                            Description = "Sony Playstation 5",
-                            Name = "Playstation 5"
-                        });
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Image", b =>
@@ -101,56 +89,6 @@ namespace Backend.Data.Migrations
                     b.HasIndex("ConsoleId");
 
                     b.ToTable("Images");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConsoleId = 1,
-                            Description = "",
-                            Name = "1.jpeg",
-                            Path = "gvoktfyvobny0j2umvtt"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConsoleId = 1,
-                            Description = "",
-                            Name = "2.jpeg",
-                            Path = "owdqtg9fodxw8ubvmavs"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ConsoleId = 1,
-                            Description = "",
-                            Name = "3.jpeg",
-                            Path = "d0sid8ixuhrgcx4melbs"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ConsoleId = 2,
-                            Description = "",
-                            Name = "P5.webp",
-                            Path = "tmhke7yuza1v9zhourmc"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ConsoleId = 2,
-                            Description = "",
-                            Name = "P5.jpeg",
-                            Path = "hjzaamg3uuftq1vsgctt"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ConsoleId = 2,
-                            Description = "",
-                            Name = "P5.png",
-                            Path = "dnj7iggkdupgcl9wdide"
-                        });
                 });
 
             modelBuilder.Entity("Backend.Data.Models.RegistrationRequest", b =>
@@ -308,7 +246,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "f43b79f0-f67e-4f3a-9698-ab41575a6022",
+                            ConcurrencyStamp = "5c8977f1-47ae-410c-a777-c684c182f918",
                             Country = "",
                             County = "",
                             Email = "admin@admin.com",
@@ -322,7 +260,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostCode = "",
-                            SecurityStamp = "beb57e8d-c77b-405f-9e7a-780498421def",
+                            SecurityStamp = "cd2c503f-fcf7-489a-9485-951d25c8f448",
                             Street = "",
                             StreetNo = "",
                             TwoFactorEnabled = false,
@@ -335,7 +273,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "a887db35-d6a2-4b10-92da-a34d8d39aa80",
+                            ConcurrencyStamp = "9cff78e7-8d27-4bce-893d-6cab02f14eaf",
                             Country = "",
                             County = "",
                             Email = "customer@example.com",
@@ -349,7 +287,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostCode = "",
-                            SecurityStamp = "ca44bcf8-99cf-49dd-b20b-2909591e0eab",
+                            SecurityStamp = "778ffc08-b905-4a2a-a222-7ee1d62701df",
                             Street = "",
                             StreetNo = "",
                             TwoFactorEnabled = false,
@@ -362,7 +300,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "123456",
                             CompanyName = "UAB „Tikra įmonė“",
-                            ConcurrencyStamp = "05582702-5122-4d58-9e82-b5899c1ee869",
+                            ConcurrencyStamp = "0736d704-164f-45ac-980f-96e74a9149ef",
                             Country = "",
                             County = "",
                             Email = "company@example.com",
@@ -376,7 +314,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostCode = "",
-                            SecurityStamp = "7f28a548-b3d3-4785-9e05-ea0485e2ae73",
+                            SecurityStamp = "6f646498-4af5-40af-9ca6-0bd8307129c5",
                             Street = "",
                             StreetNo = "",
                             TwoFactorEnabled = false,

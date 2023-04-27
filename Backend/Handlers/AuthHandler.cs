@@ -1,6 +1,5 @@
 ﻿using Backend.Data;
 using Backend.Data.Models;
-using Backend.Data.Views;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
@@ -8,6 +7,7 @@ using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Backend.Data.Views.User;
 
 namespace Backend.Handlers
 {

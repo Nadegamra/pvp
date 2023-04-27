@@ -31,7 +31,8 @@ i18n
                             logout: 'Logout'
                         },
                         login: 'Login',
-                        register: 'Register'
+                        register: 'Register',
+                        manageConsoles: 'Manage Consoles'
                     },
                     contacts: {
                         contactInfo: 'Contact Information',
@@ -123,6 +124,20 @@ i18n
                         register: 'Lender registration page',
                         registerRequest: 'Submit borrower registration request',
                         languages: 'Available languages: '
+                    },
+                    consoleManagementForm: {
+                        name: 'Name',
+                        nameError: 'Name is required',
+                        description: 'Description',
+                        descriptionError: 'Description is required',
+                        dailyPrice: 'Daily Price',
+                        dailypriceError: 'Daily Price is required',
+                        images: 'Images',
+                        imagesError: 'At least 1 image in required',
+                        update: 'Update',
+                        create: 'Create',
+                        newConsole: 'New Console',
+                        new: 'New'
                     }
                 }
             },
@@ -141,7 +156,8 @@ i18n
                             logout: 'Atsijungti'
                         },
                         login: 'Prisijungimas',
-                        register: 'Registracija'
+                        register: 'Registracija',
+                        manageConsoles: 'Konsolių valdymas'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',
@@ -232,6 +248,20 @@ i18n
                         register: 'Skolintojų registracijos puslapis',
                         registerRequest: 'Pateikti besiskolinančio registracijos prašymą',
                         languages: 'Galimos kalbos: '
+                    },
+                    consoleManagementForm: {
+                        name: 'Pavadinimas',
+                        nameError: 'Reikia nurodyti pavadinimą',
+                        description: 'Aprašymas',
+                        descriptionError: 'Reikia nurodyti aprašymą',
+                        dailyPrice: 'Dieninis tarifas',
+                        dailypriceError: 'Reikia nurodyti dieninį tarifą',
+                        images: 'Nuotraukos',
+                        imagesError: 'Reikia įkelti bent 1 nuotrauką',
+                        update: 'Atnaujinti',
+                        create: 'Sukurti',
+                        newConsole: 'Nauja konsolė',
+                        new: 'Pridėti naują'
                     }
                 }
             }

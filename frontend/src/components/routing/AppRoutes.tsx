@@ -9,6 +9,9 @@ import BorrowerRegisterPage from '../../pages/BorrowerRegisterPage'
 import RegistrationApprovePage from '../../pages/RegistrationApprovePage'
 import FAQPage from '../../pages/FAQPage'
 import ContactInfoPage from '../../pages/ContactInfoPage'
+import ConsolesManagementPage from '../../pages/ConsolesManagementPage'
+import ConsoleManagementPage from '../../pages/ConsoleManagementPage'
+import CreateConsolePage from '../../pages/CreateConsolePage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -29,6 +32,9 @@ export default function AppRoutes() {
             <Route
                 element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/login" />}>
                 <Route path="/approveRegistrations" element={<RegistrationApprovePage />} />
+                <Route path="/admin/consoles" element={<ConsolesManagementPage />} />
+                <Route path="/admin/consoles/:id" element={<ConsoleManagementPage />} />
+                <Route path="/admin/consoles/new" element={<CreateConsolePage />} />
             </Route>
         </Routes>
     )

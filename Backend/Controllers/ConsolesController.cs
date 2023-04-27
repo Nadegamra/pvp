@@ -1,9 +1,7 @@
 ﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using Microsoft.Extensions.Options;
-using Backend.Properties;
+using Backend.Handlers;
+using Backend.Data.Views.Console;
 
 namespace Backend.Controllers
 {
@@ -11,37 +9,87 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ConsolesController: ControllerBase
     {
-        private readonly IOptions<CloudinaryConfig> config;
+        private readonly ConsolesHandler _handler;
 
-        public ConsolesController(IOptions<CloudinaryConfig> config)
+        public ConsolesController(ConsolesHandler handler)
         {
-            this.config = config;
+            _handler = handler;
         }
 
-        [HttpGet("download")]
-        public async Task<ActionResult> Download()
+        [HttpGet("getAll")]
+        public async Task<ActionResult> GetConsoles()
         {
-            using (WebClient client = new WebClient())
+            try
             {
-                var byteArr = client.DownloadData("https://res.cloudinary.com/drzqsbvky/image/upload/file1.jpg");
+                var result = await _handler.GetConsolesAsync();
 
-                return File(byteArr, "application/octet-stream","file1.jpg");
+                return Ok(result);
+
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
             
         }
-        [HttpPost("upload")]
-        public async Task<ActionResult<ImageUploadResult>> Upload(IFormFile file)
+        [HttpGet("get")]
+        public async Task<ActionResult<ImageUploadResult>> GetConsole(int id)
         {
-            var cloudinary = new Cloudinary(new Account(config.Value.Cloud, config.Value.ApiKey, config.Value.ApiSecret));
-
-            // Upload
-            var uploadParams = new ImageUploadParams()
+            try
             {
-                File = new FileDescription("file1.jpg", file.OpenReadStream()),
-                PublicId = "file1"
-            };
+                var result = await _handler.GetConsoleAsync(id);
 
-            return Ok(cloudinary.Upload(uploadParams));
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("add")]
+        public async Task<ActionResult> AddConsole(ConsoleDtoAdd consoleDto)
+        {
+            try
+            {
+
+                var result = await _handler.AddConsoleAsync(consoleDto);
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
+        }
+        [HttpPut("update")]
+        public async Task<ActionResult> UpdateConsole(ConsoleDtoUpdate consoleDto)
+        {
+            try
+            {
+                var result = await _handler.UpdateConsoleAsync(consoleDto);
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete("remove")]
+        public async Task<ActionResult<ImageUploadResult>> RemoveConsole(int id)
+        {
+            try
+            {
+                await _handler.RemoveConsoleAsync(id);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
