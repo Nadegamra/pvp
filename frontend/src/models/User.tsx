@@ -140,6 +140,26 @@ export class RegisterRequest {
     }
 }
 
+export class UserPasswordReset {
+    resetCode: string
+    newPassword: string
+
+    constructor(resetCode: string, newPassword: string) {
+        this.resetCode = resetCode
+        this.newPassword = newPassword
+    }
+}
+
+export class UserPasswordChange {
+    oldPassword: string
+    newPassword: string
+
+    constructor(resetCode: string, newPassword: string) {
+        this.oldPassword = resetCode
+        this.newPassword = newPassword
+    }
+}
+
 export enum UserRole {
     admin,
     lender,

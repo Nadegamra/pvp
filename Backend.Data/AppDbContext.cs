@@ -11,6 +11,9 @@ namespace Backend.Data
         public DbSet<Models.Console> Consoles  { get; set; }
         public DbSet<Accessory> Accessories { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<EmailChangeToken> EmailChangeTokens { get; set; }
+        public DbSet<EmailConfirmationToken> EmailConfirmationTokens { get; set; }
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
