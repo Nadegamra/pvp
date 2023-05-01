@@ -62,7 +62,7 @@ function ProfilePage() {
                     <div>
                         <div className="font-bold">{t('profile.newEmail')}</div>
                         <input
-                            className="bg-bg-primary border p-2 rounded-md"
+                            className="bg-bg-primary border p-2 rounded-md w-[300px]"
                             name="newEmail"
                             type="text"
                             placeholder={t('profile.enterNewEmail') ?? ''}
@@ -89,7 +89,7 @@ function ProfilePage() {
                     <hr className="pb-3" />
                     <div className="font-bold">{t('profile.currentPassword')}</div>
                     <input
-                        className="bg-bg-primary border p-2 rounded-md mb-3"
+                        className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
                         type="password"
                         placeholder={t('profile.enterCurrentPassword') ?? ''}
                         value={password}
@@ -97,7 +97,7 @@ function ProfilePage() {
                     />
                     <div className="font-bold">{t('profile.newPassword')}</div>
                     <input
-                        className="bg-bg-primary border p-2 rounded-md mb-1"
+                        className="bg-bg-primary border p-2 rounded-md mb-1 w-[300px]"
                         type="password"
                         placeholder={t('profile.enterNewPassword') ?? ''}
                         value={newPassword}
