@@ -168,6 +168,26 @@ export class UserEmailChange {
     }
 }
 
+export class UserPhysicalUpdate {
+    firstName: string
+    lastName: string
+
+    constructor(firstName: string, lastName: string) {
+        this.firstName = firstName
+        this.lastName = lastName
+    }
+}
+
+export class UserLegalUpdate {
+    companyCode: string
+    companyName: string
+
+    constructor(companyCode: string, companyName: string) {
+        this.companyCode = companyCode
+        this.companyName = companyName
+    }
+}
+
 export enum UserRole {
     admin,
     lender,

@@ -1,5 +1,11 @@
 import axios from 'axios'
-import { UserEmailChange, UserPasswordChange, UserPasswordReset } from '../models/User'
+import {
+    UserEmailChange,
+    UserLegalUpdate,
+    UserPasswordChange,
+    UserPasswordReset,
+    UserPhysicalUpdate
+} from '../models/User'
 
 const api = axios.create({
     baseURL: 'https://localhost:44351/Users/'
@@ -39,4 +45,12 @@ export async function getUnconfirmedEmails() {
 
 export async function changeEmail(token: string) {
     return api.post(`changeEmail/change`, { token: token }, headers)
+}
+
+export async function updatePhysical(data: UserPhysicalUpdate) {
+    return api.put(`account/physical/update`, data, headers)
+}
+
+export async function updateLegal(data: UserLegalUpdate) {
+    return api.put(`account/legal/update`, data, headers)
 }

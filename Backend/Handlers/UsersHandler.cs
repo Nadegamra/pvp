@@ -123,21 +123,24 @@ namespace Backend.Handlers
             await _context.SaveChangesAsync();
         }
 
-        public async Task<User> UpdatePersonalInfo(ClaimsPrincipal userClaims, User user)
+        public async Task UpdatePhysical(ClaimsPrincipal userClaims, UserPhysicalUpdate data)
         {
             User original = await _userManager.GetUserAsync(userClaims);
-            foreach (var info in user.GetType().GetProperties())
-            {
-                if (info.GetValue(user) == null || info.Name == "Id")
-                {
-                    continue;
-                }
-                info.SetValue(original, info.GetValue(user));
-            }
-            var result = _context.Users.Update(original);
+            original.FirstName = data.FirstName;
+            original.LastName = data.LastName;
+            _context.Users.Update(original);
             await _context.SaveChangesAsync();
+            return;
+        }
 
-            return result.Entity;
+        public async Task UpdateLegal(ClaimsPrincipal userClaims, UserLegalUpdate data)
+        {
+            User original = await _userManager.GetUserAsync(userClaims);
+            original.CompanyCode = data.CompanyCode;
+            original.CompanyName = data.CompanyName;
+            _context.Users.Update(original);
+            await _context.SaveChangesAsync();
+            return;
         }
 
         public async Task ChangePassword(ClaimsPrincipal userClaims, UserPasswordChange passwordInfo)

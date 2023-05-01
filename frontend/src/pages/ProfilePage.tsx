@@ -1,13 +1,31 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useTranslation } from 'react-i18next'
-import { changePassword, getUnconfirmedEmails, sendEmailChangeToken } from '../api/UsersApi'
-import { UserEmailChange, UserPasswordChange } from '../models/User'
+import {
+    changePassword,
+    getUnconfirmedEmails,
+    sendEmailChangeToken,
+    updateLegal,
+    updatePhysical
+} from '../api/UsersApi'
+import {
+    UserEmailChange,
+    UserLegalUpdate,
+    UserPasswordChange,
+    UserPhysicalUpdate
+} from '../models/User'
 
 function ProfilePage() {
     const { t } = useTranslation()
     const { user } = useAuth()
     const [unconfirmedEmails, setUnconfirmedEmails] = useState<string[]>()
+
+    const [firstName, setFirstName] = useState<string>(user?.firstName ?? '')
+    const [lastName, setLastName] = useState<string>(user?.lastName ?? '')
+    const [companyCode, setCompanyCode] = useState<string>(user?.companyCode ?? '')
+    const [companyName, setCompanyName] = useState<string>(user?.companyName ?? '')
+    const [infoLoading, setInfoLoading] = useState<boolean>(false)
+    const [infoMessage, setInfoMessage] = useState<string>('')
 
     const [email, setEmail] = useState<string>('')
     const [emailLoading, setEmailLoading] = useState<boolean>(false)
@@ -33,9 +51,41 @@ function ProfilePage() {
                         </div>
                         <hr className="pb-3" />
                         <div className="font-bold">{t('profile.firstName')}</div>
-                        <div className="pl-2 pb-3">{user?.firstName}</div>
+                        <input
+                            className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                        />
                         <div className="font-bold">{t('profile.lastName')}</div>
-                        <div className="pl-2">{user?.lastName}</div>
+                        <input
+                            className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                        />
+                        <button
+                            className="block bg-bg-extra p-2 rounded-md mt-5"
+                            onClick={() => {
+                                setInfoLoading(true)
+                                updatePhysical(new UserPhysicalUpdate(firstName, lastName))
+                                    .then(() => {
+                                        setInfoMessage(t('profile.dataSuccessMessage') ?? '')
+                                    })
+                                    .finally(() => {
+                                        setInfoLoading(false)
+                                    })
+                            }}>
+                            {t('profile.saveChanges')}
+                        </button>
+                        {infoMessage !== '' && (
+                            <div className="pt-4 text-fs-primary text-success-500">
+                                {infoMessage}
+                            </div>
+                        )}
+                        {infoLoading && (
+                            <div>
+                                <div className="w-8 h-8 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                            </div>
+                        )}
                     </div>
                 )}
                 {user !== undefined && user.isCompany && (
@@ -45,9 +95,41 @@ function ProfilePage() {
                         </div>
                         <hr className="pb-3" />
                         <div className="font-bold">{t('profile.companyCode')}</div>
-                        <div className="pl-2 pb-3">{user?.companyCode}</div>
+                        <input
+                            className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                            value={companyCode}
+                            onChange={(e) => setCompanyCode(e.target.value)}
+                        />
                         <div className="font-bold">{t('profile.companyName')}</div>
-                        <div className="pl-2">{user?.companyName}</div>
+                        <input
+                            className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                            value={companyName}
+                            onChange={(e) => setCompanyName(e.target.value)}
+                        />
+                        <button
+                            className="block bg-bg-extra p-2 rounded-md mt-5"
+                            onClick={() => {
+                                setInfoLoading(true)
+                                updateLegal(new UserLegalUpdate(companyCode, companyName))
+                                    .then(() => {
+                                        setInfoMessage(t('profile.dataSuccessMessage') ?? '')
+                                    })
+                                    .finally(() => {
+                                        setInfoLoading(false)
+                                    })
+                            }}>
+                            {t('profile.saveChanges')}
+                        </button>
+                        {infoMessage !== '' && (
+                            <div className="pt-4 text-fs-primary text-success-500">
+                                {infoMessage}
+                            </div>
+                        )}
+                        {infoLoading && (
+                            <div>
+                                <div className="w-8 h-8 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                            </div>
+                        )}
                     </div>
                 )}
                 <div>
@@ -79,10 +161,13 @@ function ProfilePage() {
                             onClick={() => {
                                 setEmailLoading(true)
                                 sendEmailChangeToken(new UserEmailChange(email)).then(() =>
-                                    getUnconfirmedEmails().then((response) => {
-                                        setUnconfirmedEmails(response.data)
-                                        setEmailLoading(false)
-                                    })
+                                    getUnconfirmedEmails()
+                                        .then((response) => {
+                                            setUnconfirmedEmails(response.data)
+                                        })
+                                        .finally(() => {
+                                            setEmailLoading(false)
+                                        })
                                 )
                             }}>
                             {t('profile.saveChanges')}
@@ -123,10 +208,10 @@ function ProfilePage() {
                             setPasswordError('')
                             changePassword(new UserPasswordChange(password, newPassword))
                                 .then(() => {
-                                    setPasswordMessage('Password has been changed successfully!')
+                                    setPasswordMessage(t('profile.passwordSuccessMessage') ?? '')
                                 })
                                 .catch(() => {
-                                    setPasswordError('Current password is incorrect')
+                                    setPasswordError(t('profile.passwordFailureMessage') ?? '')
                                 })
                                 .finally(() => {
                                     setPasswordLoading(false)

@@ -80,19 +80,34 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-        //[HttpPatch("account/personalInfo/update")]
-        //public async Task<ActionResult<UserGet>> UpdatePersonalInfo([FromBody] UserUpdate info)
-        //{
-        //    try
-        //    {
-        //        var result = await _handler.UpdatePersonalInfo(User, _mapper.Map<UserUpdate, User>(info));
-        //        return Ok(_mapper.Map<User, UserGet>(result));
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
+
+        [HttpPut("account/physical/update")]
+        public async Task<ActionResult> UpdatePhysical([FromBody]UserPhysicalUpdate data)
+        {
+            try
+            {
+                await _handler.UpdatePhysical(User, data);
+                return Ok();
+            }catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("account/legal/update")]
+        public async Task<ActionResult> UpdateLegal([FromBody] UserLegalUpdate data)
+        {
+            try
+            {
+                await _handler.UpdateLegal(User, data);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost("account/changePassword")]
         public async Task<ActionResult> ChangePassword([FromBody] UserPasswordChange passwordInfo)
         {

@@ -97,12 +97,13 @@ i18n
                         enterNewPassword: 'Enter new password',
                         saveChanges: 'Save changes',
                         emailStatus: 'Email status',
-                        confirmed: 'CONFIRMED',
-                        unconfirmed: 'UNCONFIRMED',
                         firstName: 'First name',
                         lastName: 'Last name',
                         companyCode: 'Company code',
-                        companyName: 'Company name'
+                        companyName: 'Company name',
+                        dataSuccessMessage: 'Data has been updated successfully',
+                        passwordSuccessMessage: 'Password has been changed successfully',
+                        passwordFailureMessage: 'Current password is incorrect'
                     },
                     home: {
                         title1: 'Console Rental',
@@ -243,12 +244,13 @@ i18n
                         enterNewPassword: 'Įveskiti naują slaptažodį',
                         saveChanges: 'Išsaugoti pakeitimus',
                         emailStatus: 'El pašto būsena',
-                        confirmed: 'PATVIRTINTA',
-                        unconfirmed: 'NEPATVIRTINTA',
                         firstName: 'Vardas',
                         lastName: 'Pavardė',
                         companyCode: 'Įmonės kodas',
-                        companyName: 'Įmonės pavadinimas'
+                        companyName: 'Įmonės pavadinimas',
+                        dataSuccessMessage: 'Duomenys atnaujinti sėkmingai',
+                        passwordSuccessMessage: 'Slaptažodis pakeistas sėkmingai',
+                        passwordFailureMessage: 'Neteisingas dabartinis slaptažodis'
                     },
                     home: {
                         title1: 'Konsolių nuoma',
