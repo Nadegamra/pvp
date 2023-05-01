@@ -10,9 +10,13 @@ function ProfilePage() {
     const [unconfirmedEmails, setUnconfirmedEmails] = useState<string[]>()
 
     const [email, setEmail] = useState<string>('')
+    const [emailLoading, setEmailLoading] = useState<boolean>(false)
 
     const [password, setPassword] = useState<string>('')
     const [newPassword, setNewPassword] = useState<string>('')
+    const [passwordLoading, setPasswordLoading] = useState<boolean>(false)
+    const [passwordMessage, setPasswordMessage] = useState<string>('')
+    const [passwordError, setPasswordError] = useState<string>('')
 
     useEffect(() => {
         getUnconfirmedEmails().then((response) => {
@@ -21,7 +25,7 @@ function ProfilePage() {
     }, [])
     return (
         <div className="flex justify-center content-center">
-            <div className="w-[30rem] mt-20 rounded-lg p-5">
+            <div className="w-[30rem] mt-20 rounded-lg p-5 pb-20">
                 {user !== undefined && !user.isCompany && (
                     <div>
                         <div className="font-bold text-left text-[25px]">
@@ -64,6 +68,7 @@ function ProfilePage() {
                         <input
                             className="bg-bg-primary border p-2 rounded-md w-[300px]"
                             name="newEmail"
+                            disabled={emailLoading}
                             type="text"
                             placeholder={t('profile.enterNewEmail') ?? ''}
                             value={email}
@@ -71,15 +76,22 @@ function ProfilePage() {
                         />
                         <button
                             className="block bg-bg-extra p-2 rounded-md mt-5"
-                            onClick={() =>
+                            onClick={() => {
+                                setEmailLoading(true)
                                 sendEmailChangeToken(new UserEmailChange(email)).then(() =>
                                     getUnconfirmedEmails().then((response) => {
                                         setUnconfirmedEmails(response.data)
+                                        setEmailLoading(false)
                                     })
                                 )
-                            }>
+                            }}>
                             {t('profile.saveChanges')}
                         </button>
+                        {emailLoading && (
+                            <div>
+                                <div className="w-8 h-8 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div>
@@ -105,11 +117,36 @@ function ProfilePage() {
                     />
                     <button
                         className="block bg-bg-extra p-2 rounded-md mt-5"
-                        onClick={() =>
+                        onClick={() => {
+                            setPasswordLoading(true)
+                            setPasswordMessage('')
+                            setPasswordError('')
                             changePassword(new UserPasswordChange(password, newPassword))
-                        }>
+                                .then(() => {
+                                    setPasswordMessage('Password has been changed successfully!')
+                                })
+                                .catch(() => {
+                                    setPasswordError('Current password is incorrect')
+                                })
+                                .finally(() => {
+                                    setPasswordLoading(false)
+                                })
+                        }}>
                         {t('profile.saveChanges')}
                     </button>
+                    {passwordMessage !== '' && (
+                        <div className="pt-4 text-fs-primary text-success-500">
+                            {passwordMessage}
+                        </div>
+                    )}
+                    {passwordError !== '' && (
+                        <div className="pt-4 text-fs-primary text-danger-500">{passwordError}</div>
+                    )}
+                    {passwordLoading && (
+                        <div>
+                            <div className="w-8 h-8 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
