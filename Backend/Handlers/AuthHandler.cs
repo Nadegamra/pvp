@@ -37,6 +37,10 @@ namespace Backend.Handlers
         public async Task<UserGet> Login(UserLogin data)
         {
             var user = await GetUser(data);
+            if (!user.EmailConfirmed)
+            {
+                throw new ArgumentException("Email has not been confirmed yet");
+            }
             var signInResult = await _signInManager.PasswordSignInAsync(user, data.Password, data.RememberPassword, false);
 
             if (!signInResult.Succeeded)

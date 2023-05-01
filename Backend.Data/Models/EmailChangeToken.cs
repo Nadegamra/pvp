@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Data.Models
 {
-    public class EmailChangeToken
+    public class EmailChangeToken: BaseModel
     {
         [ForeignKey("User")]
         public int? UserId { get; set; }

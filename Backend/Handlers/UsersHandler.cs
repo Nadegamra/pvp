@@ -51,7 +51,7 @@ namespace Backend.Handlers
                 Body = $"<div>If you have not created this account, you can ignore this email.<br/>Your email confirmation link:<br/>http://localhost:3000/confirmEmail/{item.Entity.Token}</div>",
                 IsBodyHtml = true,
             };
-            mailMessage.To.Add("karolis.zukaus@gmail.com");
+            mailMessage.To.Add(_config.Value.TestEmail);
 
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
@@ -99,7 +99,7 @@ namespace Backend.Handlers
                 Body = $"<div>If you have not requested a password reset, you can ignore this email.<br/>Your password reset link:<br/>http://localhost:3000/resetPassword/{token.Token}</div>",
                 IsBodyHtml = true,
             };
-            mailMessage.To.Add("karolis.zukaus@gmail.com");
+            mailMessage.To.Add(_config.Value.TestEmail);
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
@@ -169,7 +169,7 @@ namespace Backend.Handlers
                 Body = $"<div>You have requested to change your email to {newEmail}. If you have not initiated this action, you can ignore this email.<br/>Your email change link:<br/>http://localhost:3000/account/changeEmail/{token.Token}</div>",
                 IsBodyHtml = true,
             };
-            mailMessage.To.Add("karolis.zukaus@gmail.com");
+            mailMessage.To.Add(_config.Value.TestEmail);
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
@@ -201,7 +201,7 @@ namespace Backend.Handlers
             user.EmailConfirmed = false;
             await _userManager.UpdateAsync(user);
 
-            await SendConfirmationEmail(userClaims);
+            await SendConfirmationEmail(user);
         }
     }
 }

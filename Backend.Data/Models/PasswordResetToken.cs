@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Data.Models
 {
-    public class PasswordResetToken
+    public class PasswordResetToken: BaseModel
     {
         [ForeignKey("User")]
         public int? UserId { get; set; }
