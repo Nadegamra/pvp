@@ -1,52 +1,104 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useTranslation } from 'react-i18next'
+import { getUnconfirmedEmails, sendEmailChangeToken } from '../api/UsersApi'
+import { UserEmailChange } from '../models/User'
 
 function ProfilePage() {
     const { t } = useTranslation()
     const { user } = useAuth()
+    const [unconfirmedEmails, setUnconfirmedEmails] = useState<string[]>()
+
+    const [email, setEmail] = useState<string>('')
     useEffect(() => {
-        console.log(user)
+        getUnconfirmedEmails().then((response) => {
+            setUnconfirmedEmails(response.data)
+        })
     }, [])
     return (
         <div className="flex justify-center content-center">
-            <div className="text-t-primary bg-bg-secondary w-[30rem] mt-20 rounded-lg p-5">
-                <div className="font-bold text-center text-[25px]">{t('profile.profile')}</div>
-                <div>
-                    {t('profile.email')}
-                    {user?.email}
-                </div>
-                <div>
-                    {t('profile.emailStatus')}
-                    {user?.emailConfirmed ?? false ? (
-                        <span className="text-success-500">{t('profile.confirmed')}</span>
-                    ) : (
-                        <span className="text-danger-500">{t('profile.unconfirmed')}</span>
-                    )}
-                </div>
-                {user !== undefined && !user.isCompany ? (
+            <div className="w-[30rem] mt-20 rounded-lg p-5">
+                {user !== undefined && !user.isCompany && (
                     <div>
-                        <div>
-                            {t('profile.firstName')}
-                            {user?.firstName}
+                        <div className="font-bold text-left text-[25px]">
+                            {t('profile.personalInfo')}
                         </div>
-                        <div>
-                            {t('profile.lastName')}
-                            {user?.lastName}
-                        </div>
-                    </div>
-                ) : (
-                    <div>
-                        <div>
-                            {t('profile.companyCode')}
-                            {user?.companyCode}
-                        </div>
-                        <div>
-                            {t('profile.companyName')}
-                            {user?.companyName}
-                        </div>
+                        <hr className="pb-3" />
+                        <div className="font-bold">{t('profile.firstName')}</div>
+                        <div className="pl-2 pb-3">{user?.firstName}</div>
+                        <div className="font-bold">{t('profile.lastName')}</div>
+                        <div className="pl-2">{user?.lastName}</div>
                     </div>
                 )}
+                {user !== undefined && user.isCompany && (
+                    <div>
+                        <div className="font-bold text-left text-[25px]">
+                            {t('profile.companyInfo')}
+                        </div>
+                        <hr className="pb-3" />
+                        <div className="font-bold">{t('profile.companyCode')}</div>
+                        <div className="pl-2 pb-3">{user?.companyCode}</div>
+                        <div className="font-bold">{t('profile.companyName')}</div>
+                        <div className="pl-2">{user?.companyName}</div>
+                    </div>
+                )}
+                <div>
+                    <div className="font-bold text-left text-[25px] pt-5">{t('profile.email')}</div>
+                    <hr className="pb-2" />
+                    <div className="font-bold">{t('profile.currentEmail')}</div>
+                    <div className="pl-2 pb-3">{user?.email}</div>
+                    {(unconfirmedEmails?.length ?? 0) > 0 && (
+                        <div>
+                            <div className="font-bold">{t('profile.unconfirmedEmails')}</div>
+                            {unconfirmedEmails?.map((email) => (
+                                <div className="pl-2 pb-3">{email}</div>
+                            ))}
+                        </div>
+                    )}
+                    <div>
+                        <div className="font-bold">{t('profile.newEmail')}</div>
+                        <input
+                            className="bg-bg-primary border p-2 rounded-md"
+                            name="newEmail"
+                            type="text"
+                            placeholder={t('profile.enterNewEmail') ?? ''}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <button
+                            className="block bg-bg-extra p-2 rounded-md mt-5"
+                            onClick={() =>
+                                sendEmailChangeToken(new UserEmailChange(email)).then(() =>
+                                    getUnconfirmedEmails().then((response) => {
+                                        setUnconfirmedEmails(response.data)
+                                    })
+                                )
+                            }>
+                            {t('profile.saveChanges')}
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <div className="font-bold text-left text-[25px] pt-5">
+                        {t('profile.security')}
+                    </div>
+                    <hr className="pb-3" />
+                    <div className="font-bold">{t('profile.currentPassword')}</div>
+                    <input
+                        className="bg-bg-primary border p-2 rounded-md mb-3"
+                        type="text"
+                        placeholder={t('profile.enterCurrentPassword') ?? ''}
+                    />
+                    <div className="font-bold">{t('profile.newPassword')}</div>
+                    <input
+                        className="bg-bg-primary border p-2 rounded-md mb-1"
+                        type="text"
+                        placeholder={t('profile.enterNewPassword') ?? ''}
+                    />
+                    <button className="block bg-bg-extra p-2 rounded-md mt-5">
+                        {t('profile.saveChanges')}
+                    </button>
+                </div>
             </div>
         </div>
     )

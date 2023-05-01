@@ -13,6 +13,7 @@ import ConsolesManagementPage from '../../pages/ConsolesManagementPage'
 import ConsoleManagementPage from '../../pages/ConsoleManagementPage'
 import CreateConsolePage from '../../pages/CreateConsolePage'
 import EmailConfirmationPage from '../../pages/EmailConfirmationPage'
+import EmailChangePage from '../../pages/EmailChangePage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -22,6 +23,7 @@ export default function AppRoutes() {
             <Route path="/" element={<HomePage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contacts" element={<ContactInfoPage />} />
+            <Route path="/changeEmail/:token" element={<EmailChangePage />} />
             <Route element={<AppRoute condition={user === undefined} redirectionPath="/" />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<LenderRegisterPage />} />

@@ -160,6 +160,14 @@ export class UserPasswordChange {
     }
 }
 
+export class UserEmailChange {
+    newEmail: string
+
+    constructor(newEmail: string) {
+        this.newEmail = newEmail
+    }
+}
+
 export enum UserRole {
     admin,
     lender,

@@ -107,11 +107,11 @@ namespace Backend.Controllers
             }
         }
         [HttpPost("changeEmail/send")]
-        public async Task<ActionResult> SendEmailChangeToken([FromBody] string newEmail)
+        public async Task<ActionResult> SendEmailChangeToken([FromBody] UserEmailChange data)
         {
             try
             {
-                await _handler.SendEmailAddressChangeEmail(User, newEmail);
+                await _handler.SendEmailAddressChangeEmail(User, data.NewEmail);
                 return Ok();
             }
             catch (Exception e)
@@ -119,13 +119,28 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpPost("changeEmail/change")]
-        public async Task<ActionResult> ChangeEmail([FromBody] string token)
+
+        [HttpGet("changeEmail/getUnconfirmed")]
+        public async Task<ActionResult> GetUnconfirmedEmails()
         {
             try
             {
-                token = token.Replace('_', '/');
-                await _handler.ChangeEmail(User, token);
+                var emails = await _handler.GetUnconfirmedEmails(User);
+                return Ok(emails);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost("changeEmail/change")]
+        public async Task<ActionResult> ChangeEmail([FromBody] UserEmailConfirmation token)
+        {
+            try
+            {
+                token.Token = token.Token.Replace('_', '/');
+                await _handler.ChangeEmail(token.Token);
                 return Ok();
             }
             catch (Exception e)

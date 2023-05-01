@@ -11,13 +11,13 @@ import './components/languages/I18n'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-    <React.StrictMode>
-        <AuthProvider>
-            <HeaderProvider>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </HeaderProvider>
-        </AuthProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <AuthProvider>
+        <HeaderProvider>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </HeaderProvider>
+    </AuthProvider>
+    // </React.StrictMode>
 )

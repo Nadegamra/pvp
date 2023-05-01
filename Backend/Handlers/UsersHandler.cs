@@ -166,10 +166,10 @@ namespace Backend.Handlers
             {
                 From = new MailAddress("ispagrindai945@gmail.com"),
                 Subject = "Email Change",
-                Body = $"<div>You have requested to change your email to {newEmail}. If you have not initiated this action, you can ignore this email.<br/>Your email change link:<br/>http://localhost:3000/account/changeEmail/{token.Token.Replace('/', '_')}</div>",
+                Body = $"<div>You have requested to change your email to {newEmail}. If you have not initiated this action, you can ignore this email.<br/>Your email change link:<br/>http://localhost:3000/changeEmail/{token.Token.Replace('/', '_')}</div>",
                 IsBodyHtml = true,
             };
-            mailMessage.To.Add(_config.Value.TestEmail);
+            mailMessage.To.Add(_config.Value.TestEmail);// Replace with newEmail
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
@@ -180,28 +180,32 @@ namespace Backend.Handlers
             return;
         }
 
-        public async Task ChangeEmail(ClaimsPrincipal userClaims, string token)
+        public async Task<List<string>> GetUnconfirmedEmails(ClaimsPrincipal userClaims)
         {
             User user = await _userManager.GetUserAsync(userClaims);
-            EmailChangeToken? tokenObj = await _context.EmailChangeTokens.Where(x => x.UserId == user.Id).FirstOrDefaultAsync();
+            return _context.EmailChangeTokens.Select(x => x.NewEmail).ToList();
+        }
+
+        public async Task ChangeEmail(string token)
+        {
+            EmailChangeToken? tokenObj = await _context.EmailChangeTokens.Where(x => x.Token == token).FirstOrDefaultAsync();
             if (tokenObj == null)
             {
-                throw new Exception("You have not requested an emaail change");
+                throw new Exception("The token is incorrect");
             }
-            if (tokenObj.Token != token)
-            {
-                throw new Exception("Invalid action");
-            }
+            User user = await _userManager.FindByIdAsync(tokenObj.UserId.ToString());
             var result = await _userManager.ChangeEmailAsync(user, tokenObj.NewEmail, token);
             if (!result.Succeeded)
             {
                 throw new Exception(result.Errors.First().Description);
             }
 
-            user.EmailConfirmed = false;
+            user.UserName = user.Email;
+            user.NormalizedUserName = user.NormalizedEmail;
             await _userManager.UpdateAsync(user);
 
-            await SendConfirmationEmail(user);
+            _context.EmailChangeTokens.Remove(tokenObj);
+            await _context.SaveChangesAsync();
         }
     }
 }

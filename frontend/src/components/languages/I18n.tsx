@@ -83,15 +83,26 @@ i18n
                         a14: 'Yes'
                     },
                     profile: {
-                        profile: 'Profile',
-                        email: 'Email: ',
-                        emailStatus: 'Email status: ',
+                        personalInfo: 'Personal information',
+                        companyInfo: 'Company information',
+                        email: 'Email',
+                        currentEmail: 'Current email',
+                        unconfirmedEmails: 'Unconfirmed emails',
+                        newEmail: 'New email address',
+                        enterNewEmail: 'Enter new email address',
+                        security: 'Security',
+                        currentPassword: 'Current password',
+                        enterCurrentPassword: 'Enter current password',
+                        newPassword: 'New password',
+                        enterNewPassword: 'Enter new password',
+                        saveChanges: 'Save changes',
+                        emailStatus: 'Email status',
                         confirmed: 'CONFIRMED',
                         unconfirmed: 'UNCONFIRMED',
-                        firstName: 'First name: ',
-                        lastName: 'Last name: ',
-                        companyCode: 'Company code: ',
-                        companyName: 'Company name: '
+                        firstName: 'First name',
+                        lastName: 'Last name',
+                        companyCode: 'Company code',
+                        companyName: 'Company name'
                     },
                     home: {
                         title1: 'Console Rental',
@@ -143,6 +154,11 @@ i18n
                         success: 'The email has been confirmed. You can now ',
                         login: 'login',
                         failure: 'The email confirmation code is invalid or expired.'
+                    },
+                    emailChange: {
+                        success: 'The email has been changed. You can now ',
+                        login: 'login',
+                        failure: 'The email change code is invalid or expired.'
                     }
                 }
             },
@@ -213,15 +229,26 @@ i18n
                         a14: 'Taip'
                     },
                     profile: {
-                        profile: 'Profilis',
-                        email: 'El paštas: ',
-                        emailStatus: 'El pašto būsena: ',
+                        personalInfo: 'Asmeninė informacija',
+                        companyInfo: 'Įmonės informacija',
+                        email: 'El. pašto adresas',
+                        currentEmail: 'Dabartinis el. pašto adresas',
+                        unconfirmedEmails: 'Nepatvirtinti el. pašto adresai',
+                        newEmail: 'Naujas el. pašto adresas',
+                        enterNewEmail: 'Įveskite naują el. pašto adresą',
+                        security: 'Sauga',
+                        currentPassword: 'Dabartinis slaptažodis',
+                        enterCurrentPassword: 'Įveskite dabartinį slaptažodį',
+                        newPassword: 'Naujas slaptažodis',
+                        enterNewPassword: 'Įveskiti naują slaptažodį',
+                        saveChanges: 'Išsaugoti pakeitimus',
+                        emailStatus: 'El pašto būsena',
                         confirmed: 'PATVIRTINTA',
                         unconfirmed: 'NEPATVIRTINTA',
-                        firstName: 'Vardas: ',
-                        lastName: 'Pavardė: ',
-                        companyCode: 'Įmonės kodas: ',
-                        companyName: 'Įmonės pavadinimas: '
+                        firstName: 'Vardas',
+                        lastName: 'Pavardė',
+                        companyCode: 'Įmonės kodas',
+                        companyName: 'Įmonės pavadinimas'
                     },
                     home: {
                         title1: 'Konsolių nuoma',
@@ -273,6 +300,12 @@ i18n
                         login: 'prisijungti',
                         failure:
                             'Elektroninio pašto patvirtinimo kodas yra neteisingas arba pasibaigusio galiojimo.'
+                    },
+                    emailChange: {
+                        success: 'Elektroninis paštas sėkmingai pakeistas. Dabar galite ',
+                        login: 'prisijungti',
+                        failure:
+                            'Elektroninio pašto pakeitimo kodas yra neteisingas arba pasibaigusio galiojimo.'
                     }
                 }
             }
