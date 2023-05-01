@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useTranslation } from 'react-i18next'
-import { getUnconfirmedEmails, sendEmailChangeToken } from '../api/UsersApi'
-import { UserEmailChange } from '../models/User'
+import { changePassword, getUnconfirmedEmails, sendEmailChangeToken } from '../api/UsersApi'
+import { UserEmailChange, UserPasswordChange } from '../models/User'
 
 function ProfilePage() {
     const { t } = useTranslation()
@@ -10,6 +10,10 @@ function ProfilePage() {
     const [unconfirmedEmails, setUnconfirmedEmails] = useState<string[]>()
 
     const [email, setEmail] = useState<string>('')
+
+    const [password, setPassword] = useState<string>('')
+    const [newPassword, setNewPassword] = useState<string>('')
+
     useEffect(() => {
         getUnconfirmedEmails().then((response) => {
             setUnconfirmedEmails(response.data)
@@ -86,16 +90,24 @@ function ProfilePage() {
                     <div className="font-bold">{t('profile.currentPassword')}</div>
                     <input
                         className="bg-bg-primary border p-2 rounded-md mb-3"
-                        type="text"
+                        type="password"
                         placeholder={t('profile.enterCurrentPassword') ?? ''}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                     <div className="font-bold">{t('profile.newPassword')}</div>
                     <input
                         className="bg-bg-primary border p-2 rounded-md mb-1"
-                        type="text"
+                        type="password"
                         placeholder={t('profile.enterNewPassword') ?? ''}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
                     />
-                    <button className="block bg-bg-extra p-2 rounded-md mt-5">
+                    <button
+                        className="block bg-bg-extra p-2 rounded-md mt-5"
+                        onClick={() =>
+                            changePassword(new UserPasswordChange(password, newPassword))
+                        }>
                         {t('profile.saveChanges')}
                     </button>
                 </div>
