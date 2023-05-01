@@ -48,7 +48,7 @@ namespace Backend.Handlers
             {
                 From = new MailAddress(_config.Value.Username),
                 Subject = "Account confirmation",
-                Body = $"<div>If you have not created this account, you can ignore this email.<br/>Your email confirmation link:<br/>http://localhost:3000/confirmEmail/{item.Entity.Token}</div>",
+                Body = $"<div>If you have not created this account, you can ignore this email.<br/>Your email confirmation link:<br/>http://localhost:3000/confirmEmail/{item.Entity.Token.Replace('/','_')}</div>",
                 IsBodyHtml = true,
             };
             mailMessage.To.Add(_config.Value.TestEmail);
@@ -96,7 +96,7 @@ namespace Backend.Handlers
             {
                 From = new MailAddress(_config.Value.Username),
                 Subject = "Password reset",
-                Body = $"<div>If you have not requested a password reset, you can ignore this email.<br/>Your password reset link:<br/>http://localhost:3000/resetPassword/{token.Token}</div>",
+                Body = $"<div>If you have not requested a password reset, you can ignore this email.<br/>Your password reset link:<br/>http://localhost:3000/resetPassword/{token.Token.Replace('/', '_')}</div>",
                 IsBodyHtml = true,
             };
             mailMessage.To.Add(_config.Value.TestEmail);
@@ -166,7 +166,7 @@ namespace Backend.Handlers
             {
                 From = new MailAddress("ispagrindai945@gmail.com"),
                 Subject = "Email Change",
-                Body = $"<div>You have requested to change your email to {newEmail}. If you have not initiated this action, you can ignore this email.<br/>Your email change link:<br/>http://localhost:3000/account/changeEmail/{token.Token}</div>",
+                Body = $"<div>You have requested to change your email to {newEmail}. If you have not initiated this action, you can ignore this email.<br/>Your email change link:<br/>http://localhost:3000/account/changeEmail/{token.Token.Replace('/', '_')}</div>",
                 IsBodyHtml = true,
             };
             mailMessage.To.Add(_config.Value.TestEmail);

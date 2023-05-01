@@ -13,8 +13,8 @@ export async function getAllUsers(rolename?: string) {
     return api.get(`admin/getAll?${rolename != undefined ? `roleName=${rolename}` : ''}`, headers)
 }
 
-export async function confirmEmail(confirmationCode: string) {
-    return api.post(`confirmEmail`, confirmationCode, headers)
+export async function confirmEmail(token: string) {
+    return api.post(`confirmEmail`, { token: token }, headers)
 }
 
 export async function sendPasswordResetEmail(email: string) {

@@ -37,11 +37,12 @@ namespace Backend.Controllers
         }
 
         [HttpPost("confirmEmail")]
-        public async Task<ActionResult> ConfirmEmail([FromBody] string confirmationCode)
+        public async Task<ActionResult> ConfirmEmail([FromBody] UserEmailConfirmation token)
         {
             try
             {
-                await _handler.ConfirmEmail(confirmationCode);
+                token.Token = token.Token.Replace('_', '/');
+                await _handler.ConfirmEmail(token.Token);
                 return Ok();
             }
             catch (Exception e)
@@ -70,6 +71,7 @@ namespace Backend.Controllers
         {
             try
             {
+                info.ResetCode = info.ResetCode.Replace('_', '/');
                 await _handler.ResetPassword(info.ResetCode, info.NewPassword);
                 return Ok();
             }
@@ -122,6 +124,7 @@ namespace Backend.Controllers
         {
             try
             {
+                token = token.Replace('_', '/');
                 await _handler.ChangeEmail(User, token);
                 return Ok();
             }

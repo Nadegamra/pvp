@@ -39,6 +39,7 @@ export default function LenderRegisterPage() {
             )
                 .then(() => {
                     setLoading(false)
+                    setMessage('Please check your email for confirmation code')
                 })
                 .catch((error) => setError(error))
         } else {
@@ -53,11 +54,13 @@ export default function LenderRegisterPage() {
             )
                 .then(() => {
                     setLoading(false)
+                    setMessage('Please check your email for confirmation code')
                 })
                 .catch((error) => setError(error))
         }
     }
     const [error, setError] = useState('')
+    const [message, setMessage] = useState('')
     const [loading, setLoading] = useState<boolean>(false)
 
     return (
@@ -182,6 +185,9 @@ export default function LenderRegisterPage() {
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>
+            {error === '' && (
+                <div className="pt-4 text-fs-primary text-success-500 text-center">{message}</div>
+            )}
             {loading && (
                 <div className="flex items-center justify-center pt-10">
                     <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>

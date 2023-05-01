@@ -138,6 +138,11 @@ i18n
                         create: 'Create',
                         newConsole: 'New Console',
                         new: 'New'
+                    },
+                    emailConfirmation: {
+                        success: 'The email has been confirmed. You can now ',
+                        login: 'login',
+                        failure: 'The email confirmation code is invalid or expired.'
                     }
                 }
             },
@@ -262,6 +267,12 @@ i18n
                         create: 'Sukurti',
                         newConsole: 'Nauja konsolė',
                         new: 'Pridėti naują'
+                    },
+                    emailConfirmation: {
+                        success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',
+                        login: 'prisijungti',
+                        failure:
+                            'Elektroninio pašto patvirtinimo kodas yra neteisingas arba pasibaigusio galiojimo.'
                     }
                 }
             }
