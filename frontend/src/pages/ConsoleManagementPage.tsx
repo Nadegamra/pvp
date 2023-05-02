@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import { getConsole, updateConsole } from '../api/ConsolesApi'
 import { useForm } from 'react-hook-form'
 import { imagePathToURL } from '../models/Image'
-import 'pure-react-carousel/dist/react-carousel.es.css'
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'
+import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 import { useTranslation } from 'react-i18next'
+import { Carousel } from 'react-responsive-carousel'
 
 interface Props {
     name: string
@@ -38,32 +38,21 @@ function ConsoleManagementPage() {
 
     return (
         <div className="flex flex-row">
-            <div className="w-[500px] h-[400px] m-10 bg-bg-tertiary">
-                <CarouselProvider
-                    naturalSlideWidth={500}
-                    naturalSlideHeight={400}
-                    totalSlides={console?.images.length ?? 0}>
-                    <Slider>
-                        {console?.images.map((image, index) => (
-                            <Slide index={index}>
-                                <img
-                                    alt={image.name}
-                                    src={imagePathToURL(image.path, 500)}
-                                    className="rounded-lg"
-                                />
-                            </Slide>
-                        ))}
-                    </Slider>
-                    <ButtonBack className="translate-y-[-200px] translate-x-[-20px] text-fs-h1">
-                        {'<'}
-                    </ButtonBack>
-                    <ButtonNext className="translate-y-[-200px] translate-x-[500px] text-fs-h1">
-                        {'>'}
-                    </ButtonNext>
-                </CarouselProvider>
+            <div className="m-10 mr-32">
+                <Carousel className="w-[800px] my-auto">
+                    {console?.images.map((image) => (
+                        <div>
+                            <img
+                                alt={image.name}
+                                src={imagePathToURL(image.path, 800)}
+                                className="rounded-lg"
+                            />
+                        </div>
+                    ))}
+                </Carousel>
             </div>
             <form
-                className="flex flex-col items-center select-none bg-bg-primary text-t-primary pt-10"
+                className="select-none bg-bg-primary text-t-primary pt-20"
                 onSubmit={handleSubmit(async (data) => {
                     setError('')
                     await updateConsole(
@@ -77,53 +66,55 @@ function ConsoleManagementPage() {
                     )
                     window.location.reload()
                 })}>
-                <div className="bg-bg-secondary p-7 rounded w-[400px]">
-                    <div className="py-6 text-fs-h1 text-center">{console?.name}</div>
-
-                    <div className="flex flex-col mx-[10px]">
-                        <input
-                            className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
-                            type="text"
-                            {...register('name', { required: true })}
-                            placeholder={t('consoleManagementForm.name') ?? ''}
-                        />
+                <div className="pt-6 text-fs-h1 text-center">{console?.name}</div>
+                <hr className="pb-3" />
+                <div>
+                    <div className="font-bold text-left">Name</div>
+                    <input
+                        className="bg-bg-primary border p-2 rounded-md w-[300px] mb-3"
+                        type="text"
+                        {...register('name', { required: true })}
+                        placeholder={t('consoleManagementForm.name') ?? ''}
+                    />
+                    {errors.name?.type === 'required' && (
                         <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                            {errors.name?.type === 'required'
-                                ? t('consoleManagementForm.nameError')
-                                : ''}
+                            {t('consoleManagementForm.nameError')}
                         </p>
+                    )}
 
-                        <input
-                            className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
-                            type="text"
-                            {...register('description', { required: true })}
-                            placeholder={t('consoleManagementForm.description') ?? ''}
-                        />
+                    <div className="font-bold text-left">Description</div>
+                    <input
+                        className="bg-bg-primary border p-2 rounded-md w-[300px] mb-3"
+                        type="text"
+                        {...register('description', { required: true })}
+                        placeholder={t('consoleManagementForm.description') ?? ''}
+                    />
+                    {errors.description?.type === 'required' && (
                         <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                            {errors.description?.type === 'required'
-                                ? t('consoleManagementForm.descriptionError')
-                                : ''}
+                            t('consoleManagementForm.descriptionError')
                         </p>
+                    )}
 
-                        <input
-                            className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
-                            type="number"
-                            {...register('dailyPrice', { required: true })}
-                            placeholder={t('consoleManagementForm.dailyPrice') ?? ''}
-                        />
+                    <div className="font-bold text-left">Daily price</div>
+                    <input
+                        className="bg-bg-primary border p-2 rounded-md w-[300px] mb-3"
+                        type="number"
+                        {...register('dailyPrice', { required: true })}
+                        placeholder={t('consoleManagementForm.dailyPrice') ?? ''}
+                    />
+                    {errors.dailyPrice?.type === 'required' && (
                         <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                            {errors.dailyPrice?.type === 'required'
-                                ? t('consoleManagementForm.dailyPrice')
-                                : ''}
+                            t('consoleManagementForm.dailyPrice')
                         </p>
+                    )}
 
-                        <div className="flex flex-col items-center pt-5 text-fs-h2">
-                            <button className="bg-bg-extra py-1 px-7 rounded" type="submit">
-                                {t('consoleManagementForm.update') ?? ''}
-                            </button>
-                        </div>
+                    <div className="flex flex-col items-center pt-5 text-fs-h2">
+                        <button className="bg-bg-extra py-1 px-7 rounded" type="submit">
+                            {t('consoleManagementForm.update') ?? ''}
+                        </button>
                     </div>
                 </div>
+
                 <div className="text-fs-primary text-danger-500 text-center">{error}</div>
             </form>
         </div>

@@ -80,7 +80,7 @@ function Header() {
                     <ReactCountryFlag countryCode="GB" svg />
                     en
                 </button>
-                <button className="pr-4" value="lt" onClick={() => i18n.changeLanguage('lt')}>
+                <button className="pr-6" value="lt" onClick={() => i18n.changeLanguage('lt')}>
                     <ReactCountryFlag countryCode="LT" svg />
                     lt
                 </button>
@@ -98,7 +98,7 @@ function Header() {
                     <div className="mr-7 my-auto ml-3">
                         <button>
                             <span
-                                className="material-symbols-outlined  cursor-pointer select-none"
+                                className="material-symbols-outlined cursor-pointer select-none"
                                 onClick={() =>
                                     header.profileShown ? header.hideAll() : header.showProfile()
                                 }>
