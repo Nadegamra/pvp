@@ -12,7 +12,7 @@ function ProfilePage() {
 
     return (
         <div className="flex justify-center content-center">
-            <div className="w-[45rem] mt-20 rounded-lg p-5 pb-20">
+            <div className="w-[45rem] mt-10 rounded-lg p-5 pb-20">
                 {user !== undefined && !user.isCompany && (
                     <div>
                         <div className="font-bold text-left text-[25px]">

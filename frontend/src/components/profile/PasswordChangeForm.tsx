@@ -46,7 +46,7 @@ function PasswordChangeForm() {
             })}>
             <div className="font-bold">{t('passwordChangeForm.currentPassword')}</div>
             <input
-                className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                className="bg-bg-primary border p-2 rounded-md mb-1 w-[300px]"
                 type="password"
                 placeholder={t('passwordChangeForm.enterCurrentPassword') ?? ''}
                 {...register('password', { required: true })}
