@@ -1,4 +1,3 @@
-import { useAuth } from '../contexts/AuthContext'
 import { RegisterLegal, RegisterPhysical } from '../models/User'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
@@ -25,6 +24,7 @@ export default function LenderRegisterPage() {
         formState: { errors }
     } = useForm<UserRegisterPlus>()
     const onSubmit: SubmitHandler<UserRegisterPlus> = () => {
+        setLoading(true)
         setError('')
         if (watch('isCompany')) {
             registerLenderLegal(
@@ -35,7 +35,12 @@ export default function LenderRegisterPage() {
                     watch('email'),
                     watch('password')
                 )
-            ).catch((error) => setError(error))
+            )
+                .then(() => {
+                    setLoading(false)
+                    setMessage('Please check your email for confirmation code')
+                })
+                .catch((error) => setError(error))
         } else {
             registerLenderPhysical(
                 new RegisterPhysical(
@@ -45,11 +50,18 @@ export default function LenderRegisterPage() {
                     watch('email'),
                     watch('password')
                 )
-            ).catch((error) => setError(error))
+            )
+                .then(() => {
+                    setLoading(false)
+                    setMessage('Please check your email for confirmation code')
+                })
+                .catch((error) => setError(error))
         }
     }
     const [error, setError] = useState('')
-    const auth = useAuth()
+    const [message, setMessage] = useState('')
+    const [loading, setLoading] = useState<boolean>(false)
+
     return (
         <form
             className="flex flex-col items-center select-none bg-bg-primary text-t-primary pt-10"
@@ -68,7 +80,7 @@ export default function LenderRegisterPage() {
                                 className="w-full bg-bg-secondary border-b focus:outline-none"
                                 placeholder="Company code"
                                 {...register('companyCode', { required: true })}
-                                disabled={auth.loading}
+                                disabled={loading}
                             />
                             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                                 {errors.companyCode?.type === 'required'
@@ -81,7 +93,7 @@ export default function LenderRegisterPage() {
                                 className="w-full bg-bg-secondary border-b focus:outline-none"
                                 placeholder="Company name"
                                 {...register('companyName', { required: true })}
-                                disabled={auth.loading}
+                                disabled={loading}
                             />
                             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                                 {errors.companyName?.type === 'required'
@@ -96,7 +108,7 @@ export default function LenderRegisterPage() {
                                 className="w-full bg-bg-secondary border-b focus:outline-none"
                                 placeholder="First name"
                                 {...register('firstName', { required: true })}
-                                disabled={auth.loading}
+                                disabled={loading}
                             />
                             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                                 {errors.firstName?.type === 'required'
@@ -109,7 +121,7 @@ export default function LenderRegisterPage() {
                                 className="w-full bg-bg-secondary border-b focus:outline-none"
                                 placeholder="Last name"
                                 {...register('lastName', { required: true })}
-                                disabled={auth.loading}
+                                disabled={loading}
                             />
                             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                                 {errors.lastName?.type === 'required'
@@ -123,7 +135,7 @@ export default function LenderRegisterPage() {
                         className="w-full bg-bg-secondary border-b focus:outline-none"
                         placeholder="Email"
                         {...register('email', { required: true })}
-                        disabled={auth.loading}
+                        disabled={loading}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.email?.type === 'required' ? 'Email is required' : ''}
@@ -134,7 +146,7 @@ export default function LenderRegisterPage() {
                         className="w-full bg-bg-secondary border-b focus:outline-none"
                         placeholder="Password"
                         {...register('password', { required: true })}
-                        disabled={auth.loading}
+                        disabled={loading}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.password?.type === 'required' ? 'Password is required' : ''}
@@ -152,7 +164,7 @@ export default function LenderRegisterPage() {
                                 }
                             }
                         })}
-                        disabled={auth.loading}
+                        disabled={loading}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.passwordConfirmed?.type === 'required'
@@ -166,13 +178,16 @@ export default function LenderRegisterPage() {
                     <button
                         type="submit"
                         className="bg-bg-extra py-1 px-7 rounded"
-                        disabled={auth.loading}>
+                        disabled={loading}>
                         Register
                     </button>
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>
-            {auth.loading && (
+            {error === '' && (
+                <div className="pt-4 text-fs-primary text-success-500 text-center">{message}</div>
+            )}
+            {loading && (
                 <div className="flex items-center justify-center pt-10">
                     <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
                 </div>

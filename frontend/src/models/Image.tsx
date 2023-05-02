@@ -1,5 +1,3 @@
-import { Stream } from 'stream'
-
 export class ImageGet {
     id: number
     path: string

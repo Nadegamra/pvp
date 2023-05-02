@@ -76,48 +76,26 @@ function Header() {
                         <ButtonText>{t('header.manageConsoles')}</ButtonText>
                     </Link>
                 )}
-                <div className="mr-7 my-auto">
-                    <span
-                        className="material-symbols-outlined cursor-pointer select-none"
-                        onClick={() =>
-                            header.settingsShown ? header.hideAll() : header.showSettings()
-                        }>
-                        settings
+                <button className="pr-2" value="en" onClick={() => i18n.changeLanguage('en')}>
+                    <ReactCountryFlag countryCode="GB" svg />
+                    en
+                </button>
+                <button className="pr-4" value="lt" onClick={() => i18n.changeLanguage('lt')}>
+                    <ReactCountryFlag countryCode="LT" svg />
+                    lt
+                </button>
+                <div
+                    className="my-auto"
+                    onClick={() => {
+                        toggleDarkMode(!darkmode)
+                    }}>
+                    <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
+                        {darkmode ?? false ? 'light_mode' : 'dark_mode'}
                     </span>
-                    {header.settingsShown && (
-                        <div className="fixed mt-5 translate-x-[-180px] w-[190px] bg-bg-secondary p-3 rounded-lg">
-                            <div
-                                onClick={() => {
-                                    toggleDarkMode(!darkmode)
-                                }}>
-                                <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
-                                    {darkmode ?? false ? 'light_mode' : 'dark_mode'}
-                                </span>
-                                <span className="cursor-pointer select-none">
-                                    {darkmode ?? false
-                                        ? t('header.settings.light')
-                                        : t('header.settings.dark')}
-                                </span>
-                            </div>
-                            <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
-                                translate
-                            </span>
-                            <button
-                                className="pr-4"
-                                value="en"
-                                onClick={() => i18n.changeLanguage('en')}>
-                                <ReactCountryFlag countryCode="GB" svg />
-                                en
-                            </button>
-                            <button value="lt" onClick={() => i18n.changeLanguage('lt')}>
-                                <ReactCountryFlag countryCode="LT" svg />
-                                lt
-                            </button>
-                        </div>
-                    )}
                 </div>
+
                 {auth.user !== undefined && (
-                    <div className="mr-7 my-auto">
+                    <div className="mr-7 my-auto ml-3">
                         <button>
                             <span
                                 className="material-symbols-outlined  cursor-pointer select-none"

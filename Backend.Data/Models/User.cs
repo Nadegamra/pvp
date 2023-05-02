@@ -29,13 +29,10 @@ namespace Backend.Data.Models
         public string City { get; set; } = String.Empty;
 
         [Required, StringLength(64), ProtectedPersonalData]
-        public string Street { get; set; } = String.Empty;
-
-        [Required, StringLength(5), ProtectedPersonalData]
-        public string StreetNo { get; set; } = String.Empty;
+        public string StreetAddress { get; set; } = String.Empty;
 
         [Required, StringLength(10), ProtectedPersonalData]
-        public string PostCode { get; set; } = String.Empty;
+        public string PostalCode { get; set; } = String.Empty;
         public bool IsCompany { get; set; } = false;
     }
 }

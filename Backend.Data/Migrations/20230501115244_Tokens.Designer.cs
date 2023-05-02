@@ -3,6 +3,7 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230501115244_Tokens")]
+    partial class Tokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,7 +334,7 @@ namespace Backend.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("PostalCode")
+                    b.Property<string>("PostCode")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)");
@@ -339,10 +342,15 @@ namespace Backend.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("StreetAddress")
+                    b.Property<string>("Street")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
+
+                    b.Property<string>("StreetNo")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("varchar(5)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("tinyint(1)");
@@ -370,7 +378,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "06f0f16b-fe14-4661-ba8f-7afd13d6a247",
+                            ConcurrencyStamp = "8cb01ecf-55a2-4a16-b344-31bc3a053bba",
                             Country = "",
                             County = "",
                             Email = "admin@admin.com",
@@ -383,9 +391,10 @@ namespace Backend.Data.Migrations
                             NormalizedUserName = "ADMIN@ADMIN.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
-                            PostalCode = "",
-                            SecurityStamp = "f2241a74-2c49-4a8b-9227-e5e988992a29",
-                            StreetAddress = "",
+                            PostCode = "",
+                            SecurityStamp = "d7dc3a99-eedb-4d2d-8d5f-b23dde42ccdf",
+                            Street = "",
+                            StreetNo = "",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -396,7 +405,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "33805c60-120d-4a49-b76b-a0a42c389084",
+                            ConcurrencyStamp = "5cad8e95-287a-4945-86e8-a6e8540d5b6f",
                             Country = "",
                             County = "",
                             Email = "customer@example.com",
@@ -409,9 +418,10 @@ namespace Backend.Data.Migrations
                             NormalizedUserName = "CUSTOMER@EXAMPLE.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
-                            PostalCode = "",
-                            SecurityStamp = "476b89b3-90c1-4869-8282-b45de6867086",
-                            StreetAddress = "",
+                            PostCode = "",
+                            SecurityStamp = "c39d1a5d-2164-4909-8f91-05d21ef63879",
+                            Street = "",
+                            StreetNo = "",
                             TwoFactorEnabled = false,
                             UserName = "customer@example.com"
                         },
@@ -422,7 +432,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "123456",
                             CompanyName = "UAB „Tikra įmonė“",
-                            ConcurrencyStamp = "34299fac-d008-49cd-a8e9-30b7336dba60",
+                            ConcurrencyStamp = "31cf9697-c362-454a-85d0-8126029d9166",
                             Country = "",
                             County = "",
                             Email = "company@example.com",
@@ -435,9 +445,10 @@ namespace Backend.Data.Migrations
                             NormalizedUserName = "COMPANY@EXAMPLE.COM",
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
-                            PostalCode = "",
-                            SecurityStamp = "09ce07d1-7b90-4204-9514-679b8836e896",
-                            StreetAddress = "",
+                            PostCode = "",
+                            SecurityStamp = "85189abb-59a7-426d-a0e1-bd454bab6e40",
+                            Street = "",
+                            StreetNo = "",
                             TwoFactorEnabled = false,
                             UserName = "company@example.com"
                         });
