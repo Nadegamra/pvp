@@ -2,7 +2,6 @@ import React from 'react'
 import Header from './components/header/Header'
 import AppRoutes from './components/routing/AppRoutes'
 import { useHeader } from './contexts/HeaderContext'
-import Footer from './components/footer/Footer'
 
 function App() {
     const header = useHeader()

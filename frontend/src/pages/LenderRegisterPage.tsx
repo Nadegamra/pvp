@@ -1,4 +1,3 @@
-import { useAuth } from '../contexts/AuthContext'
 import { RegisterLegal, RegisterPhysical } from '../models/User'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'

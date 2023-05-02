@@ -143,6 +143,19 @@ namespace Backend.Handlers
             return;
         }
 
+        public async Task UpdateAddress(ClaimsPrincipal userClaims, UserAddressUpdate data)
+        {
+            User original = await _userManager.GetUserAsync(userClaims);
+            original.Country = data.Country;
+            original.County = data.County;
+            original.City = data.City;
+            original.StreetAddress = data.StreetAddress;
+            original.PostalCode = data.PostalCode;
+            _context.Users.Update(original);
+            await _context.SaveChangesAsync();
+            return;
+        }
+
         public async Task ChangePassword(ClaimsPrincipal userClaims, UserPasswordChange passwordInfo)
         {
             User user = await _userManager.GetUserAsync(userClaims);

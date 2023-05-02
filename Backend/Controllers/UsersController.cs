@@ -108,6 +108,20 @@ namespace Backend.Controllers
             }
         }
 
+        [HttpPut("account/address/update")]
+        public async Task<ActionResult> UpdateAddress([FromBody] UserAddressUpdate data)
+        {
+            try
+            {
+                await _handler.UpdateAddress(User, data);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost("account/changePassword")]
         public async Task<ActionResult> ChangePassword([FromBody] UserPasswordChange passwordInfo)
         {

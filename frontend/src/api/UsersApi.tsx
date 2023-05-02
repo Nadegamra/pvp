@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {
+    UserAddressUpdate,
     UserEmailChange,
     UserLegalUpdate,
     UserPasswordChange,
@@ -53,4 +54,8 @@ export async function updatePhysical(data: UserPhysicalUpdate) {
 
 export async function updateLegal(data: UserLegalUpdate) {
     return api.put(`account/legal/update`, data, headers)
+}
+
+export async function updateAddress(data: UserAddressUpdate) {
+    return api.put(`account/address/update`, data, headers)
 }
