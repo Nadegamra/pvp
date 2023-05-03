@@ -171,6 +171,7 @@ i18n
                         languages: 'Available languages: '
                     },
                     consoleManagementForm: {
+                        console: 'Console Information',
                         name: 'Name',
                         nameError: 'Name is required',
                         description: 'Description',
@@ -350,6 +351,7 @@ i18n
                         languages: 'Galimos kalbos: '
                     },
                     consoleManagementForm: {
+                        console: 'Konsolės informacija',
                         name: 'Pavadinimas',
                         nameError: 'Reikia nurodyti pavadinimą',
                         description: 'Aprašymas',

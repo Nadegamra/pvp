@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ConsoleAdd, ConsoleUpdate } from '../models/Console'
+import { ImageAdd } from '../models/Image'
 
 const api = axios.create({
     baseURL: 'https://localhost:44351/Consoles/'
@@ -26,5 +27,13 @@ export async function updateConsole(consoleDto: ConsoleUpdate) {
 }
 
 export async function removeConsole(id: number) {
-    return api.delete(`remove?id=${id}`,headers)
+    return api.delete(`remove?id=${id}`, headers)
+}
+
+export async function addImage(imageDto: ImageAdd) {
+    return api.post(`images/add`, imageDto, headers)
+}
+
+export async function removeImage(id: number) {
+    return api.delete(`images/delete?id=${id}`, headers)
 }
