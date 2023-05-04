@@ -4,6 +4,7 @@ export class ImageGet {
     name: string
     description: string
     consoleId: number
+    toDelete: boolean
 
     constructor(id: number, path: string, name: string, description: string, consoleId: number) {
         this.id = id
@@ -11,6 +12,7 @@ export class ImageGet {
         this.name = name
         this.description = description
         this.consoleId = consoleId
+        this.toDelete = false
     }
 }
 
