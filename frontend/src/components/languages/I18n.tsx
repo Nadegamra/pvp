@@ -32,7 +32,8 @@ i18n
                         },
                         login: 'Login',
                         register: 'Register',
-                        manageConsoles: 'Manage Consoles'
+                        manageConsoles: 'Manage Consoles',
+                        myConsoles: 'My Consoles'
                     },
                     contacts: {
                         contactInfo: 'Contact Information',
@@ -157,7 +158,8 @@ i18n
                         },
                         login: 'Prisijungimas',
                         register: 'Registracija',
-                        manageConsoles: 'Konsolių valdymas'
+                        manageConsoles: 'Konsolių valdymas',
+                        myConsoles: 'Mano konsolės'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',

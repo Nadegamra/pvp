@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ConsoleAdd, ConsoleUpdate } from '../models/Console'
+import { ConsoleAdd, ConsoleGet, ConsoleUpdate } from '../models/Console'
 
 const api = axios.create({
     baseURL: 'https://localhost:44351/Consoles/'
@@ -26,5 +26,5 @@ export async function updateConsole(consoleDto: ConsoleUpdate) {
 }
 
 export async function removeConsole(id: number) {
-    return api.delete(`remove?id=${id}`,headers)
+    return api.delete(`remove?id=${id}`, headers)
 }

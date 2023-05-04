@@ -12,6 +12,8 @@ import ContactInfoPage from '../../pages/ContactInfoPage'
 import ConsolesManagementPage from '../../pages/ConsolesManagementPage'
 import ConsoleManagementPage from '../../pages/ConsoleManagementPage'
 import CreateConsolePage from '../../pages/CreateConsolePage'
+import MyConsolesPage from '../../pages/MyConsolesPage'
+import MyConsolePage from '../../pages/MyConsolePage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -35,6 +37,11 @@ export default function AppRoutes() {
                 <Route path="/admin/consoles" element={<ConsolesManagementPage />} />
                 <Route path="/admin/consoles/:id" element={<ConsoleManagementPage />} />
                 <Route path="/admin/consoles/new" element={<CreateConsolePage />} />
+            </Route>
+            <Route
+                element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/login" />}>
+                <Route path="/consoles" element={<MyConsolesPage />} />
+                <Route path="/consoles/:id" element={<MyConsolePage />} />
             </Route>
         </Routes>
     )

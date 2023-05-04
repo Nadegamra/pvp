@@ -40,6 +40,14 @@ function Header() {
                     <ButtonText>{t('header.home')}</ButtonText>
                 </Link>
                 <div className="flex-1" onClick={() => header.hideAll()}></div>
+                {auth.user !== undefined && auth.user.role === 'lender' && (
+                    <Link
+                        to="/consoles"
+                        className="cursor-pointer select-none my-auto mr-7"
+                        onClick={() => header.hideAll()}>
+                        <ButtonText>{t('header.myConsoles')}</ButtonText>
+                    </Link>
+                )}
                 <Link
                     to="/contacts"
                     className="cursor-pointer select-none my-auto mr-7"

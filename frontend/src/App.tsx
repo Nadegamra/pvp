@@ -15,9 +15,9 @@ function App() {
             <div className="flex-1" onClick={() => header.hideAll()}>
                 <AppRoutes />
             </div>
-            <div onClick={() => header.hideAll()}>
+            {/* <div onClick={() => header.hideAll()}>
                 <Footer />
-            </div>
+            </div> */}
         </div>
     )
 }
