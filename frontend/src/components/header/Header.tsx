@@ -40,6 +40,14 @@ function Header() {
                     <ButtonText>{t('header.home')}</ButtonText>
                 </Link>
                 <div className="flex-1" onClick={() => header.hideAll()}></div>
+                {auth.user !== undefined && auth.user.role === 'admin' && (
+                    <Link
+                        to="/admin/consoles"
+                        className="cursor-pointer select-none my-auto mr-7"
+                        onClick={() => header.hideAll()}>
+                        <ButtonText>{t('header.manageConsoles')}</ButtonText>
+                    </Link>
+                )}
                 <Link
                     to="/contacts"
                     className="cursor-pointer select-none my-auto mr-7"
@@ -68,19 +76,12 @@ function Header() {
                         <ButtonText>{t('header.register')}</ButtonText>
                     </Link>
                 )}
-                {auth.user !== undefined && auth.user.role === 'admin' && (
-                    <Link
-                        to="/admin/consoles"
-                        className="cursor-pointer select-none my-auto mr-7"
-                        onClick={() => header.hideAll()}>
-                        <ButtonText>{t('header.manageConsoles')}</ButtonText>
-                    </Link>
-                )}
+
                 <button className="pr-2" value="en" onClick={() => i18n.changeLanguage('en')}>
                     <ReactCountryFlag countryCode="GB" svg />
                     en
                 </button>
-                <button className="pr-4" value="lt" onClick={() => i18n.changeLanguage('lt')}>
+                <button className="pr-6" value="lt" onClick={() => i18n.changeLanguage('lt')}>
                     <ReactCountryFlag countryCode="LT" svg />
                     lt
                 </button>
@@ -98,7 +99,7 @@ function Header() {
                     <div className="mr-7 my-auto ml-3">
                         <button>
                             <span
-                                className="material-symbols-outlined  cursor-pointer select-none"
+                                className="material-symbols-outlined cursor-pointer select-none"
                                 onClick={() =>
                                     header.profileShown ? header.hideAll() : header.showProfile()
                                 }>
