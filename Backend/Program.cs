@@ -61,12 +61,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 builder.Services.Configure<CloudinaryConfig>(builder.Configuration.GetSection("ImageStorage"));
+builder.Services.Configure<SmtpConfig>(builder.Configuration.GetSection("Smtp"));
 
 // Add services to the DI container.
 builder.Services.AddTransient<UserManager<User>>();
 builder.Services.AddTransient<RoleManager<IdentityRole<int>>>();
 builder.Services.AddTransient<AuthHandler>();
 builder.Services.AddTransient<ConsolesHandler>();
+builder.Services.AddTransient<UsersHandler>();
 builder.Services.AddTransient<AccessoriesHandler>();
 builder.Services.AddTransient<ImagesHandler>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

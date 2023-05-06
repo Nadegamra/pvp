@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using System.Security.Claims;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using Backend.Data.Views.User;
 
 namespace Backend.Handlers
@@ -17,13 +15,15 @@ namespace Backend.Handlers
         private readonly SignInManager<User> _signInManager;
         private readonly IMapper _mapper;
         private readonly AppDbContext _context;
+        private readonly UsersHandler _usersHandler;
 
-        public AuthHandler(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, AppDbContext context)
+        public AuthHandler(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper, AppDbContext context, UsersHandler usersHandler)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
             _context = context;
+            _usersHandler = usersHandler;
         }
 
         private async Task<User> GetUser(UserLogin data)
@@ -37,6 +37,10 @@ namespace Backend.Handlers
         public async Task<UserGet> Login(UserLogin data)
         {
             var user = await GetUser(data);
+            if (!user.EmailConfirmed)
+            {
+                throw new ArgumentException("Email has not been confirmed yet");
+            }
             var signInResult = await _signInManager.PasswordSignInAsync(user, data.Password, data.RememberPassword, false);
 
             if (!signInResult.Succeeded)
@@ -70,7 +74,7 @@ namespace Backend.Handlers
             return userGet;
         }
 
-        public async Task<UserGet> Register(RegisterPhysical data)
+        public async Task Register(RegisterPhysical data)
         {
             var user = _mapper.Map<User>(data);
             user.UserName = data.Email;
@@ -80,9 +84,9 @@ namespace Backend.Handlers
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "lender");
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
-                return _mapper.Map<UserGet>(user);
+                User createdUser = (await _userManager.FindByEmailAsync(user.Email!))!;
+                await _usersHandler.SendConfirmationEmail(createdUser);
+                return;
             }
             else
             {
@@ -91,7 +95,7 @@ namespace Backend.Handlers
             }
         }
 
-        public async Task<UserGet> Register(RegisterLegal data)
+        public async Task Register(RegisterLegal data)
         {
             var user = _mapper.Map<User>(data);
             user.UserName = data.Email;
@@ -101,9 +105,9 @@ namespace Backend.Handlers
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "lender");
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
-                return _mapper.Map<UserGet>(user);
+                User createdUser = await _userManager.FindByEmailAsync(user.Email);
+                await _usersHandler.SendConfirmationEmail(createdUser);
+                return;
             }
             else
             {
@@ -167,16 +171,13 @@ namespace Backend.Handlers
 
             try
             {
-                return (await Register(dto) != null);
+                await Register(dto);
+                return true;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
-
-            
-
-
         }
     }
 }

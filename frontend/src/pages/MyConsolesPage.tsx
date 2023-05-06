@@ -10,7 +10,7 @@ function MyConsolesPage() {
 
     useEffect(() => {
         getUserConsoles().then((result) => {
-            setConsoles(result)
+            setConsoles(result.data)
         })
     }, [])
 
@@ -18,7 +18,7 @@ function MyConsolesPage() {
         <div className="grid grid-rows-2 grid-cols-5">
             <Link
                 className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
-                to={`/admin/consoles/new`}>
+                to={`/consoles/new`}>
                 <span className="material-symbols-outlined text-[150px] w-full text-center">
                     add_circle
                 </span>

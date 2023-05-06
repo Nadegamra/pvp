@@ -11,7 +11,7 @@ function MyConsolePage() {
 
     useEffect(() => {
         getUserConsole(parseInt(id ?? '1')).then((result) => {
-            setUserConsole(result)
+            setUserConsole(result.data)
         })
     }, [])
 
@@ -86,7 +86,7 @@ function MyConsolePage() {
                 <div className="font-bold">Nuomojamas kiekis</div>
                 <div className="ml-3">{userConsole?.amount} vnt.</div>
                 <div className="font-bold">Priedai</div>
-                <div className="ml-3">{userConsole?.description}</div>
+                <div className="ml-3">{userConsole?.accessories}</div>
                 {displayStatus()}
             </div>
         </div>

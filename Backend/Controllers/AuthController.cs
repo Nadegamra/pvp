@@ -71,13 +71,12 @@ namespace Backend.Controllers
         }
 
         [HttpPost("register/lender/physical")]
-        public async Task<ActionResult<UserGet>> RegisterPhysical(RegisterPhysical data)
+        public async Task<ActionResult> RegisterPhysical(RegisterPhysical data)
         {
             try
             {
-                var user = await _authHandler.Register(data);
-                user.Role = "lender";
-                return Ok(user);
+                await _authHandler.Register(data);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -86,13 +85,12 @@ namespace Backend.Controllers
         }
 
         [HttpPost("register/lender/legal")]
-        public async Task<ActionResult<UserGet>> RegisterLegal(RegisterLegal data)
+        public async Task<ActionResult> RegisterLegal(RegisterLegal data)
         {
             try
             {
-                var user = await _authHandler.Register(data);
-                user.Role = "lender";
-                return Ok(user);
+                await _authHandler.Register(data);
+                return Ok();
             }
             catch (Exception ex)
             {

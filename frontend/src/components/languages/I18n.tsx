@@ -84,15 +84,60 @@ i18n
                         a14: 'Yes'
                     },
                     profile: {
-                        profile: 'Profile',
-                        email: 'Email: ',
-                        emailStatus: 'Email status: ',
-                        confirmed: 'CONFIRMED',
-                        unconfirmed: 'UNCONFIRMED',
-                        firstName: 'First name: ',
-                        lastName: 'Last name: ',
-                        companyCode: 'Company code: ',
-                        companyName: 'Company name: '
+                        personalInfo: 'Personal information',
+                        companyInfo: 'Company information',
+                        email: 'Email',
+                        security: 'Security',
+                        saveChanges: 'Save changes',
+                        emailStatus: 'Email status',
+                        firstName: 'First name',
+                        lastName: 'Last name',
+                        companyCode: 'Company code',
+                        companyName: 'Company name',
+                        dataSuccessMessage: 'Data has been updated successfully',
+                        address: 'Address'
+                    },
+                    emailChangeForm: {
+                        currentEmail: 'Current email',
+                        unconfirmedEmails: 'Unconfirmed emails',
+                        newEmail: 'New email address',
+                        enterNewEmail: 'Enter new email address',
+                        saveChanges: 'Save changes',
+                        emailErrorRequired: 'New email adress is required'
+                    },
+                    passwordChangeForm: {
+                        currentPassword: 'Current password',
+                        enterCurrentPassword: 'Enter current password',
+                        currentPasswordError: 'Current password is required',
+                        newPassword: 'New password',
+                        enterNewPassword: 'Enter new password',
+                        newPasswordError: 'New password is required',
+                        repeatNewPassword: 'Repeat new password',
+                        enterRepeatNewPassword: 'Repeat new password',
+                        repeatNewPasswordError: 'Repeating new password is required',
+                        passwordMatchError: 'Passwords do not match',
+                        saveChanges: 'Save changes',
+                        passwordSuccessMessage: 'Password has been changed successfully',
+                        passwordFailureMessage: 'Current password is incorrect'
+                    },
+                    addressForm: {
+                        country: 'Country',
+                        enterCountry: 'Enter country',
+                        countryError: 'Country is required',
+                        county: 'County',
+                        enterCounty: 'Enter county',
+                        countyError: 'County is required',
+                        city: 'City',
+                        enterCity: 'Enter city name',
+                        cityError: 'City is required',
+                        streetAddress: 'Street address',
+                        enterStreetAddress: 'Enter street address',
+                        streetAddressError: 'Street address is required',
+                        postalCode: 'Postal code',
+                        enterPostalCode: 'Enter postal code',
+                        postalCodeError: 'Postal code is required',
+                        saveChanges: 'Save changes',
+                        addressSuccessMessage: 'Address has been updated successfully'
                     },
                     home: {
                         title1: 'Console Rental',
@@ -127,6 +172,7 @@ i18n
                         languages: 'Available languages: '
                     },
                     consoleManagementForm: {
+                        console: 'Console Information',
                         name: 'Name',
                         nameError: 'Name is required',
                         description: 'Description',
@@ -139,6 +185,16 @@ i18n
                         create: 'Create',
                         newConsole: 'New Console',
                         new: 'New'
+                    },
+                    emailConfirmation: {
+                        success: 'The email has been confirmed. You can now ',
+                        login: 'login',
+                        failure: 'The email confirmation code is invalid or expired.'
+                    },
+                    emailChange: {
+                        success: 'The email has been changed. You can now ',
+                        login: 'login',
+                        failure: 'The email change code is invalid or expired.'
                     }
                 }
             },
@@ -209,16 +265,61 @@ i18n
                         a13: 'Tokiu atveju galite palaukti iki 30 minučių, nes negausite kompensacijos iki tokio laiko. Jei siunta vėluoja daugiau nei 30 minučių prašykite kompensacijos.',
                         a14: 'Taip'
                     },
+                    addressForm: {
+                        country: 'Šalis',
+                        enterCountry: 'Įveskite šalį',
+                        countryError: 'Šalis yra privaloma',
+                        county: 'Apskritis',
+                        enterCounty: 'Įveskite apskritį',
+                        countyError: 'Apskritis yra privaloma',
+                        city: 'Miestas',
+                        enterCity: 'Įveskite miestą',
+                        cityError: 'Miestas yra privalomas',
+                        streetAddress: 'Gatvės adresas',
+                        enterStreetAddress: 'Įveskite gatvės adresą',
+                        streetAddressError: 'Gatvės adresas yra privalomas',
+                        postalCode: 'Pašto kodas',
+                        enterPostalCode: 'Įveskite pašto kodą',
+                        postalCodeError: 'Pašto kodas yra privalomas',
+                        saveChanges: 'Išsaugoti pakeitimus',
+                        addressSuccessMessage: 'Adresas atnaujintas sėkmingai'
+                    },
                     profile: {
-                        profile: 'Profilis',
-                        email: 'El paštas: ',
-                        emailStatus: 'El pašto būsena: ',
-                        confirmed: 'PATVIRTINTA',
-                        unconfirmed: 'NEPATVIRTINTA',
-                        firstName: 'Vardas: ',
-                        lastName: 'Pavardė: ',
-                        companyCode: 'Įmonės kodas: ',
-                        companyName: 'Įmonės pavadinimas: '
+                        personalInfo: 'Asmeninė informacija',
+                        companyInfo: 'Įmonės informacija',
+                        email: 'El. pašto adresas',
+                        security: 'Sauga',
+                        saveChanges: 'Išsaugoti pakeitimus',
+                        emailStatus: 'El pašto būsena',
+                        firstName: 'Vardas',
+                        lastName: 'Pavardė',
+                        companyCode: 'Įmonės kodas',
+                        companyName: 'Įmonės pavadinimas',
+                        dataSuccessMessage: 'Duomenys atnaujinti sėkmingai',
+                        address: 'Adresas'
+                    },
+                    emailChangeForm: {
+                        currentEmail: 'Dabartinis el. pašto adresas',
+                        unconfirmedEmails: 'Nepatvirtinti el. pašto adresai',
+                        newEmail: 'Naujas el. pašto adresas',
+                        enterNewEmail: 'Įveskite naują el. pašto adresą',
+                        saveChanges: 'Išsaugoti pakeitimus',
+                        emailErrorRequired: 'Naujas el. pašto adresas yra privalomas'
+                    },
+                    passwordChangeForm: {
+                        currentPassword: 'Dabartinis slaptažodis',
+                        enterCurrentPassword: 'Įveskite dabartinį slaptažodį',
+                        currentPasswordError: 'Dabartinis slaptažodis yra privalimas',
+                        newPassword: 'Naujas slaptažodis',
+                        enterNewPassword: 'Įveskite naują slaptažodį',
+                        newPasswordError: 'Naujas slaptažodis yra privalomas',
+                        repeatNewPassword: 'Pakartokite naują slaptažodį',
+                        enterRepeatNewPassword: 'Pakartokite naują slaptažodį',
+                        repeatNewPasswordError: 'Naujo slaptažodžio pakartojimas yra privalomas',
+                        saveChanges: 'Save changes',
+                        passwordSuccessMessage: 'Slaptažodis pakeistas sėkmingai',
+                        passwordFailureMessage: 'Neteisingas dabartinis slaptažodis',
+                        passwordMatchError: 'Pateikti slaptažodžiai nesutampa'
                     },
                     home: {
                         title1: 'Konsolių nuoma',
@@ -252,6 +353,7 @@ i18n
                         languages: 'Galimos kalbos: '
                     },
                     consoleManagementForm: {
+                        console: 'Konsolės informacija',
                         name: 'Pavadinimas',
                         nameError: 'Reikia nurodyti pavadinimą',
                         description: 'Aprašymas',
@@ -264,6 +366,18 @@ i18n
                         create: 'Sukurti',
                         newConsole: 'Nauja konsolė',
                         new: 'Pridėti naują'
+                    },
+                    emailConfirmation: {
+                        success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',
+                        login: 'prisijungti',
+                        failure:
+                            'Elektroninio pašto patvirtinimo kodas yra neteisingas arba pasibaigusio galiojimo.'
+                    },
+                    emailChange: {
+                        success: 'Elektroninis paštas sėkmingai pakeistas. Dabar galite ',
+                        login: 'prisijungti',
+                        failure:
+                            'Elektroninio pašto pakeitimo kodas yra neteisingas arba pasibaigusio galiojimo.'
                     }
                 }
             }

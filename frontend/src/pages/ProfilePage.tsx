@@ -1,52 +1,55 @@
-import { useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useTranslation } from 'react-i18next'
+import PersonalInfoForm from '../components/profile/PersonalInfoForm'
+import CompanyInfoForm from '../components/profile/CompanyInfoForm'
+import AddressForm from '../components/profile/AddressForm'
+import EmailChangeForm from '../components/profile/EmailChangeForm'
+import PasswordChangeForm from '../components/profile/PasswordChangeForm'
 
 function ProfilePage() {
     const { t } = useTranslation()
     const { user } = useAuth()
-    useEffect(() => {
-        console.log(user)
-    }, [])
+
     return (
         <div className="flex justify-center content-center">
-            <div className="text-t-primary bg-bg-secondary w-[30rem] mt-20 rounded-lg p-5">
-                <div className="font-bold text-center text-[25px]">{t('profile.profile')}</div>
-                <div>
-                    {t('profile.email')}
-                    {user?.email}
-                </div>
-                <div>
-                    {t('profile.emailStatus')}
-                    {user?.emailConfirmed ?? false ? (
-                        <span className="text-success-500">{t('profile.confirmed')}</span>
-                    ) : (
-                        <span className="text-danger-500">{t('profile.unconfirmed')}</span>
-                    )}
-                </div>
-                {user !== undefined && !user.isCompany ? (
+            <div className="w-[45rem] mt-10 rounded-lg p-5 pb-20">
+                {user !== undefined && !user.isCompany && (
                     <div>
-                        <div>
-                            {t('profile.firstName')}
-                            {user?.firstName}
+                        <div className="font-bold text-left text-[25px]">
+                            {t('profile.personalInfo')}
                         </div>
-                        <div>
-                            {t('profile.lastName')}
-                            {user?.lastName}
-                        </div>
-                    </div>
-                ) : (
-                    <div>
-                        <div>
-                            {t('profile.companyCode')}
-                            {user?.companyCode}
-                        </div>
-                        <div>
-                            {t('profile.companyName')}
-                            {user?.companyName}
-                        </div>
+                        <hr className="pb-3" />
+                        <PersonalInfoForm />
                     </div>
                 )}
+                {user !== undefined && user.isCompany && (
+                    <div>
+                        <div className="font-bold text-left text-[25px]">
+                            {t('profile.companyInfo')}
+                        </div>
+                        <hr className="pb-3" />
+                        <CompanyInfoForm />
+                    </div>
+                )}
+                <div>
+                    <div className="font-bold text-left text-[25px] pt-5">
+                        {t('profile.address')}
+                    </div>
+                    <hr className="pb-2" />
+                    <AddressForm />
+                </div>
+                <div>
+                    <div className="font-bold text-left text-[25px] pt-5">{t('profile.email')}</div>
+                    <hr className="pb-2" />
+                    <EmailChangeForm />
+                </div>
+                <div>
+                    <div className="font-bold text-left text-[25px] pt-5">
+                        {t('profile.security')}
+                    </div>
+                    <hr className="pb-3" />
+                    <PasswordChangeForm />
+                </div>
             </div>
         </div>
     )

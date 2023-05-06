@@ -11,9 +11,8 @@ export class UserGet {
     country: string
     county: string
     city: string
-    street: string
-    streetNo: string
-    postCode: string
+    streetAddress: string
+    postalCode: string
     isCompany: boolean
 
     constructor(
@@ -29,9 +28,8 @@ export class UserGet {
         country: string,
         county: string,
         city: string,
-        street: string,
-        streetNo: string,
-        postCode: string,
+        streetAddress: string,
+        postalCode: string,
         isCompany: boolean
     ) {
         this.id = id
@@ -46,9 +44,8 @@ export class UserGet {
         this.country = country
         this.county = county
         this.city = city
-        this.street = street
-        this.streetNo = streetNo
-        this.postCode = postCode
+        this.streetAddress = streetAddress
+        this.postalCode = postalCode
         this.isCompany = isCompany
     }
 }
@@ -137,6 +134,76 @@ export class RegisterRequest {
         this.companyName = companyName
         this.email = email
         this.dateCreated = dateCreated
+    }
+}
+
+export class UserPasswordReset {
+    resetCode: string
+    newPassword: string
+
+    constructor(resetCode: string, newPassword: string) {
+        this.resetCode = resetCode
+        this.newPassword = newPassword
+    }
+}
+
+export class UserPasswordChange {
+    oldPassword: string
+    newPassword: string
+
+    constructor(resetCode: string, newPassword: string) {
+        this.oldPassword = resetCode
+        this.newPassword = newPassword
+    }
+}
+
+export class UserEmailChange {
+    newEmail: string
+
+    constructor(newEmail: string) {
+        this.newEmail = newEmail
+    }
+}
+
+export class UserPhysicalUpdate {
+    firstName: string
+    lastName: string
+
+    constructor(firstName: string, lastName: string) {
+        this.firstName = firstName
+        this.lastName = lastName
+    }
+}
+
+export class UserLegalUpdate {
+    companyCode: string
+    companyName: string
+
+    constructor(companyCode: string, companyName: string) {
+        this.companyCode = companyCode
+        this.companyName = companyName
+    }
+}
+
+export class UserAddressUpdate {
+    country: string
+    county: string
+    city: string
+    streetAddress: string
+    postalCode: string
+
+    constructor(
+        country: string,
+        county: string,
+        city: string,
+        streetAddress: string,
+        postalCode: string
+    ) {
+        this.country = country
+        this.county = county
+        this.city = city
+        this.streetAddress = streetAddress
+        this.postalCode = postalCode
     }
 }
 

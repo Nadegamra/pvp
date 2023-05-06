@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { ConsoleAdd, ConsoleGet, ConsoleUpdate } from '../models/Console'
-import { getConsoles } from './ConsolesApi'
-import { ConsoleStatus, UserConsoleGet } from '../models/UserConsole'
+import { UserConsoleAdd, UserConsoleStatusUpdate, UserConsoleUpdate } from '../models/UserConsole'
+import { ImageAdd } from '../models/Image'
 
 const api = axios.create({
     baseURL: 'https://localhost:44351/UserConsoles/'
@@ -12,52 +11,33 @@ const headers = {
 }
 
 export async function getUserConsoles() {
-    const consoles: ConsoleGet[] = (await getConsoles()).data
-    const userConsoles: UserConsoleGet[] = [
-        {
-            id: 1,
-            userId: 2,
-            consoleId: 1,
-            console: consoles.filter((x) => x.id == 1)[0],
-            amount: 1,
-            description: '3 pulteliai',
-            status: ConsoleStatus.AT_LENDER
-        },
-        {
-            id: 2,
-            userId: 2,
-            consoleId: 2,
-            console: consoles.filter((x) => x.id == 2)[0],
-            amount: 3,
-            description: '12 pultelių',
-            status: ConsoleStatus.AWAITING_RETURN
-        }
-    ]
-    return userConsoles
+    return api.get(`get`, headers)
 }
 
 export async function getUserConsole(id: number) {
-    const consoles: ConsoleGet[] = (await getConsoles()).data
-    const userConsoles: UserConsoleGet[] = [
-        {
-            id: 1,
-            userId: 2,
-            consoleId: 1,
-            console: consoles.filter((x) => x.id == 1)[0],
-            amount: 1,
-            description: '3 pulteliai',
-            status: ConsoleStatus.AT_LENDER
-        },
-        {
-            id: 2,
-            userId: 2,
-            consoleId: 2,
-            console: consoles.filter((x) => x.id == 2)[0],
-            amount: 3,
-            description: '12 pultelių',
-            status: ConsoleStatus.AWAITING_RETURN
-        }
-    ]
+    return api.get(`get/${id}`, headers)
+}
 
-    return userConsoles.filter((x) => x.id == id)[0]
+export async function addUserConsole(data: UserConsoleAdd) {
+    return api.post(`add`, data, headers)
+}
+
+export async function updateUserConsole(data: UserConsoleUpdate) {
+    return api.put(`update`, data, headers)
+}
+
+export async function deleteUserConsole(id: number) {
+    return api.delete(`remove/${id}`, headers)
+}
+
+export async function addImage(imageDto: ImageAdd) {
+    return api.post(`images/add`, imageDto, headers)
+}
+
+export async function removeImage(id: number) {
+    return api.delete(`images/delete?id=${id}`, headers)
+}
+
+export async function updateUserConsoleStatus(data: UserConsoleStatusUpdate) {
+    return api.patch(`updateStatus`, data, headers)
 }

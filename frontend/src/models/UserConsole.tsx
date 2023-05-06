@@ -1,30 +1,85 @@
 import { ConsoleGet } from './Console'
+import { ImageAdd, ImageGet, ImageUpdate } from './Image'
+import { UserGet } from './User'
 
 export class UserConsoleGet {
     id: number
+    userId: number
+    user: UserGet
     consoleId: number
     console: ConsoleGet
-    userId: number
     amount: number
-    description: string
+    accessories: string
+    images: ImageGet[]
+    status: ConsoleStatus
+
     constructor(
         id: number,
+        userId: number,
+        user: UserGet,
         consoleId: number,
         console: ConsoleGet,
-        userId: number,
         amount: number,
-        description: string,
+        accessories: string,
+        images: ImageGet[],
         status: ConsoleStatus
     ) {
         this.id = id
+        this.userId = userId
+        this.user = user
         this.consoleId = consoleId
         this.console = console
-        this.userId = userId
         this.amount = amount
-        this.description = description
+        this.accessories = accessories
+        this.images = images
         this.status = status
     }
-    status: ConsoleStatus
+}
+
+export class UserConsoleAdd {
+    consoleId: number
+    amount: number
+    accessories: string
+    images: ImageAdd[]
+
+    constructor(consoleId: number, amount: number, accessories: string, images: ImageAdd[]) {
+        this.consoleId = consoleId
+        this.amount = amount
+        this.accessories = accessories
+        this.images = images
+    }
+}
+
+export class UserConsoleUpdate {
+    id: number
+    consoleId: number
+    amount: number
+    accessories: string
+    images: ImageUpdate
+
+    constructor(
+        id: number,
+        consoleId: number,
+        amount: number,
+        accessories: string,
+        images: ImageUpdate
+    ) {
+        this.id = id
+        this.consoleId = consoleId
+        this.amount = amount
+        this.accessories = accessories
+        this.images = images
+    }
+}
+
+export class UserConsoleStatusUpdate {
+    id: number
+    consoleStatus: ConsoleStatus
+
+    constructor(id: number, consoleStatus: ConsoleStatus) {
+        this.id = id
+        this.consoleStatus = consoleStatus
+    }
 }
 
 export enum ConsoleStatus {
