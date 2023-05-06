@@ -1,45 +1,46 @@
-﻿using CloudinaryDotNet.Actions;
-using Microsoft.AspNetCore.Mvc;
-using Backend.Handlers;
-using Backend.Data.Views.Console;
+﻿using Backend.Data.Views.Console;
 using Backend.Data.Views.Image;
+using Backend.Data.Views.UserConsole;
+using Backend.Handlers;
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ConsolesController: ControllerBase
+    public class UserConsolesController: ControllerBase
     {
-        private readonly ConsolesHandler _consolesHandler;
+        private readonly UserConsolesHandler _userConsolesHandler;
         private readonly ImagesHandler _imagesHandler;
 
-        public ConsolesController(ConsolesHandler consolesHandler, ImagesHandler imagesHandler)
+        public UserConsolesController(UserConsolesHandler handler)
         {
-            _consolesHandler = consolesHandler;
-            _imagesHandler = imagesHandler;
+            _userConsolesHandler = handler;
         }
 
-        [HttpGet("getAll")]
-        public async Task<ActionResult> GetConsoles()
+        [HttpGet("get")]
+        public async Task<ActionResult> GetUserConsoles()
         {
             try
             {
-                var result = await _consolesHandler.GetConsolesAsync();
+                var result = await _userConsolesHandler.GetUserConsolesAsync(User);
 
                 return Ok(result);
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
-        [HttpGet("get")]
-        public async Task<ActionResult<ImageUploadResult>> GetConsole(int id)
+        [HttpGet("get/{id}")]
+        public async Task<ActionResult<ImageUploadResult>> GetUserConsole(int id)
         {
             try
             {
-                var result = await _consolesHandler.GetConsoleAsync(id);
+                var result = await _userConsolesHandler.GetUserConsoleAsync(id);
 
                 return Ok(result);
 
@@ -50,12 +51,12 @@ namespace Backend.Controllers
             }
         }
         [HttpPost("add")]
-        public async Task<ActionResult> AddConsole(ConsoleAddDto consoleDto)
+        public async Task<ActionResult> AddUserConsole(UserConsoleAddDto consoleDto)
         {
             try
             {
 
-                var result = await _consolesHandler.AddConsoleAsync(consoleDto);
+                var result = await _userConsolesHandler.AddUserConsoleAsync(consoleDto);
 
                 return Ok(result);
 
@@ -66,11 +67,11 @@ namespace Backend.Controllers
             }
         }
         [HttpPut("update")]
-        public async Task<ActionResult> UpdateConsole(ConsoleUpdateDto consoleDto)
+        public async Task<ActionResult> UpdateUserConsole(UserConsoleUpdateDto consoleDto)
         {
             try
             {
-                var result = await _consolesHandler.UpdateConsoleAsync(consoleDto);
+                var result = await _userConsolesHandler.UpdateUserConsoleAsync(consoleDto);
 
                 return Ok(result);
 
@@ -80,12 +81,12 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("remove")]
-        public async Task<ActionResult<ImageUploadResult>> RemoveConsole(int id)
+        [HttpDelete("remove/{id}")]
+        public async Task<ActionResult<ImageUploadResult>> RemoveUserConsole(int id)
         {
             try
             {
-                await _consolesHandler.RemoveConsoleAsync(id);
+                await _userConsolesHandler.RemoveUserConsoleAsync(id);
                 return Ok();
 
             }
@@ -116,6 +117,20 @@ namespace Backend.Controllers
             try
             {
                 await _imagesHandler.RemoveImageAsync(id);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPatch("updateStatus")]
+        public async Task<ActionResult> UpdateStatus(UserConsoleStatusUpdateDto updateDto)
+        {
+            try
+            {
+                await _userConsolesHandler.UpdateStatus(updateDto);
                 return Ok();
 
             }

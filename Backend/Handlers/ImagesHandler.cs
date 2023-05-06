@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Backend.Data;
 using Backend.Data.Models;
-using Backend.Data.Views.Console;
 using Backend.Properties;
 using CloudinaryDotNet.Actions;
 using CloudinaryDotNet;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Backend.Data.Views.Image;
 
 namespace Backend.Handlers
 {
@@ -23,15 +23,15 @@ namespace Backend.Handlers
             _config = config;
         }
 
-        public async Task<List<ImageDtoGet>> GetImagesAsync(int consoleId)
+        public async Task<List<ImageGetDto>> GetImagesAsync(int consoleId)
         {
-            return _mapper.Map<List<Image>,List<ImageDtoGet>>(_context.Consoles.Include(x => x.Images).Where(x=>x.Id ==consoleId).First().Images.ToList());
+            return _mapper.Map<List<Image>,List<ImageGetDto>>(_context.Consoles.Include(x => x.Images).Where(x=>x.Id ==consoleId).First().Images.ToList());
         }
-        public async Task<ImageDtoGet> GetImageAsync(int id)
+        public async Task<ImageGetDto> GetImageAsync(int id)
         {
-            return _mapper.Map<Image,ImageDtoGet>(_context.Images.Where(x => x.Id == id).First());
+            return _mapper.Map<Image,ImageGetDto>(_context.Images.Where(x => x.Id == id).First());
         }
-        public async Task AddImageAsync(ImageDtoAdd imageDto)
+        public async Task AddImageAsync(ImageAddDto imageDto)
         {
 
             byte[] bytes = Convert.FromBase64String(imageDto.Stream);
@@ -48,7 +48,18 @@ namespace Backend.Handlers
 
 
             // Database
-            Image image = new Image { Name = imageDto.Name, Path = uploadResult.PublicId, Description = imageDto.Description, ConsoleId = imageDto.ConsoleId };
+            Image image;
+
+            if (imageDto.ConsoleId != null)
+            {
+                image = new Image { Name = imageDto.Name, Path = uploadResult.PublicId, Description = imageDto.Description, ConsoleId = imageDto.ConsoleId };
+            }
+            else
+            {
+                image = new Image { Name = imageDto.Name, Path = uploadResult.PublicId, Description = imageDto.Description, UserConsoleId = imageDto.UserConsoleId };
+
+            }
+
             image.Path = uploadResult.PublicId;
 
             await _context.Images.AddAsync(image);
@@ -56,7 +67,7 @@ namespace Backend.Handlers
 
             return;
         }
-        public async Task<ImageDtoGet> UpdateImageAsync(ImageDtoUpdate imageDto)
+        public async Task<ImageGetDto> UpdateImageAsync(ImageUpdateDto imageDto)
         {
             // Database
             Image image = _context.Images.Where(x=>x.Id == imageDto.Id).First();
@@ -65,9 +76,9 @@ namespace Backend.Handlers
             _context.Images.Update(image);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<Image,ImageDtoGet>(image);
+            return _mapper.Map<Image,ImageGetDto>(image);
         }
-        public async Task<ImageDtoGet> RemoveImageAsync(int id)
+        public async Task<ImageGetDto> RemoveImageAsync(int id)
         {
             Image image = _context.Images.Where(x => x.Id == id).First();
             // Cloudinary
@@ -76,7 +87,7 @@ namespace Backend.Handlers
             // Database
             _context.Images.Remove(image);
             await _context.SaveChangesAsync();
-            return _mapper.Map<Image, ImageDtoGet>(image);
+            return _mapper.Map<Image, ImageGetDto>(image);
         }
     }
 }

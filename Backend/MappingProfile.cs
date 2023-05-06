@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Backend.Data.Models;
 using Backend.Data.Views.Console;
+using Backend.Data.Views.Image;
 using Backend.Data.Views.User;
+using Backend.Data.Views.UserConsole;
 
 namespace Backend
 {
@@ -24,24 +26,29 @@ namespace Backend
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
 
-            CreateMap<Data.Models.Console, ConsoleDtoGet>(MemberList.None)
+            CreateMap<Data.Models.Console, ConsoleGetDto>(MemberList.None)
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.DailyPrice, opt => opt.MapFrom(src => src.DailyPrice))
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images));
-            CreateMap<ConsoleDtoAdd, Data.Models.Console>(MemberList.None)
+            CreateMap<ConsoleAddDto, Data.Models.Console>(MemberList.None)
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.DailyPrice, opt => opt.MapFrom(src => src.DailyPrice));
-            CreateMap<ConsoleDtoUpdate, Data.Models.Console>(MemberList.None)
+            CreateMap<ConsoleUpdateDto, Data.Models.Console>(MemberList.None)
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.DailyPrice, opt => opt.MapFrom(src => src.DailyPrice));
-            CreateMap<Image, ImageDtoGet>(MemberList.None);
-            CreateMap<ImageDtoAdd, Image>(MemberList.None);
-            CreateMap<ImageDtoUpdate, Image>(MemberList.None);
+
+            CreateMap<Image, ImageGetDto>(MemberList.None);
+            CreateMap<ImageAddDto, Image>(MemberList.None);
+            CreateMap<ImageUpdateDto, Image>(MemberList.None);
+
+            CreateMap<UserConsole, UserConsoleGetDto>(MemberList.None);
+            CreateMap<UserConsoleAddDto, UserConsole>(MemberList.None);
+            CreateMap<UserConsoleUpdateDto, UserConsole>(MemberList.None);
 
         }
     }
