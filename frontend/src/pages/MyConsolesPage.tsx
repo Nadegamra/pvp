@@ -17,6 +17,7 @@ function MyConsolesPage() {
     return (
         <div className="grid grid-rows-2 grid-cols-5">
             <Link
+                key={-1}
                 className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
                 to={`/consoles/new`}>
                 <span className="material-symbols-outlined text-[150px] w-full text-center">
@@ -26,12 +27,13 @@ function MyConsolesPage() {
             </Link>
             {consoles?.map((userConsole) => (
                 <Link
+                    key={userConsole.id}
                     className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
                     to={`/consoles/${userConsole.id}`}>
-                    {userConsole.console.images.length > 0 && (
+                    {userConsole.images.length > 0 && (
                         <img
-                            src={imagePathToURL(userConsole.console.images[0].path, 250)}
-                            alt={userConsole.console.images[0].name}
+                            src={imagePathToURL(userConsole.images[0].path, 250)}
+                            alt={userConsole.images[0].name}
                         />
                     )}
                     <div className="text-t-secondary text-center">

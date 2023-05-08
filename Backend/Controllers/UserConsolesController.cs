@@ -56,7 +56,7 @@ namespace Backend.Controllers
             try
             {
 
-                var result = await _userConsolesHandler.AddUserConsoleAsync(consoleDto);
+                var result = await _userConsolesHandler.AddUserConsoleAsync(consoleDto, User);
 
                 return Ok(result);
 

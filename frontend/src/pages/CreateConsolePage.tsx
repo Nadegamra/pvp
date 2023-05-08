@@ -99,12 +99,31 @@ function CreateConsolePage() {
                             : ''}
                     </p>
 
+                    <label htmlFor="images" className="cursor-pointer">
+                        <span className="p-1 mr-1 bg-[rgb(255,255,255)] text-[rgb(0,0,0)] rounded-sm">
+                            {t('userConsoleManagementForm.selectImages')}
+                        </span>
+                        {watch('images') !== undefined &&
+                            watch('images').length === 0 &&
+                            t('userConsoleManagementForm.noImage')}
+                        {watch('images') !== undefined &&
+                            watch('images').length === 1 &&
+                            watch('images').item(0)?.name}
+                        {watch('images') !== undefined &&
+                            watch('images').length > 1 &&
+                            `${watch('images').length} ${t('userConsoleManagementForm.imagesL')}`}
+                    </label>
                     <input
+                        id="images"
                         type="file"
                         multiple
+                        hidden
                         className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
-                        placeholder={t('consoleManagementForm.images') ?? ''}
-                        {...register('images', { required: true })}
+                        placeholder={t('userConsoleManagementForm.images') ?? ''}
+                        {...register('images', {
+                            required: true,
+                            validate: (files) => files.length > 1 || 'aaa'
+                        })}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.images?.type === 'required'

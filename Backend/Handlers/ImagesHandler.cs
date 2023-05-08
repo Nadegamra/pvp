@@ -23,9 +23,13 @@ namespace Backend.Handlers
             _config = config;
         }
 
-        public async Task<List<ImageGetDto>> GetImagesAsync(int consoleId)
+        public async Task<List<ImageGetDto>> GetConsoleImagesAsync(int consoleId)
         {
             return _mapper.Map<List<Image>,List<ImageGetDto>>(_context.Consoles.Include(x => x.Images).Where(x=>x.Id ==consoleId).First().Images.ToList());
+        }
+        public async Task<List<ImageGetDto>> GetUserConsoleImagesAsync(int consoleId)
+        {
+            return _mapper.Map<List<Image>, List<ImageGetDto>>(_context.UserConsoles.Include(x => x.Images).Where(x => x.Id == consoleId).First().Images.ToList());
         }
         public async Task<ImageGetDto> GetImageAsync(int id)
         {

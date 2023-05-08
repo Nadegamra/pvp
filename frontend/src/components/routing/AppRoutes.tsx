@@ -33,18 +33,16 @@ export default function AppRoutes() {
                 <Route path="/registerBorrower" element={<BorrowerRegisterPage />} />
                 <Route path="/confirmEmail/:token" element={<EmailConfirmationPage />} />
             </Route>
-            <Route element={<AppRoute condition={user !== undefined} redirectionPath="/login" />}>
+            <Route element={<AppRoute condition={user !== undefined} redirectionPath="/" />}>
                 <Route path="/profile" element={<ProfilePage />} />
             </Route>
-            <Route
-                element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/login" />}>
+            <Route element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/" />}>
                 <Route path="/approveRegistrations" element={<RegistrationApprovePage />} />
                 <Route path="/manageConsoles" element={<ConsolesManagementPage />} />
                 <Route path="/manageConsoles/:id" element={<ConsoleManagementPage />} />
                 <Route path="/manageConsoles/new" element={<CreateConsolePage />} />
             </Route>
-            <Route
-                element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/login" />}>
+            <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
                 <Route path="/consoles" element={<MyConsolesPage />} />
                 <Route path="/consoles/:id" element={<MyConsolePage />} />
                 <Route path="/consoles/new" element={<MyConsolesCreatePage />} />

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using Backend.Data.Views.User;
+﻿using Backend.Data.Views.User;
 using Backend.Data.Views.Console;
 using Backend.Data.Views.Image;
 using Backend.Data.Models;
@@ -9,6 +7,7 @@ namespace Backend.Data.Views.UserConsole
 {
     public class UserConsoleGetDto
     {
+        public int? Id { get; set; }
         public int? UserId { get; set; }
         public UserGet User { get; set; }
         public int? ConsoleId { get; set; }

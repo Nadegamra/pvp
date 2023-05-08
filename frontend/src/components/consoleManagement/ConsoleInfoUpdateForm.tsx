@@ -77,6 +77,7 @@ function ConsoleInfoUpdateForm() {
 
             <div className="pt-5 text-fs-h2">
                 <Button
+                    dialog={false}
                     text={t('consoleManagementForm.update') ?? ''}
                     onClick={handleSubmit(async () => {
                         setError('')

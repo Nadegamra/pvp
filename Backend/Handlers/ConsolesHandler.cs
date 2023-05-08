@@ -67,7 +67,7 @@ namespace Backend.Handlers
         public async Task RemoveConsoleAsync(int id)
         {
             // Remove Images
-            List<int> imagesIds = (await _imagesHandler.GetImagesAsync(id)).Select(x=>x.Id).ToList();
+            List<int> imagesIds = (await _imagesHandler.GetConsoleImagesAsync(id)).Select(x=>x.Id).ToList();
             foreach(int imageId in imagesIds)
             {
                 await _imagesHandler.RemoveImageAsync(imageId);

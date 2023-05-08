@@ -11,7 +11,7 @@ export class UserConsoleGet {
     amount: number
     accessories: string
     images: ImageGet[]
-    status: ConsoleStatus
+    consoleStatus: ConsoleStatus
 
     constructor(
         id: number,
@@ -22,7 +22,7 @@ export class UserConsoleGet {
         amount: number,
         accessories: string,
         images: ImageGet[],
-        status: ConsoleStatus
+        consoleStatus: ConsoleStatus
     ) {
         this.id = id
         this.userId = userId
@@ -32,7 +32,7 @@ export class UserConsoleGet {
         this.amount = amount
         this.accessories = accessories
         this.images = images
-        this.status = status
+        this.consoleStatus = consoleStatus
     }
 }
 

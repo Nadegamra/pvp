@@ -28,20 +28,23 @@ namespace Backend.Handlers
         public async Task<List<UserConsoleGetDto>> GetUserConsolesAsync(ClaimsPrincipal claims)
         {
             User user = await _userManager.GetUserAsync(claims);
-            return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Where(x => x.UserId == user.Id).ToList());
+            return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Where(x => x.UserId == user.Id).ToList());
         }
         public async Task<UserConsoleGetDto> GetUserConsoleAsync(int id)
         {
-            return _mapper.Map<UserConsole, UserConsoleGetDto>(_context.UserConsoles.Where(x => x.Id == id).First());
+            return _mapper.Map<UserConsole, UserConsoleGetDto>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Where(x => x.Id == id).First());
         }
-        public async Task<UserConsoleGetDto> AddUserConsoleAsync(UserConsoleAddDto userConsoleDto)
+        public async Task<UserConsoleGetDto> AddUserConsoleAsync(UserConsoleAddDto userConsoleDto, ClaimsPrincipal claims)
         {
+            var user = await _userManager.GetUserAsync(claims);
+
             List<ImageAddDto> images = userConsoleDto.Images.ToList();
 
             // Add Console
             UserConsole userConsole = _mapper.Map<UserConsoleAddDto, UserConsole>(userConsoleDto);
             userConsole.Images = null;
             userConsole.ConsoleStatus = ConsoleStatus.AT_OWNER;
+            userConsole.UserId = user.Id;
             var res = _context.UserConsoles.Add(userConsole);
             await _context.SaveChangesAsync();
 
@@ -88,7 +91,7 @@ namespace Backend.Handlers
         public async Task RemoveUserConsoleAsync(int id)
         {
             // Remove Images
-            List<int> imagesIds = (await _imagesHandler.GetImagesAsync(id)).Select(x => x.Id).ToList();
+            List<int> imagesIds = (await _imagesHandler.GetUserConsoleImagesAsync(id)).Select(x => x.Id).ToList();
             foreach (int imageId in imagesIds)
             {
                 await _imagesHandler.RemoveImageAsync(imageId);

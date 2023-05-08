@@ -88,6 +88,7 @@ function ConsoleImagesUpdateForm() {
             <div className="text-fs-primary text-danger-500 text-center">{error}</div>
             <div className="pt-5 text-fs-h2">
                 <Button
+                    dialog={false}
                     text={t('consoleManagementForm.update') ?? ''}
                     onClick={async (e) => {
                         setError('')

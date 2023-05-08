@@ -180,11 +180,29 @@ i18n
                         dailyPrice: 'Daily Price',
                         dailypriceError: 'Daily Price is required',
                         images: 'Images',
-                        imagesError: 'At least 1 image in required',
+                        imagesError: 'At least 2 images are required',
                         update: 'Update',
                         create: 'Create',
                         newConsole: 'New Console',
                         new: 'New'
+                    },
+                    userConsoleManagementForm: {
+                        title: 'Console Information',
+                        amount: 'Amount',
+                        amountError: 'Amount is required',
+                        accessories: 'Accessories',
+                        accessoriesError: 'Accessories is required',
+                        consoleCategory: 'Console Category',
+                        consoleCategoryError: 'Console Category is required',
+                        images: 'Images',
+                        imagesError: 'At least 2 images are required',
+                        update: 'Update',
+                        create: 'Create',
+                        newConsole: 'New Console',
+                        new: 'New',
+                        selectImages: 'Select images',
+                        imagesL: 'images',
+                        noImage: 'No images selected'
                     },
                     emailConfirmation: {
                         success: 'The email has been confirmed. You can now ',
@@ -195,6 +213,12 @@ i18n
                         success: 'The email has been changed. You can now ',
                         login: 'login',
                         failure: 'The email change code is invalid or expired.'
+                    },
+                    button: {
+                        dialogTitle1: 'Confirmation message',
+                        dialogBody1: 'Do you really wish to terminate the contract',
+                        confirm: 'Yes',
+                        deny: 'No'
                     }
                 }
             },
@@ -361,11 +385,29 @@ i18n
                         dailyPrice: 'Dieninis tarifas',
                         dailypriceError: 'Reikia nurodyti dieninį tarifą',
                         images: 'Nuotraukos',
-                        imagesError: 'Reikia įkelti bent 1 nuotrauką',
+                        imagesError: 'Reikia įkelti bent 2 nuotraukas',
                         update: 'Atnaujinti',
                         create: 'Sukurti',
                         newConsole: 'Nauja konsolė',
                         new: 'Pridėti naują'
+                    },
+                    userConsoleManagementForm: {
+                        title: 'Konsolės informacija',
+                        amount: 'Kiekis',
+                        amountError: 'Reikia nurodyti kiekį',
+                        accessories: 'Priedai',
+                        accessoriesError: 'Reikia nurodyti konsolės priedus',
+                        consoleCategory: 'Konsolės kategorija',
+                        consoleCategoryError: 'Reikia nurodyti konsolės kategoriją',
+                        images: 'Nuotraukos',
+                        imagesError: 'Reikia įkelti bent 2 nuotraukas',
+                        update: 'Atnaujinti',
+                        create: 'Sukurti',
+                        newConsole: 'Nauja konsolė',
+                        new: 'Pridėti konsolę',
+                        selectImages: 'Įkelti nuotraukas',
+                        imagesL: 'nuotraukos',
+                        noImage: 'Nepasirinkta jokia nuotrauka'
                     },
                     emailConfirmation: {
                         success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',
@@ -378,6 +420,12 @@ i18n
                         login: 'prisijungti',
                         failure:
                             'Elektroninio pašto pakeitimo kodas yra neteisingas arba pasibaigusio galiojimo.'
+                    },
+                    button: {
+                        dialogTitle1: 'Patvirtinimo žinutė',
+                        dialogBody1: 'Ar tikrai norite inicijuoti sutarties nutraukimą?',
+                        confirm: 'Taip',
+                        deny: 'Ne'
                     }
                 }
             }
