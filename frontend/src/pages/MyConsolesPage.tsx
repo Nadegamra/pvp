@@ -15,32 +15,37 @@ function MyConsolesPage() {
     }, [])
 
     return (
-        <div className="grid grid-rows-2 grid-cols-5">
-            <Link
-                key={-1}
-                className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
-                to={`/consoles/new`}>
-                <span className="material-symbols-outlined text-[150px] w-full text-center">
-                    add_circle
-                </span>
-                <div className="text-t-secondary text-center">{t('consoleManagementForm.new')}</div>
-            </Link>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
             {consoles?.map((userConsole) => (
                 <Link
                     key={userConsole.id}
-                    className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
+                    className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
                     to={`/consoles/${userConsole.id}`}>
-                    {userConsole.images.length > 0 && (
-                        <img
-                            src={imagePathToURL(userConsole.images[0].path, 250)}
-                            alt={userConsole.images[0].name}
-                        />
-                    )}
-                    <div className="text-t-secondary text-center">
-                        {userConsole.amount} x {userConsole.console.name}
+                    <div className="relative">
+                        <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">
+                            x {userConsole.amount}
+                        </div>
+                        {userConsole.images.length > 0 && (
+                            <img
+                                className="rounded-md"
+                                src={imagePathToURL(userConsole.images[0].path, 250)}
+                                alt={userConsole.images[0].name}
+                            />
+                        )}
                     </div>
+                    <div className="text-t-secondary text-center">{userConsole.console.name}</div>
                 </Link>
             ))}
+            <Link
+                key={-1}
+                className="fixed bottom-5 right-5 cursor-pointer select-none"
+                to={`/consoles/new`}>
+                <div className="">
+                    <span className="material-symbols-outlined text-[100px] w-full text-center">
+                        add_circle
+                    </span>
+                </div>
+            </Link>
         </div>
     )
 }

@@ -41,3 +41,7 @@ export async function removeImage(id: number) {
 export async function updateUserConsoleStatus(data: UserConsoleStatusUpdate) {
     return api.patch(`updateStatus`, data, headers)
 }
+
+export async function terminateContract(id: number) {
+    return api.patch(`terminate/${id}`, null, headers)
+}

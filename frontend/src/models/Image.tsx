@@ -61,5 +61,5 @@ export class ImageUpdate {
 }
 
 export function imagePathToURL(path: string, width: number) {
-    return `https://res.cloudinary.com/drzqsbvky/image/upload/w_${width}/${path}`
+    return `https://res.cloudinary.com/drzqsbvky/image/upload/ar_1.6,w_${width}/${path}`
 }

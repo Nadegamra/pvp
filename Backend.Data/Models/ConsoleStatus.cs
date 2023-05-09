@@ -8,9 +8,10 @@ namespace Backend.Data.Models
 {
     public enum ConsoleStatus
     {
+        UNCONFIRMED,
         AT_OWNER,
         AT_PLATFORM,
         AT_LENDER,
-        AWAITING_RETURN
+        AWAITING_TERMINATION
     }
 }

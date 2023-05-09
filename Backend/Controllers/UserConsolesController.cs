@@ -3,12 +3,14 @@ using Backend.Data.Views.Image;
 using Backend.Data.Views.UserConsole;
 using Backend.Handlers;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class UserConsolesController: ControllerBase
     {
         private readonly UserConsolesHandler _userConsolesHandler;
@@ -50,6 +52,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "lender")]
         [HttpPost("add")]
         public async Task<ActionResult> AddUserConsole(UserConsoleAddDto consoleDto)
         {
@@ -66,6 +69,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.InnerException.Message);
             }
         }
+        [Authorize(Roles = "lender")]
         [HttpPut("update")]
         public async Task<ActionResult> UpdateUserConsole(UserConsoleUpdateDto consoleDto)
         {
@@ -81,6 +85,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "admin")]
         [HttpDelete("remove/{id}")]
         public async Task<ActionResult<ImageUploadResult>> RemoveUserConsole(int id)
         {
@@ -95,7 +100,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize(Roles = "lender")]
         [HttpPost("images/add")]
         public async Task<ActionResult> AddImage(ImageAddDto imageDto)
         {
@@ -110,7 +115,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize(Roles = "lender")]
         [HttpDelete("images/delete")]
         public async Task<ActionResult> RemoveImage(int id)
         {
@@ -125,12 +130,28 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles ="admin")]
         [HttpPatch("updateStatus")]
         public async Task<ActionResult> UpdateStatus(UserConsoleStatusUpdateDto updateDto)
         {
             try
             {
                 await _userConsolesHandler.UpdateStatus(updateDto);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize(Roles = "lender, borrower")]
+        [HttpPatch("terminate/{id}")]
+        public async Task<ActionResult> TerminateContract(int id)
+        {
+            try
+            {
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id=id, ConsoleStatus=Data.Models.ConsoleStatus.AWAITING_TERMINATION});
                 return Ok();
 
             }

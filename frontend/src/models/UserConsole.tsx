@@ -83,8 +83,23 @@ export class UserConsoleStatusUpdate {
 }
 
 export enum ConsoleStatus {
+    UNCONFIRMED,
     AT_OWNER,
     AT_PLATFORM,
     AT_LENDER,
-    AWAITING_RETURN
+    AWAITING_TERMINATION
+}
+
+export function getConsoleStatusString(status: ConsoleStatus) {
+    if (status === ConsoleStatus.UNCONFIRMED) {
+        return 'Laukiama sutarties pasirašymo'
+    } else if (status === ConsoleStatus.AT_OWNER) {
+        return 'Namuose'
+    } else if (status === ConsoleStatus.AT_PLATFORM) {
+        return 'Laukiama nuomos'
+    } else if (status === ConsoleStatus.AT_LENDER) {
+        return 'Pas nuomotoją'
+    } else if (status === ConsoleStatus.AWAITING_TERMINATION) {
+        return 'Laukiama grąžinimo'
+    }
 }

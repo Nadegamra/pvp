@@ -1,7 +1,7 @@
 import { useParams } from 'react-router'
-import { ConsoleStatus, UserConsoleGet } from '../models/UserConsole'
+import { ConsoleStatus, UserConsoleGet, getConsoleStatusString } from '../models/UserConsole'
 import { useEffect, useState } from 'react'
-import { getUserConsole } from '../api/UserConsolesApi'
+import { getUserConsole, terminateContract } from '../api/UserConsolesApi'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 import { Carousel } from 'react-responsive-carousel'
 import { imagePathToURL } from '../models/Image'
@@ -18,25 +18,6 @@ function MyConsolePage() {
         })
     }, [])
 
-    const displayStatus = () => {
-        let status = ''
-        if (userConsole?.consoleStatus == ConsoleStatus.AT_OWNER) {
-            status = 'Namuose'
-        } else if (userConsole?.consoleStatus == ConsoleStatus.AT_PLATFORM) {
-            status = 'Laukiama nuomos'
-        } else if (userConsole?.consoleStatus == ConsoleStatus.AT_LENDER) {
-            status = 'Pas nuomotoją'
-        } else if (userConsole?.consoleStatus == ConsoleStatus.AWAITING_RETURN) {
-            status = 'Laukiama grąžinimo'
-        }
-        return (
-            <div>
-                <div className="font-bold">Dabartinė būsena</div>
-                <div className="ml-3">{status}</div>
-            </div>
-        )
-    }
-
     return (
         <div className="mt-10 mx-auto flex flex-col md:flex-row">
             <div className="md:h-[400px] md:w-[700px] text-center align-middle mx-10">
@@ -45,7 +26,7 @@ function MyConsolePage() {
                         {userConsole?.images.map((value) => (
                             <div>
                                 <p className="legend">{value.name}</p>
-                                <img src={imagePathToURL(value.path, 250)} alt={value.name} />
+                                <img src={imagePathToURL(value.path, 1080)} alt={value.name} />
                             </div>
                         ))}
                     </Carousel>
@@ -58,11 +39,9 @@ function MyConsolePage() {
                 <div className="ml-3">{userConsole?.console.name}</div>
                 <div className="font-bold">Aprašymas</div>
                 <div className="ml-3">{userConsole?.console.description}</div>
-                <div className="font-bold">Pilna nuomos kaina (1 vnt.)</div>
-                <div className="ml-3">{userConsole?.console.dailyPrice} €</div>
-                <div className="font-bold">Dieninės pajamos nuomos metu (1 vnt.)</div>
+                <div className="font-bold">Vidutinės mėnesio pajamos nuomos metu (1 vnt.)</div>
                 <div className="ml-3">
-                    {Math.round((userConsole?.console.dailyPrice ?? 0) * 0.6 * 100) / 100} €
+                    {(Math.round((userConsole?.console.dailyPrice ?? 0) * 0.6 * 100) / 100) * 30} €
                 </div>
 
                 <div className="text-fs-h1 mt-5">Nuomos detalės</div>
@@ -71,17 +50,23 @@ function MyConsolePage() {
                 <div className="ml-3">{userConsole?.amount} vnt.</div>
                 <div className="font-bold">Priedai</div>
                 <div className="ml-3">{userConsole?.accessories}</div>
-                {displayStatus()}
-                <div className="mt-5">
-                    <Button
-                        text="Inicijuoti sutarties nutraukimą"
-                        dialog={true}
-                        onClick={() => {
-                            console.log('Inicijuoti sutarties nutraukimą')
-                            // Inicijuoti sutarties nutraukimą
-                        }}
-                    />
+                <div className="font-bold">Dabartinė būsena</div>
+                <div className="ml-3">
+                    {getConsoleStatusString(
+                        userConsole?.consoleStatus ?? ConsoleStatus.UNCONFIRMED
+                    )}
                 </div>
+                {userConsole?.consoleStatus !== ConsoleStatus.UNCONFIRMED && (
+                    <div className="mt-5">
+                        <Button
+                            text="Inicijuoti sutarties nutraukimą"
+                            dialog={true}
+                            onClick={() => {
+                                terminateContract(userConsole?.id ?? -1)
+                            }}
+                        />
+                    </div>
+                )}
             </div>
         </div>
     )

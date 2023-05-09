@@ -35,6 +35,7 @@ function MyConsolesCreatePage() {
     } = useForm<Props>()
     const [error, setError] = useState('')
     const [categories, setCategories] = useState<ConsoleGet[]>()
+    const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
         getConsoles().then((response) => {
@@ -47,6 +48,7 @@ function MyConsolesCreatePage() {
             className="flex flex-col items-center select-none bg-bg-primary text-t-primary pt-10"
             onSubmit={handleSubmit(async (data) => {
                 setError('')
+                setLoading(true)
                 const images: ImageAdd[] = []
                 for (let i = 0; i < data.images.length; i++) {
                     const image = data.images.item(i)
@@ -67,6 +69,7 @@ function MyConsolesCreatePage() {
                     images
                 )
                 addUserConsole(userConsoleAdd).then((response) => {
+                    setLoading(false)
                     window.location.href = '/consoles'
                 })
             })}>
@@ -163,6 +166,11 @@ function MyConsolesCreatePage() {
                 </div>
             </div>
             <div className="text-fs-primary text-danger-500 text-center">{error}</div>
+            {loading && (
+                <div className="flex items-center justify-center pt-10">
+                    <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                </div>
+            )}
         </form>
     )
 }
