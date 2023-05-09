@@ -23,7 +23,7 @@ const toBase64 = (file: File): Promise<string> =>
         reader.onerror = reject
     })
 
-function MyConsolesCreatePage() {
+function UserConsolesCreatePage() {
     const { t } = useTranslation()
     const {
         register,
@@ -175,4 +175,4 @@ function MyConsolesCreatePage() {
     )
 }
 
-export default MyConsolesCreatePage
+export default UserConsolesCreatePage

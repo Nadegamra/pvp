@@ -32,7 +32,7 @@ namespace Backend.Handlers
         }
         public async Task<UserConsoleGetDto> GetUserConsoleAsync(int id)
         {
-            return _mapper.Map<UserConsole, UserConsoleGetDto>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Where(x => x.Id == id).First());
+            return _mapper.Map<UserConsole, UserConsoleGetDto>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x => x.User).Where(x => x.Id == id).First());
         }
         public async Task<UserConsoleGetDto> AddUserConsoleAsync(UserConsoleAddDto userConsoleDto, ClaimsPrincipal claims)
         {

@@ -12,11 +12,11 @@ import ContactInfoPage from '../../pages/ContactInfoPage'
 import ConsolesManagementPage from '../../pages/ConsolesManagementPage'
 import ConsoleManagementPage from '../../pages/ConsoleManagementPage'
 import CreateConsolePage from '../../pages/CreateConsolePage'
-import MyConsolesPage from '../../pages/MyConsolesPage'
-import MyConsolePage from '../../pages/MyConsolePage'
+import UserConsolesPage from '../../pages/UserConsolesPage'
+import UserConsolePage from '../../pages/UserConsolePage'
 import EmailConfirmationPage from '../../pages/EmailConfirmationPage'
 import EmailChangePage from '../../pages/EmailChangePage'
-import MyConsolesCreatePage from '../../pages/MyConsolesCreatePage'
+import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -43,9 +43,9 @@ export default function AppRoutes() {
                 <Route path="/manageConsoles/new" element={<CreateConsolePage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
-                <Route path="/consoles" element={<MyConsolesPage />} />
-                <Route path="/consoles/:id" element={<MyConsolePage />} />
-                <Route path="/consoles/new" element={<MyConsolesCreatePage />} />
+                <Route path="/consoles" element={<UserConsolesPage />} />
+                <Route path="/consoles/:id" element={<UserConsolePage />} />
+                <Route path="/consoles/new" element={<UserConsolesCreatePage />} />
             </Route>
         </Routes>
     )

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { imagePathToURL } from '../models/Image'
 import { getUserConsoles } from '../api/UserConsolesApi'
 
-function MyConsolesPage() {
+function UserConsolesPage() {
     const [consoles, setConsoles] = useState<UserConsoleGet[]>()
 
     useEffect(() => {
@@ -50,4 +50,4 @@ function MyConsolesPage() {
     )
 }
 
-export default MyConsolesPage
+export default UserConsolesPage

@@ -92,14 +92,14 @@ export enum ConsoleStatus {
 
 export function getConsoleStatusString(status: ConsoleStatus) {
     if (status === ConsoleStatus.UNCONFIRMED) {
-        return 'Laukiama sutarties pasirašymo'
+        return 'userConsolePage.statusUnconfirmed'
     } else if (status === ConsoleStatus.AT_OWNER) {
-        return 'Namuose'
+        return 'userConsolePage.statusAtOwner'
     } else if (status === ConsoleStatus.AT_PLATFORM) {
-        return 'Laukiama nuomos'
+        return 'userConsolePage.statusAtPlatform'
     } else if (status === ConsoleStatus.AT_LENDER) {
-        return 'Pas nuomotoją'
-    } else if (status === ConsoleStatus.AWAITING_TERMINATION) {
-        return 'Laukiama grąžinimo'
+        return 'userConsolePage.statusAtLender'
+    } else {
+        return 'userConsolePage.statusTerminating'
     }
 }
