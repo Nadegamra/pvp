@@ -88,6 +88,7 @@ function ConsoleImagesUpdateForm() {
             <div className="text-fs-primary text-danger-500 text-center">{error}</div>
             <div className="pt-5 text-fs-h2">
                 <Button
+                    dialog={false}
                     text={t('consoleManagementForm.update') ?? ''}
                     onClick={async (e) => {
                         setError('')
@@ -108,7 +109,7 @@ function ConsoleImagesUpdateForm() {
                                     base64 = base64.substring(1)
                                 } while (base64[0] != ',')
                                 base64 = base64.substring(1)
-                                await addImage(new ImageAdd(image.name, '', consoleGet!.id, base64))
+                                await addImage(new ImageAdd(image.name, '', base64, consoleGet!.id))
                             }
                         }
                         // Refresh data

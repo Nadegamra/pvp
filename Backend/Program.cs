@@ -5,76 +5,75 @@ using Backend.Properties;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
-builder.Services.AddControllers();
-builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    var services = builder.Services;
+
+    services.AddControllers();
+    services.AddCors(options =>
     {
-        policy.WithOrigins("http://localhost:3000")
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials();
+        options.AddDefaultPolicy(policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials();
+        });
     });
-});
 
-// Add swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    // Add swagger
+    services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen();
 
-// Add authentication
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-});
-builder.Services.AddIdentity<User, IdentityRole<int>>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 8;
+    // Add authentication
+    services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    });
+    services.AddIdentity<User, IdentityRole<int>>()
+        .AddEntityFrameworkStores<AppDbContext>()
+        .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
+    services.Configure<IdentityOptions>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 8;
 
-    options.User.AllowedUserNameCharacters =
-    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^*_-~.";
-    options.User.RequireUniqueEmail = true;
-});
+        options.User.AllowedUserNameCharacters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^*_-~.";
+        options.User.RequireUniqueEmail = true;
+    });
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.SameSite = SameSiteMode.None;
-});
+    builder.Services.ConfigureApplicationCookie(options =>
+    {
+        options.Cookie.SameSite = SameSiteMode.None;
+    });
 
-// Add database
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    // Add database
+    string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    services.AddDbContext<AppDbContext>(options =>
+        options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+    // Add Configuration
+    services.Configure<CloudinaryConfig>(builder.Configuration.GetSection("ImageStorage"));
+    services.Configure<SmtpConfig>(builder.Configuration.GetSection("Smtp"));
 
-builder.Services.Configure<CloudinaryConfig>(builder.Configuration.GetSection("ImageStorage"));
-builder.Services.Configure<SmtpConfig>(builder.Configuration.GetSection("Smtp"));
-
-// Add services to the DI container.
-builder.Services.AddTransient<UserManager<User>>();
-builder.Services.AddTransient<RoleManager<IdentityRole<int>>>();
-builder.Services.AddTransient<AuthHandler>();
-builder.Services.AddTransient<ConsolesHandler>();
-builder.Services.AddTransient<UsersHandler>();
-builder.Services.AddTransient<AccessoriesHandler>();
-builder.Services.AddTransient<ImagesHandler>();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-
-
+    // Add services to the DI container.
+    services.AddTransient<UserManager<User>>();
+    services.AddTransient<RoleManager<IdentityRole<int>>>();
+    services.AddTransient<AuthHandler>();
+    services.AddTransient<ConsolesHandler>();
+    services.AddTransient<UsersHandler>();
+    services.AddTransient<AccessoriesHandler>();
+    services.AddTransient<ImagesHandler>();
+    services.AddTransient<UserConsolesHandler>();
+    services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+}
 
 var app = builder.Build();
 

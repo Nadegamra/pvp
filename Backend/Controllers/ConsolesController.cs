@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Backend.Handlers;
 using Backend.Data.Views.Console;
+using Backend.Data.Views.Image;
 
 namespace Backend.Controllers
 {
@@ -49,7 +50,7 @@ namespace Backend.Controllers
             }
         }
         [HttpPost("add")]
-        public async Task<ActionResult> AddConsole(ConsoleDtoAdd consoleDto)
+        public async Task<ActionResult> AddConsole(ConsoleAddDto consoleDto)
         {
             try
             {
@@ -65,7 +66,7 @@ namespace Backend.Controllers
             }
         }
         [HttpPut("update")]
-        public async Task<ActionResult> UpdateConsole(ConsoleDtoUpdate consoleDto)
+        public async Task<ActionResult> UpdateConsole(ConsoleUpdateDto consoleDto)
         {
             try
             {
@@ -95,7 +96,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost("images/add")]
-        public async Task<ActionResult> AddImage(ImageDtoAdd imageDto)
+        public async Task<ActionResult> AddImage(ImageAddDto imageDto)
         {
             try
             {

@@ -32,7 +32,8 @@ i18n
                         },
                         login: 'Login',
                         register: 'Register',
-                        manageConsoles: 'Manage Consoles'
+                        manageConsoles: 'Manage Consoles',
+                        myConsoles: 'My Consoles'
                     },
                     contacts: {
                         contactInfo: 'Contact Information',
@@ -179,11 +180,50 @@ i18n
                         dailyPrice: 'Daily Price',
                         dailypriceError: 'Daily Price is required',
                         images: 'Images',
-                        imagesError: 'At least 1 image in required',
+                        imagesError: 'At least 2 images are required',
                         update: 'Update',
                         create: 'Create',
                         newConsole: 'New Console',
                         new: 'New'
+                    },
+                    userConsoleManagementForm: {
+                        title: 'Console Information',
+                        amount: 'Amount',
+                        amountError: 'Amount is required',
+                        accessories: 'Accessories',
+                        accessoriesError: 'Accessories is required',
+                        consoleCategory: 'Console Category',
+                        consoleCategoryError: 'Console Category is required',
+                        images: 'Images',
+                        imagesError: 'At least 2 images are required',
+                        update: 'Update',
+                        create: 'Create',
+                        newConsole: 'New Console',
+                        new: 'New',
+                        selectImages: 'Select images',
+                        imagesL: 'images',
+                        noImage: 'No images selected'
+                    },
+                    userConsolePage: {
+                        consoleTitle: 'About console',
+                        consoleName: 'Name',
+                        consoleDescription: 'Description',
+                        consoleIncome: 'Average monthly income (1 unit)',
+                        lendTitle: 'Product details',
+                        lendAmount: 'Amount (units)',
+                        lendAccessories: 'Accessories',
+                        lendStatus: 'Current status',
+                        userTitle: 'About lender',
+                        userFname: 'First name',
+                        userLname: 'Last name',
+                        userEmail: 'Email',
+                        initiateTermination: 'Initiate contract termination',
+                        contactUser: 'Contact user',
+                        statusUnconfirmed: 'Awaiting contract signing',
+                        statusAtOwner: 'At lender home',
+                        statusAtPlatform: 'Awaiting to be lended',
+                        statusAtLender: 'At lender',
+                        statusTerminating: 'Awaiting contract termination'
                     },
                     emailConfirmation: {
                         success: 'The email has been confirmed. You can now ',
@@ -194,6 +234,12 @@ i18n
                         success: 'The email has been changed. You can now ',
                         login: 'login',
                         failure: 'The email change code is invalid or expired.'
+                    },
+                    button: {
+                        dialogTitle1: 'Confirmation message',
+                        dialogBody1: 'Do you really wish to terminate the contract',
+                        confirm: 'Yes',
+                        deny: 'No'
                     }
                 }
             },
@@ -213,7 +259,8 @@ i18n
                         },
                         login: 'Prisijungimas',
                         register: 'Registracija',
-                        manageConsoles: 'Konsolių valdymas'
+                        manageConsoles: 'Konsolių valdymas',
+                        myConsoles: 'Mano konsolės'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',
@@ -359,11 +406,50 @@ i18n
                         dailyPrice: 'Dieninis tarifas',
                         dailypriceError: 'Reikia nurodyti dieninį tarifą',
                         images: 'Nuotraukos',
-                        imagesError: 'Reikia įkelti bent 1 nuotrauką',
+                        imagesError: 'Reikia įkelti bent 2 nuotraukas',
                         update: 'Atnaujinti',
                         create: 'Sukurti',
                         newConsole: 'Nauja konsolė',
                         new: 'Pridėti naują'
+                    },
+                    userConsoleManagementForm: {
+                        title: 'Konsolės informacija',
+                        amount: 'Kiekis',
+                        amountError: 'Reikia nurodyti kiekį',
+                        accessories: 'Priedai',
+                        accessoriesError: 'Reikia nurodyti konsolės priedus',
+                        consoleCategory: 'Konsolės kategorija',
+                        consoleCategoryError: 'Reikia nurodyti konsolės kategoriją',
+                        images: 'Nuotraukos',
+                        imagesError: 'Reikia įkelti bent 2 nuotraukas',
+                        update: 'Atnaujinti',
+                        create: 'Sukurti',
+                        newConsole: 'Nauja konsolė',
+                        new: 'Pridėti konsolę',
+                        selectImages: 'Įkelti nuotraukas',
+                        imagesL: 'nuotraukos',
+                        noImage: 'Nepasirinkta jokia nuotrauka'
+                    },
+                    userConsolePage: {
+                        consoleTitle: 'Apie konsolę',
+                        consoleName: 'Pavadinimas',
+                        consoleDescription: 'Aprašymas',
+                        consoleIncome: 'Vidutinės mėnesio pajamos (1vnt.)',
+                        lendTitle: 'Nuomos detalės',
+                        lendAmount: 'Nuomojamas kiekis (vnt.)',
+                        lendAccessories: 'Priedai',
+                        lendStatus: 'Dabartinė būsena',
+                        userTitle: 'Apie skolintoją',
+                        userFname: 'Vardas',
+                        userLname: 'Pavardė',
+                        userEmail: 'El. paštas',
+                        initiateTermination: 'Inicijuoti sutarties nutraukimą',
+                        contactUser: 'Susisiekti su vartotoju',
+                        statusUnconfirmed: 'Laukiama sutarties pasirašymo',
+                        statusAtOwner: 'Namuose',
+                        statusAtPlatform: 'Laukiama nuomos',
+                        statusAtLender: 'Pas nuomotoją',
+                        statusTerminating: 'Laukiama sutarties nutraukimo'
                     },
                     emailConfirmation: {
                         success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',
@@ -376,6 +462,12 @@ i18n
                         login: 'prisijungti',
                         failure:
                             'Elektroninio pašto pakeitimo kodas yra neteisingas arba pasibaigusio galiojimo.'
+                    },
+                    button: {
+                        dialogTitle1: 'Patvirtinimo žinutė',
+                        dialogBody1: 'Ar tikrai norite inicijuoti sutarties nutraukimą?',
+                        confirm: 'Taip',
+                        deny: 'Ne'
                     }
                 }
             }

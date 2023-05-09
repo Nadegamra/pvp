@@ -19,7 +19,7 @@ function ConsolesManagementPage() {
         <div className="grid grid-rows-2 grid-cols-5">
             <Link
                 className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
-                to={`/admin/consoles/new`}>
+                to={`/manageConsoles/new`}>
                 <span className="material-symbols-outlined text-[150px] w-full text-center">
                     add_circle
                 </span>
@@ -28,9 +28,14 @@ function ConsolesManagementPage() {
             {consoles?.map((console) => (
                 <Link
                     className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
-                    to={`/admin/consoles/${console.id}`}>
-                    {console.images.length > 0 && <img src={imagePathToURL(console.images[0].path, 250)} alt={console.images[0].name} />}
-                    
+                    to={`/manageConsoles/${console.id}`}>
+                    {console.images.length > 0 && (
+                        <img
+                            src={imagePathToURL(console.images[0].path, 250)}
+                            alt={console.images[0].name}
+                        />
+                    )}
+
                     <div className="text-t-secondary text-center">{console.name}</div>
                 </Link>
             ))}

@@ -12,8 +12,11 @@ import ContactInfoPage from '../../pages/ContactInfoPage'
 import ConsolesManagementPage from '../../pages/ConsolesManagementPage'
 import ConsoleManagementPage from '../../pages/ConsoleManagementPage'
 import CreateConsolePage from '../../pages/CreateConsolePage'
+import UserConsolesPage from '../../pages/UserConsolesPage'
+import UserConsolePage from '../../pages/UserConsolePage'
 import EmailConfirmationPage from '../../pages/EmailConfirmationPage'
 import EmailChangePage from '../../pages/EmailChangePage'
+import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -30,15 +33,19 @@ export default function AppRoutes() {
                 <Route path="/registerBorrower" element={<BorrowerRegisterPage />} />
                 <Route path="/confirmEmail/:token" element={<EmailConfirmationPage />} />
             </Route>
-            <Route element={<AppRoute condition={user !== undefined} redirectionPath="/login" />}>
+            <Route element={<AppRoute condition={user !== undefined} redirectionPath="/" />}>
                 <Route path="/profile" element={<ProfilePage />} />
             </Route>
-            <Route
-                element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/login" />}>
+            <Route element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/" />}>
                 <Route path="/approveRegistrations" element={<RegistrationApprovePage />} />
-                <Route path="/admin/consoles" element={<ConsolesManagementPage />} />
-                <Route path="/admin/consoles/:id" element={<ConsoleManagementPage />} />
-                <Route path="/admin/consoles/new" element={<CreateConsolePage />} />
+                <Route path="/manageConsoles" element={<ConsolesManagementPage />} />
+                <Route path="/manageConsoles/:id" element={<ConsoleManagementPage />} />
+                <Route path="/manageConsoles/new" element={<CreateConsolePage />} />
+            </Route>
+            <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
+                <Route path="/consoles" element={<UserConsolesPage />} />
+                <Route path="/consoles/:id" element={<UserConsolePage />} />
+                <Route path="/consoles/new" element={<UserConsolesCreatePage />} />
             </Route>
         </Routes>
     )
