@@ -26,6 +26,7 @@ function ChatsPage() {
     const [conversations, setConversations] = useState<ConversationGet[]>()
     const [currentConversation, setCurrentConversation] = useState<number>()
     const [message, setMessage] = useState<string>('')
+    const [search, setSearch] = useState<string>('')
 
     useEffect(() => {
         updateConversations()
@@ -57,32 +58,42 @@ function ChatsPage() {
         <div style={{ height: document.getElementById('container')?.clientHeight }}>
             <MainContainer responsive>
                 <Sidebar position="left">
-                    <Search placeholder="Search..." />
+                    <Search
+                        placeholder="Search..."
+                        value={search}
+                        onChange={(text) => setSearch(text)}
+                    />
                     <ConversationList>
                         {conversations !== undefined &&
                             conversations!.length > 0 &&
-                            conversations?.map((conversation) => (
-                                <Conversation
-                                    onClick={() => {
-                                        setCurrentConversation(conversation.id)
-                                    }}
-                                    name={`${conversation.userConsole.console.name}`}
-                                    info={
-                                        conversation.messages.length > 0
-                                            ? conversation.messages[
-                                                  conversation.messages.length - 1
-                                              ].text
-                                            : ''
-                                    }
-                                    active={currentConversation === conversation.id}>
-                                    <Avatar
-                                        src={imagePathToURL(
-                                            conversation.userConsole.images[0].path,
-                                            256
-                                        )}
-                                    />
-                                </Conversation>
-                            ))}
+                            conversations
+                                .filter((x) =>
+                                    x.userConsole.console.name
+                                        .toLowerCase()
+                                        .match(search.toLowerCase())
+                                )
+                                ?.map((conversation) => (
+                                    <Conversation
+                                        onClick={() => {
+                                            setCurrentConversation(conversation.id)
+                                        }}
+                                        name={`${conversation.userConsole.console.name}`}
+                                        info={
+                                            conversation.messages.length > 0
+                                                ? conversation.messages[
+                                                      conversation.messages.length - 1
+                                                  ].text
+                                                : ''
+                                        }
+                                        active={currentConversation === conversation.id}>
+                                        <Avatar
+                                            src={imagePathToURL(
+                                                conversation.userConsole.images[0].path,
+                                                256
+                                            )}
+                                        />
+                                    </Conversation>
+                                ))}
                     </ConversationList>
                 </Sidebar>
                 <ChatContainer>
