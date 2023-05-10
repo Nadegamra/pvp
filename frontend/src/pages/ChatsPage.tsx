@@ -63,10 +63,15 @@ function ChatsPage() {
                             conversations!.length > 0 &&
                             conversations?.map((conversation) => (
                                 <Conversation
-                                    name={`${conversation.id} ${conversation.userConsole.console.name}`}
+                                    onClick={() => {
+                                        setCurrentConversation(conversation.id)
+                                    }}
+                                    name={`${conversation.userConsole.console.name}`}
                                     info={
                                         conversation.messages.length > 0
-                                            ? conversation.messages[0].text
+                                            ? conversation.messages[
+                                                  conversation.messages.length - 1
+                                              ].text
                                             : ''
                                     }
                                     active={currentConversation === conversation.id}>

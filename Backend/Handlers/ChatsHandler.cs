@@ -42,7 +42,12 @@ namespace Backend.Handlers
             {
                 return;
             }
-            await _context.Conversations.AddAsync(new Conversation { UserConsoleId= userConsoleId });
+            var result = await _context.Conversations.AddAsync(new Conversation { UserConsoleId= userConsoleId });
+
+            var userConsole = _context.UserConsoles.Where(x => x.Id == userConsoleId).First();
+            userConsole.ConversationId = result.Entity.Id;
+            _context.UserConsoles.Update(userConsole);
+
             await _context.SaveChangesAsync();
             return;
         }

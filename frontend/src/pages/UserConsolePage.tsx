@@ -92,7 +92,7 @@ function UserConsolePage() {
                             dialog={false}
                             onClick={() => {
                                 contactLender(userConsole!.id).then(() => {
-                                    window.location.href = `/chats/${userConsole?.id}`
+                                    window.location.href = `/chats/${userConsole?.conversationId}`
                                 })
                             }}
                         />
