@@ -3,6 +3,7 @@ import {
     Avatar,
     ChatContainer,
     Conversation,
+    ConversationHeader,
     ConversationList,
     MainContainer,
     Message,
@@ -11,42 +12,123 @@ import {
     Search,
     Sidebar
 } from '@chatscope/chat-ui-kit-react'
+import { useEffect, useState } from 'react'
+import { ConversationGet } from '../models/Conversation'
+import { useAuth } from '../contexts/AuthContext'
+import { getAllConversations, getUserConversations, sendMessage } from '../api/ChatsApi'
+import { useParams } from 'react-router'
+import { imagePathToURL } from '../models/Image'
+import { MessageAdd } from '../models/Message'
 
 function ChatsPage() {
+    const { id } = useParams()
+    const { user } = useAuth()
+    const [conversations, setConversations] = useState<ConversationGet[]>()
+    const [currentConversation, setCurrentConversation] = useState<number>()
+    const [message, setMessage] = useState<string>('')
+
+    useEffect(() => {
+        updateConversations()
+    }, [])
+
+    const updateConversations = () => {
+        if (user?.role === 'admin') {
+            getAllConversations().then((response) => {
+                setConversations(response.data)
+                if (id !== undefined) {
+                    setCurrentConversation(parseInt(id))
+                } else {
+                    setCurrentConversation((response.data as ConversationGet[])[0].id)
+                }
+            })
+        } else {
+            getUserConversations().then((response) => {
+                setConversations(response.data)
+                if (id !== undefined) {
+                    setCurrentConversation(parseInt(id))
+                } else {
+                    setCurrentConversation((response.data as ConversationGet[])[0].id)
+                }
+            })
+        }
+    }
+
     return (
         <div style={{ height: document.getElementById('container')?.clientHeight }}>
             <MainContainer responsive>
                 <Sidebar position="left">
                     <Search placeholder="Search..." />
                     <ConversationList>
-                        <Conversation
-                            name="Vardenis Pavardenis"
-                            lastSenderName="Vardenis Pavardenis"
-                            info="Text2">
-                            <Avatar src="https://th.bing.com/th/id/OIP.peY2DU8XqomBik_4mlfOiAHaE8?pid=ImgDet&rs=1" />
-                        </Conversation>
+                        {conversations !== undefined &&
+                            conversations!.length > 0 &&
+                            conversations?.map((conversation) => (
+                                <Conversation
+                                    name={`${conversation.id} ${conversation.userConsole.console.name}`}
+                                    info={
+                                        conversation.messages.length > 0
+                                            ? conversation.messages[0].text
+                                            : ''
+                                    }
+                                    active={currentConversation === conversation.id}>
+                                    <Avatar
+                                        src={imagePathToURL(
+                                            conversation.userConsole.images[0].path,
+                                            256
+                                        )}
+                                    />
+                                </Conversation>
+                            ))}
                     </ConversationList>
                 </Sidebar>
                 <ChatContainer>
+                    <ConversationHeader>
+                        <ConversationHeader.Back />
+                        <Avatar
+                            src={imagePathToURL(
+                                conversations?.filter((x) => x.id === currentConversation)[0]
+                                    .userConsole.images[0].path ?? '',
+                                256
+                            )}
+                        />
+                        <ConversationHeader.Content
+                            userName={
+                                conversations?.filter((x) => x.id === currentConversation)[0]
+                                    .userConsole.console.name
+                            }
+                        />
+                    </ConversationHeader>
                     <MessageList>
-                        <Message
-                            model={{
-                                message: 'Text',
-                                sentTime: 'just now',
-                                direction: 'outgoing',
-                                position: 0
-                            }}
-                        />
-                        <Message
-                            model={{
-                                message: 'Text2',
-                                sentTime: 'just now',
-                                direction: 'incoming',
-                                position: 0
-                            }}
-                        />
+                        {conversations !== undefined &&
+                            conversations!.length > 0 &&
+                            conversations
+                                ?.filter((x) => x.id === currentConversation)[0]
+                                .messages.map((message) => (
+                                    <Message
+                                        model={{
+                                            message: message.text,
+                                            sentTime: '',
+                                            direction:
+                                                message.fromAdmin !== (user?.role === 'admin')
+                                                    ? 'incoming'
+                                                    : 'outgoing',
+                                            position: 0
+                                        }}
+                                    />
+                                ))}
                     </MessageList>
-                    <MessageInput placeholder="Type message here" />
+                    <MessageInput
+                        placeholder="Type message here"
+                        value={message}
+                        onChange={(text) => setMessage(text)}
+                        onSend={() => {
+                            sendMessage(new MessageAdd(currentConversation ?? -1, message)).then(
+                                () => {
+                                    updateConversations()
+                                }
+                            )
+                            setMessage('')
+                        }}
+                    />
                 </ChatContainer>
             </MainContainer>
         </div>

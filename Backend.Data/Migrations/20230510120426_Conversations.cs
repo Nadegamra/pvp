@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Backend.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Conversation : Migration
+    public partial class Conversations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,7 @@ namespace Backend.Data.Migrations
                 name: "ConversationId",
                 table: "UserConsoles",
                 type: "int",
-                nullable: false,
-                defaultValue: 0);
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Conversations",
@@ -29,11 +28,17 @@ namespace Backend.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Conversations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Conversations_UserConsoles_UserConsoleId",
+                        column: x => x.UserConsoleId,
+                        principalTable: "UserConsoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Message",
+                name: "Messages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -45,9 +50,9 @@ namespace Backend.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Message", x => x.Id);
+                    table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Message_Conversations_ConversationId",
+                        name: "FK_Messages_Conversations_ConversationId",
                         column: x => x.ConversationId,
                         principalTable: "Conversations",
                         principalColumn: "Id",
@@ -60,58 +65,42 @@ namespace Backend.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "f2c04564-6ced-4af1-b34c-ce0e681faab8", "fa71f416-6500-48c0-99eb-27a27630af03" });
+                values: new object[] { "a224e2a4-2723-4402-ae80-6e0f72ab3117", "31f58844-416d-4daf-91fe-4887acd7316d" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: 2,
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "dbd9d1a5-4ac3-4425-a977-43245ac8be09", "7d088b5f-a958-4f3d-bd7e-5e07aca73f9a" });
+                values: new object[] { "a86a7c37-3058-4f9b-b26a-0320550acd44", "8cc366dd-b639-4bc1-b102-8faee54b7bb5" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: 3,
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "1e2203ca-b008-4e3e-8cd8-65d039ccd5d8", "054330a7-155f-474a-9081-6f6e00df205d" });
+                values: new object[] { "ae5e0e4e-028a-4724-9ab1-c8f7422fd298", "6ce6f9ce-62c1-48ef-b799-9582b60987f9" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserConsoles_ConversationId",
-                table: "UserConsoles",
-                column: "ConversationId",
+                name: "IX_Conversations_UserConsoleId",
+                table: "Conversations",
+                column: "UserConsoleId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Message_ConversationId",
-                table: "Message",
+                name: "IX_Messages_ConversationId",
+                table: "Messages",
                 column: "ConversationId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_UserConsoles_Conversations_ConversationId",
-                table: "UserConsoles",
-                column: "ConversationId",
-                principalTable: "Conversations",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_UserConsoles_Conversations_ConversationId",
-                table: "UserConsoles");
-
             migrationBuilder.DropTable(
-                name: "Message");
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "Conversations");
-
-            migrationBuilder.DropIndex(
-                name: "IX_UserConsoles_ConversationId",
-                table: "UserConsoles");
 
             migrationBuilder.DropColumn(
                 name: "ConversationId",

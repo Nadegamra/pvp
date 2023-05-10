@@ -1,6 +1,8 @@
 ﻿using Backend.Data.Models;
+using Backend.Data.Views.Chat;
 using Backend.Data.Views.Message;
 using Backend.Handlers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -17,7 +19,7 @@ namespace Backend.Controllers
         }
         [HttpGet("getAll/admin")]
 
-        public async Task<ActionResult<List<Conversation>>> GetAllConversations()
+        public async Task<ActionResult<List<ConversationGetDto>>> GetAllConversations()
         {
             try
             {
@@ -28,7 +30,7 @@ namespace Backend.Controllers
             }
         }
         [HttpGet("getAll")]
-        public async Task<ActionResult<List<Conversation>>> GetUserConversations()
+        public async Task<ActionResult<List<ConversationGetDto>>> GetUserConversations()
         {
             try
             {
@@ -40,7 +42,7 @@ namespace Backend.Controllers
             }
         }
         [HttpGet("get/{userConsoleId}")]
-        public async Task<ActionResult<Conversation>> GetConversation(int userConsoleId)
+        public async Task<ActionResult<ConversationGetDto>> GetConversation(int userConsoleId)
         {
             try
             {
@@ -51,6 +53,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "admin")]
         [HttpPost("contact/{userConsoleId}")]
         public async Task<ActionResult> ContactLender(int userConsoleId)
         {
@@ -69,12 +72,12 @@ namespace Backend.Controllers
         {
             try
             {
-                await _handler.SendMessage(addDto);
+                await _handler.SendMessage(addDto, User);
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.InnerException.Message);
             }
         }
     }

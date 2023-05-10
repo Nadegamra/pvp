@@ -37,12 +37,15 @@ export default function AppRoutes() {
             <Route element={<AppRoute condition={user !== undefined} redirectionPath="/" />}>
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/chats" element={<ChatsPage />} />
+                <Route path="/chats/:id" element={<ChatsPage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/" />}>
                 <Route path="/approveRegistrations" element={<RegistrationApprovePage />} />
                 <Route path="/manageConsoles" element={<ConsolesManagementPage />} />
                 <Route path="/manageConsoles/:id" element={<ConsoleManagementPage />} />
                 <Route path="/manageConsoles/new" element={<CreateConsolePage />} />
+                <Route path="/lendRequests" element={<UserConsolesPage />} />
+                <Route path="/lendRequests/:id" element={<UserConsolePage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
                 <Route path="/consoles" element={<UserConsolesPage />} />

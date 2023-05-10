@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chatscope/chat-ui-kit-react": "^1.10.1",
+    "@chatscope/use-chat": "^3.1.1",
     "@mui/material": "^5.11.12",
     "@tailwindcss/forms": "^0.5.3",
     "@types/node": "^16.18.12",

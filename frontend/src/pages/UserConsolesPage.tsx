@@ -3,15 +3,22 @@ import { Link } from 'react-router-dom'
 import { UserConsoleGet } from '../models/UserConsole'
 import { useEffect, useState } from 'react'
 import { imagePathToURL } from '../models/Image'
-import { getUserConsoles } from '../api/UserConsolesApi'
+import { getUnconfirmedConsoles, getUserConsoles } from '../api/UserConsolesApi'
+import { useAuth } from '../contexts/AuthContext'
 
 function UserConsolesPage() {
     const [consoles, setConsoles] = useState<UserConsoleGet[]>()
-
+    const { user } = useAuth()
     useEffect(() => {
-        getUserConsoles().then((result) => {
-            setConsoles(result.data)
-        })
+        if (user?.role === 'admin') {
+            getUnconfirmedConsoles().then((response) => {
+                setConsoles(response.data)
+            })
+        } else {
+            getUserConsoles().then((result) => {
+                setConsoles(result.data)
+            })
+        }
     }, [])
 
     return (
@@ -20,7 +27,11 @@ function UserConsolesPage() {
                 <Link
                     key={userConsole.id}
                     className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
-                    to={`/consoles/${userConsole.id}`}>
+                    to={
+                        user?.role !== 'admin'
+                            ? `/consoles/${userConsole.id}`
+                            : `/lendRequests/${userConsole.id}`
+                    }>
                     <div className="relative">
                         <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">
                             x {userConsole.amount}

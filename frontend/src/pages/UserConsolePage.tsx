@@ -8,6 +8,7 @@ import { imagePathToURL } from '../models/Image'
 import Button from '../components/ui/Button'
 import { useAuth } from '../contexts/AuthContext'
 import { useTranslation } from 'react-i18next'
+import { contactLender } from '../api/ChatsApi'
 
 function UserConsolePage() {
     const { id } = useParams()
@@ -90,7 +91,9 @@ function UserConsolePage() {
                             text={t('userConsolePage.contactUser')}
                             dialog={false}
                             onClick={() => {
-                                terminateContract(userConsole?.id ?? -1)
+                                contactLender(userConsole!.id).then(() => {
+                                    window.location.href = `/chats/${userConsole?.id}`
+                                })
                             }}
                         />
                     </div>

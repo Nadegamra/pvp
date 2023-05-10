@@ -16,21 +16,14 @@ function ConsolesManagementPage() {
     }, [])
 
     return (
-        <div className="grid grid-rows-2 grid-cols-5">
-            <Link
-                className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
-                to={`/manageConsoles/new`}>
-                <span className="material-symbols-outlined text-[150px] w-full text-center">
-                    add_circle
-                </span>
-                <div className="text-t-secondary text-center">{t('consoleManagementForm.new')}</div>
-            </Link>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
             {consoles?.map((console) => (
                 <Link
-                    className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none"
+                    className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
                     to={`/manageConsoles/${console.id}`}>
                     {console.images.length > 0 && (
                         <img
+                            className="rounded-md"
                             src={imagePathToURL(console.images[0].path, 250)}
                             alt={console.images[0].name}
                         />
@@ -39,6 +32,16 @@ function ConsolesManagementPage() {
                     <div className="text-t-secondary text-center">{console.name}</div>
                 </Link>
             ))}
+            <Link
+                key={-1}
+                className="fixed bottom-5 right-5 cursor-pointer select-none"
+                to={`/manageConsoles/new`}>
+                <div className="">
+                    <span className="material-symbols-outlined text-[100px] w-full text-center">
+                        add_circle
+                    </span>
+                </div>
+            </Link>
         </div>
     )
 }

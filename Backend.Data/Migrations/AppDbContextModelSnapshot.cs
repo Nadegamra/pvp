@@ -68,6 +68,9 @@ namespace Backend.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserConsoleId")
+                        .IsUnique();
+
                     b.ToTable("Conversations");
                 });
 
@@ -220,7 +223,7 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("ConversationId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("Backend.Data.Models.PasswordResetToken", b =>
@@ -394,7 +397,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "f2c04564-6ced-4af1-b34c-ce0e681faab8",
+                            ConcurrencyStamp = "a224e2a4-2723-4402-ae80-6e0f72ab3117",
                             Country = "",
                             County = "",
                             Email = "admin@admin.com",
@@ -408,7 +411,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "fa71f416-6500-48c0-99eb-27a27630af03",
+                            SecurityStamp = "31f58844-416d-4daf-91fe-4887acd7316d",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
@@ -420,7 +423,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "dbd9d1a5-4ac3-4425-a977-43245ac8be09",
+                            ConcurrencyStamp = "a86a7c37-3058-4f9b-b26a-0320550acd44",
                             Country = "",
                             County = "",
                             Email = "customer@example.com",
@@ -434,7 +437,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "7d088b5f-a958-4f3d-bd7e-5e07aca73f9a",
+                            SecurityStamp = "8cc366dd-b639-4bc1-b102-8faee54b7bb5",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "customer@example.com"
@@ -446,7 +449,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "123456",
                             CompanyName = "UAB „Tikra įmonė“",
-                            ConcurrencyStamp = "1e2203ca-b008-4e3e-8cd8-65d039ccd5d8",
+                            ConcurrencyStamp = "ae5e0e4e-028a-4724-9ab1-c8f7422fd298",
                             Country = "",
                             County = "",
                             Email = "company@example.com",
@@ -460,7 +463,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "054330a7-155f-474a-9081-6f6e00df205d",
+                            SecurityStamp = "6ce6f9ce-62c1-48ef-b799-9582b60987f9",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "company@example.com"
@@ -488,7 +491,6 @@ namespace Backend.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("ConversationId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
@@ -498,9 +500,6 @@ namespace Backend.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ConsoleId");
-
-                    b.HasIndex("ConversationId")
-                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -670,6 +669,17 @@ namespace Backend.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Backend.Data.Models.Conversation", b =>
+                {
+                    b.HasOne("Backend.Data.Models.UserConsole", "UserConsole")
+                        .WithOne("Conversation")
+                        .HasForeignKey("Backend.Data.Models.Conversation", "UserConsoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserConsole");
+                });
+
             modelBuilder.Entity("Backend.Data.Models.EmailChangeToken", b =>
                 {
                     b.HasOne("Backend.Data.Models.User", "User")
@@ -737,12 +747,6 @@ namespace Backend.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Backend.Data.Models.Conversation", "Conversation")
-                        .WithOne("UserConsole")
-                        .HasForeignKey("Backend.Data.Models.UserConsole", "ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Backend.Data.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -750,8 +754,6 @@ namespace Backend.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Console");
-
-                    b.Navigation("Conversation");
 
                     b.Navigation("User");
                 });
@@ -815,13 +817,12 @@ namespace Backend.Data.Migrations
             modelBuilder.Entity("Backend.Data.Models.Conversation", b =>
                 {
                     b.Navigation("Messages");
-
-                    b.Navigation("UserConsole")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Backend.Data.Models.UserConsole", b =>
                 {
+                    b.Navigation("Conversation");
+
                     b.Navigation("Images");
                 });
 #pragma warning restore 612, 618

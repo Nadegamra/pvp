@@ -72,6 +72,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddTransient<AccessoriesHandler>();
     services.AddTransient<ImagesHandler>();
     services.AddTransient<UserConsolesHandler>();
+    services.AddTransient<ChatsHandler>();
     services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 }
 

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Backend.Data.Models
 {
     public class Message: BaseModel
     {
+        [ForeignKey("Conversation")]
         public int ConversationId { get; set; }
         public Conversation Conversation { get; set; }
         public string Text { get; set; }

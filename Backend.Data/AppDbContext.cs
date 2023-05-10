@@ -15,6 +15,7 @@ namespace Backend.Data
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<UserConsole> UserConsoles { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

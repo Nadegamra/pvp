@@ -35,8 +35,24 @@ namespace Backend.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
+
+        [HttpGet("get/unconfirmed")]
+        public async Task<ActionResult> GetUnconfirmedConsoles()
+        {
+            try
+            {
+                var result = await _userConsolesHandler.GetUnconfirmedConsolesAsync(User);
+
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("get/{id}")]
         public async Task<ActionResult<ImageUploadResult>> GetUserConsole(int id)
         {

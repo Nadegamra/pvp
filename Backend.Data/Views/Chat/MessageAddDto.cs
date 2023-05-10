@@ -8,7 +8,7 @@ namespace Backend.Data.Views.Message
 {
     public class MessageAddDto
     {
-        public int UserConsoleId { get; set; }
+        public int ConversationId { get; set; }
         public string Text { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Backend.Data.Models;
+using Backend.Data.Views.Chat;
 using Backend.Data.Views.Console;
 using Backend.Data.Views.Image;
+using Backend.Data.Views.Message;
 using Backend.Data.Views.User;
 using Backend.Data.Views.UserConsole;
 
@@ -49,6 +51,9 @@ namespace Backend
             CreateMap<UserConsole, UserConsoleGetDto>(MemberList.None);
             CreateMap<UserConsoleAddDto, UserConsole>(MemberList.None);
             CreateMap<UserConsoleUpdateDto, UserConsole>(MemberList.None);
+
+            CreateMap<Conversation, ConversationGetDto>(MemberList.None);
+            CreateMap<Message, MessageGetDto>(MemberList.None);
 
         }
     }
