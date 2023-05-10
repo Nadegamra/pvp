@@ -11,7 +11,7 @@ function App() {
             <div className="sticky top-0 z-50">
                 <Header />
             </div>
-            <div className="flex-1" onClick={() => header.hideAll()}>
+            <div id="container" className="flex-1" onClick={() => header.hideAll()}>
                 <AppRoutes />
             </div>
             {/* <div onClick={() => header.hideAll()}>

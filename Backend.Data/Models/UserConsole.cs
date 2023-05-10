@@ -14,6 +14,10 @@ namespace Backend.Data.Models
         public int? ConsoleId { get; set; }
         [Required]
         public Console Console { get; set; }
+        [ForeignKey("Conversation")]
+        public int? ConversationId { get; set; }
+        [Required]
+        public Conversation Conversation { get; set; }
         public int Amount { get; set; }
         public string Accessories { get; set; }
         public ICollection<Image>? Images { get; set; }

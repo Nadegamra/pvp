@@ -14,7 +14,7 @@ namespace Backend.Data
         public DbSet<EmailConfirmationToken> EmailConfirmationTokens { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<UserConsole> UserConsoles { get; set; }
-
+        public DbSet<Conversation> Conversations { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,6 +23,11 @@ namespace Backend.Data
                 .HasMany(a => a.Images)
                 .WithOne(c => c.Console)
                 .HasForeignKey(a => a.ConsoleId);
+
+            modelBuilder.Entity<UserConsole>()
+                .HasMany(a => a.Images)
+                .WithOne(c => c.UserConsole)
+                .HasForeignKey(a => a.UserConsoleId);
 
             modelBuilder.Entity<IdentityRole<int>>().HasData(new IdentityRole<int> { Id = 1, Name = "admin", NormalizedName = "ADMIN" },
                                                             new IdentityRole<int> { Id = 2, Name = "lender", NormalizedName = "LENDER" },

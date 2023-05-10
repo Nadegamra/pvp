@@ -17,6 +17,7 @@ import UserConsolePage from '../../pages/UserConsolePage'
 import EmailConfirmationPage from '../../pages/EmailConfirmationPage'
 import EmailChangePage from '../../pages/EmailChangePage'
 import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
+import ChatsPage from '../../pages/ChatsPage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -35,6 +36,7 @@ export default function AppRoutes() {
             </Route>
             <Route element={<AppRoute condition={user !== undefined} redirectionPath="/" />}>
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/chats" element={<ChatsPage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'admin'} redirectionPath="/" />}>
                 <Route path="/approveRegistrations" element={<RegistrationApprovePage />} />

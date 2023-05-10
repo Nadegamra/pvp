@@ -58,6 +58,15 @@ function Header() {
                     </Link>
                 )}
 
+                {auth.user !== undefined && (
+                    <Link
+                        to="/chats"
+                        className="cursor-pointer select-none my-auto mr-7"
+                        onClick={() => header.hideAll()}>
+                        <ButtonText>{t('header.chats')}</ButtonText>
+                    </Link>
+                )}
+
                 <Link
                     to="/contacts"
                     className="cursor-pointer select-none my-auto mr-7"

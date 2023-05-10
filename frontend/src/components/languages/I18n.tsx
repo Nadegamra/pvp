@@ -33,7 +33,8 @@ i18n
                         login: 'Login',
                         register: 'Register',
                         manageConsoles: 'Manage Consoles',
-                        myConsoles: 'My Consoles'
+                        myConsoles: 'My Consoles',
+                        chats: 'Chats'
                     },
                     contacts: {
                         contactInfo: 'Contact Information',
@@ -260,7 +261,8 @@ i18n
                         login: 'Prisijungimas',
                         register: 'Registracija',
                         manageConsoles: 'Konsolių valdymas',
-                        myConsoles: 'Mano konsolės'
+                        myConsoles: 'Mano konsolės',
+                        chats: 'Pokalbiai'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',
