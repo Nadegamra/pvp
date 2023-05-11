@@ -28,11 +28,16 @@ namespace Backend.Handlers
         public async Task<List<UserConsoleGetDto>> GetUserConsolesAsync(ClaimsPrincipal claims)
         {
             User user = await _userManager.GetUserAsync(claims);
-            return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Where(x => x.UserId == user.Id).ToList());
+            return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x=>x.Conversation).Where(x => x.UserId == user.Id).ToList());
+        }
+        public async Task<List<UserConsoleGetDto>> GetUnconfirmedConsolesAsync(ClaimsPrincipal claims)
+        {
+            User user = await _userManager.GetUserAsync(claims);
+            return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x => x.Conversation).Where(x => x.ConsoleStatus == ConsoleStatus.UNCONFIRMED).ToList());
         }
         public async Task<UserConsoleGetDto> GetUserConsoleAsync(int id)
         {
-            return _mapper.Map<UserConsole, UserConsoleGetDto>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x => x.User).Where(x => x.Id == id).First());
+            return _mapper.Map<UserConsole, UserConsoleGetDto>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x => x.Conversation).Include(x => x.User).Where(x => x.Id == id).First());
         }
         public async Task<UserConsoleGetDto> AddUserConsoleAsync(UserConsoleAddDto userConsoleDto, ClaimsPrincipal claims)
         {

@@ -14,6 +14,10 @@ export async function getUserConsoles() {
     return api.get(`get`, headers)
 }
 
+export async function getUnconfirmedConsoles() {
+    return api.get(`get/unconfirmed`, headers)
+}
+
 export async function getUserConsole(id: number) {
     return api.get(`get/${id}`, headers)
 }
