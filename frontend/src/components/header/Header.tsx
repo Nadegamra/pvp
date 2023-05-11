@@ -105,11 +105,9 @@ function Header() {
 
                 <button className="pr-2" value="en" onClick={() => i18n.changeLanguage('en')}>
                     <ReactCountryFlag countryCode="GB" svg />
-                    en
                 </button>
                 <button className="pr-6" value="lt" onClick={() => i18n.changeLanguage('lt')}>
                     <ReactCountryFlag countryCode="LT" svg />
-                    lt
                 </button>
                 <div
                     className="my-auto"

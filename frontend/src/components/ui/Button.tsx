@@ -5,9 +5,10 @@ interface Props {
     text: string
     onClick?: (e: MouseEvent<HTMLButtonElement>) => void
     dialog: boolean
+    dialogBody: string
 }
 
-function Button({ text, onClick, dialog }: Props) {
+function Button({ text, onClick, dialog, dialogBody }: Props) {
     const { t } = useTranslation()
     return (
         <div>
@@ -69,7 +70,7 @@ function Button({ text, onClick, dialog }: Props) {
 
                             {/* <!--Modal body--> */}
                             <div className="relative flex-auto p-4" data-te-modal-body-ref>
-                                {t('button.dialogBody1')}
+                                {dialogBody}
                             </div>
 
                             {/* <!--Modal footer--> */}

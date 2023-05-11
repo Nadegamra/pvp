@@ -61,16 +61,18 @@ function UserConsolesPage() {
                         </div>
                     </Link>
                 ))}
-                <Link
-                    key={-1}
-                    className="fixed bottom-5 right-5 cursor-pointer select-none"
-                    to={`/consoles/new`}>
-                    <div className="">
-                        <span className="material-symbols-outlined text-[100px] w-full text-center">
-                            add_circle
-                        </span>
-                    </div>
-                </Link>
+                {user?.role !== 'admin' && (
+                    <Link
+                        key={-1}
+                        className="fixed bottom-5 right-5 cursor-pointer select-none"
+                        to={`/consoles/new`}>
+                        <div className="">
+                            <span className="material-symbols-outlined text-[100px] w-full text-center">
+                                add_circle
+                            </span>
+                        </div>
+                    </Link>
+                )}
             </div>
             {!loading && (
                 <ReactPaginate

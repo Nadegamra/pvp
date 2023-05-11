@@ -88,6 +88,7 @@ function ConsoleImagesUpdateForm() {
                 <Button
                     dialog={false}
                     text={t('consoleManagementForm.update') ?? ''}
+                    dialogBody=""
                     onClick={async (e) => {
                         setError('')
                         // Delete images

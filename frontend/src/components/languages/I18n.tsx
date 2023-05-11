@@ -225,7 +225,8 @@ i18n
                         statusAtOwner: 'At lender home',
                         statusAtPlatform: 'Awaiting to be lended',
                         statusAtLender: 'At lender',
-                        statusTerminating: 'Awaiting contract termination'
+                        statusTerminating: 'Awaiting contract termination',
+                        changeStatus: 'Change Status'
                     },
                     emailConfirmation: {
                         success: 'The email has been confirmed. You can now ',
@@ -239,7 +240,8 @@ i18n
                     },
                     button: {
                         dialogTitle1: 'Confirmation message',
-                        dialogBody1: 'Do you really wish to terminate the contract',
+                        dialogBody1: 'Do you really wish to terminate the contract?',
+                        dialogBody2: 'Do you really wish to change the console state?',
                         confirm: 'Yes',
                         deny: 'No'
                     }
@@ -453,7 +455,8 @@ i18n
                         statusAtOwner: 'Namuose',
                         statusAtPlatform: 'Laukiama nuomos',
                         statusAtLender: 'Pas nuomotoją',
-                        statusTerminating: 'Laukiama sutarties nutraukimo'
+                        statusTerminating: 'Laukiama sutarties nutraukimo',
+                        changeStatus: 'Pakeisti būseną'
                     },
                     emailConfirmation: {
                         success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',
@@ -470,6 +473,7 @@ i18n
                     button: {
                         dialogTitle1: 'Patvirtinimo žinutė',
                         dialogBody1: 'Ar tikrai norite inicijuoti sutarties nutraukimą?',
+                        dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
                         confirm: 'Taip',
                         deny: 'Ne'
                     }
