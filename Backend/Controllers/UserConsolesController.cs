@@ -37,12 +37,12 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpGet("get/unconfirmed")]
-        public async Task<ActionResult> GetUnconfirmedConsoles()
+        [HttpPost("get/filter")]
+        public async Task<ActionResult> GetUserConsolesByStatus(UserConsolesStatusRequest status)
         {
             try
             {
-                var result = await _userConsolesHandler.GetUnconfirmedConsolesAsync(User);
+                var result = await _userConsolesHandler.GetUserConsolesByStatusAsync(User, status.ConsoleStatus);
 
                 return Ok(result);
 

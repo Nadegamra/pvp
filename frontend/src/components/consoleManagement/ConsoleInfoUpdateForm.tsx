@@ -79,6 +79,7 @@ function ConsoleInfoUpdateForm() {
                 <Button
                     dialog={false}
                     text={t('consoleManagementForm.update') ?? ''}
+                    dialogBody=""
                     onClick={handleSubmit(async () => {
                         setError('')
                         await updateConsole(

@@ -1,7 +1,12 @@
 import { useParams } from 'react-router'
-import { ConsoleStatus, UserConsoleGet, getConsoleStatusString } from '../models/UserConsole'
+import {
+    ConsoleStatus,
+    UserConsoleGet,
+    UserConsoleStatusUpdate,
+    getConsoleStatusString
+} from '../models/UserConsole'
 import { useEffect, useState } from 'react'
-import { getUserConsole, terminateContract } from '../api/UserConsolesApi'
+import { getUserConsole, terminateContract, updateUserConsoleStatus } from '../api/UserConsolesApi'
 import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
 import { Carousel } from 'react-responsive-carousel'
 import { imagePathToURL } from '../models/Image'
@@ -9,10 +14,34 @@ import Button from '../components/ui/Button'
 import { useAuth } from '../contexts/AuthContext'
 import { useTranslation } from 'react-i18next'
 import { contactLender } from '../api/ChatsApi'
+import { Controller, useForm } from 'react-hook-form'
+import Select from 'react-select'
+
+interface Props {
+    status: ConsoleStatus
+}
 
 function UserConsolePage() {
     const { id } = useParams()
     const { t } = useTranslation()
+    const {
+        register,
+        watch,
+        handleSubmit,
+        formState: { errors },
+        control,
+        setValue
+    } = useForm<Props>()
+    const options = [
+        { value: ConsoleStatus.UNCONFIRMED, label: t('userConsolePage.statusUnconfirmed') },
+        { value: ConsoleStatus.AT_PLATFORM, label: t('userConsolePage.statusAtPlatform') },
+        { value: ConsoleStatus.AT_LENDER, label: t('userConsolePage.statusAtLender') },
+        {
+            value: ConsoleStatus.AWAITING_TERMINATION,
+            label: t('userConsolePage.statusTerminating')
+        }
+    ]
+
     const [userConsole, setUserConsole] = useState<UserConsoleGet>()
     const { user } = useAuth()
     const [loading, setLoading] = useState<boolean>(true)
@@ -56,13 +85,50 @@ function UserConsolePage() {
                 <div className="font-bold">{t('userConsolePage.lendAccessories')}</div>
                 <div className="ml-3">{userConsole?.accessories}</div>
                 <div className="font-bold">{t('userConsolePage.lendStatus')}</div>
-                <div className="ml-3">
-                    {t(
-                        getConsoleStatusString(
-                            userConsole?.consoleStatus ?? ConsoleStatus.UNCONFIRMED
-                        )
-                    )}
-                </div>
+                {user?.role === 'lender' && !loading && (
+                    <div className="ml-3">
+                        {t(
+                            getConsoleStatusString(
+                                userConsole?.consoleStatus ?? ConsoleStatus.UNCONFIRMED
+                            )
+                        )}
+                    </div>
+                )}
+                {user?.role === 'admin' && !loading && (
+                    <div>
+                        <Controller
+                            control={control}
+                            name="status"
+                            rules={{ required: true }}
+                            render={() => (
+                                <Select
+                                    className="!bg-bg-secondary !text-[rgb(0,0,0)] mb-5"
+                                    defaultValue={
+                                        options.filter(
+                                            (x) => x.value === userConsole?.consoleStatus
+                                        )[0]
+                                    }
+                                    options={options}
+                                    onChange={(e) => {
+                                        setValue('status', e?.value ?? ConsoleStatus.UNCONFIRMED)
+                                    }}
+                                />
+                            )}
+                        />
+                        <Button
+                            text={t('userConsolePage.changeStatus')}
+                            dialog={true}
+                            dialogBody={t('button.dialogBody2')}
+                            onClick={() => {
+                                updateUserConsoleStatus(
+                                    new UserConsoleStatusUpdate(userConsole!.id, watch('status'))
+                                ).then(() => {
+                                    window.location.href = '/userConsoles'
+                                })
+                            }}
+                        />
+                    </div>
+                )}
                 {user?.role === 'lender' &&
                     !loading &&
                     userConsole?.consoleStatus !== ConsoleStatus.UNCONFIRMED &&
@@ -71,6 +137,7 @@ function UserConsolePage() {
                             <Button
                                 text={t('userConsolePage.initiateTermination')}
                                 dialog={true}
+                                dialogBody={t('button.dialogBody1')}
                                 onClick={() => {
                                     terminateContract(userConsole?.id ?? -1)
                                 }}
@@ -95,6 +162,7 @@ function UserConsolePage() {
                                     window.location.href = `/chats/${userConsole?.conversationId}`
                                 })
                             }}
+                            dialogBody={t('button.dialogBody1')}
                         />
                     </div>
                 )}

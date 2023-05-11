@@ -89,9 +89,16 @@ export class UserConsoleStatusUpdate {
     }
 }
 
+export class UserConsolesStatusRequest {
+    consoleStatus: ConsoleStatus
+
+    constructor(consoleStatus: ConsoleStatus) {
+        this.consoleStatus = consoleStatus
+    }
+}
+
 export enum ConsoleStatus {
     UNCONFIRMED,
-    AT_OWNER,
     AT_PLATFORM,
     AT_LENDER,
     AWAITING_TERMINATION
@@ -100,8 +107,6 @@ export enum ConsoleStatus {
 export function getConsoleStatusString(status: ConsoleStatus) {
     if (status === ConsoleStatus.UNCONFIRMED) {
         return 'userConsolePage.statusUnconfirmed'
-    } else if (status === ConsoleStatus.AT_OWNER) {
-        return 'userConsolePage.statusAtOwner'
     } else if (status === ConsoleStatus.AT_PLATFORM) {
         return 'userConsolePage.statusAtPlatform'
     } else if (status === ConsoleStatus.AT_LENDER) {
