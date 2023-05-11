@@ -5,58 +5,89 @@ import { useEffect, useState } from 'react'
 import { imagePathToURL } from '../models/Image'
 import { getUnconfirmedConsoles, getUserConsoles } from '../api/UserConsolesApi'
 import { useAuth } from '../contexts/AuthContext'
+import ReactPaginate from 'react-paginate'
 
 function UserConsolesPage() {
     const [consoles, setConsoles] = useState<UserConsoleGet[]>()
     const { user } = useAuth()
+    const itemsPerPage = 24
+    const [loading, setLoading] = useState<boolean>(true)
+    const [offset, setOffset] = useState<number>(0)
+    const handlePageClick = (event: { selected: number }) => {
+        setOffset((event.selected * itemsPerPage) % consoles!.length)
+    }
     useEffect(() => {
         if (user?.role === 'admin') {
             getUnconfirmedConsoles().then((response) => {
                 setConsoles(response.data)
+                setLoading(false)
             })
         } else {
             getUserConsoles().then((result) => {
                 setConsoles(result.data)
+                setLoading(false)
             })
         }
     }, [])
 
     return (
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
-            {consoles?.map((userConsole) => (
-                <Link
-                    key={userConsole.id}
-                    className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
-                    to={
-                        user?.role !== 'admin'
-                            ? `/consoles/${userConsole.id}`
-                            : `/lendRequests/${userConsole.id}`
-                    }>
-                    <div className="relative">
-                        <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">
-                            x {userConsole.amount}
+        <div
+            className="flex flex-col"
+            style={{ height: document.getElementById('container')?.clientHeight }}>
+            <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
+                {consoles?.slice(offset, offset + itemsPerPage).map((userConsole) => (
+                    <Link
+                        key={userConsole.id}
+                        className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
+                        to={
+                            user?.role !== 'admin'
+                                ? `/consoles/${userConsole.id}`
+                                : `/lendRequests/${userConsole.id}`
+                        }>
+                        <div className="relative">
+                            <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">
+                                x {userConsole.amount}
+                            </div>
+                            {userConsole.images.length > 0 && (
+                                <img
+                                    className="rounded-md"
+                                    src={imagePathToURL(userConsole.images[0].path, 250)}
+                                    alt={userConsole.images[0].name}
+                                />
+                            )}
                         </div>
-                        {userConsole.images.length > 0 && (
-                            <img
-                                className="rounded-md"
-                                src={imagePathToURL(userConsole.images[0].path, 250)}
-                                alt={userConsole.images[0].name}
-                            />
-                        )}
+                        <div className="text-t-secondary text-center">
+                            {userConsole.console.name}
+                        </div>
+                    </Link>
+                ))}
+                <Link
+                    key={-1}
+                    className="fixed bottom-5 right-5 cursor-pointer select-none"
+                    to={`/consoles/new`}>
+                    <div className="">
+                        <span className="material-symbols-outlined text-[100px] w-full text-center">
+                            add_circle
+                        </span>
                     </div>
-                    <div className="text-t-secondary text-center">{userConsole.console.name}</div>
                 </Link>
-            ))}
-            <Link
-                key={-1}
-                className="fixed bottom-5 right-5 cursor-pointer select-none"
-                to={`/consoles/new`}>
-                <div className="">
-                    <span className="material-symbols-outlined text-[100px] w-full text-center">
-                        add_circle
-                    </span>
-                </div>
-            </Link>
+            </div>
+            {!loading && (
+                <ReactPaginate
+                    className="ml-5 flex flex-row my-5 list-style-none"
+                    previousLabel="Previous"
+                    nextLabel="Next"
+                    activeClassName="!bg-bg-extra"
+                    pageClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                    previousLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                    nextLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                    breakLabel="..."
+                    onPageChange={(e) => handlePageClick(e)}
+                    pageRangeDisplayed={5}
+                    pageCount={Math.ceil(consoles!.length / itemsPerPage)}
+                    renderOnZeroPageCount={null}
+                />
+            )}
         </div>
     )
 }
