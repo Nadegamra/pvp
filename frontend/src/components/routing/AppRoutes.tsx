@@ -44,8 +44,8 @@ export default function AppRoutes() {
                 <Route path="/manageConsoles" element={<ConsolesManagementPage />} />
                 <Route path="/manageConsoles/:id" element={<ConsoleManagementPage />} />
                 <Route path="/manageConsoles/new" element={<CreateConsolePage />} />
-                <Route path="/lendRequests" element={<UserConsolesPage />} />
-                <Route path="/lendRequests/:id" element={<UserConsolePage />} />
+                <Route path="/userConsoles" element={<UserConsolesPage />} />
+                <Route path="/userConsoles/:id" element={<UserConsolePage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
                 <Route path="/consoles" element={<UserConsolesPage />} />

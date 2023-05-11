@@ -89,6 +89,14 @@ export class UserConsoleStatusUpdate {
     }
 }
 
+export class UserConsolesStatusRequest {
+    consoleStatus: ConsoleStatus
+
+    constructor(consoleStatus: ConsoleStatus) {
+        this.consoleStatus = consoleStatus
+    }
+}
+
 export enum ConsoleStatus {
     UNCONFIRMED,
     AT_PLATFORM,

@@ -1,9 +1,9 @@
 import { t } from 'i18next'
 import { Link } from 'react-router-dom'
-import { UserConsoleGet } from '../models/UserConsole'
+import { UserConsoleGet, ConsoleStatus, UserConsolesStatusRequest } from '../models/UserConsole'
 import { useEffect, useState } from 'react'
 import { imagePathToURL } from '../models/Image'
-import { getUnconfirmedConsoles, getUserConsoles } from '../api/UserConsolesApi'
+import { getUserConsoles, getUserConsolesByStatus } from '../api/UserConsolesApi'
 import { useAuth } from '../contexts/AuthContext'
 import ReactPaginate from 'react-paginate'
 
@@ -16,24 +16,78 @@ function UserConsolesPage() {
     const handlePageClick = (event: { selected: number }) => {
         setOffset((event.selected * itemsPerPage) % consoles!.length)
     }
+    const [status, setStatus] = useState<ConsoleStatus>(ConsoleStatus.UNCONFIRMED)
+
     useEffect(() => {
         if (user?.role === 'admin') {
-            getUnconfirmedConsoles().then((response) => {
-                setConsoles(response.data)
-                setLoading(false)
-            })
+            getUserConsolesByStatus(new UserConsolesStatusRequest(status))
+                .then((response) => {
+                    setConsoles(response.data)
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
         } else {
-            getUserConsoles().then((result) => {
-                setConsoles(result.data)
-                setLoading(false)
-            })
+            getUserConsoles()
+                .then((result) => {
+                    setConsoles(result.data)
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
         }
-    }, [])
+    }, [status])
 
     return (
         <div
             className="flex flex-col"
             style={{ height: document.getElementById('container')?.clientHeight }}>
+            {user?.role === 'admin' && (
+                <div
+                    className="mt-3 mx-auto w-max rounded-md shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                    role="group">
+                    <button
+                        type="button"
+                        className={
+                            status === ConsoleStatus.UNCONFIRMED
+                                ? 'inline-block rounded-l bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                                : 'inline-block rounded-l bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                        }
+                        onClick={() => setStatus(ConsoleStatus.UNCONFIRMED)}>
+                        {t('userConsolePage.statusUnconfirmed')}
+                    </button>
+                    <button
+                        type="button"
+                        className={
+                            status === ConsoleStatus.AT_PLATFORM
+                                ? 'inline-block bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                                : 'inline-block bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                        }
+                        onClick={() => setStatus(ConsoleStatus.AT_PLATFORM)}>
+                        {t('userConsolePage.statusAtPlatform')}
+                    </button>
+                    <button
+                        type="button"
+                        className={
+                            status === ConsoleStatus.AT_LENDER
+                                ? 'inline-block bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                                : 'inline-block bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                        }
+                        onClick={() => setStatus(ConsoleStatus.AT_LENDER)}>
+                        {t('userConsolePage.statusAtLender')}
+                    </button>
+                    <button
+                        type="button"
+                        className={
+                            status === ConsoleStatus.AWAITING_TERMINATION
+                                ? 'inline-block rounded-r bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                                : 'inline-block rounded-r bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                        }
+                        onClick={() => setStatus(ConsoleStatus.AWAITING_TERMINATION)}>
+                        {t('userConsolePage.statusTerminating')}
+                    </button>
+                </div>
+            )}
             <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {consoles?.slice(offset, offset + itemsPerPage).map((userConsole) => (
                     <Link
@@ -42,7 +96,7 @@ function UserConsolesPage() {
                         to={
                             user?.role !== 'admin'
                                 ? `/consoles/${userConsole.id}`
-                                : `/lendRequests/${userConsole.id}`
+                                : `/userConsoles/${userConsole.id}`
                         }>
                         <div className="relative">
                             <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">

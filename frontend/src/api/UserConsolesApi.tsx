@@ -1,5 +1,10 @@
 import axios from 'axios'
-import { UserConsoleAdd, UserConsoleStatusUpdate, UserConsoleUpdate } from '../models/UserConsole'
+import {
+    UserConsoleAdd,
+    UserConsoleStatusUpdate,
+    UserConsoleUpdate,
+    UserConsolesStatusRequest
+} from '../models/UserConsole'
 import { ImageAdd } from '../models/Image'
 
 const api = axios.create({
@@ -14,8 +19,8 @@ export async function getUserConsoles() {
     return api.get(`get`, headers)
 }
 
-export async function getUnconfirmedConsoles() {
-    return api.get(`get/unconfirmed`, headers)
+export async function getUserConsolesByStatus(status: UserConsolesStatusRequest) {
+    return api.post(`get/filter`, status, headers)
 }
 
 export async function getUserConsole(id: number) {

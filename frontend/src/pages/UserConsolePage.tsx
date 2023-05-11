@@ -123,9 +123,7 @@ function UserConsolePage() {
                                 updateUserConsoleStatus(
                                     new UserConsoleStatusUpdate(userConsole!.id, watch('status'))
                                 ).then(() => {
-                                    getUserConsole(parseInt(id ?? '1')).then((result) => {
-                                        setUserConsole(result.data)
-                                    })
+                                    window.location.href = '/userConsoles'
                                 })
                             }}
                         />
