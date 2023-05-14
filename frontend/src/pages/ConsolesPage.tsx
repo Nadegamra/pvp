@@ -1,53 +1,29 @@
-import { useState, useEffect } from 'react';
-import { getConsoles } from '../api/ConsolesApi';
-import { ConsoleGet } from '../models/Console';
+import { useEffect, useState } from 'react'
+import { ConsoleGet } from '../models/Console'
+import { getConsoles } from '../api/ConsolesApi'
+import { imagePathToURL } from '../models/Image'
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-interface Props {
-  onConsoleSelected?: (console: ConsoleGet, quantity: number) => void;
+function ConsolesPage() {
+    const { t } = useTranslation()
+    const [consoles, setConsoles] = useState<ConsoleGet[]>()
+
+    useEffect(() => {
+        getConsoles().then((response) => {
+            setConsoles(response.data)
+        })
+    }, [])
+    return (
+      <div className="grid grid-rows-2 grid-cols-5">
+          {consoles?.map((console) => (
+              <div className="bg-bg-secondary rounded-lg w-[250px] p-3 m-3 cursor-pointer select-none">
+                  {console.images.length > 0 && <img src={imagePathToURL(console.images[0].path, 250)} alt={console.images[0].name} />}
+                  <div className="text-t-secondary text-center">{console.name} ({console.dailyPrice} eur)</div>                  
+              </div>
+          ))}
+      </div>
+  )
 }
 
-function ConsolesPage({ onConsoleSelected }: Props) {
-  const [consoles, setConsoles] = useState<ConsoleGet[]>([]);
-  const [quantities, setQuantities] = useState<{ [id: number]: number }>({});
-
-  useEffect(() => {
-    getConsoles().then((response) => {
-      const consolesData: ConsoleGet[] = response.data;
-      setConsoles(consolesData);
-    });
-  }, []);
-
-  const handleConsoleSelected = (console: ConsoleGet) => {
-    const quantity = quantities[console.id] ?? 0;
-    if (onConsoleSelected) {
-      onConsoleSelected(console, quantity);
-    }
-  };
-
-  const handleQuantityChange = (consoleId: number, quantity: number) => {
-    setQuantities({ ...quantities, [consoleId]: quantity ?? 0 });
-  };
-
-  return (
-    <div>
-      <h1>Available Consoles</h1>
-      <ul>
-        {consoles.map((console) => (
-          <li key={console.id} onClick={() => handleConsoleSelected(console)}>
-            {console.name} ({console.dailyPrice} eur)
-            <input
-              type="number"
-              min="0"
-              value={quantities[console.id] ?? ''}
-              onChange={(e) =>
-                handleQuantityChange(console.id, parseInt(e.target.value) ?? 0)
-              }
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default ConsolesPage;
+export default ConsolesPage
