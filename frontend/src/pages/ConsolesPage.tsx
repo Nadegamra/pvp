@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react'
-import { ConsoleGet } from '../models/Console'
-import { UserConsoleGet, ConsoleStatus, UserConsolesStatusRequest } from '../models/UserConsole'
-import { getConsoles } from '../api/ConsolesApi'
+import { useParams } from 'react-router'
+import { UserConsoleGet } from '../models/UserConsole'
+import { getUserConsole } from '../api/UserConsolesApi'
 import { imagePathToURL } from '../models/Image'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 function ConsolesPage() {
+    const { id } = useParams()
     const { t } = useTranslation()
-    const [consoles, setConsoles] = useState<UserConsoleGet[]>()
+    const [consoles, setUserConsole] = useState<UserConsoleGet[]>()
     const [expandedConsole, setExpandedConsole] = useState<UserConsoleGet>();
 
     useEffect(() => {
-        getConsoles().then((response) => {
-            setConsoles(response.data)
+        getUserConsole(parseInt(id ?? '1')).then((result) => {
+            setUserConsole(result.data)
         })
     }, [])
     return (
