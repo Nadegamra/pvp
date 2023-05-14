@@ -3,28 +3,48 @@ export class ImageGet {
     path: string
     name: string
     description: string
-    consoleId: number
+    toDelete: boolean
+    consoleId?: number
+    userConsoleId?: number
 
-    constructor(id: number, path: string, name: string, description: string, consoleId: number) {
+    constructor(
+        id: number,
+        path: string,
+        name: string,
+        description: string,
+        toDelete: boolean,
+        consoleId?: number,
+        userConsoleId?: number
+    ) {
         this.id = id
         this.path = path
         this.name = name
         this.description = description
+        this.toDelete = toDelete
         this.consoleId = consoleId
+        this.userConsoleId = userConsoleId
     }
 }
 
 export class ImageAdd {
     name: string
     description: string
-    consoleId: number
     stream: string
+    consoleId?: number
+    userConsoleId?: number
 
-    constructor(name: string, description: string, consoleId: number, stream: string) {
+    constructor(
+        name: string,
+        description: string,
+        stream: string,
+        consoleId?: number,
+        userConsoleId?: number
+    ) {
         this.name = name
         this.description = description
-        this.consoleId = consoleId
         this.stream = stream
+        this.consoleId = consoleId
+        this.userConsoleId = userConsoleId
     }
 }
 
@@ -41,5 +61,5 @@ export class ImageUpdate {
 }
 
 export function imagePathToURL(path: string, width: number) {
-    return `https://res.cloudinary.com/drzqsbvky/image/upload/w_${width}/${path}`
+    return `https://res.cloudinary.com/drzqsbvky/image/upload/ar_1.6,w_${width}/${path}`
 }

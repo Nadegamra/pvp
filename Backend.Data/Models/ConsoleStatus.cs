@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Backend.Data.Models
 {
-    public class Accessory: BaseModel
+    public enum ConsoleStatus
     {
-        public string Name { get; set; }
-        public AccessoryCategory Category { get; set; }
+        UNCONFIRMED,
+        AT_PLATFORM,
+        AT_LENDER,
+        AWAITING_TERMINATION
     }
 }

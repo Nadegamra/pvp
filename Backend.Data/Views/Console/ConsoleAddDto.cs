@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Backend.Data.Views.Image;
 
 namespace Backend.Data.Views.Console
 {
-    public class ConsoleDtoUpdate
+    public class ConsoleAddDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal DailyPrice { get; set; }
-        public ICollection<ImageDtoUpdate> Images { get; set; }
+        public ICollection<ImageAddDto> Images { get; set; }
     }
 }

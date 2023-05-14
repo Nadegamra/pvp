@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Backend.Handlers;
 using Backend.Data.Views.Console;
+using Backend.Data.Views.Image;
 
 namespace Backend.Controllers
 {
@@ -9,11 +10,13 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class ConsolesController: ControllerBase
     {
-        private readonly ConsolesHandler _handler;
+        private readonly ConsolesHandler _consolesHandler;
+        private readonly ImagesHandler _imagesHandler;
 
-        public ConsolesController(ConsolesHandler handler)
+        public ConsolesController(ConsolesHandler consolesHandler, ImagesHandler imagesHandler)
         {
-            _handler = handler;
+            _consolesHandler = consolesHandler;
+            _imagesHandler = imagesHandler;
         }
 
         [HttpGet("getAll")]
@@ -21,7 +24,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var result = await _handler.GetConsolesAsync();
+                var result = await _consolesHandler.GetConsolesAsync();
 
                 return Ok(result);
 
@@ -36,7 +39,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var result = await _handler.GetConsoleAsync(id);
+                var result = await _consolesHandler.GetConsoleAsync(id);
 
                 return Ok(result);
 
@@ -47,12 +50,12 @@ namespace Backend.Controllers
             }
         }
         [HttpPost("add")]
-        public async Task<ActionResult> AddConsole(ConsoleDtoAdd consoleDto)
+        public async Task<ActionResult> AddConsole(ConsoleAddDto consoleDto)
         {
             try
             {
 
-                var result = await _handler.AddConsoleAsync(consoleDto);
+                var result = await _consolesHandler.AddConsoleAsync(consoleDto);
 
                 return Ok(result);
 
@@ -63,11 +66,11 @@ namespace Backend.Controllers
             }
         }
         [HttpPut("update")]
-        public async Task<ActionResult> UpdateConsole(ConsoleDtoUpdate consoleDto)
+        public async Task<ActionResult> UpdateConsole(ConsoleUpdateDto consoleDto)
         {
             try
             {
-                var result = await _handler.UpdateConsoleAsync(consoleDto);
+                var result = await _consolesHandler.UpdateConsoleAsync(consoleDto);
 
                 return Ok(result);
 
@@ -82,7 +85,37 @@ namespace Backend.Controllers
         {
             try
             {
-                await _handler.RemoveConsoleAsync(id);
+                await _consolesHandler.RemoveConsoleAsync(id);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("images/add")]
+        public async Task<ActionResult> AddImage(ImageAddDto imageDto)
+        {
+            try
+            {
+                await _imagesHandler.AddImageAsync(imageDto);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("images/delete")]
+        public async Task<ActionResult> RemoveImage(int id)
+        {
+            try
+            {
+                await _imagesHandler.RemoveImageAsync(id);
                 return Ok();
 
             }

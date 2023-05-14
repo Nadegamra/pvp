@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .then((result) => {
                 setUser(result.data)
                 setLoading(false)
-                window.location.href = '/profile'
+                window.location.href = '/'
                 return ''
             })
             .catch((error) => {
@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .then(() => {
                 setUser(undefined)
             })
-            .finally(() => (window.location.href = '/login'))
+            .finally(() => (window.location.href = '/'))
     }
 
     const memoedValue = useMemo(
