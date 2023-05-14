@@ -16,7 +16,8 @@ import UserConsolesPage from '../../pages/UserConsolesPage'
 import UserConsolePage from '../../pages/UserConsolePage'
 import EmailConfirmationPage from '../../pages/EmailConfirmationPage'
 import EmailChangePage from '../../pages/EmailChangePage'
-import ConsolesPage from '../../pages/ConsolesPage'
+import BorrowConsolesPage from '../../pages/BorrowConsolesPage'
+import BorrowConsolePage from '../../pages/BorrowConsolePage'
 import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 import ChatsPage from '../../pages/ChatsPage'
 
@@ -29,7 +30,7 @@ export default function AppRoutes() {
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contacts" element={<ContactInfoPage />} />
             <Route path="/changeEmail/:token" element={<EmailChangePage />} />
-            <Route path="/consoles" element={<ConsolesPage />} />
+            
             <Route element={<AppRoute condition={user === undefined} redirectionPath="/" />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<LenderRegisterPage />} />
@@ -53,6 +54,10 @@ export default function AppRoutes() {
                 <Route path="/consoles" element={<UserConsolesPage />} />
                 <Route path="/consoles/:id" element={<UserConsolePage />} />
                 <Route path="/consoles/new" element={<UserConsolesCreatePage />} />
+            </Route>
+            <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
+                <Route path="/borrowConsoles" element={<BorrowConsolesPage />} />
+                <Route path="/borrowConsole/:id" element={<BorrowConsolePage />} />
             </Route>
         </Routes>
     )
