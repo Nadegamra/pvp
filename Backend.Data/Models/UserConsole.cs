@@ -9,6 +9,8 @@ namespace Backend.Data.Models
         public int? UserId { get; set; }
         [Required]
         public User User { get; set; }
+        public int? BorrowedConsoleId { get; set; }
+        public Borrowing BorrowedConsole { get; set; }
 
         [ForeignKey("Console")]
         public int? ConsoleId { get; set; }
@@ -19,6 +21,6 @@ namespace Backend.Data.Models
         public int Amount { get; set; }
         public string Accessories { get; set; }
         public ICollection<Image>? Images { get; set; }
-        public ConsoleStatus ConsoleStatus { get; set; }
+        public UserConsoleStatus ConsoleStatus { get; set; }
     }
 }

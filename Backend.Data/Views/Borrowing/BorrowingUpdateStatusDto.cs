@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Backend.Data.Views.UserConsole
+namespace Backend.Data.Views.BorrowedConsole
 {
-    public class UserConsoleStatusUpdateDto
+    public class BorrowingUpdateStatusDto
     {
         public int Id { get; set; }
-        public UserConsoleStatus ConsoleStatus { get; set; }
+        public BorrowingStatus Status { get; set; }
     }
 }

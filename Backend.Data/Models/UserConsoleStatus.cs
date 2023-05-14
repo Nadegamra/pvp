@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Data.Models
 {
-    public enum ConsoleStatus
+    public enum UserConsoleStatus
     {
         UNCONFIRMED,
         AT_PLATFORM,

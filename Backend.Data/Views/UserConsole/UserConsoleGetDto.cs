@@ -17,6 +17,6 @@ namespace Backend.Data.Views.UserConsole
         public int Amount { get; set; }
         public string Accessories { get; set; }
         public ICollection<ImageGetDto> Images { get; set; }
-        public ConsoleStatus ConsoleStatus { get; set; }
+        public UserConsoleStatus ConsoleStatus { get; set; }
     }
 }

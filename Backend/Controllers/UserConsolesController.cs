@@ -167,7 +167,7 @@ namespace Backend.Controllers
         {
             try
             {
-                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id=id, ConsoleStatus=Data.Models.ConsoleStatus.AWAITING_TERMINATION});
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id=id, ConsoleStatus=Data.Models.UserConsoleStatus.AWAITING_TERMINATION});
                 return Ok();
 
             }

@@ -14,6 +14,7 @@ namespace Backend.Data
         public DbSet<EmailConfirmationToken> EmailConfirmationTokens { get; set; }
         public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<UserConsole> UserConsoles { get; set; }
+        public DbSet<Borrowing> Borrowings { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Message> Messages { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
