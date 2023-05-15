@@ -32,7 +32,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var result = await _handler.GetByUserAsync();
+                var result = await _handler.GetByUserAsync(User);
                 return Ok(result);
             }
             catch (Exception ex)
