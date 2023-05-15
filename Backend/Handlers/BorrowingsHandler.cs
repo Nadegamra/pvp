@@ -37,24 +37,34 @@ namespace Backend.Handlers
         {
             return _mapper.Map<Borrowing, BorrowingGetDto>(await _context.Borrowings.Include(x => x.UserConsoles).ThenInclude(x => x.Images).Include(x => x.UserConsoles).ThenInclude(x => x.Console).Where(x=>x.Id == id).FirstAsync());
         }
-        public async Task AddAsync(BorrowingAddDto addDto)
+        public async Task AddAsync(BorrowingAddDto addDto, ClaimsPrincipal userClaims)
         {
-            async Task UpdateUserConsole(int id)
-            {
-                var userConsole = await _context.UserConsoles.Where(x => x.Id == id).FirstAsync();
+            User user = await _userManager.GetUserAsync(userClaims);
+            
+            var result = _context.Borrowings.Add(new Borrowing { UserId = user.Id, Status = BorrowingStatus.PENDING });
+            await _context.SaveChangesAsync();
 
-                userConsole.BorrowedConsoleId = id;
+            async Task UpdateUserConsole(int userConsoleId, int borrowingId)
+            {
+                var userConsole = await _context.UserConsoles.Where(x => x.Id == userConsoleId).FirstAsync();
+
+                userConsole.BorrowingId = borrowingId;
 
                 _context.UserConsoles.Update(userConsole);
                 await _context.SaveChangesAsync();
             }
 
+
             foreach(var id in addDto.UserConsoleIds)
             {
-                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id= id, ConsoleStatus = UserConsoleStatus.AT_LENDER });
-                await UpdateUserConsole(id);
+                var userConsole = await _context.UserConsoles.Where(x=>x.Id == id).FirstAsync();
+                if(userConsole == null || userConsole.ConsoleStatus != UserConsoleStatus.AT_PLATFORM)
+                {
+                    continue;
+                }
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id= id, ConsoleStatus = UserConsoleStatus.RESERVED });
+                await UpdateUserConsole(id, result.Entity.Id);
             }
-            throw new NotImplementedException();
         }
 
         public async Task UpdateAsync(BorrowingUpdateDto updateDto)
@@ -82,10 +92,10 @@ namespace Backend.Handlers
             _context.Borrowings.Update(borrowing);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync(BorrowingDeleteDto deleteDto)
+        public async Task DeleteAsync(int id)
         {
             
-            var borrowing = await _context.Borrowings.Where(x=>x.Id ==deleteDto.Id).FirstAsync();
+            var borrowing = await _context.Borrowings.Where(x=>x.Id == id).FirstAsync();
 
             _context.Borrowings.Remove(borrowing);
             await _context.SaveChangesAsync();

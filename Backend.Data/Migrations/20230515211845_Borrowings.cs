@@ -12,7 +12,7 @@ namespace Backend.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "BorrowedConsoleId",
+                name: "BorrowingId",
                 table: "UserConsoles",
                 type: "int",
                 nullable: true);
@@ -49,26 +49,26 @@ namespace Backend.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "0b782df4-6f43-4dc1-9dc3-2953d2f34828", "b2e9dfaa-23af-4fca-81ac-3746b0fbb7bd" });
+                values: new object[] { "14b1da77-79d4-4239-b082-96daffdf4afd", "0e0f9a2e-5c7d-4dd0-b17d-61ae413f4fe9" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: 2,
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "bd814ddd-88e4-40fa-8b5e-eded6d927c42", "60242356-92ba-4d3b-a4a0-90c585045775" });
+                values: new object[] { "24c60b23-d9f9-4fd9-b62e-1d36241018a2", "4295537a-2a99-4b39-a190-5aa5064269d1" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: 3,
                 columns: new[] { "ConcurrencyStamp", "SecurityStamp" },
-                values: new object[] { "0629523f-6f85-4d19-b875-37c19a959839", "1ea3d88e-9058-4396-92a5-265bb68d5ac3" });
+                values: new object[] { "abfda497-8557-4ef1-8102-14a65da83a81", "da9338e6-e363-4049-b947-865e1207b995" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserConsoles_BorrowedConsoleId",
+                name: "IX_UserConsoles_BorrowingId",
                 table: "UserConsoles",
-                column: "BorrowedConsoleId");
+                column: "BorrowingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Borrowings_ConversationId",
@@ -81,9 +81,9 @@ namespace Backend.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_UserConsoles_Borrowings_BorrowedConsoleId",
+                name: "FK_UserConsoles_Borrowings_BorrowingId",
                 table: "UserConsoles",
-                column: "BorrowedConsoleId",
+                column: "BorrowingId",
                 principalTable: "Borrowings",
                 principalColumn: "Id");
         }
@@ -92,18 +92,18 @@ namespace Backend.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_UserConsoles_Borrowings_BorrowedConsoleId",
+                name: "FK_UserConsoles_Borrowings_BorrowingId",
                 table: "UserConsoles");
 
             migrationBuilder.DropTable(
                 name: "Borrowings");
 
             migrationBuilder.DropIndex(
-                name: "IX_UserConsoles_BorrowedConsoleId",
+                name: "IX_UserConsoles_BorrowingId",
                 table: "UserConsoles");
 
             migrationBuilder.DropColumn(
-                name: "BorrowedConsoleId",
+                name: "BorrowingId",
                 table: "UserConsoles");
 
             migrationBuilder.UpdateData(

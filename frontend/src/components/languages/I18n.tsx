@@ -223,6 +223,7 @@ i18n
                         contactUser: 'Contact user',
                         statusUnconfirmed: 'Awaiting contract signing',
                         statusAtPlatform: 'Awaiting to be lended',
+                        statusReserved: 'Reserved',
                         statusAtLender: 'At lender',
                         statusTerminating: 'Awaiting contract termination',
                         changeStatus: 'Change Status'
@@ -452,6 +453,7 @@ i18n
                         contactUser: 'Susisiekti su vartotoju',
                         statusUnconfirmed: 'Laukiama sutarties pasirašymo',
                         statusAtPlatform: 'Laukiama nuomos',
+                        statusReserved: 'Rezervuota',
                         statusAtLender: 'Pas nuomotoją',
                         statusTerminating: 'Laukiama sutarties nutraukimo',
                         changeStatus: 'Pakeisti būseną'

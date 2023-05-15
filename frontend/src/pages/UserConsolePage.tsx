@@ -1,6 +1,6 @@
 import { useParams } from 'react-router'
 import {
-    ConsoleStatus,
+    UserConsoleStatus,
     UserConsoleGet,
     UserConsoleStatusUpdate,
     getConsoleStatusString
@@ -18,7 +18,7 @@ import { Controller, useForm } from 'react-hook-form'
 import Select from 'react-select'
 
 interface Props {
-    status: ConsoleStatus
+    status: UserConsoleStatus
 }
 
 function UserConsolePage() {
@@ -33,11 +33,11 @@ function UserConsolePage() {
         setValue
     } = useForm<Props>()
     const options = [
-        { value: ConsoleStatus.UNCONFIRMED, label: t('userConsolePage.statusUnconfirmed') },
-        { value: ConsoleStatus.AT_PLATFORM, label: t('userConsolePage.statusAtPlatform') },
-        { value: ConsoleStatus.AT_LENDER, label: t('userConsolePage.statusAtLender') },
+        { value: UserConsoleStatus.UNCONFIRMED, label: t('userConsolePage.statusUnconfirmed') },
+        { value: UserConsoleStatus.AT_PLATFORM, label: t('userConsolePage.statusAtPlatform') },
+        { value: UserConsoleStatus.AT_LENDER, label: t('userConsolePage.statusAtLender') },
         {
-            value: ConsoleStatus.AWAITING_TERMINATION,
+            value: UserConsoleStatus.AWAITING_TERMINATION,
             label: t('userConsolePage.statusTerminating')
         }
     ]
@@ -89,7 +89,7 @@ function UserConsolePage() {
                     <div className="ml-3">
                         {t(
                             getConsoleStatusString(
-                                userConsole?.consoleStatus ?? ConsoleStatus.UNCONFIRMED
+                                userConsole?.consoleStatus ?? UserConsoleStatus.UNCONFIRMED
                             )
                         )}
                     </div>
@@ -110,7 +110,10 @@ function UserConsolePage() {
                                     }
                                     options={options}
                                     onChange={(e) => {
-                                        setValue('status', e?.value ?? ConsoleStatus.UNCONFIRMED)
+                                        setValue(
+                                            'status',
+                                            e?.value ?? UserConsoleStatus.UNCONFIRMED
+                                        )
                                     }}
                                 />
                             )}
@@ -131,8 +134,8 @@ function UserConsolePage() {
                 )}
                 {user?.role === 'lender' &&
                     !loading &&
-                    userConsole?.consoleStatus !== ConsoleStatus.UNCONFIRMED &&
-                    userConsole?.consoleStatus !== ConsoleStatus.AWAITING_TERMINATION && (
+                    userConsole?.consoleStatus !== UserConsoleStatus.UNCONFIRMED &&
+                    userConsole?.consoleStatus !== UserConsoleStatus.AWAITING_TERMINATION && (
                         <div className="mt-5">
                             <Button
                                 text={t('userConsolePage.initiateTermination')}

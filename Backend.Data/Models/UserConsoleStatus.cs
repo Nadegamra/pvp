@@ -10,6 +10,7 @@ namespace Backend.Data.Models
     {
         UNCONFIRMED,
         AT_PLATFORM,
+        RESERVED,
         AT_LENDER,
         AWAITING_TERMINATION
     }

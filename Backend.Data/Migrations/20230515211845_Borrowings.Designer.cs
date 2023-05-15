@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230514220735_Borrowings")]
+    [Migration("20230515211845_Borrowings")]
     partial class Borrowings
     {
         /// <inheritdoc />
@@ -425,7 +425,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "0b782df4-6f43-4dc1-9dc3-2953d2f34828",
+                            ConcurrencyStamp = "14b1da77-79d4-4239-b082-96daffdf4afd",
                             Country = "",
                             County = "",
                             Email = "admin@admin.com",
@@ -439,7 +439,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "b2e9dfaa-23af-4fca-81ac-3746b0fbb7bd",
+                            SecurityStamp = "0e0f9a2e-5c7d-4dd0-b17d-61ae413f4fe9",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
@@ -451,7 +451,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "bd814ddd-88e4-40fa-8b5e-eded6d927c42",
+                            ConcurrencyStamp = "24c60b23-d9f9-4fd9-b62e-1d36241018a2",
                             Country = "",
                             County = "",
                             Email = "customer@example.com",
@@ -465,7 +465,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "60242356-92ba-4d3b-a4a0-90c585045775",
+                            SecurityStamp = "4295537a-2a99-4b39-a190-5aa5064269d1",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "customer@example.com"
@@ -477,7 +477,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "123456",
                             CompanyName = "UAB „Tikra įmonė“",
-                            ConcurrencyStamp = "0629523f-6f85-4d19-b875-37c19a959839",
+                            ConcurrencyStamp = "abfda497-8557-4ef1-8102-14a65da83a81",
                             Country = "",
                             County = "",
                             Email = "company@example.com",
@@ -491,7 +491,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "1ea3d88e-9058-4396-92a5-265bb68d5ac3",
+                            SecurityStamp = "da9338e6-e363-4049-b947-865e1207b995",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "company@example.com"
@@ -511,7 +511,7 @@ namespace Backend.Data.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("BorrowedConsoleId")
+                    b.Property<int?>("BorrowingId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ConsoleId")
@@ -530,7 +530,7 @@ namespace Backend.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BorrowedConsoleId");
+                    b.HasIndex("BorrowingId");
 
                     b.HasIndex("ConsoleId");
 
@@ -791,9 +791,9 @@ namespace Backend.Data.Migrations
 
             modelBuilder.Entity("Backend.Data.Models.UserConsole", b =>
                 {
-                    b.HasOne("Backend.Data.Models.Borrowing", "BorrowedConsole")
+                    b.HasOne("Backend.Data.Models.Borrowing", "Borrowing")
                         .WithMany("UserConsoles")
-                        .HasForeignKey("BorrowedConsoleId");
+                        .HasForeignKey("BorrowingId");
 
                     b.HasOne("Backend.Data.Models.Console", "Console")
                         .WithMany()
@@ -807,7 +807,7 @@ namespace Backend.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BorrowedConsole");
+                    b.Navigation("Borrowing");
 
                     b.Navigation("Console");
 

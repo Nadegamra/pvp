@@ -9,8 +9,8 @@ namespace Backend.Data.Models
         public int? UserId { get; set; }
         [Required]
         public User User { get; set; }
-        public int? BorrowedConsoleId { get; set; }
-        public Borrowing BorrowedConsole { get; set; }
+        public int? BorrowingId { get; set; }
+        public Borrowing Borrowing { get; set; }
 
         [ForeignKey("Console")]
         public int? ConsoleId { get; set; }

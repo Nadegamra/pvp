@@ -40,6 +40,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<BorrowingGetDto>> GetById(int id)
         {
@@ -58,7 +59,7 @@ namespace Backend.Controllers
         {
             try
             {
-                await _handler.AddAsync(addDto);
+                await _handler.AddAsync(addDto, User);
                 return Ok();
             }
             catch (Exception ex)
@@ -92,12 +93,12 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("delete")]
-        public async Task<ActionResult> Delete(BorrowingDeleteDto deleteDto)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                await _handler.DeleteAsync(deleteDto);
+                await _handler.DeleteAsync(id);
                 return Ok();
             }
             catch (Exception ex)
