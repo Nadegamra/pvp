@@ -17,7 +17,6 @@ import UserConsolePage from '../../pages/UserConsolePage'
 import EmailConfirmationPage from '../../pages/EmailConfirmationPage'
 import EmailChangePage from '../../pages/EmailChangePage'
 import BorrowConsolesPage from '../../pages/BorrowConsolesPage'
-import BorrowConsolePage from '../../pages/BorrowConsolePage'
 import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 import ChatsPage from '../../pages/ChatsPage'
 
@@ -57,7 +56,6 @@ export default function AppRoutes() {
             </Route>
             <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
                 <Route path="/borrowConsoles" element={<BorrowConsolesPage />} />
-                <Route path="/borrowConsole/:id" element={<BorrowConsolePage />} />
             </Route>
         </Routes>
     )
