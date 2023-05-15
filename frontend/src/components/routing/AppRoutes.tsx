@@ -55,6 +55,7 @@ export default function AppRoutes() {
             </Route>
             <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
                 <Route path="/borrowings" element={<BorrowingsPage />} />
+                <Route path="/borrowings/:id" element={<UserConsolePage />} />
             </Route>
         </Routes>
     )

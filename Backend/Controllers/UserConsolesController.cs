@@ -163,7 +163,7 @@ namespace Backend.Controllers
         }
         [Authorize(Roles = "lender, borrower")]
         [HttpPatch("terminate/{id}")]
-        public async Task<ActionResult> TerminateContract(int id)
+        public async Task<ActionResult> TerminateContract(int id) //TODO: differentiate between when lender and borrower initiates termination
         {
             try
             {

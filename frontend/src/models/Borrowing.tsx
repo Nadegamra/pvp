@@ -55,3 +55,13 @@ export enum BorrowingStatus {
     ACTIVE,
     AWAITING_TERMINATION
 }
+
+export function getBorrowingStatusString(status: BorrowingStatus) {
+    if (status === BorrowingStatus.PENDING) {
+        return 'borrowing.statusPending'
+    } else if (status === BorrowingStatus.ACTIVE) {
+        return 'borrowing.statusActive'
+    } else {
+        return 'borrowing.statusTerminating'
+    }
+}

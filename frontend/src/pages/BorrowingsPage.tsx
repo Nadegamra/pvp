@@ -79,11 +79,7 @@ function BorrowingsPage() {
                             <Link
                                 key={userConsole.id}
                                 className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
-                                to={
-                                    user?.role !== 'admin'
-                                        ? `/consoles/${userConsole.id}`
-                                        : `/userConsoles/${userConsole.id}`
-                                }>
+                                to={`/borrowings/${userConsole.id}`}>
                                 <div className="relative">
                                     <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">
                                         x {userConsole.amount}

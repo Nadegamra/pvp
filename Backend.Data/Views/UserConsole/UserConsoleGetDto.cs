@@ -13,6 +13,7 @@ namespace Backend.Data.Views.UserConsole
         public UserGet User { get; set; }
         public int? ConsoleId { get; set; }
         public ConsoleGetDto Console { get; set; }
+        public int? BorrowingId { get; set; }
         public int? ConversationId { get; set; }
         public int Amount { get; set; }
         public string Accessories { get; set; }

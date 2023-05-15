@@ -1,5 +1,4 @@
 import { ConsoleGet } from './Console'
-import { ConversationGet } from './Conversation'
 import { ImageAdd, ImageGet, ImageUpdate } from './Image'
 import { UserGet } from './User'
 
@@ -9,8 +8,8 @@ export class UserConsoleGet {
     user: UserGet
     consoleId: number
     console: ConsoleGet
+    borrowingId: number
     conversationId: number
-    conversation: ConversationGet
     amount: number
     accessories: string
     images: ImageGet[]
@@ -22,8 +21,8 @@ export class UserConsoleGet {
         user: UserGet,
         consoleId: number,
         console: ConsoleGet,
+        borrowingId: number,
         conversationId: number,
-        conversation: ConversationGet,
         amount: number,
         accessories: string,
         images: ImageGet[],
@@ -34,8 +33,8 @@ export class UserConsoleGet {
         this.user = user
         this.consoleId = consoleId
         this.console = console
+        this.borrowingId = borrowingId
         this.conversationId = conversationId
-        this.conversation = conversation
         this.amount = amount
         this.accessories = accessories
         this.images = images
