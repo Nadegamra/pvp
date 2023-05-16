@@ -18,9 +18,13 @@ function UserConsolesPage() {
                 {user?.role === 'admin' && (
                     <UserConsoleStatusSelectionAdmin status={status} setStatus={setStatus} />
                 )}
-                {status <= UserConsoleStatus.AT_PLATFORM ? (
-                    <UserConsolesGrid status={status} />
-                ) : (
+                {status <= UserConsoleStatus.AT_PLATFORM && <UserConsolesGrid status={status} />}
+                {status === UserConsoleStatus.RESERVED && <BorrowingsList status={status} />}
+                {status === UserConsoleStatus.AT_LENDER && <BorrowingsList status={status} />}
+                {status === UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER && (
+                    <BorrowingsList status={status} />
+                )}
+                {status === UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER && (
                     <BorrowingsList status={status} />
                 )}
             </div>

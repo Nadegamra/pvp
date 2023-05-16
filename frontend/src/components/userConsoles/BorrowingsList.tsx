@@ -14,7 +14,6 @@ function BorrowingsList({ status }: { status: UserConsoleStatus }) {
     const { user } = useAuth()
 
     useEffect(() => {
-        setCurrentBorrowing(0)
         if (user?.role === 'admin') {
             getAllBorrowings()
                 .then((response) => {
