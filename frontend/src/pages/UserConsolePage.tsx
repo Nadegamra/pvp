@@ -47,7 +47,11 @@ function UserConsolePage() {
         { value: UserConsoleStatus.AT_LENDER, label: t('userConsolePage.statusAtLender') },
         {
             value: UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER,
-            label: t('userConsolePage.statusTerminating')
+            label: t('userConsolePage.statusTerminatingLender')
+        },
+        {
+            value: UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER,
+            label: t('userConsolePage.statusTerminatingBorrower')
         }
     ]
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
@@ -61,11 +65,15 @@ function UserConsolePage() {
     const update = () => {
         getUserConsole(parseInt(id ?? '1')).then((result) => {
             setUserConsole(result.data)
-            if (user?.role === 'borrower') {
-                getBorrowingById((result.data as UserConsoleGet).borrowingId).then((response) => {
-                    setBorrowing(response.data)
-                    setLoading(false)
-                })
+            if (user?.role === 'borrower' || user?.role === 'admin') {
+                if (result.data.borrowingId !== undefined) {
+                    getBorrowingById((result.data as UserConsoleGet).borrowingId).then(
+                        (response) => {
+                            setBorrowing(response.data)
+                            setLoading(false)
+                        }
+                    )
+                }
             } else {
                 setLoading(false)
             }
@@ -200,7 +208,19 @@ function UserConsolePage() {
                             />
                         </div>
                     )}
-                {user?.role === 'admin' && (
+                {user?.role === 'admin' && !loading && borrowing !== undefined && (
+                    <div>
+                        <div className="text-fs-h1 mt-5">{t('userConsolePage.borrowerTitle')}</div>
+                        <hr className="pb-2" />
+                        <div className="font-bold">{t('userConsolePage.borrowerCompanyName')}</div>
+                        <div className="ml-3">{borrowing?.user.companyName}</div>
+                        <div className="font-bold">{t('userConsolePage.borrowerCompanyCode')}</div>
+                        <div className="ml-3">{borrowing?.user.companyCode}</div>
+                        <div className="font-bold">{t('userConsolePage.borrowerEmail')}</div>
+                        <div className="ml-3 mb-3">{borrowing?.user.email}</div>
+                    </div>
+                )}
+                {user?.role === 'admin' && !loading && (
                     <div>
                         <div className="text-fs-h1 mt-5">{t('userConsolePage.userTitle')}</div>
                         <hr className="pb-2" />

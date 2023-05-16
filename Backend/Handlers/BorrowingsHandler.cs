@@ -35,7 +35,7 @@ namespace Backend.Handlers
         }
         public async Task<BorrowingGetDto> GetByIdAsync(int id)
         {
-            return _mapper.Map<Borrowing, BorrowingGetDto>(await _context.Borrowings.Include(x => x.UserConsoles).ThenInclude(x => x.Images).Include(x => x.UserConsoles).ThenInclude(x => x.Console).Where(x=>x.Id == id).FirstAsync());
+            return _mapper.Map<Borrowing, BorrowingGetDto>(await _context.Borrowings.Include(x=>x.User).Include(x => x.UserConsoles).ThenInclude(x => x.Images).Include(x => x.UserConsoles).ThenInclude(x => x.Console).Where(x=>x.Id == id).FirstAsync());
         }
         public async Task AddAsync(BorrowingAddDto addDto, ClaimsPrincipal userClaims)
         {
