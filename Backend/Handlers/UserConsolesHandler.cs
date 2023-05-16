@@ -28,7 +28,7 @@ namespace Backend.Handlers
         public async Task<List<UserConsoleGetDto>> GetUserConsolesAsync(ClaimsPrincipal claims)
         {
             User user = await _userManager.GetUserAsync(claims);
-            return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x=>x.Conversation).Where(x => x.UserId == user.Id).ToList());
+            return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x => x.Conversation).Where(x => x.UserId == user.Id).ToList());
         }
         public async Task<List<UserConsoleGetDto>> GetUserConsolesByStatusAsync(ClaimsPrincipal claims, UserConsoleStatus status)
         {
@@ -105,7 +105,7 @@ namespace Backend.Handlers
             // Remove Console
             UserConsole userConsole = await _context.UserConsoles.Where(x => x.Id == id).FirstAsync();
 
-            if(userConsole.ConsoleStatus != UserConsoleStatus.UNCONFIRMED)
+            if (userConsole.ConsoleStatus != UserConsoleStatus.UNCONFIRMED)
             {
                 throw new InvalidOperationException("");
             }
@@ -115,8 +115,32 @@ namespace Backend.Handlers
             return;
         }
 
-        public async Task UpdateStatus(UserConsoleStatusUpdateDto status)
+        public async Task UpdateStatus(UserConsoleStatusUpdateDto status, ClaimsPrincipal userClaims)
         {
+            var user = await _userManager.GetUserAsync(userClaims);
+            var role = (await _userManager.GetRolesAsync(user)).First().ToLower();
+
+            UserConsoleStatus consoleStatus = status.ConsoleStatus;
+
+            if (role == "admin" &&
+                (consoleStatus == UserConsoleStatus.UNCONFIRMED
+                || consoleStatus == UserConsoleStatus.RESERVED
+                || consoleStatus == UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
+                || consoleStatus == UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER))
+            {
+                throw new Exception("Invalid action");
+            }
+
+            if (role == "lender" && consoleStatus != UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER)
+            {
+                throw new Exception("Invalid action");
+            }
+
+            if(role == "borrower" && consoleStatus != UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER)
+            {
+                throw new Exception("Invalid action");
+            }
+
             UserConsole userConsole = _context.UserConsoles.Where(x=>x.Id == status.Id).First();
             userConsole.ConsoleStatus = status.ConsoleStatus;
             _context.UserConsoles.Update(userConsole);

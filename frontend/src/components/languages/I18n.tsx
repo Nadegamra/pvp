@@ -219,7 +219,7 @@ i18n
                         userFname: 'First name',
                         userLname: 'Last name',
                         userEmail: 'Email',
-                        initiateTermination: 'Initiate contract termination',
+                        initiateTermination: 'Initiate console return',
                         contactUser: 'Contact user',
                         statusUnconfirmed: 'Awaiting contract signing',
                         statusAtPlatform: 'Awaiting to be lended',
@@ -249,7 +249,7 @@ i18n
                     borrowing: {
                         statusPending: 'Awaiting contract signing',
                         statusActive: 'Active',
-                        statusTerminating: 'Awaiting contract termination'
+                        statusTerminating: 'Awaiting console return'
                     }
                 }
             },
@@ -455,7 +455,7 @@ i18n
                         userFname: 'Vardas',
                         userLname: 'Pavardė',
                         userEmail: 'El. paštas',
-                        initiateTermination: 'Inicijuoti sutarties nutraukimą',
+                        initiateTermination: 'Inicijuoti konsolės grąžinimą',
                         contactUser: 'Susisiekti su vartotoju',
                         statusUnconfirmed: 'Laukiama sutarties pasirašymo',
                         statusAtPlatform: 'Laukiama nuomos',
@@ -479,7 +479,7 @@ i18n
                     },
                     button: {
                         dialogTitle1: 'Patvirtinimo žinutė',
-                        dialogBody1: 'Ar tikrai norite inicijuoti sutarties nutraukimą?',
+                        dialogBody1: 'Ar tikrai norite inicijuoti konsolės grąžinimą?',
                         dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
                         confirm: 'Taip',
                         deny: 'Ne'
@@ -487,7 +487,7 @@ i18n
                     borrowing: {
                         statusPending: 'Laukiama sutarties pasirašymo',
                         statusActive: 'Aktyvu',
-                        statusTerminating: 'Laukiama sutarties nutraukimo'
+                        statusTerminating: 'Laukiama konsolės grąžinimo'
                     }
                 }
             }

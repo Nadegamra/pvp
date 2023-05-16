@@ -72,7 +72,7 @@ namespace Backend.Controllers
         {
             try
             {
-                await _handler.UpdateAsync(updateDto);
+                await _handler.UpdateAsync(updateDto, User);
                 return Ok();
             }
             catch (Exception ex)

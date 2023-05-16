@@ -10,6 +10,7 @@ namespace Backend.Data.Views.BorrowedConsole
     public class BorrowingUpdateStatusDto
     {
         public int Id { get; set; }
-        public BorrowingStatus Status { get; set; }
+        public BorrowingStatus BorrowingStatus { get; set; }
+        public UserConsoleStatus ConsolesStatus { get; set; }
     }
 }

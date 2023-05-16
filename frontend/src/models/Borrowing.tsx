@@ -1,4 +1,4 @@
-import { UserConsoleGet } from './UserConsole'
+import { UserConsoleGet, UserConsoleStatus } from './UserConsole'
 
 export class BorrowingGet {
     id: number
@@ -42,11 +42,13 @@ export class BorrowingUpdate {
 
 export class BorrowingUpdateStatus {
     id: number
-    status: BorrowingStatus
+    consolesStatus: UserConsoleStatus
+    borrowingStatus: BorrowingStatus
 
-    constructor(id: number, status: BorrowingStatus) {
+    constructor(id: number, consolesStatus: UserConsoleStatus, borrowingStatus: BorrowingStatus) {
         this.id = id
-        this.status = status
+        this.consolesStatus = consolesStatus
+        this.borrowingStatus = borrowingStatus
     }
 }
 
