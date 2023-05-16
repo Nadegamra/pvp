@@ -1,8 +1,10 @@
+import { UserGet } from './User'
 import { UserConsoleGet, UserConsoleStatus } from './UserConsole'
 
 export class BorrowingGet {
     id: number
     userId: number
+    user: UserGet
     conversationId: number
     status: BorrowingStatus
     userConsoles: UserConsoleGet[]
@@ -10,12 +12,14 @@ export class BorrowingGet {
     constructor(
         id: number,
         userId: number,
+        user: UserGet,
         conversationId: number,
         status: BorrowingStatus,
         userConsoles: UserConsoleGet[]
     ) {
         this.id = id
         this.userId = userId
+        this.user = user
         this.conversationId = conversationId
         this.status = status
         this.userConsoles = userConsoles
