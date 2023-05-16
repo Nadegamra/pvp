@@ -18,10 +18,16 @@ function BorrowConsolesPage() {
         setOffset((event.selected * itemsPerPage) % consoles!.length)
     }
     const [status, setStatus] = useState<ConsoleStatus>(ConsoleStatus.AT_PLATFORM)
-    const [selectedConsole, setSelectedConsole] = useState<string>('') // Added state for selected console
+    const [selectedConsoles, setSelectedConsoles] = useState<string[]>([])
 
     const toggleConsoleSelection = (consoleId: string) => {
-        setSelectedConsole((prevSelection) => (prevSelection === consoleId ? '' : consoleId))
+        setSelectedConsoles(prevSelection => {
+          if (prevSelection.includes(consoleId)) {
+            return prevSelection.filter(id => id !== consoleId);
+          } else {
+            return [...prevSelection, consoleId];
+          }
+        });
       }
 
     useEffect(() => {
@@ -58,7 +64,7 @@ function BorrowConsolesPage() {
                                 alt={userConsole.images[0].name}
                                 onClick={() => toggleConsoleSelection(userConsole.console.name)}
                             />
-                            {selectedConsole === userConsole.console.name && (
+                            {selectedConsoles.includes(userConsole.console.name) && (
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -82,7 +88,7 @@ function BorrowConsolesPage() {
                     <div className="text-t-secondary text-center">
                         {userConsole.accessories}
                     </div>
-                    {selectedConsole === userConsole.console.name && (
+                    {selectedConsoles.includes(userConsole.console.name) && (
                     <div className="fixed bottom-2 right-2">
                     <Button
                             text={t('borrowerConsolePage.selectConsole')}
