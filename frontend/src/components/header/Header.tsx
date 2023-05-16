@@ -111,10 +111,16 @@ function Header() {
                     </Link>
                 )}
 
-                <button className="pr-2" value="en" onClick={() => i18n.changeLanguage('en')}>
+                <button
+                    className="pr-2 select-none"
+                    value="en"
+                    onClick={() => i18n.changeLanguage('en')}>
                     <ReactCountryFlag countryCode="GB" svg />
                 </button>
-                <button className="pr-6" value="lt" onClick={() => i18n.changeLanguage('lt')}>
+                <button
+                    className="pr-6 select-none"
+                    value="lt"
+                    onClick={() => i18n.changeLanguage('lt')}>
                     <ReactCountryFlag countryCode="LT" svg />
                 </button>
                 <div

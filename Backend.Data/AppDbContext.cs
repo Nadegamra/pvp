@@ -36,7 +36,7 @@ namespace Backend.Data
                                                             new IdentityRole<int> { Id = 3, Name = "borrower", NormalizedName = "BORROWER"});
 
             modelBuilder.Entity<User>().HasData(new User { Id = 1, IsCompany=false, FirstName = "Admy", LastName = "Nisterson", UserName = "admin@admin.com", NormalizedUserName = "ADMIN@ADMIN.COM", Email = "admin@admin.com", EmailConfirmed=true, NormalizedEmail = "ADMIN@ADMIN.COM", PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==", SecurityStamp = Guid.NewGuid().ToString()},
-                                                new User { Id = 2, IsCompany=false,  FirstName = "Cuzy", LastName= "Tomerson", UserName = "customer@example.com", NormalizedUserName = "CUSTOMER@EXAMPLE.COM", Email = "customer@example.com", EmailConfirmed = false, NormalizedEmail = "CUSTOMER@EXAMPLE.COM", PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==", SecurityStamp = Guid.NewGuid().ToString()},
+                                                new User { Id = 2, IsCompany=false,  FirstName = "Cuzy", LastName= "Tomerson", UserName = "customer@example.com", NormalizedUserName = "CUSTOMER@EXAMPLE.COM", Email = "customer@example.com", EmailConfirmed = true, NormalizedEmail = "CUSTOMER@EXAMPLE.COM", PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==", SecurityStamp = Guid.NewGuid().ToString()},
                                                 new User { Id = 3, IsCompany=true,  CompanyName = "UAB „Tikra įmonė“", CompanyCode = "123456", UserName = "company@example.com", NormalizedUserName = "COMPANY@EXAMPLE.COM", Email = "company@example.com", EmailConfirmed = true, NormalizedEmail = "COMPANY@EXAMPLE.COM", PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==", SecurityStamp = Guid.NewGuid().ToString() });
 
             modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int> { UserId = 1, RoleId = 1 },
@@ -44,16 +44,26 @@ namespace Backend.Data
                                                                  new IdentityUserRole<int> { UserId = 3, RoleId = 3 });
 
             modelBuilder.Entity<Models.Console>().HasData(new Models.Console { Id = 1, Name = "Xbox One", Description = "Microsoft Xbox One", DailyPrice = 8 },
-                                                          new Models.Console { Id = 2, Name = "Playstation 5", Description = "Sony Playstation 5", DailyPrice = 9});
+                                                          new Models.Console { Id = 2, Name = "Playstation 5", Description = "Sony Playstation 5", DailyPrice = 9 },
+                                                          new Models.Console { Id = 3, Name = "Switch", Description = "Nintendo Switch", DailyPrice = 7 });
 
-            modelBuilder.Entity<Image>().HasData(new Image { Id = 1, Path = "gvoktfyvobny0j2umvtt", Name = "1.jpeg", Description = "", ConsoleId = 1 },
-                                                new Image { Id = 2, Path = "owdqtg9fodxw8ubvmavs", Name = "2.jpeg", Description = "", ConsoleId = 1 },
-                                                new Image { Id = 3, Path = "d0sid8ixuhrgcx4melbs", Name = "3.jpeg", Description = "", ConsoleId = 1 },
-                                                new Image { Id = 4, Path = "tmhke7yuza1v9zhourmc", Name = "P5.webp", Description = "", ConsoleId = 2 },
-                                                new Image { Id = 5, Path = "hjzaamg3uuftq1vsgctt", Name = "P5.jpeg", Description = "", ConsoleId = 2 },
-                                                new Image { Id = 6, Path = "dnj7iggkdupgcl9wdide", Name = "P5.png", Description = "", ConsoleId = 2 }
+            modelBuilder.Entity<Image>().HasData(new Image { Id = 1, Path = "gvoktfyvobny0j2umvtt", Name = "1.jpeg", Description = "", ConsoleId = 1, UserConsoleId = null },
+                                                new Image { Id = 2, Path = "owdqtg9fodxw8ubvmavs", Name = "2.jpeg", Description = "", ConsoleId = 1, UserConsoleId = null },
+                                                new Image { Id = 3, Path = "d0sid8ixuhrgcx4melbs", Name = "3.jpeg", Description = "", ConsoleId = 1, UserConsoleId = null },
+                                                new Image { Id = 4, Path = "tmhke7yuza1v9zhourmc", Name = "P5.webp", Description = "", ConsoleId = 2, UserConsoleId = null },
+                                                new Image { Id = 5, Path = "hjzaamg3uuftq1vsgctt", Name = "P5.jpeg", Description = "", ConsoleId = 2, UserConsoleId = null },
+                                                new Image { Id = 6, Path = "dnj7iggkdupgcl9wdide", Name = "P5.png", Description = "", ConsoleId = 2, UserConsoleId = null },
+                                                new Image { Id = 7, Path = "eklt5qq9dci76xad67v7", Name = "SW1.jpeg", Description = "", ConsoleId = 3, UserConsoleId = null },
+                                                new Image { Id = 8, Path = "o8m586cvirnmfxeqh4v6", Name = "SW2.jpeg", Description = "", ConsoleId = 3, UserConsoleId = null },
+                                                new Image { Id = 9, Path = "arvmwbr83mqwshwyruqk", Name = "SW3.jpeg", Description = "", ConsoleId = 3, UserConsoleId = null },
+                                                new Image { Id = 10, Path = "qumlht6wjyklm6htfh3y", Name = "1.jpg", Description = "", ConsoleId = null, UserConsoleId = 1 },
+                                                new Image { Id = 11, Path = "qfx54nyuroewwoch473n", Name = "2.jpg", Description = "", ConsoleId = null, UserConsoleId = 1 },
+                                                new Image { Id = 12, Path = "t7dse874m3o03syqkyix", Name = "1.jpg", Description = "", ConsoleId = null, UserConsoleId = 2 },
+                                                new Image { Id = 13, Path = "ippxzihzs29akhhxd9xn", Name = "2.jpg", Description = "", ConsoleId = null, UserConsoleId = 2 }
                                                 );
 
+            modelBuilder.Entity<UserConsole>().HasData(new UserConsole { Id = 1, UserId = 2, ConsoleId = 1, Amount = 1, Accessories = "1 controller", ConsoleStatus = 0 },
+                                                        new UserConsole { Id = 2, UserId = 2, ConsoleId = 2, Amount = 1, Accessories = "2 controllers", ConsoleStatus = 0 });
 
             base.OnModelCreating(modelBuilder);
         }
