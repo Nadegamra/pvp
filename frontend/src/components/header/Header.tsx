@@ -49,6 +49,14 @@ function Header() {
                         <ButtonText>{t('header.myConsoles')}</ButtonText>
                     </Link>
                 )}
+                {auth.user !== undefined && auth.user.role === 'borrower' && (
+                    <Link
+                        to="/borrowings"
+                        className="cursor-pointer select-none my-auto mr-7"
+                        onClick={() => header.hideAll()}>
+                        <ButtonText>{t('header.myConsoles')}</ButtonText>
+                    </Link>
+                )}
                 {auth.user !== undefined && auth.user.role === 'admin' && (
                     <Link
                         to="/manageConsoles"

@@ -30,7 +30,7 @@ namespace Backend.Handlers
             User user = await _userManager.GetUserAsync(claims);
             return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x=>x.Conversation).Where(x => x.UserId == user.Id).ToList());
         }
-        public async Task<List<UserConsoleGetDto>> GetUserConsolesByStatusAsync(ClaimsPrincipal claims, ConsoleStatus status)
+        public async Task<List<UserConsoleGetDto>> GetUserConsolesByStatusAsync(ClaimsPrincipal claims, UserConsoleStatus status)
         {
             User user = await _userManager.GetUserAsync(claims);
             return _mapper.Map<List<UserConsole>, List<UserConsoleGetDto>>(_context.UserConsoles.Include(x => x.Images).Include(x => x.Console).Include(x => x.Conversation).Where(x => x.ConsoleStatus == status).ToList());
@@ -48,7 +48,7 @@ namespace Backend.Handlers
             // Add Console
             UserConsole userConsole = _mapper.Map<UserConsoleAddDto, UserConsole>(userConsoleDto);
             userConsole.Images = null;
-            userConsole.ConsoleStatus = ConsoleStatus.UNCONFIRMED;
+            userConsole.ConsoleStatus = UserConsoleStatus.UNCONFIRMED;
             userConsole.UserId = user.Id;
             var res = _context.UserConsoles.Add(userConsole);
             await _context.SaveChangesAsync();
@@ -105,7 +105,7 @@ namespace Backend.Handlers
             // Remove Console
             UserConsole userConsole = await _context.UserConsoles.Where(x => x.Id == id).FirstAsync();
 
-            if(userConsole.ConsoleStatus != ConsoleStatus.UNCONFIRMED)
+            if(userConsole.ConsoleStatus != UserConsoleStatus.UNCONFIRMED)
             {
                 throw new InvalidOperationException("");
             }

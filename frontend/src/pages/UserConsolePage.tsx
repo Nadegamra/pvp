@@ -1,13 +1,13 @@
 import { useParams } from 'react-router'
 import {
-    ConsoleStatus,
+    UserConsoleStatus,
     UserConsoleGet,
     UserConsoleStatusUpdate,
     getConsoleStatusString
 } from '../models/UserConsole'
 import { useEffect, useState } from 'react'
 import { getUserConsole, terminateContract, updateUserConsoleStatus } from '../api/UserConsolesApi'
-import 'react-responsive-carousel/lib/styles/carousel.min.css' // requires a loader
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Carousel } from 'react-responsive-carousel'
 import { imagePathToURL } from '../models/Image'
 import Button from '../components/ui/Button'
@@ -16,9 +16,12 @@ import { useTranslation } from 'react-i18next'
 import { contactLender } from '../api/ChatsApi'
 import { Controller, useForm } from 'react-hook-form'
 import Select from 'react-select'
+import { BorrowingGet, BorrowingStatus, getBorrowingStatusString } from '../models/Borrowing'
+import { getBorrowingById } from '../api/BorrowingsApi'
+import { response } from 'express'
 
 interface Props {
-    status: ConsoleStatus
+    status: UserConsoleStatus
 }
 
 function UserConsolePage() {
@@ -33,22 +36,29 @@ function UserConsolePage() {
         setValue
     } = useForm<Props>()
     const options = [
-        { value: ConsoleStatus.UNCONFIRMED, label: t('userConsolePage.statusUnconfirmed') },
-        { value: ConsoleStatus.AT_PLATFORM, label: t('userConsolePage.statusAtPlatform') },
-        { value: ConsoleStatus.AT_LENDER, label: t('userConsolePage.statusAtLender') },
+        { value: UserConsoleStatus.UNCONFIRMED, label: t('userConsolePage.statusUnconfirmed') },
+        { value: UserConsoleStatus.AT_PLATFORM, label: t('userConsolePage.statusAtPlatform') },
+        { value: UserConsoleStatus.AT_LENDER, label: t('userConsolePage.statusAtLender') },
         {
-            value: ConsoleStatus.AWAITING_TERMINATION,
+            value: UserConsoleStatus.AWAITING_TERMINATION,
             label: t('userConsolePage.statusTerminating')
         }
     ]
-
+    const [borrowing, setBorrowing] = useState<BorrowingGet>()
     const [userConsole, setUserConsole] = useState<UserConsoleGet>()
     const { user } = useAuth()
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(() => {
         getUserConsole(parseInt(id ?? '1')).then((result) => {
             setUserConsole(result.data)
-            setLoading(false)
+            if (user?.role === 'borrower') {
+                getBorrowingById((result.data as UserConsoleGet).borrowingId).then((response) => {
+                    setBorrowing(response.data)
+                    setLoading(false)
+                })
+            } else {
+                setLoading(false)
+            }
         })
     }, [])
 
@@ -73,9 +83,13 @@ function UserConsolePage() {
                 <div className="ml-3">{userConsole?.console.name}</div>
                 <div className="font-bold">{t('userConsolePage.consoleDescription')}</div>
                 <div className="ml-3">{userConsole?.console.description}</div>
-                <div className="font-bold">{t('userConsolePage.consoleIncome')}</div>
+                <div className="font-bold">{t('userConsolePage.dailyPrice')}</div>
                 <div className="ml-3">
-                    {(Math.round((userConsole?.console.dailyPrice ?? 0) * 0.6 * 100) / 100) * 30} €
+                    {user?.role !== 'borrower'
+                        ? (Math.round((userConsole?.console.dailyPrice ?? 0) * 0.6 * 100) / 100) *
+                          30
+                        : userConsole?.console.dailyPrice}{' '}
+                    €
                 </div>
 
                 <div className="text-fs-h1 mt-5">{t('userConsolePage.lendTitle')}</div>
@@ -85,11 +99,14 @@ function UserConsolePage() {
                 <div className="font-bold">{t('userConsolePage.lendAccessories')}</div>
                 <div className="ml-3">{userConsole?.accessories}</div>
                 <div className="font-bold">{t('userConsolePage.lendStatus')}</div>
+                {user?.role === 'borrower' && !loading && (
+                    <div className="ml-3">{t(getBorrowingStatusString(borrowing!.status))}</div>
+                )}
                 {user?.role === 'lender' && !loading && (
                     <div className="ml-3">
                         {t(
                             getConsoleStatusString(
-                                userConsole?.consoleStatus ?? ConsoleStatus.UNCONFIRMED
+                                userConsole?.consoleStatus ?? UserConsoleStatus.UNCONFIRMED
                             )
                         )}
                     </div>
@@ -110,7 +127,10 @@ function UserConsolePage() {
                                     }
                                     options={options}
                                     onChange={(e) => {
-                                        setValue('status', e?.value ?? ConsoleStatus.UNCONFIRMED)
+                                        setValue(
+                                            'status',
+                                            e?.value ?? UserConsoleStatus.UNCONFIRMED
+                                        )
                                     }}
                                 />
                             )}
@@ -131,8 +151,24 @@ function UserConsolePage() {
                 )}
                 {user?.role === 'lender' &&
                     !loading &&
-                    userConsole?.consoleStatus !== ConsoleStatus.UNCONFIRMED &&
-                    userConsole?.consoleStatus !== ConsoleStatus.AWAITING_TERMINATION && (
+                    userConsole?.consoleStatus !== UserConsoleStatus.UNCONFIRMED &&
+                    userConsole?.consoleStatus !== UserConsoleStatus.AWAITING_TERMINATION && (
+                        <div className="mt-5">
+                            <Button
+                                text={t('userConsolePage.initiateTermination')}
+                                dialog={true}
+                                dialogBody={t('button.dialogBody1')}
+                                onClick={() => {
+                                    terminateContract(userConsole?.id ?? -1)
+                                }}
+                            />
+                        </div>
+                    )}
+                {user?.role === 'borrower' &&
+                    borrowing?.status === BorrowingStatus.ACTIVE &&
+                    !loading &&
+                    userConsole?.consoleStatus !== UserConsoleStatus.UNCONFIRMED &&
+                    userConsole?.consoleStatus !== UserConsoleStatus.AWAITING_TERMINATION && (
                         <div className="mt-5">
                             <Button
                                 text={t('userConsolePage.initiateTermination')}

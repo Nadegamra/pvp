@@ -223,9 +223,11 @@ i18n
                         contactUser: 'Contact user',
                         statusUnconfirmed: 'Awaiting contract signing',
                         statusAtPlatform: 'Awaiting to be lended',
+                        statusReserved: 'Reserved',
                         statusAtLender: 'At lender',
                         statusTerminating: 'Awaiting contract termination',
-                        changeStatus: 'Change Status'
+                        changeStatus: 'Change Status',
+                        dailyPrice: 'Daily price'
                     },
                     emailConfirmation: {
                         success: 'The email has been confirmed. You can now ',
@@ -243,6 +245,11 @@ i18n
                         dialogBody2: 'Do you really wish to change the console state?',
                         confirm: 'Yes',
                         deny: 'No'
+                    },
+                    borrowing: {
+                        statusPending: 'Awaiting contract signing',
+                        statusActive: 'Active',
+                        statusTerminating: 'Awaiting contract termination'
                     }
                 }
             },
@@ -452,9 +459,11 @@ i18n
                         contactUser: 'Susisiekti su vartotoju',
                         statusUnconfirmed: 'Laukiama sutarties pasirašymo',
                         statusAtPlatform: 'Laukiama nuomos',
+                        statusReserved: 'Rezervuota',
                         statusAtLender: 'Pas nuomotoją',
                         statusTerminating: 'Laukiama sutarties nutraukimo',
-                        changeStatus: 'Pakeisti būseną'
+                        changeStatus: 'Pakeisti būseną',
+                        dailyPrice: 'Dienos kaina'
                     },
                     emailConfirmation: {
                         success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',
@@ -474,6 +483,11 @@ i18n
                         dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
                         confirm: 'Taip',
                         deny: 'Ne'
+                    },
+                    borrowing: {
+                        statusPending: 'Laukiama sutarties pasirašymo',
+                        statusActive: 'Aktyvu',
+                        statusTerminating: 'Laukiama sutarties nutraukimo'
                     }
                 }
             }

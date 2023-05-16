@@ -4,6 +4,6 @@ namespace Backend.Data.Views.UserConsole
 {
     public class UserConsolesStatusRequest
     {
-        public ConsoleStatus ConsoleStatus { get; set; }
+        public UserConsoleStatus ConsoleStatus { get; set; }
     }
 }

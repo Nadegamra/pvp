@@ -1,41 +1,31 @@
 import { t } from 'i18next'
 import { Link } from 'react-router-dom'
-import { UserConsoleGet, UserConsoleStatus, UserConsolesStatusRequest } from '../models/UserConsole'
 import { useEffect, useState } from 'react'
 import { imagePathToURL } from '../models/Image'
-import { getUserConsoles, getUserConsolesByStatus } from '../api/UserConsolesApi'
 import { useAuth } from '../contexts/AuthContext'
 import ReactPaginate from 'react-paginate'
+import { BorrowingGet, BorrowingStatus } from '../models/Borrowing'
+import { getAllBorrowings } from '../api/BorrowingsApi'
 
-function UserConsolesPage() {
-    const [consoles, setConsoles] = useState<UserConsoleGet[]>()
+function BorrowingsPage() {
+    const [borrowings, setBorrowings] = useState<BorrowingGet[]>()
     const { user } = useAuth()
     const itemsPerPage = 24
     const [loading, setLoading] = useState<boolean>(true)
     const [offset, setOffset] = useState<number>(0)
     const handlePageClick = (event: { selected: number }) => {
-        setOffset((event.selected * itemsPerPage) % consoles!.length)
+        const count = borrowings!
+            .map((x) => x.userConsoles)
+            .reduce((accumulator, currentValue) => accumulator.concat(currentValue)).length
+        setOffset((event.selected * itemsPerPage) % count)
     }
-    const [status, setStatus] = useState<UserConsoleStatus>(UserConsoleStatus.UNCONFIRMED)
+    const [status, setStatus] = useState<BorrowingStatus>(BorrowingStatus.ACTIVE)
 
     useEffect(() => {
-        if (user?.role === 'admin') {
-            getUserConsolesByStatus(new UserConsolesStatusRequest(status))
-                .then((response) => {
-                    setConsoles(response.data)
-                })
-                .finally(() => {
-                    setLoading(false)
-                })
-        } else if (user?.role === 'lender') {
-            getUserConsoles()
-                .then((result) => {
-                    setConsoles(result.data)
-                })
-                .finally(() => {
-                    setLoading(false)
-                })
-        }
+        getAllBorrowings().then((response) => {
+            setBorrowings(response.data)
+            setLoading(false)
+        })
     }, [status])
 
     return (
@@ -49,84 +39,74 @@ function UserConsolesPage() {
                     <button
                         type="button"
                         className={
-                            status === UserConsoleStatus.UNCONFIRMED
+                            status === BorrowingStatus.PENDING
                                 ? 'inline-block rounded-l bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
                                 : 'inline-block rounded-l bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
                         }
-                        onClick={() => setStatus(UserConsoleStatus.UNCONFIRMED)}>
+                        onClick={() => setStatus(BorrowingStatus.PENDING)}>
                         {t('userConsolePage.statusUnconfirmed')}
                     </button>
                     <button
                         type="button"
                         className={
-                            status === UserConsoleStatus.AT_PLATFORM
+                            status === BorrowingStatus.ACTIVE
                                 ? 'inline-block bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
                                 : 'inline-block bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
                         }
-                        onClick={() => setStatus(UserConsoleStatus.AT_PLATFORM)}>
+                        onClick={() => setStatus(BorrowingStatus.ACTIVE)}>
                         {t('userConsolePage.statusAtPlatform')}
                     </button>
                     <button
                         type="button"
                         className={
-                            status === UserConsoleStatus.AT_LENDER
-                                ? 'inline-block bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
-                                : 'inline-block bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
-                        }
-                        onClick={() => setStatus(UserConsoleStatus.AT_LENDER)}>
-                        {t('userConsolePage.statusAtLender')}
-                    </button>
-                    <button
-                        type="button"
-                        className={
-                            status === UserConsoleStatus.AWAITING_TERMINATION
+                            status === BorrowingStatus.AWAITING_TERMINATION
                                 ? 'inline-block rounded-r bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
                                 : 'inline-block rounded-r bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
                         }
-                        onClick={() => setStatus(UserConsoleStatus.AWAITING_TERMINATION)}>
+                        onClick={() => setStatus(BorrowingStatus.AWAITING_TERMINATION)}>
                         {t('userConsolePage.statusTerminating')}
                     </button>
                 </div>
             )}
             <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
-                {consoles?.slice(offset, offset + itemsPerPage).map((userConsole) => (
-                    <Link
-                        key={userConsole.id}
-                        className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
-                        to={
-                            user?.role !== 'admin'
-                                ? `/consoles/${userConsole.id}`
-                                : `/userConsoles/${userConsole.id}`
-                        }>
-                        <div className="relative">
-                            <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">
-                                x {userConsole.amount}
-                            </div>
-                            {userConsole.images.length > 0 && (
-                                <img
-                                    className="rounded-md"
-                                    src={imagePathToURL(userConsole.images[0].path, 250)}
-                                    alt={userConsole.images[0].name}
-                                />
-                            )}
-                        </div>
-                        <div className="text-t-secondary text-center">
-                            {userConsole.console.name}
-                        </div>
-                    </Link>
-                ))}
-                {user?.role !== 'admin' && (
-                    <Link
-                        key={-1}
-                        className="fixed bottom-5 right-5 cursor-pointer select-none"
-                        to={`/consoles/new`}>
-                        <div className="">
-                            <span className="material-symbols-outlined text-[100px] w-full text-center">
-                                add_circle
-                            </span>
-                        </div>
-                    </Link>
-                )}
+                {borrowings !== undefined &&
+                    borrowings.length !== 0 &&
+                    borrowings
+                        .map((x) => x.userConsoles)
+                        .reduce((accumulator, currentValue) => accumulator.concat(currentValue))
+                        .slice(offset, offset + itemsPerPage)
+                        .map((userConsole) => (
+                            <Link
+                                key={userConsole.id}
+                                className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
+                                to={`/borrowings/${userConsole.id}`}>
+                                <div className="relative">
+                                    <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">
+                                        x {userConsole.amount}
+                                    </div>
+                                    {userConsole.images.length > 0 && (
+                                        <img
+                                            className="rounded-md"
+                                            src={imagePathToURL(userConsole.images[0].path, 250)}
+                                            alt={userConsole.images[0].name}
+                                        />
+                                    )}
+                                </div>
+                                <div className="text-t-secondary text-center">
+                                    {userConsole.console.name}
+                                </div>
+                            </Link>
+                        ))}
+                <Link
+                    key={-1}
+                    className="fixed bottom-5 right-5 cursor-pointer select-none"
+                    to={`/borrowings/new`}>
+                    <div className="">
+                        <span className="material-symbols-outlined text-[100px] w-full text-center">
+                            add_circle
+                        </span>
+                    </div>
+                </Link>
             </div>
             {!loading && (
                 <ReactPaginate
@@ -140,7 +120,7 @@ function UserConsolesPage() {
                     breakLabel="..."
                     onPageChange={(e) => handlePageClick(e)}
                     pageRangeDisplayed={5}
-                    pageCount={Math.ceil(consoles!.length / itemsPerPage)}
+                    pageCount={Math.ceil(borrowings!.length / itemsPerPage)}
                     renderOnZeroPageCount={null}
                 />
             )}
@@ -148,4 +128,4 @@ function UserConsolesPage() {
     )
 }
 
-export default UserConsolesPage
+export default BorrowingsPage

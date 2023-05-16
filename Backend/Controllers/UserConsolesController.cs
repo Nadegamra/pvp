@@ -163,11 +163,11 @@ namespace Backend.Controllers
         }
         [Authorize(Roles = "lender, borrower")]
         [HttpPatch("terminate/{id}")]
-        public async Task<ActionResult> TerminateContract(int id)
+        public async Task<ActionResult> TerminateContract(int id) //TODO: differentiate between when lender and borrower initiates termination
         {
             try
             {
-                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id=id, ConsoleStatus=Data.Models.ConsoleStatus.AWAITING_TERMINATION});
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id=id, ConsoleStatus=Data.Models.UserConsoleStatus.AWAITING_TERMINATION});
                 return Ok();
 
             }

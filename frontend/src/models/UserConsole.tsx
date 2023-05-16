@@ -1,5 +1,4 @@
 import { ConsoleGet } from './Console'
-import { ConversationGet } from './Conversation'
 import { ImageAdd, ImageGet, ImageUpdate } from './Image'
 import { UserGet } from './User'
 
@@ -9,12 +8,12 @@ export class UserConsoleGet {
     user: UserGet
     consoleId: number
     console: ConsoleGet
+    borrowingId: number
     conversationId: number
-    conversation: ConversationGet
     amount: number
     accessories: string
     images: ImageGet[]
-    consoleStatus: ConsoleStatus
+    consoleStatus: UserConsoleStatus
 
     constructor(
         id: number,
@@ -22,20 +21,20 @@ export class UserConsoleGet {
         user: UserGet,
         consoleId: number,
         console: ConsoleGet,
+        borrowingId: number,
         conversationId: number,
-        conversation: ConversationGet,
         amount: number,
         accessories: string,
         images: ImageGet[],
-        consoleStatus: ConsoleStatus
+        consoleStatus: UserConsoleStatus
     ) {
         this.id = id
         this.userId = userId
         this.user = user
         this.consoleId = consoleId
         this.console = console
+        this.borrowingId = borrowingId
         this.conversationId = conversationId
-        this.conversation = conversation
         this.amount = amount
         this.accessories = accessories
         this.images = images
@@ -81,35 +80,40 @@ export class UserConsoleUpdate {
 
 export class UserConsoleStatusUpdate {
     id: number
-    consoleStatus: ConsoleStatus
+    consoleStatus: UserConsoleStatus
 
-    constructor(id: number, consoleStatus: ConsoleStatus) {
+    constructor(id: number, consoleStatus: UserConsoleStatus) {
         this.id = id
         this.consoleStatus = consoleStatus
     }
 }
 
 export class UserConsolesStatusRequest {
-    consoleStatus: ConsoleStatus
+    consoleStatus: UserConsoleStatus
 
-    constructor(consoleStatus: ConsoleStatus) {
+    constructor(consoleStatus: UserConsoleStatus) {
         this.consoleStatus = consoleStatus
     }
 }
 
-export enum ConsoleStatus {
+export enum UserConsoleStatus {
     UNCONFIRMED,
     AT_PLATFORM,
+    RESERVED,
     AT_LENDER,
     AWAITING_TERMINATION
 }
 
-export function getConsoleStatusString(status: ConsoleStatus) {
-    if (status === ConsoleStatus.UNCONFIRMED) {
+export function getConsoleStatusString(status: UserConsoleStatus) {
+    if (status === UserConsoleStatus.UNCONFIRMED) {
         return 'userConsolePage.statusUnconfirmed'
-    } else if (status === ConsoleStatus.AT_PLATFORM) {
+    } else if (status === UserConsoleStatus.AT_PLATFORM || status === UserConsoleStatus.RESERVED) {
         return 'userConsolePage.statusAtPlatform'
-    } else if (status === ConsoleStatus.AT_LENDER) {
+    }
+    // else if (status === UserConsoleStatus.RESERVED) {
+    //     return 'userConsolePage.statusReserved'
+    // }
+    else if (status === UserConsoleStatus.AT_LENDER) {
         return 'userConsolePage.statusAtLender'
     } else {
         return 'userConsolePage.statusTerminating'

@@ -18,6 +18,7 @@ import EmailConfirmationPage from '../../pages/EmailConfirmationPage'
 import EmailChangePage from '../../pages/EmailChangePage'
 import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 import ChatsPage from '../../pages/ChatsPage'
+import BorrowingsPage from '../../pages/BorrowingsPage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -51,6 +52,10 @@ export default function AppRoutes() {
                 <Route path="/consoles" element={<UserConsolesPage />} />
                 <Route path="/consoles/:id" element={<UserConsolePage />} />
                 <Route path="/consoles/new" element={<UserConsolesCreatePage />} />
+            </Route>
+            <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
+                <Route path="/borrowings" element={<BorrowingsPage />} />
+                <Route path="/borrowings/:id" element={<UserConsolePage />} />
             </Route>
         </Routes>
     )
