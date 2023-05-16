@@ -30,7 +30,7 @@ export default function AppRoutes() {
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contacts" element={<ContactInfoPage />} />
             <Route path="/changeEmail/:token" element={<EmailChangePage />} />
-            
+
             <Route element={<AppRoute condition={user === undefined} redirectionPath="/" />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<LenderRegisterPage />} />
@@ -56,7 +56,7 @@ export default function AppRoutes() {
                 <Route path="/consoles/new" element={<UserConsolesCreatePage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
-                <Route path="/borrowConsoles" element={<BorrowConsolesPage />} />
+                <Route path="/borrowings/new" element={<BorrowConsolesPage />} />
                 <Route path="/borrowings" element={<BorrowingsPage />} />
                 <Route path="/borrowings/:id" element={<UserConsolePage />} />
             </Route>
