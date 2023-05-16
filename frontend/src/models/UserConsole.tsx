@@ -101,7 +101,8 @@ export enum UserConsoleStatus {
     AT_PLATFORM,
     RESERVED,
     AT_LENDER,
-    AWAITING_TERMINATION
+    AWAITING_TERMINATION_BY_LENDER,
+    AWAITING_TERMINATION_BY_BORROWER
 }
 
 export function getConsoleStatusString(status: UserConsoleStatus) {
@@ -117,5 +118,15 @@ export function getConsoleStatusString(status: UserConsoleStatus) {
         return 'userConsolePage.statusAtLender'
     } else {
         return 'userConsolePage.statusTerminating'
+    }
+}
+
+export function getConsoleStatusStringBorrower(status: UserConsoleStatus) {
+    if (status === UserConsoleStatus.RESERVED) {
+        return 'borrowing.statusPending'
+    } else if (status === UserConsoleStatus.AT_LENDER) {
+        return 'borrowing.statusActive'
+    } else {
+        return 'borrowing.statusTerminating'
     }
 }

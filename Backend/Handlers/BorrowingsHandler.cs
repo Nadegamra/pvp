@@ -62,12 +62,12 @@ namespace Backend.Handlers
                 {
                     continue;
                 }
-                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id= id, ConsoleStatus = UserConsoleStatus.RESERVED });
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id= id, ConsoleStatus = UserConsoleStatus.RESERVED }, userClaims);
                 await UpdateUserConsole(id, result.Entity.Id);
             }
         }
 
-        public async Task UpdateAsync(BorrowingUpdateDto updateDto)
+        public async Task UpdateAsync(BorrowingUpdateDto updateDto, ClaimsPrincipal userClaims)
         {
             var borrowing = await _context.Borrowings.Where(x=>x.Id == updateDto.Id).Include(x=>x.UserConsoles).FirstAsync();
 
@@ -75,21 +75,37 @@ namespace Backend.Handlers
 
             foreach(var id in originalUserConsoleIds)
             {
-                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id = id, ConsoleStatus = UserConsoleStatus.AT_PLATFORM });
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id = id, ConsoleStatus = UserConsoleStatus.AT_PLATFORM }, userClaims);
             }
 
             foreach(var id in updateDto.UserConsoleIds)
             {
-                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id = id, ConsoleStatus = UserConsoleStatus.AT_LENDER });
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id = id, ConsoleStatus = UserConsoleStatus.AT_LENDER }, userClaims);
             }
         }
         public async Task UpdateStatusAsync(BorrowingUpdateStatusDto statusDto)
         {
-            var borrowing = await _context.Borrowings.Where(x => x.Id == statusDto.Id).FirstAsync();
+            var userConsoles = _context.Borrowings.Include(x => x.UserConsoles).Where(x => x.Id == statusDto.Id).First().UserConsoles;
 
-            borrowing.Status = statusDto.Status;
+            async Task UpdateUserConsole(int userConsoleId, UserConsoleStatus status)
+            {
+                var userConsole = await _context.UserConsoles.Where(x => x.Id == userConsoleId).FirstAsync();
 
-            _context.Borrowings.Update(borrowing);
+                userConsole.ConsoleStatus = status;
+
+                _context.UserConsoles.Update(userConsole);
+                await _context.SaveChangesAsync();
+            }
+
+            var borrowing = await _context.Borrowings.Where(x=>x.Id == statusDto.Id).FirstAsync();
+            borrowing.Status = statusDto.BorrowingStatus;
+            await _context.SaveChangesAsync();
+
+            foreach(var userConsole in userConsoles)
+            {
+                await UpdateUserConsole(userConsole.Id, statusDto.ConsolesStatus);
+            }
+
             await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(int id)

@@ -12,6 +12,7 @@ namespace Backend.Data.Models
         AT_PLATFORM,
         RESERVED,
         AT_LENDER,
-        AWAITING_TERMINATION
+        AWAITING_TERMINATION_BY_LENDER,
+        AWAITING_TERMINATION_BY_BORROWER
     }
 }

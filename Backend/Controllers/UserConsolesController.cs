@@ -152,7 +152,7 @@ namespace Backend.Controllers
         {
             try
             {
-                await _userConsolesHandler.UpdateStatus(updateDto);
+                await _userConsolesHandler.UpdateStatus(updateDto, User);
                 return Ok();
 
             }
@@ -161,13 +161,28 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "lender, borrower")]
-        [HttpPatch("terminate/{id}")]
-        public async Task<ActionResult> TerminateContract(int id) //TODO: differentiate between when lender and borrower initiates termination
+        [Authorize(Roles = "lender")]
+        [HttpPatch("terminateLender/{id}")]
+        public async Task<ActionResult> TerminateContractByLender(int id)
         {
             try
             {
-                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id=id, ConsoleStatus=Data.Models.UserConsoleStatus.AWAITING_TERMINATION});
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id=id, ConsoleStatus=Data.Models.UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER},User);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize(Roles = "borrower")]
+        [HttpPatch("terminateBorrower/{id}")]
+        public async Task<ActionResult> TerminateContractByBorrower(int id)
+        {
+            try
+            {
+                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id = id, ConsoleStatus = Data.Models.UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER }, User);
                 return Ok();
 
             }
