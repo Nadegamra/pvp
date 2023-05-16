@@ -14,11 +14,15 @@ function BorrowingsList({ status }: { status: UserConsoleStatus }) {
     const { user } = useAuth()
 
     useEffect(() => {
+        setCurrentBorrowing(0)
         if (user?.role === 'admin') {
             getAllBorrowings()
                 .then((response) => {
                     setBorrowings(
-                        (response.data as BorrowingGet[]).filter((x) => x.userConsoles.length > 0)
+                        (response.data as BorrowingGet[]).filter(
+                            (x) =>
+                                x.userConsoles.filter((x) => x.consoleStatus === status).length > 0
+                        )
                     )
                 })
                 .finally(() => setLoading(false))
@@ -58,7 +62,7 @@ function BorrowingsList({ status }: { status: UserConsoleStatus }) {
                     {borrowings[currentBorrowing].userConsoles.filter(
                         (x) => x.consoleStatus === status
                     ).length > 0 && (
-                        <Borrowing id={borrowings[currentBorrowing ?? -1].id} status={status} />
+                        <Borrowing id={borrowings[currentBorrowing].id} status={status} />
                     )}
                 </div>
             )}

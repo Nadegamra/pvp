@@ -59,11 +59,61 @@ namespace Backend.Data
                                                 new Image { Id = 10, Path = "qumlht6wjyklm6htfh3y", Name = "1.jpg", Description = "", ConsoleId = null, UserConsoleId = 1 },
                                                 new Image { Id = 11, Path = "qfx54nyuroewwoch473n", Name = "2.jpg", Description = "", ConsoleId = null, UserConsoleId = 1 },
                                                 new Image { Id = 12, Path = "t7dse874m3o03syqkyix", Name = "1.jpg", Description = "", ConsoleId = null, UserConsoleId = 2 },
-                                                new Image { Id = 13, Path = "ippxzihzs29akhhxd9xn", Name = "2.jpg", Description = "", ConsoleId = null, UserConsoleId = 2 }
+                                                new Image { Id = 13, Path = "ippxzihzs29akhhxd9xn", Name = "2.jpg", Description = "", ConsoleId = null, UserConsoleId = 2 },
+                                                new Image { Id = 14, Path = "cbjujhwymkya4egvowlp", Name = "1.jpg", Description = "", ConsoleId = null, UserConsoleId = 3 },
+                                                new Image { Id = 15, Path = "bnplshybz8d3vf3gr3no", Name = "2.jpg", Description = "", ConsoleId = null, UserConsoleId = 3 },
+                                                new Image { Id = 16, Path = "wj88di2k7pmft2isdlh8", Name = "3.jpg", Description = "", ConsoleId = null, UserConsoleId = 4 },
+                                                new Image { Id = 17, Path = "kevpxg8wzjv0jw6gkg4c", Name = "4.jpg", Description = "", ConsoleId = null, UserConsoleId = 4 },
+                                                new Image { Id = 18, Path = "ffl3aw9hv5005dfdjfpz", Name = "5.jpg", Description = "", ConsoleId = null, UserConsoleId = 5 },
+                                                new Image { Id = 19, Path = "lhmgyhueweqa7fkp1stl", Name = "6.jpg", Description = "", ConsoleId = null, UserConsoleId = 5 },
+                                                new Image { Id = 20, Path = "imrldxkmtmr5yeztklsq", Name = "7.jpg", Description = "", ConsoleId = null, UserConsoleId = 6 },
+                                                new Image { Id = 21, Path = "z3fxlitvox9pcnx6qifj", Name = "8.jpg", Description = "", ConsoleId = null, UserConsoleId = 6 },
+                                                new Image { Id = 22, Path = "gsvfexdltber03kb0sbq", Name = "9.webp", Description = "", ConsoleId = null, UserConsoleId = 7 },
+                                                new Image { Id = 23, Path = "zu9h4aokymxxgogz3rpk", Name = "10.webp", Description = "", ConsoleId = null, UserConsoleId = 7 },
+                                                new Image { Id = 24, Path = "jqaiq8wmqqecnlzwojax", Name = "1.jpg", Description = "", ConsoleId = null, UserConsoleId = 8 },
+                                                new Image { Id = 25, Path = "rgh3wb7beikhyt2emacl", Name = "2.jpg", Description = "", ConsoleId = null, UserConsoleId = 8 },
+                                                new Image { Id = 26, Path = "nzc2jbogrqhimi2kinx7", Name = "3.png", Description = "", ConsoleId = null, UserConsoleId = 9 },
+                                                new Image { Id = 27, Path = "oiwhljjpuankybss3fxf", Name = "4.jpg", Description = "", ConsoleId = null, UserConsoleId = 9 },
+                                                new Image { Id = 28, Path = "michvakylcmespl2jpkp", Name = "5.jpg", Description = "", ConsoleId = null, UserConsoleId = 10 },
+                                                new Image { Id = 29, Path = "yhmkdali6lct87ujbxtw", Name = "6.jpg", Description = "", ConsoleId = null, UserConsoleId = 10 },
+                                                new Image { Id = 30, Path = "of7vv1zj6b3h4xcxoogo", Name = "7.jpg", Description = "", ConsoleId = null, UserConsoleId = 11 },
+                                                new Image { Id = 31, Path = "busosz6xgrk1pl09satt", Name = "8.webp", Description = "", ConsoleId = null, UserConsoleId = 11 },
+                                                new Image { Id = 32, Path = "wpclmzpnijnbejwcu7v2", Name = "9.webp", Description = "", ConsoleId = null, UserConsoleId = 12 },
+                                                new Image { Id = 33, Path = "suowvu9mwqucv0lhp2y2", Name = "10.jpg", Description = "", ConsoleId = null, UserConsoleId = 12 },
+                                                new Image { Id = 34, Path = "kymuodazpxcondhpc2kb", Name = "1.jpg", Description = "", ConsoleId = null, UserConsoleId = 13 },
+                                                new Image { Id = 35, Path = "hwcpytri3igfalqovqbb", Name = "2.jpg", Description = "", ConsoleId = null, UserConsoleId = 13 },
+                                                new Image { Id = 36, Path = "jryjdpjyhlfpxybhvgb2", Name = "3.webp", Description = "", ConsoleId = null, UserConsoleId = 14 },
+                                                new Image { Id = 37, Path = "orvzpdw4izqin1eir2ro", Name = "4.jpg", Description = "", ConsoleId = null, UserConsoleId = 14 },
+                                                new Image { Id = 38, Path = "ak1f7z5qm7gqtcapo3x6", Name = "5.webp", Description = "", ConsoleId = null, UserConsoleId = 15 },
+                                                new Image { Id = 39, Path = "d1laps4gd9ybshzwr8mm", Name = "6.jpg", Description = "", ConsoleId = null, UserConsoleId = 15 },
+                                                new Image { Id = 40, Path = "cn76jlujcjkrvlspid3s", Name = "7.jpg", Description = "", ConsoleId = null, UserConsoleId = 16 },
+                                                new Image { Id = 41, Path = "n3xkh0olersoqm8pvyxk", Name = "8.jpg", Description = "", ConsoleId = null, UserConsoleId = 16 },
+                                                new Image { Id = 42, Path = "xy9djpejp8dqt013iwqc", Name = "9.webp", Description = "", ConsoleId = null, UserConsoleId = 17 },
+                                                new Image { Id = 43, Path = "mgrat1qyaks74xvuqfxl", Name = "10.jpg", Description = "", ConsoleId = null, UserConsoleId = 17 }
                                                 );
 
-            modelBuilder.Entity<UserConsole>().HasData(new UserConsole { Id = 1, UserId = 2, ConsoleId = 1, Amount = 1, Accessories = "1 controller", ConsoleStatus = 0 },
-                                                        new UserConsole { Id = 2, UserId = 2, ConsoleId = 2, Amount = 1, Accessories = "2 controllers", ConsoleStatus = 0 });
+            modelBuilder.Entity<UserConsole>().HasData(new UserConsole { Id = 1, UserId = 2, ConsoleId = 1, Amount = 1, Accessories = "1 controller", ConsoleStatus = UserConsoleStatus.UNCONFIRMED },
+                                                       new UserConsole { Id = 2, UserId = 2, ConsoleId = 2, Amount = 1, Accessories = "2 controllers", ConsoleStatus = UserConsoleStatus.AT_PLATFORM },
+                                                       new UserConsole { Id = 3, UserId = 2, ConsoleId = 3, Amount = 3, Accessories = "Switch valdikliai", ConsoleStatus = UserConsoleStatus.AT_PLATFORM },
+                                                       new UserConsole { Id = 4, UserId = 2, ConsoleId = 3, Amount = 2, Accessories = "Switch valdikliai", BorrowingId = 1, ConsoleStatus = UserConsoleStatus.AT_LENDER },
+                                                       new UserConsole { Id = 5, UserId = 2, ConsoleId = 3, Amount = 1, Accessories = "Switch valdikliai", BorrowingId = 1, ConsoleStatus = UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER },
+                                                       new UserConsole { Id = 6, UserId = 2, ConsoleId = 3, Amount = 3, Accessories = "Switch valdikliai", BorrowingId = 1, ConsoleStatus = UserConsoleStatus.AT_LENDER },
+                                                       new UserConsole { Id = 7, UserId = 2, ConsoleId = 3, Amount = 1, Accessories = "Switch valdikliai", ConsoleStatus = UserConsoleStatus.UNCONFIRMED },
+                                                       new UserConsole { Id = 8, UserId = 2, ConsoleId = 1, Amount = 1, Accessories = "2 pulteliai", ConsoleStatus = UserConsoleStatus.AT_PLATFORM },
+                                                       new UserConsole { Id = 9, UserId = 2, ConsoleId = 1, Amount = 1, Accessories = "3 pulteliai", BorrowingId = 2, ConsoleStatus = UserConsoleStatus.RESERVED },
+                                                       new UserConsole { Id = 10, UserId = 2, ConsoleId = 1, Amount = 2, Accessories = "6 pulteliai", BorrowingId = 2, ConsoleStatus = UserConsoleStatus.RESERVED },
+                                                       new UserConsole { Id = 11, UserId = 2, ConsoleId = 1, Amount = 3, Accessories = "9 pulteliai", BorrowingId = 2, ConsoleStatus = UserConsoleStatus.RESERVED },
+                                                       new UserConsole { Id = 12, UserId = 2, ConsoleId = 1, Amount = 1, Accessories = "4 pulteliai", ConsoleStatus = UserConsoleStatus.AT_PLATFORM },
+                                                       new UserConsole { Id = 13, UserId = 2, ConsoleId = 2, Amount = 1, Accessories = "2 pulteliai", ConsoleStatus = UserConsoleStatus.UNCONFIRMED },
+                                                       new UserConsole { Id = 14, UserId = 2, ConsoleId = 2, Amount = 2, Accessories = "4 pulteliai", ConsoleStatus = UserConsoleStatus.AT_PLATFORM },
+                                                       new UserConsole { Id = 15, UserId = 2, ConsoleId = 2, Amount = 3, Accessories = "6 pulteliai", BorrowingId = 3, ConsoleStatus = UserConsoleStatus.AT_LENDER },
+                                                       new UserConsole { Id = 16, UserId = 2, ConsoleId = 2, Amount = 2, Accessories = "6 pulteliai", BorrowingId = 3, ConsoleStatus = UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER },
+                                                       new UserConsole { Id = 17, UserId = 2, ConsoleId = 2, Amount = 1, Accessories = "3 pulteliai", BorrowingId = 3, ConsoleStatus = UserConsoleStatus.AT_LENDER }
+                                                       );
+
+            modelBuilder.Entity<Borrowing>().HasData(new Borrowing { Id = 1, UserId = 3, Status = BorrowingStatus.ACTIVE },
+                                                     new Borrowing { Id = 2, UserId = 3, Status = BorrowingStatus.PENDING },
+                                                     new Borrowing { Id = 3, UserId = 3, Status = BorrowingStatus.ACTIVE });
 
             base.OnModelCreating(modelBuilder);
         }

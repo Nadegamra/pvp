@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230516173547_MoreDefaultData")]
-    partial class MoreDefaultData
+    [Migration("20230516191736_UserConsolesDefaultData")]
+    partial class UserConsolesDefaultData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,26 @@ namespace Backend.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Borrowings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Status = 1,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Status = 0,
+                            UserId = 3
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Status = 1,
+                            UserId = 3
+                        });
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Console", b =>
@@ -291,6 +311,246 @@ namespace Backend.Data.Migrations
                             Name = "2.jpg",
                             Path = "ippxzihzs29akhhxd9xn",
                             UserConsoleId = 2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "",
+                            Name = "1.jpg",
+                            Path = "cbjujhwymkya4egvowlp",
+                            UserConsoleId = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "",
+                            Name = "2.jpg",
+                            Path = "bnplshybz8d3vf3gr3no",
+                            UserConsoleId = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "",
+                            Name = "3.jpg",
+                            Path = "wj88di2k7pmft2isdlh8",
+                            UserConsoleId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "",
+                            Name = "4.jpg",
+                            Path = "kevpxg8wzjv0jw6gkg4c",
+                            UserConsoleId = 4
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "",
+                            Name = "5.jpg",
+                            Path = "ffl3aw9hv5005dfdjfpz",
+                            UserConsoleId = 5
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "",
+                            Name = "6.jpg",
+                            Path = "lhmgyhueweqa7fkp1stl",
+                            UserConsoleId = 5
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "",
+                            Name = "7.jpg",
+                            Path = "imrldxkmtmr5yeztklsq",
+                            UserConsoleId = 6
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Description = "",
+                            Name = "8.jpg",
+                            Path = "z3fxlitvox9pcnx6qifj",
+                            UserConsoleId = 6
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Description = "",
+                            Name = "9.webp",
+                            Path = "gsvfexdltber03kb0sbq",
+                            UserConsoleId = 7
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Description = "",
+                            Name = "10.webp",
+                            Path = "zu9h4aokymxxgogz3rpk",
+                            UserConsoleId = 7
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Description = "",
+                            Name = "1.jpg",
+                            Path = "jqaiq8wmqqecnlzwojax",
+                            UserConsoleId = 8
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Description = "",
+                            Name = "2.jpg",
+                            Path = "rgh3wb7beikhyt2emacl",
+                            UserConsoleId = 8
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Description = "",
+                            Name = "3.png",
+                            Path = "nzc2jbogrqhimi2kinx7",
+                            UserConsoleId = 9
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Description = "",
+                            Name = "4.jpg",
+                            Path = "oiwhljjpuankybss3fxf",
+                            UserConsoleId = 9
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Description = "",
+                            Name = "5.jpg",
+                            Path = "michvakylcmespl2jpkp",
+                            UserConsoleId = 10
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Description = "",
+                            Name = "6.jpg",
+                            Path = "yhmkdali6lct87ujbxtw",
+                            UserConsoleId = 10
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Description = "",
+                            Name = "7.jpg",
+                            Path = "of7vv1zj6b3h4xcxoogo",
+                            UserConsoleId = 11
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Description = "",
+                            Name = "8.webp",
+                            Path = "busosz6xgrk1pl09satt",
+                            UserConsoleId = 11
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Description = "",
+                            Name = "9.webp",
+                            Path = "wpclmzpnijnbejwcu7v2",
+                            UserConsoleId = 12
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Description = "",
+                            Name = "10.jpg",
+                            Path = "suowvu9mwqucv0lhp2y2",
+                            UserConsoleId = 12
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Description = "",
+                            Name = "1.jpg",
+                            Path = "kymuodazpxcondhpc2kb",
+                            UserConsoleId = 13
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Description = "",
+                            Name = "2.jpg",
+                            Path = "hwcpytri3igfalqovqbb",
+                            UserConsoleId = 13
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Description = "",
+                            Name = "3.webp",
+                            Path = "jryjdpjyhlfpxybhvgb2",
+                            UserConsoleId = 14
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Description = "",
+                            Name = "4.jpg",
+                            Path = "orvzpdw4izqin1eir2ro",
+                            UserConsoleId = 14
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Description = "",
+                            Name = "5.webp",
+                            Path = "ak1f7z5qm7gqtcapo3x6",
+                            UserConsoleId = 15
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Description = "",
+                            Name = "6.jpg",
+                            Path = "d1laps4gd9ybshzwr8mm",
+                            UserConsoleId = 15
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Description = "",
+                            Name = "7.jpg",
+                            Path = "cn76jlujcjkrvlspid3s",
+                            UserConsoleId = 16
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Description = "",
+                            Name = "8.jpg",
+                            Path = "n3xkh0olersoqm8pvyxk",
+                            UserConsoleId = 16
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Description = "",
+                            Name = "9.webp",
+                            Path = "xy9djpejp8dqt013iwqc",
+                            UserConsoleId = 17
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Description = "",
+                            Name = "10.jpg",
+                            Path = "mgrat1qyaks74xvuqfxl",
+                            UserConsoleId = 17
                         });
                 });
 
@@ -488,7 +748,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "c773a3e4-dae1-41e7-9181-e43437255ef2",
+                            ConcurrencyStamp = "e7716d11-8145-410d-bd0a-0f4a015bfef8",
                             Country = "",
                             County = "",
                             Email = "admin@admin.com",
@@ -502,7 +762,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "549ffbfc-2db9-4373-9e79-778291a167c8",
+                            SecurityStamp = "9af05da6-e869-4128-946e-695f35eb861c",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
@@ -514,11 +774,11 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "191bf0ec-f327-4389-bdcf-52b86dd3063f",
+                            ConcurrencyStamp = "856e48f0-0d74-4178-968d-ce5ce26690c8",
                             Country = "",
                             County = "",
                             Email = "customer@example.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             FirstName = "Cuzy",
                             IsCompany = false,
                             LastName = "Tomerson",
@@ -528,7 +788,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "b9f1161b-1a3e-4b2e-899c-3170fad74f0a",
+                            SecurityStamp = "9b92c4b2-556e-4e24-9fff-2f92f07f2ebe",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "customer@example.com"
@@ -540,7 +800,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "123456",
                             CompanyName = "UAB „Tikra įmonė“",
-                            ConcurrencyStamp = "4b94dd84-0a30-4da4-8f08-fff383d68b7e",
+                            ConcurrencyStamp = "f981517d-5f98-4977-970e-62f89f8378be",
                             Country = "",
                             County = "",
                             Email = "company@example.com",
@@ -554,7 +814,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "6b335e28-a95d-41ae-bd17-3ac650dfe457",
+                            SecurityStamp = "cf971ac6-e065-4ebf-b67a-c3bc9db8eb8f",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "company@example.com"
@@ -617,7 +877,151 @@ namespace Backend.Data.Migrations
                             Accessories = "2 controllers",
                             Amount = 1,
                             ConsoleId = 2,
+                            ConsoleStatus = 1,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Accessories = "Switch valdikliai",
+                            Amount = 3,
+                            ConsoleId = 3,
+                            ConsoleStatus = 1,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Accessories = "Switch valdikliai",
+                            Amount = 2,
+                            BorrowingId = 1,
+                            ConsoleId = 3,
+                            ConsoleStatus = 3,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Accessories = "Switch valdikliai",
+                            Amount = 1,
+                            BorrowingId = 1,
+                            ConsoleId = 3,
+                            ConsoleStatus = 4,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Accessories = "Switch valdikliai",
+                            Amount = 3,
+                            BorrowingId = 1,
+                            ConsoleId = 3,
+                            ConsoleStatus = 3,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Accessories = "Switch valdikliai",
+                            Amount = 1,
+                            ConsoleId = 3,
                             ConsoleStatus = 0,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Accessories = "2 pulteliai",
+                            Amount = 1,
+                            ConsoleId = 1,
+                            ConsoleStatus = 1,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Accessories = "3 pulteliai",
+                            Amount = 1,
+                            BorrowingId = 2,
+                            ConsoleId = 1,
+                            ConsoleStatus = 2,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Accessories = "6 pulteliai",
+                            Amount = 2,
+                            BorrowingId = 2,
+                            ConsoleId = 1,
+                            ConsoleStatus = 2,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Accessories = "9 pulteliai",
+                            Amount = 3,
+                            BorrowingId = 2,
+                            ConsoleId = 1,
+                            ConsoleStatus = 2,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Accessories = "4 pulteliai",
+                            Amount = 1,
+                            ConsoleId = 1,
+                            ConsoleStatus = 1,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Accessories = "2 pulteliai",
+                            Amount = 1,
+                            ConsoleId = 2,
+                            ConsoleStatus = 0,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Accessories = "4 pulteliai",
+                            Amount = 2,
+                            ConsoleId = 2,
+                            ConsoleStatus = 1,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Accessories = "6 pulteliai",
+                            Amount = 3,
+                            BorrowingId = 3,
+                            ConsoleId = 2,
+                            ConsoleStatus = 3,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Accessories = "6 pulteliai",
+                            Amount = 2,
+                            BorrowingId = 3,
+                            ConsoleId = 2,
+                            ConsoleStatus = 5,
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Accessories = "3 pulteliai",
+                            Amount = 1,
+                            BorrowingId = 3,
+                            ConsoleId = 2,
+                            ConsoleStatus = 3,
                             UserId = 2
                         });
                 });

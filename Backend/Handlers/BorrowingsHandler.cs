@@ -49,6 +49,7 @@ namespace Backend.Handlers
                 var userConsole = await _context.UserConsoles.Where(x => x.Id == userConsoleId).FirstAsync();
 
                 userConsole.BorrowingId = borrowingId;
+                userConsole.ConsoleStatus = UserConsoleStatus.RESERVED;
 
                 _context.UserConsoles.Update(userConsole);
                 await _context.SaveChangesAsync();
@@ -62,7 +63,6 @@ namespace Backend.Handlers
                 {
                     continue;
                 }
-                await _userConsolesHandler.UpdateStatus(new UserConsoleStatusUpdateDto { Id= id, ConsoleStatus = UserConsoleStatus.RESERVED }, userClaims);
                 await UpdateUserConsole(id, result.Entity.Id);
             }
         }
