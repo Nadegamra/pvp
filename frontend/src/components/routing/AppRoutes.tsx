@@ -19,6 +19,7 @@ import EmailChangePage from '../../pages/EmailChangePage'
 import BorrowConsolesPage from '../../pages/BorrowConsolesPage'
 import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 import ChatsPage from '../../pages/ChatsPage'
+import BorrowingsPage from '../../pages/BorrowingsPage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -56,6 +57,8 @@ export default function AppRoutes() {
             </Route>
             <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
                 <Route path="/borrowConsoles" element={<BorrowConsolesPage />} />
+                <Route path="/borrowings" element={<BorrowingsPage />} />
+                <Route path="/borrowings/:id" element={<UserConsolePage />} />
             </Route>
         </Routes>
     )

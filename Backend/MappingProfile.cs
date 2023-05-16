@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Backend.Data.Models;
+using Backend.Data.Views.BorrowedConsole;
 using Backend.Data.Views.Chat;
 using Backend.Data.Views.Console;
 using Backend.Data.Views.Image;
@@ -54,6 +55,8 @@ namespace Backend
 
             CreateMap<Conversation, ConversationGetDto>(MemberList.None);
             CreateMap<Message, MessageGetDto>(MemberList.None);
+
+            CreateMap<Borrowing, BorrowingGetDto>(MemberList.None);
 
         }
     }

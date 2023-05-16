@@ -220,13 +220,15 @@ i18n
                         userFname: 'First name',
                         userLname: 'Last name',
                         userEmail: 'Email',
-                        initiateTermination: 'Initiate contract termination',
+                        initiateTermination: 'Initiate console return',
                         contactUser: 'Contact user',
                         statusUnconfirmed: 'Awaiting contract signing',
                         statusAtPlatform: 'Awaiting to be lended',
+                        statusReserved: 'Reserved',
                         statusAtLender: 'At lender',
                         statusTerminating: 'Awaiting contract termination',
-                        changeStatus: 'Change Status'
+                        changeStatus: 'Change Status',
+                        dailyPrice: 'Daily price'
                     },
                     borrowerConsolePage: {
                         selectConsole: 'Select'
@@ -248,6 +250,11 @@ i18n
                         dialogBody3: 'Do you really wish to select this console for borrow?',
                         confirm: 'Yes',
                         deny: 'No'
+                    },
+                    borrowing: {
+                        statusPending: 'Awaiting contract signing',
+                        statusActive: 'Active',
+                        statusTerminating: 'Awaiting console return'
                     }
                 }
             },
@@ -454,13 +461,15 @@ i18n
                         userFname: 'Vardas',
                         userLname: 'Pavardė',
                         userEmail: 'El. paštas',
-                        initiateTermination: 'Inicijuoti sutarties nutraukimą',
+                        initiateTermination: 'Inicijuoti konsolės grąžinimą',
                         contactUser: 'Susisiekti su vartotoju',
                         statusUnconfirmed: 'Laukiama sutarties pasirašymo',
                         statusAtPlatform: 'Laukiama nuomos',
+                        statusReserved: 'Rezervuota',
                         statusAtLender: 'Pas nuomotoją',
                         statusTerminating: 'Laukiama sutarties nutraukimo',
-                        changeStatus: 'Pakeisti būseną'
+                        changeStatus: 'Pakeisti būseną',
+                        dailyPrice: 'Dienos kaina'
                     },
                     borrowerConsolePage: {
                         selectConsole: 'Pasirinkti'
@@ -479,11 +488,16 @@ i18n
                     },
                     button: {
                         dialogTitle1: 'Patvirtinimo žinutė',
-                        dialogBody1: 'Ar tikrai norite inicijuoti sutarties nutraukimą?',
+                        dialogBody1: 'Ar tikrai norite inicijuoti konsolės grąžinimą?',
                         dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
                         dialogBody3: 'Ar tikrai norite pasirinkti šią konsolę?',
                         confirm: 'Taip',
                         deny: 'Ne'
+                    },
+                    borrowing: {
+                        statusPending: 'Laukiama sutarties pasirašymo',
+                        statusActive: 'Aktyvu',
+                        statusTerminating: 'Laukiama konsolės grąžinimo'
                     }
                 }
             }

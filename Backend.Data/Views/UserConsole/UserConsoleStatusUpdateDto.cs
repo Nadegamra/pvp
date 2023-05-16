@@ -10,6 +10,6 @@ namespace Backend.Data.Views.UserConsole
     public class UserConsoleStatusUpdateDto
     {
         public int Id { get; set; }
-        public ConsoleStatus ConsoleStatus { get; set; }
+        public UserConsoleStatus ConsoleStatus { get; set; }
     }
 }

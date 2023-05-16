@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Backend.Data.Models
 {
-    public enum ConsoleStatus
+    public enum UserConsoleStatus
     {
         UNCONFIRMED,
         AT_PLATFORM,
+        RESERVED,
         AT_LENDER,
-        AWAITING_TERMINATION
+        AWAITING_TERMINATION_BY_LENDER,
+        AWAITING_TERMINATION_BY_BORROWER
     }
 }

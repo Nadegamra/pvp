@@ -51,6 +51,10 @@ export async function updateUserConsoleStatus(data: UserConsoleStatusUpdate) {
     return api.patch(`updateStatus`, data, headers)
 }
 
-export async function terminateContract(id: number) {
-    return api.patch(`terminate/${id}`, null, headers)
+export async function terminateContractByLender(id: number) {
+    return api.patch(`terminateLender/${id}`, null, headers)
+}
+
+export async function terminateContractByBorrower(id: number) {
+    return api.patch(`terminateBorrower/${id}`, null, headers)
 }
