@@ -107,11 +107,13 @@ export enum UserConsoleStatus {
 export function getConsoleStatusString(status: UserConsoleStatus) {
     if (status === UserConsoleStatus.UNCONFIRMED) {
         return 'userConsolePage.statusUnconfirmed'
-    } else if (status === UserConsoleStatus.AT_PLATFORM) {
+    } else if (status === UserConsoleStatus.AT_PLATFORM || status === UserConsoleStatus.RESERVED) {
         return 'userConsolePage.statusAtPlatform'
-    } else if (status === UserConsoleStatus.RESERVED) {
-        return 'userConsolePage.statusReserved'
-    } else if (status === UserConsoleStatus.AT_LENDER) {
+    }
+    // else if (status === UserConsoleStatus.RESERVED) {
+    //     return 'userConsolePage.statusReserved'
+    // }
+    else if (status === UserConsoleStatus.AT_LENDER) {
         return 'userConsolePage.statusAtLender'
     } else {
         return 'userConsolePage.statusTerminating'
