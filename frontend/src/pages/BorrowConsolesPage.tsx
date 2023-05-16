@@ -7,6 +7,8 @@ import Button from '../components/ui/Button'
 import { getUserConsoles, getUserConsolesByStatus } from '../api/UserConsolesApi'
 import { useAuth } from '../contexts/AuthContext'
 import ReactPaginate from 'react-paginate'
+import { addBorrowing } from '../api/BorrowingsApi'
+import { BorrowingAdd } from '../models/Borrowing'
 
 function BorrowConsolesPage() {
     const [consoles, setConsoles] = useState<UserConsoleGet[]>()
@@ -91,7 +93,11 @@ function BorrowConsolesPage() {
                                     text={t('borrowerConsolePage.selectConsole')}
                                     dialog={false}
                                     dialogBody={t('button.dialogBody3')}
-                                    onClick={() => console.log(selectedConsoles)}
+                                    onClick={() => {
+                                        addBorrowing(new BorrowingAdd(selectedConsoles)).then(
+                                            () => (window.location.href = '/borrowings')
+                                        )
+                                    }}
                                 />
                             </div>
                         )}
