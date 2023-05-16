@@ -34,6 +34,7 @@ i18n
                         register: 'Register',
                         manageConsoles: 'Manage Consoles',
                         myConsoles: 'My Consoles',
+                        borrowConsoles: 'Borrow Consoles',
                         chats: 'Chats',
                         lendRequests: 'Lend requests'
                     },
@@ -229,6 +230,9 @@ i18n
                         changeStatus: 'Change Status',
                         dailyPrice: 'Daily price'
                     },
+                    borrowerConsolePage: {
+                        selectConsole: 'Select'
+                    },
                     emailConfirmation: {
                         success: 'The email has been confirmed. You can now ',
                         login: 'login',
@@ -243,6 +247,7 @@ i18n
                         dialogTitle1: 'Confirmation message',
                         dialogBody1: 'Do you really wish to terminate the contract?',
                         dialogBody2: 'Do you really wish to change the console state?',
+                        dialogBody3: 'Do you really wish to select this console for borrow?',
                         confirm: 'Yes',
                         deny: 'No'
                     },
@@ -271,6 +276,7 @@ i18n
                         register: 'Registracija',
                         manageConsoles: 'Konsolių valdymas',
                         myConsoles: 'Mano konsolės',
+                        borrowConsoles: 'Išnuomoti konsoles',
                         chats: 'Pokalbiai',
                         lendRequests: 'Skolinimo užklausos'
                     },
@@ -465,6 +471,9 @@ i18n
                         changeStatus: 'Pakeisti būseną',
                         dailyPrice: 'Dienos kaina'
                     },
+                    borrowerConsolePage: {
+                        selectConsole: 'Pasirinkti'
+                    },
                     emailConfirmation: {
                         success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',
                         login: 'prisijungti',
@@ -481,6 +490,7 @@ i18n
                         dialogTitle1: 'Patvirtinimo žinutė',
                         dialogBody1: 'Ar tikrai norite inicijuoti konsolės grąžinimą?',
                         dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
+                        dialogBody3: 'Ar tikrai norite pasirinkti šią konsolę?',
                         confirm: 'Taip',
                         deny: 'Ne'
                     },
