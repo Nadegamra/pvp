@@ -41,6 +41,15 @@ function Header() {
                 </Link>
                 <div className="flex-1" onClick={() => header.hideAll()}></div>
 
+                {auth.user !== undefined && auth.user.role === 'borrower' && (
+                    <Link
+                        to="/borrowConsoles"
+                        className="cursor-pointer select-none my-auto mr-7"
+                        onClick={() => header.hideAll()}>
+                        <ButtonText>{t('header.borrowConsoles')}</ButtonText>
+                    </Link>
+                )}
+
                 {auth.user !== undefined && auth.user.role === 'lender' && (
                     <Link
                         to="/consoles"
