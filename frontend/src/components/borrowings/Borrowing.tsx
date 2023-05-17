@@ -40,7 +40,11 @@ function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
                     dialogBody=""
                     onClick={() => {
                         contactBorrower(borrowing!.id).then(() => {
-                            window.location.href = `/chats/${borrowing?.conversationId}`
+                            getBorrowingById(borrowing!.id).then((response) => {
+                                window.location.href = `/chats/${
+                                    (response.data as BorrowingGet).conversationId
+                                }`
+                            })
                         })
                     }}
                 />

@@ -255,7 +255,8 @@ i18n
                         dialogBody2: 'Do you really wish to change the console state?',
                         dialogBody3: 'Do you really wish to select this console for borrow?',
                         confirm: 'Yes',
-                        deny: 'No'
+                        deny: 'No',
+                        toUserConsole: 'To user console'
                     },
                     borrowing: {
                         statusPending: 'Awaiting contract signing',
@@ -506,7 +507,8 @@ i18n
                         dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
                         dialogBody3: 'Ar tikrai norite pasirinkti šią konsolę?',
                         confirm: 'Taip',
-                        deny: 'Ne'
+                        deny: 'Ne',
+                        toUserConsole: 'Į konsolės aprašymą'
                     },
                     borrowing: {
                         borrowing: 'Pasiskolinimas',

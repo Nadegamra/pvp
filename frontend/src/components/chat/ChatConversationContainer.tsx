@@ -13,6 +13,9 @@ import { useAuth } from '../../contexts/AuthContext'
 import { MessageAdd } from '../../models/Message'
 import { Dispatch, SetStateAction } from 'react'
 import { ConversationGet } from '../../models/Conversation'
+import { UserConsoleStatus, getConsoleStatusString } from '../../models/UserConsole'
+import { getBorrowingStatusString } from '../../models/Borrowing'
+import Button from '../ui/Button'
 
 interface Props {
     conversations: ConversationGet[] | undefined
@@ -47,11 +50,33 @@ function ChatConversationContainer({
                                 )}
                             />
                             <ConversationHeader.Content
-                                userName={
+                                userName={`${
                                     conversations?.filter((x) => x.id === currentConversation)[0]
                                         .userConsole.console.name
-                                }
+                                }`}
+                                info={t(
+                                    getConsoleStatusString(
+                                        conversations?.filter(
+                                            (x) => x.id === currentConversation
+                                        )[0].userConsole?.consoleStatus ??
+                                            UserConsoleStatus.UNCONFIRMED
+                                    )
+                                )}
                             />
+                            <ConversationHeader.Actions>
+                                <Button
+                                    text={t('button.toUserConsole')}
+                                    dialog={false}
+                                    dialogBody=""
+                                    onClick={() =>
+                                        (window.location.href = `/userConsoles/${
+                                            conversations?.filter(
+                                                (x) => x.id === currentConversation
+                                            )[0].userConsoleId
+                                        }`)
+                                    }
+                                />
+                            </ConversationHeader.Actions>
                         </ConversationHeader>
                     ) : (
                         <ConversationHeader>
@@ -61,6 +86,13 @@ function ChatConversationContainer({
                                     conversations?.filter((x) => x.id === currentConversation)[0]
                                         .borrowing.id
                                 }`}
+                                info={t(
+                                    getBorrowingStatusString(
+                                        conversations?.filter(
+                                            (x) => x.id === currentConversation
+                                        )[0].borrowing.status
+                                    )
+                                )}
                             />
                         </ConversationHeader>
                     )}
