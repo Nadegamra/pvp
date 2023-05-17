@@ -29,12 +29,24 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("getAll")]
-        public async Task<ActionResult<List<ConversationGetDto>>> GetUserConversations()
+        [HttpGet("getAll/lender")]
+        public async Task<ActionResult<List<ConversationGetDto>>> GetLenderConversations()
         {
             try
             {
-                return await _handler.GetUserConversations(User);
+                return await _handler.GetLenderConversations(User);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("getAll/borrower")]
+        public async Task<ActionResult<List<ConversationGetDto>>> GetBorrowerConversations()
+        {
+            try
+            {
+                return await _handler.GetBorrowerConversations(User);
             }
             catch (Exception ex)
             {

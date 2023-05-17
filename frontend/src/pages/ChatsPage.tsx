@@ -15,7 +15,12 @@ import {
 import { useEffect, useState } from 'react'
 import { ConversationGet } from '../models/Conversation'
 import { useAuth } from '../contexts/AuthContext'
-import { getAllConversations, getUserConversations, sendMessage } from '../api/ChatsApi'
+import {
+    getAllConversations,
+    getBorrowerConversations,
+    getLenderConversations,
+    sendMessage
+} from '../api/ChatsApi'
 import { useParams } from 'react-router'
 import { imagePathToURL } from '../models/Image'
 import { MessageAdd } from '../models/Message'
@@ -42,8 +47,17 @@ function ChatsPage() {
                     setCurrentConversation((response.data as ConversationGet[])[0].id)
                 }
             })
-        } else {
-            getUserConversations().then((response) => {
+        } else if (user?.role === 'lender') {
+            getLenderConversations().then((response) => {
+                setConversations(response.data)
+                if (id !== undefined) {
+                    setCurrentConversation(parseInt(id))
+                } else {
+                    setCurrentConversation((response.data as ConversationGet[])[0].id)
+                }
+            })
+        } else if (user?.role === 'borrower') {
+            getBorrowerConversations().then((response) => {
                 setConversations(response.data)
                 if (id !== undefined) {
                     setCurrentConversation(parseInt(id))
@@ -97,22 +111,25 @@ function ChatsPage() {
                     </ConversationList>
                 </Sidebar>
                 <ChatContainer>
-                    <ConversationHeader>
-                        <ConversationHeader.Back />
-                        <Avatar
-                            src={imagePathToURL(
-                                conversations?.filter((x) => x.id === currentConversation)[0]
-                                    .userConsole.images[0].path ?? '',
-                                256
-                            )}
-                        />
-                        <ConversationHeader.Content
-                            userName={
-                                conversations?.filter((x) => x.id === currentConversation)[0]
-                                    .userConsole.console.name
-                            }
-                        />
-                    </ConversationHeader>
+                    {conversations !== undefined && conversations?.length > 0 && (
+                        <ConversationHeader>
+                            <ConversationHeader.Back />
+                            <Avatar
+                                src={imagePathToURL(
+                                    conversations?.filter((x) => x.id === currentConversation)[0]
+                                        .userConsole.images[0].path ?? '',
+                                    256
+                                )}
+                            />
+                            <ConversationHeader.Content
+                                userName={
+                                    conversations?.filter((x) => x.id === currentConversation)[0]
+                                        .userConsole.console.name
+                                }
+                            />
+                        </ConversationHeader>
+                    )}
+
                     <MessageList>
                         {conversations !== undefined &&
                             conversations!.length > 0 &&

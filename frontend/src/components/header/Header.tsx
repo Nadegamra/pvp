@@ -73,14 +73,6 @@ function Header() {
                         <ButtonText>{t('header.lendRequests')}</ButtonText>
                     </Link>
                 )}
-                {auth.user !== undefined && (
-                    <Link
-                        to="/chats"
-                        className="cursor-pointer select-none my-auto mr-7"
-                        onClick={() => header.hideAll()}>
-                        <ButtonText>{t('header.chats')}</ButtonText>
-                    </Link>
-                )}
 
                 <Link
                     to="/contacts"
@@ -123,6 +115,16 @@ function Header() {
                     onClick={() => i18n.changeLanguage('lt')}>
                     <ReactCountryFlag countryCode="LT" svg />
                 </button>
+                {auth.user !== undefined && (
+                    <Link
+                        to="/chats"
+                        className="cursor-pointer select-none my-auto mr-7 pt-2"
+                        onClick={() => header.hideAll()}>
+                        <ButtonText>
+                            <span className="material-symbols-outlined">chat</span>
+                        </ButtonText>
+                    </Link>
+                )}
                 <div
                     className="my-auto"
                     onClick={() => {
@@ -137,7 +139,7 @@ function Header() {
                     <div className="mr-7 my-auto ml-3">
                         <button>
                             <span
-                                className="material-symbols-outlined cursor-pointer select-none"
+                                className="material-symbols-outlined cursor-pointer select-none pt-2"
                                 onClick={() =>
                                     header.profileShown ? header.hideAll() : header.showProfile()
                                 }>
