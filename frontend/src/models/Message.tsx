@@ -6,19 +6,22 @@ export class MessageGet {
     conversation: ConversationGet
     text: string
     fromAdmin: boolean
+    dateSent: Date
 
     constructor(
         id: number,
         conversationId: number,
         conversation: ConversationGet,
         text: string,
-        fromAdmin: boolean
+        fromAdmin: boolean,
+        dateSent: Date
     ) {
         this.id = id
         this.conversationId = conversationId
         this.conversation = conversation
         this.text = text
         this.fromAdmin = fromAdmin
+        this.dateSent = dateSent
     }
 }
 export class MessageAdd {

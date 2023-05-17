@@ -67,12 +67,11 @@ function UserConsolePage() {
             setUserConsole(result.data)
             if (user?.role === 'borrower' || user?.role === 'admin') {
                 if (result.data.borrowingId !== undefined) {
-                    getBorrowingById((result.data as UserConsoleGet).borrowingId).then(
-                        (response) => {
+                    getBorrowingById((result.data as UserConsoleGet).borrowingId)
+                        .then((response) => {
                             setBorrowing(response.data)
-                            setLoading(false)
-                        }
-                    )
+                        })
+                        .finally(() => setLoading(false))
                 }
             } else {
                 setLoading(false)
@@ -235,7 +234,9 @@ function UserConsolePage() {
                             dialog={false}
                             onClick={() => {
                                 contactLender(userConsole!.id).then(() => {
-                                    window.location.href = `/chats/${userConsole?.conversationId}`
+                                    getUserConsole(parseInt(id ?? '1')).then((result) => {
+                                        window.location.href = `/chats/${result.data.conversationId}`
+                                    })
                                 })
                             }}
                             dialogBody={t('button.dialogBody1')}

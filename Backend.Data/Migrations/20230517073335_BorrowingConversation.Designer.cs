@@ -3,6 +3,7 @@ using System;
 using Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230517073335_BorrowingConversation")]
+    partial class BorrowingConversation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -564,9 +567,6 @@ namespace Backend.Data.Migrations
                     b.Property<int>("ConversationId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateSent")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<bool>("FromAdmin")
                         .HasColumnType("tinyint(1)");
 
@@ -752,7 +752,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "25b5b6d5-0426-4a1c-9405-a15c612dac1b",
+                            ConcurrencyStamp = "db23c0e5-263a-4a80-b501-26ace05f9dee",
                             Country = "",
                             County = "",
                             Email = "admin@admin.com",
@@ -766,7 +766,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "23b32ee7-10f1-4286-8d38-ea34c7c8c5d6",
+                            SecurityStamp = "dc6962cf-9afe-4263-80ef-74f00354a00d",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
@@ -778,7 +778,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "82f5f789-6de0-4bf0-a6f4-50044caa6f41",
+                            ConcurrencyStamp = "cae3c8c8-8425-4d34-b776-71d463db1283",
                             Country = "",
                             County = "",
                             Email = "customer@example.com",
@@ -792,7 +792,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "8294f444-6f2d-4711-a8d1-8443560eb1a8",
+                            SecurityStamp = "ce9479a2-a47d-485a-a24c-610267682c42",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "customer@example.com"
@@ -804,7 +804,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "123456",
                             CompanyName = "UAB „Tikra įmonė“",
-                            ConcurrencyStamp = "30211871-381e-459f-af3d-fa6aa2b31390",
+                            ConcurrencyStamp = "1463f8a7-5002-4683-b803-99e48d34d561",
                             Country = "",
                             County = "",
                             Email = "company@example.com",
@@ -818,7 +818,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "c9468314-08a5-4447-b701-25e40816e1fb",
+                            SecurityStamp = "1a27c8f5-91f7-43eb-9d32-7808bbb256e9",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "company@example.com"

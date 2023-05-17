@@ -229,7 +229,7 @@ i18n
                         statusUnconfirmed: 'No contract',
                         statusAtPlatform: 'Awaiting to be lended',
                         statusReserved: 'Reserved',
-                        statusAtLender: 'At lender',
+                        statusAtLender: 'Rented',
                         statusTerminating: 'Awaiting contract termination',
                         statusTerminatingLender: 'Awaiting to get back',
                         statusTerminatingBorrower: 'Awaiting to return',
@@ -255,12 +255,15 @@ i18n
                         dialogBody2: 'Do you really wish to change the console state?',
                         dialogBody3: 'Do you really wish to select this console for borrow?',
                         confirm: 'Yes',
-                        deny: 'No'
+                        deny: 'No',
+                        toUserConsole: 'To user console'
                     },
                     borrowing: {
                         statusPending: 'Awaiting contract signing',
                         statusActive: 'Active',
-                        statusTerminating: 'Awaiting console return'
+                        statusTerminating: 'Awaiting console return',
+                        contactBorrower: 'Contact borrower',
+                        borrowing: 'Borrowing'
                     }
                 }
             },
@@ -476,7 +479,7 @@ i18n
                         statusUnconfirmed: 'Nepasirašyta sutartis',
                         statusAtPlatform: 'Laukiama nuomos',
                         statusReserved: 'Rezervuota',
-                        statusAtLender: 'Pas nuomotoją',
+                        statusAtLender: 'Nuomojama',
                         statusTerminating: 'Laukiama sutarties nutraukimo',
                         statusTerminatingLender: 'Norima atgauti',
                         statusTerminatingBorrower: 'Norima grąžinti',
@@ -504,12 +507,15 @@ i18n
                         dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
                         dialogBody3: 'Ar tikrai norite pasirinkti šią konsolę?',
                         confirm: 'Taip',
-                        deny: 'Ne'
+                        deny: 'Ne',
+                        toUserConsole: 'Į konsolės aprašymą'
                     },
                     borrowing: {
+                        borrowing: 'Pasiskolinimas',
                         statusPending: 'Laukiama sutarties pasirašymo',
                         statusActive: 'Aktyvu',
-                        statusTerminating: 'Laukiama konsolės grąžinimo'
+                        statusTerminating: 'Laukiama konsolės grąžinimo',
+                        contactBorrower: 'Susisiekti su besiskolinančia įmone'
                     }
                 }
             }
