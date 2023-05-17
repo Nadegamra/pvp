@@ -14,11 +14,12 @@ function App() {
             <div id="container" className="flex-1" onClick={() => header.hideAll()}>
                 <AppRoutes />
             </div>
-            {/* <div onClick={() => header.hideAll()}>
-                <Footer />
-            </div> */}
         </div>
     )
+}
+
+export function getContainerHeight() {
+    return window.innerHeight - (document.getElementById('header')?.clientHeight ?? 0)
 }
 
 export default App

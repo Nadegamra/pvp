@@ -32,7 +32,7 @@ function Header() {
 
     return (
         <div>
-            <div className="h-[50px] bg-bg-secondary flex">
+            <div id="header" className="h-[50px] bg-bg-secondary flex">
                 <Link
                     to="/"
                     className="pl-3 cursor-pointer select-none my-auto"

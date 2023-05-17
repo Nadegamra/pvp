@@ -24,6 +24,7 @@ import {
 import { useParams } from 'react-router'
 import { imagePathToURL } from '../models/Image'
 import { MessageAdd } from '../models/Message'
+import { getContainerHeight } from '../App'
 
 function ChatsPage() {
     const { id } = useParams()
@@ -69,7 +70,7 @@ function ChatsPage() {
     }
 
     return (
-        <div style={{ height: document.getElementById('container')?.clientHeight }}>
+        <div style={{ height: getContainerHeight() }}>
             <MainContainer responsive>
                 <Sidebar position="left">
                     <Search
@@ -148,6 +149,12 @@ function ChatsPage() {
                                         }}
                                     />
                                 ))}
+                        {conversations == undefined ||
+                            (conversations.length === 0 && (
+                                <div className="text-center flex flex-col justify-center items-center h-full">
+                                    <span>Šiuo metu pokalbių nėra</span>
+                                </div>
+                            ))}
                     </MessageList>
                     <MessageInput
                         placeholder="Type message here"
