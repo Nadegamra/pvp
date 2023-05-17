@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { BorrowingGet, BorrowingStatus, BorrowingUpdateStatus } from '../../models/Borrowing'
 import { getBorrowingById } from '../../api/BorrowingsApi'
@@ -11,8 +11,17 @@ import { t } from 'i18next'
 import { contactBorrower } from '../../api/ChatsApi'
 import { getContainerHeight } from '../../App'
 import { updateBorrowingStatus } from '../../api/BorrowingsApi'
+import BorrowingConsolesStatusSelectionAdmin from './BorrowingConsolesStatusSelectionAdmin'
 
-function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
+function Borrowing({
+    id,
+    status,
+    setStatus
+}: {
+    id: number
+    status: UserConsoleStatus
+    setStatus: Dispatch<SetStateAction<UserConsoleStatus>>
+}) {
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
     const { user } = useAuth()
     const itemsPerPage = 24
@@ -33,6 +42,32 @@ function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
         <div className="flex flex-col" style={{ height: getContainerHeight() }}>
             <div className="text-center font-bold text-fs-h1">
                 {t('borrowing.borrowing')} #{borrowing?.id}
+            </div>
+            <div className="pb-3">
+                {!loading && user?.role === 'admin' && (
+                    <BorrowingConsolesStatusSelectionAdmin
+                        status={status}
+                        setStatus={setStatus}
+                        enabled={[
+                            borrowing!.userConsoles.filter(
+                                (x) => x.consoleStatus === UserConsoleStatus.RESERVED
+                            ).length > 0,
+                            borrowing!.userConsoles.filter(
+                                (x) => x.consoleStatus === UserConsoleStatus.AT_LENDER
+                            ).length > 0,
+                            borrowing!.userConsoles.filter(
+                                (x) =>
+                                    x.consoleStatus ===
+                                    UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
+                            ).length > 0,
+                            borrowing!.userConsoles.filter(
+                                (x) =>
+                                    x.consoleStatus ===
+                                    UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER
+                            ).length > 0
+                        ]}
+                    />
+                )}
             </div>
             <div className="flex flex-row content-around">
                 <span className="inline-block ml-5">

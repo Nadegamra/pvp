@@ -80,34 +80,14 @@ function BorrowingsList() {
             </div>
             {!loading && borrowings !== undefined && borrowings.length > 0 && (
                 <div>
-                    {user?.role === 'admin' && (
-                        <BorrowingConsolesStatusSelectionAdmin
-                            status={status}
-                            setStatus={setStatus}
-                            enabled={[
-                                borrowings[currentBorrowing].userConsoles.filter(
-                                    (x) => x.consoleStatus === UserConsoleStatus.RESERVED
-                                ).length > 0,
-                                borrowings[currentBorrowing].userConsoles.filter(
-                                    (x) => x.consoleStatus === UserConsoleStatus.AT_LENDER
-                                ).length > 0,
-                                borrowings[currentBorrowing].userConsoles.filter(
-                                    (x) =>
-                                        x.consoleStatus ===
-                                        UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
-                                ).length > 0,
-                                borrowings[currentBorrowing].userConsoles.filter(
-                                    (x) =>
-                                        x.consoleStatus ===
-                                        UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER
-                                ).length > 0
-                            ]}
-                        />
-                    )}
                     {borrowings[currentBorrowing].userConsoles.filter(
                         (x) => x.consoleStatus === status
                     ).length > 0 && (
-                        <Borrowing id={borrowings[currentBorrowing].id} status={status} />
+                        <Borrowing
+                            id={borrowings[currentBorrowing].id}
+                            status={status}
+                            setStatus={setStatus}
+                        />
                     )}
                 </div>
             )}
