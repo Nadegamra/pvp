@@ -44,6 +44,7 @@ function UserConsolePage() {
     const options = [
         { value: UserConsoleStatus.UNCONFIRMED, label: t('userConsolePage.statusUnconfirmed') },
         { value: UserConsoleStatus.AT_PLATFORM, label: t('userConsolePage.statusAtPlatform') },
+        { value: UserConsoleStatus.RESERVED, label: t('userConsolePage.statusReserved') },
         { value: UserConsoleStatus.AT_LENDER, label: t('userConsolePage.statusAtLender') },
         {
             value: UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER,

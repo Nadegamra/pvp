@@ -17,10 +17,11 @@ function ConsolesManagementPage() {
     }
 
     useEffect(() => {
-        getConsoles().then((response) => {
-            setConsoles(response.data)
-            setLoading(false)
-        })
+        getConsoles()
+            .then((response) => {
+                setConsoles(response.data)
+            })
+            .finally(() => setLoading(false))
     }, [])
 
     return (
