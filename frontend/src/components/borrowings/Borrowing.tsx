@@ -6,6 +6,9 @@ import { getBorrowingById } from '../../api/BorrowingsApi'
 import { useAuth } from '../../contexts/AuthContext'
 import { UserConsoleStatus } from '../../models/UserConsole'
 import { imagePathToURL } from '../../models/Image'
+import Button from '../ui/Button'
+import { t } from 'i18next'
+import { contactBorrower } from '../../api/ChatsApi'
 
 function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
@@ -26,7 +29,21 @@ function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
 
     return (
         <div className="flex flex-col">
-            <div className="text-center font-bold text-fs-h1">Borrowing #{borrowing?.id}</div>
+            <div className="text-center font-bold text-fs-h1">
+                {t('borrowing.borrowing')} #{borrowing?.id}
+            </div>
+            <div className="ml-auto mr-10">
+                <Button
+                    text={t('borrowing.contactBorrower')}
+                    dialog={false}
+                    dialogBody=""
+                    onClick={() => {
+                        contactBorrower(borrowing!.id).then(() => {
+                            window.location.href = `/chats/${borrowing?.conversationId}`
+                        })
+                    }}
+                />
+            </div>
             <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {!loading &&
                     borrowing?.userConsoles

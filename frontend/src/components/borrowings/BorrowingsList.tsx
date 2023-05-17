@@ -4,7 +4,7 @@ import { BorrowingGet } from '../../models/Borrowing'
 import { getAllBorrowings } from '../../api/BorrowingsApi'
 import { useAuth } from '../../contexts/AuthContext'
 import { UserConsoleStatus } from '../../models/UserConsole'
-import Borrowing from '../borrowings/Borrowing'
+import Borrowing from './Borrowing'
 
 function BorrowingsList({ status }: { status: UserConsoleStatus }) {
     const [loading, setLoading] = useState<boolean>(true)

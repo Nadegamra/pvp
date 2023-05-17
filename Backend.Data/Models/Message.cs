@@ -9,5 +9,6 @@ namespace Backend.Data.Models
         public Conversation Conversation { get; set; }
         public string Text { get; set; }
         public bool FromAdmin { get; set; }
+        public DateTime DateSent { get; set; }
     }
 }

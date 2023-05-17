@@ -66,12 +66,26 @@ namespace Backend.Controllers
             }
         }
         [Authorize(Roles = "admin")]
-        [HttpPost("contact/{userConsoleId}")]
+        [HttpPost("contact/lender/{userConsoleId}")]
         public async Task<ActionResult> ContactLender(int userConsoleId)
         {
             try
             {
                 await _handler.ContactLender(userConsoleId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize(Roles = "admin")]
+        [HttpPost("contact/borrower/{borrowingId}")]
+        public async Task<ActionResult> ContactBorrower(int borrowingId)
+        {
+            try
+            {
+                await _handler.ContactBorrower(borrowingId);
                 return Ok();
             }
             catch (Exception ex)

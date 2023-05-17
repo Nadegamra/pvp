@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import UserConsoleStatusSelectionAdmin from '../components/userConsoles/UserConsolesStatusSelectionAdmin'
 import UserConsolesGrid from '../components/userConsoles/UserConsolesGrid'
-import BorrowingsList from '../components/userConsoles/BorrowingsList'
+import BorrowingsList from '../components/borrowings/BorrowingsList'
 
 function UserConsolesPage() {
     const [status, setStatus] = useState<UserConsoleStatus>(UserConsoleStatus.UNCONFIRMED)

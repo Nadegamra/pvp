@@ -26,7 +26,11 @@ export async function getConversation(userConsoleId: number) {
 }
 
 export async function contactLender(userConsoleId: number) {
-    return api.post(`contact/${userConsoleId}`, null, headers)
+    return api.post(`contact/lender/${userConsoleId}`, null, headers)
+}
+
+export async function contactBorrower(borrowingId: number) {
+    return api.post(`contact/borrower/${borrowingId}`, null, headers)
 }
 
 export async function sendMessage(data: MessageAdd) {
