@@ -36,7 +36,8 @@ i18n
                         myConsoles: 'My Consoles',
                         borrowConsoles: 'Borrow Consoles',
                         chats: 'Chats',
-                        lendRequests: 'Lend requests'
+                        lendRequests: 'Lendings',
+                        borrowRequests: 'Borrowings'
                     },
                     contacts: {
                         contactInfo: 'Contact Information',
@@ -263,7 +264,10 @@ i18n
                         statusActive: 'Active',
                         statusTerminating: 'Awaiting console return',
                         contactBorrower: 'Contact borrower',
-                        borrowing: 'Borrowing'
+                        borrowing: 'Borrowing',
+                        setStatusActive: 'Activate borrowing',
+                        setStatusTerminating: 'Mark borrowing as terminated',
+                        getStatusTerminating: 'This borrowing is terminated'
                     }
                 }
             },
@@ -287,7 +291,8 @@ i18n
                         myConsoles: 'Mano konsolės',
                         borrowConsoles: 'Išnuomoti konsoles',
                         chats: 'Pokalbiai',
-                        lendRequests: 'Skolinimo užklausos'
+                        lendRequests: 'Skolinamos konsolės',
+                        borrowRequests: 'Pasiskolinimai'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',
@@ -515,7 +520,10 @@ i18n
                         statusPending: 'Laukiama sutarties pasirašymo',
                         statusActive: 'Aktyvu',
                         statusTerminating: 'Laukiama konsolės grąžinimo',
-                        contactBorrower: 'Susisiekti su besiskolinančia įmone'
+                        contactBorrower: 'Susisiekti su besiskolinančia įmone',
+                        setStatusActive: 'Aktyvuoti pasiskolinimą',
+                        setStatusTerminating: 'Pažymėti pasiskolinimą pasibagiusiu',
+                        getStatusTerminating: 'Pasiskolinimas pasibaigęs'
                     }
                 }
             }

@@ -8,7 +8,7 @@ import { BorrowingGet, BorrowingStatus } from '../models/Borrowing'
 import { getAllBorrowings } from '../api/BorrowingsApi'
 import { getContainerHeight } from '../App'
 
-function BorrowingsPage() {
+function BorrowerConsolesPage() {
     const [borrowings, setBorrowings] = useState<BorrowingGet[]>()
     const { user } = useAuth()
     const itemsPerPage = 24
@@ -128,4 +128,4 @@ function BorrowingsPage() {
     )
 }
 
-export default BorrowingsPage
+export default BorrowerConsolesPage

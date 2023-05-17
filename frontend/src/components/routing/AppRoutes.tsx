@@ -19,8 +19,9 @@ import EmailChangePage from '../../pages/EmailChangePage'
 import BorrowConsolesPage from '../../pages/BorrowConsolesPage'
 import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 import ChatsPage from '../../pages/ChatsPage'
-import BorrowingsPage from '../../pages/BorrowingsPage'
-
+import BorrowerConsolesPage from '../../pages/BorrowerConsolesPage'
+import AdminBorrowingsPage from '../../pages/AdminBorrowingsPage'
+//TODO: In manageBorrowings page move status selection into borrowing
 export default function AppRoutes() {
     const { user } = useAuth()
 
@@ -49,6 +50,7 @@ export default function AppRoutes() {
                 <Route path="/manageConsoles/new" element={<CreateConsolePage />} />
                 <Route path="/userConsoles" element={<UserConsolesPage />} />
                 <Route path="/userConsoles/:id" element={<UserConsolePage />} />
+                <Route path="/manageBorrowings" element={<AdminBorrowingsPage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
                 <Route path="/consoles" element={<UserConsolesPage />} />
@@ -57,7 +59,7 @@ export default function AppRoutes() {
             </Route>
             <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
                 <Route path="/borrowings/new" element={<BorrowConsolesPage />} />
-                <Route path="/borrowings" element={<BorrowingsPage />} />
+                <Route path="/borrowings" element={<BorrowerConsolesPage />} />
                 <Route path="/borrowings/:id" element={<UserConsolePage />} />
             </Route>
         </Routes>

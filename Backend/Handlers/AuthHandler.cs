@@ -37,6 +37,10 @@ namespace Backend.Handlers
         public async Task<UserGet> Login(UserLogin data)
         {
             var user = await GetUser(data);
+            if(user is null)
+            {
+                throw new ArgumentException("Login credentials are incorrect");
+            }
             if (!user.EmailConfirmed)
             {
                 throw new ArgumentException("Email has not been confirmed yet");

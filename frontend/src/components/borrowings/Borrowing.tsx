@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
-import { BorrowingGet } from '../../models/Borrowing'
+import { BorrowingGet, BorrowingStatus, BorrowingUpdateStatus } from '../../models/Borrowing'
 import { getBorrowingById } from '../../api/BorrowingsApi'
 import { useAuth } from '../../contexts/AuthContext'
 import { UserConsoleStatus } from '../../models/UserConsole'
@@ -10,6 +10,7 @@ import Button from '../ui/Button'
 import { t } from 'i18next'
 import { contactBorrower } from '../../api/ChatsApi'
 import { getContainerHeight } from '../../App'
+import { updateBorrowingStatus } from '../../api/BorrowingsApi'
 
 function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
@@ -33,21 +34,46 @@ function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
             <div className="text-center font-bold text-fs-h1">
                 {t('borrowing.borrowing')} #{borrowing?.id}
             </div>
-            <div className="ml-auto mr-10">
-                <Button
-                    text={t('borrowing.contactBorrower')}
-                    dialog={false}
-                    dialogBody=""
-                    onClick={() => {
-                        contactBorrower(borrowing!.id).then(() => {
-                            getBorrowingById(borrowing!.id).then((response) => {
-                                window.location.href = `/chats/${
-                                    (response.data as BorrowingGet).conversationId
-                                }`
+            <div className="flex flex-row content-around">
+                <span className="inline-block ml-5">
+                    <Button
+                        text={
+                            borrowing?.status === BorrowingStatus.PENDING
+                                ? t('borrowing.setStatusActive')
+                                : borrowing?.status === BorrowingStatus.ACTIVE
+                                ? t('borrowing.setStatusTerminating')
+                                : t('borrowing.getStatusTerminating')
+                        }
+                        dialog={false}
+                        dialogBody=""
+                        onClick={() => {
+                            updateBorrowingStatus(
+                                new BorrowingUpdateStatus(
+                                    borrowing?.id ?? -1,
+                                    borrowing?.status === BorrowingStatus.PENDING
+                                        ? BorrowingStatus.ACTIVE
+                                        : BorrowingStatus.AWAITING_TERMINATION
+                                )
+                            ).then(() => window.location.reload())
+                        }}
+                    />
+                </span>
+                <span className="inline-block ml-auto mr-5">
+                    <Button
+                        text={t('borrowing.contactBorrower')}
+                        dialog={false}
+                        dialogBody=""
+                        onClick={() => {
+                            contactBorrower(borrowing!.id).then(() => {
+                                getBorrowingById(borrowing!.id).then((response) => {
+                                    window.location.href = `/chats/${
+                                        (response.data as BorrowingGet).conversationId
+                                    }`
+                                })
                             })
-                        })
-                    }}
-                />
+                        }}
+                    />
+                </span>
             </div>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {!loading &&

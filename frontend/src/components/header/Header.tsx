@@ -73,6 +73,14 @@ function Header() {
                         <ButtonText>{t('header.lendRequests')}</ButtonText>
                     </Link>
                 )}
+                {auth.user !== undefined && auth.user.role === 'admin' && (
+                    <Link
+                        to="/manageBorrowings"
+                        className="cursor-pointer select-none my-auto mr-7"
+                        onClick={() => header.hideAll()}>
+                        <ButtonText>{t('header.borrowRequests')}</ButtonText>
+                    </Link>
+                )}
 
                 <Link
                     to="/contacts"

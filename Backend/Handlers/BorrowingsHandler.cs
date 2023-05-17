@@ -85,6 +85,7 @@ namespace Backend.Handlers
         }
         public async Task UpdateStatusAsync(BorrowingUpdateStatusDto statusDto)
         {
+
             var userConsoles = _context.Borrowings.Include(x => x.UserConsoles).Where(x => x.Id == statusDto.Id).First().UserConsoles;
 
             async Task UpdateUserConsole(int userConsoleId, UserConsoleStatus status)
@@ -101,12 +102,13 @@ namespace Backend.Handlers
             borrowing.Status = statusDto.BorrowingStatus;
             await _context.SaveChangesAsync();
 
-            foreach(var userConsole in userConsoles)
+            if(statusDto.BorrowingStatus == BorrowingStatus.ACTIVE)
             {
-                await UpdateUserConsole(userConsole.Id, statusDto.ConsolesStatus);
+                foreach(var userConsole in userConsoles)
+                {
+                    await UpdateUserConsole(userConsole.Id, UserConsoleStatus.AT_LENDER);
+                }
             }
-
-            await _context.SaveChangesAsync();
         }
         public async Task DeleteAsync(int id)
         {
