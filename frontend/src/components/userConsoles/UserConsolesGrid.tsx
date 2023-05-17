@@ -9,6 +9,7 @@ import {
 import { Link } from 'react-router-dom'
 import { imagePathToURL } from '../../models/Image'
 import ReactPaginate from 'react-paginate'
+import { getContainerHeight } from '../../App'
 
 function UserConsolesGrid({ status }: { status: UserConsoleStatus }) {
     const [consoles, setConsoles] = useState<UserConsoleGet[]>()
@@ -44,8 +45,8 @@ function UserConsolesGrid({ status }: { status: UserConsoleStatus }) {
     }
 
     return (
-        <div>
-            <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
+        <div className="flex flex-col" style={{ height: getContainerHeight() }}>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {consoles?.slice(offset, offset + itemsPerPage).map((userConsole) => (
                     <Link
                         key={userConsole.id}
@@ -85,6 +86,7 @@ function UserConsolesGrid({ status }: { status: UserConsoleStatus }) {
                     </Link>
                 )}
             </div>
+            <div className="flex-1" />
             {!loading && (
                 <ReactPaginate
                     className="ml-5 flex flex-row my-5 list-style-none select-none"

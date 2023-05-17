@@ -9,6 +9,7 @@ import { imagePathToURL } from '../../models/Image'
 import Button from '../ui/Button'
 import { t } from 'i18next'
 import { contactBorrower } from '../../api/ChatsApi'
+import { getContainerHeight } from '../../App'
 
 function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
@@ -28,7 +29,7 @@ function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
     }, [id, status])
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col" style={{ height: getContainerHeight() }}>
             <div className="text-center font-bold text-fs-h1">
                 {t('borrowing.borrowing')} #{borrowing?.id}
             </div>
@@ -44,7 +45,7 @@ function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
                     }}
                 />
             </div>
-            <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {!loading &&
                     borrowing?.userConsoles
                         .filter((x) => x.consoleStatus === status)
@@ -76,6 +77,7 @@ function Borrowing({ id, status }: { id: number; status: UserConsoleStatus }) {
                             </Link>
                         ))}
             </div>
+            <div className="flex-1" />
             {!loading && (
                 <ReactPaginate
                     className="ml-5 flex flex-row my-5 list-style-none select-none"

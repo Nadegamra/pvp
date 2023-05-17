@@ -9,6 +9,7 @@ import { useAuth } from '../contexts/AuthContext'
 import ReactPaginate from 'react-paginate'
 import { addBorrowing } from '../api/BorrowingsApi'
 import { BorrowingAdd } from '../models/Borrowing'
+import { getContainerHeight } from '../App'
 
 function BorrowConsolesPage() {
     const [consoles, setConsoles] = useState<UserConsoleGet[]>()
@@ -52,8 +53,8 @@ function BorrowConsolesPage() {
     }, [status])
 
     return (
-        <div className="flex flex-col">
-            <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
+        <div className="flex flex-col" style={{ minHeight: getContainerHeight() }}>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-6">
                 {consoles?.slice(offset, offset + itemsPerPage).map((userConsole) => (
                     <div key={userConsole.id}>
                         <div className="relative">
@@ -104,9 +105,10 @@ function BorrowConsolesPage() {
                     </div>
                 ))}
             </div>
+            <div className="flex-1" />
             {!loading && (
                 <ReactPaginate
-                    className="flex flex-row my-5 list-style-none select-none w-max"
+                    className="flex flex-row my-5 list-style-none select-none w-max pl-5"
                     previousLabel="Previous"
                     nextLabel="Next"
                     activeClassName="!bg-bg-extra"

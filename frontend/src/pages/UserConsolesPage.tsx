@@ -12,11 +12,13 @@ function UserConsolesPage() {
     const { user } = useAuth()
 
     return (
-        <div className="flex flex-col" style={{ minHeight: getContainerHeight() }}>
+        <div>
             <div id="userConsolesContainer" className="flex-1">
-                {user?.role === 'admin' && (
-                    <UserConsoleStatusSelectionAdmin status={status} setStatus={setStatus} />
-                )}
+                <div className="pt-3" id="adminUserConsolesButtons">
+                    {user?.role === 'admin' && (
+                        <UserConsoleStatusSelectionAdmin status={status} setStatus={setStatus} />
+                    )}
+                </div>
                 {status <= UserConsoleStatus.AT_PLATFORM && <UserConsolesGrid status={status} />}
                 {status === UserConsoleStatus.RESERVED && <BorrowingsList status={status} />}
                 {status === UserConsoleStatus.AT_LENDER && <BorrowingsList status={status} />}

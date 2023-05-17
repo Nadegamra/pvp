@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext'
 import ReactPaginate from 'react-paginate'
 import { BorrowingGet, BorrowingStatus } from '../models/Borrowing'
 import { getAllBorrowings } from '../api/BorrowingsApi'
+import { getContainerHeight } from '../App'
 
 function BorrowingsPage() {
     const [borrowings, setBorrowings] = useState<BorrowingGet[]>()
@@ -29,9 +30,7 @@ function BorrowingsPage() {
     }, [status])
 
     return (
-        <div
-            className="flex flex-col"
-            style={{ height: document.getElementById('container')?.clientHeight }}>
+        <div className="flex flex-col" style={{ minHeight: getContainerHeight() }}>
             {user?.role === 'admin' && (
                 <div
                     className="mt-3 mx-auto w-max rounded-md shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
@@ -68,7 +67,7 @@ function BorrowingsPage() {
                     </button>
                 </div>
             )}
-            <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {borrowings !== undefined &&
                     borrowings.length !== 0 &&
                     borrowings
@@ -108,6 +107,7 @@ function BorrowingsPage() {
                     </div>
                 </Link>
             </div>
+            <div className="flex-1" />
             {!loading && (
                 <ReactPaginate
                     className="ml-5 flex flex-row my-5 list-style-none"

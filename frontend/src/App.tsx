@@ -19,7 +19,12 @@ function App() {
 }
 
 export function getContainerHeight() {
-    return window.innerHeight - (document.getElementById('header')?.clientHeight ?? 0)
+    return (
+        window.innerHeight -
+        (document.getElementById('header')?.clientHeight ?? 0) -
+        (document.getElementById('adminUserConsolesButtons')?.clientHeight ?? 0) -
+        (document.getElementById('borrowingsListPagination')?.clientHeight ?? 0)
+    )
 }
 
 export default App

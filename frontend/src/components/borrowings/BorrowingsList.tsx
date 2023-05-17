@@ -36,28 +36,30 @@ function BorrowingsList({ status }: { status: UserConsoleStatus }) {
         <div>
             {!loading && borrowings !== undefined && borrowings.length > 0 && (
                 <div>
-                    {!loading && (
-                        <ReactPaginate
-                            className="mx-auto flex flex-row my-5 list-style-none select-none w-max"
-                            previousLabel="Previous"
-                            nextLabel="Next"
-                            activeClassName="!bg-bg-extra"
-                            pageClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
-                            previousLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
-                            nextLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
-                            breakLabel="..."
-                            onPageChange={(e) => handleBorrowingClick(e)}
-                            pageRangeDisplayed={5}
-                            pageCount={Math.ceil(
-                                borrowings.filter(
-                                    (x) =>
-                                        x.userConsoles.filter((x) => x.consoleStatus === status)
-                                            .length > 0
-                                ).length
-                            )}
-                            renderOnZeroPageCount={null}
-                        />
-                    )}
+                    <div id="borrowingsListPagination">
+                        {!loading && (
+                            <ReactPaginate
+                                className="mx-auto flex flex-row py-5 list-style-none select-none w-max"
+                                previousLabel="Previous"
+                                nextLabel="Next"
+                                activeClassName="!bg-bg-extra"
+                                pageClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                                previousLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                                nextLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                                breakLabel="..."
+                                onPageChange={(e) => handleBorrowingClick(e)}
+                                pageRangeDisplayed={5}
+                                pageCount={Math.ceil(
+                                    borrowings.filter(
+                                        (x) =>
+                                            x.userConsoles.filter((x) => x.consoleStatus === status)
+                                                .length > 0
+                                    ).length
+                                )}
+                                renderOnZeroPageCount={null}
+                            />
+                        )}
+                    </div>
                     {borrowings[currentBorrowing].userConsoles.filter(
                         (x) => x.consoleStatus === status
                     ).length > 0 && (
