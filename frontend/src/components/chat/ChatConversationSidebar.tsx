@@ -33,9 +33,13 @@ function ChatConversationSidebar({
                 {conversations !== undefined &&
                     conversations!.length > 0 &&
                     conversations
-                        .filter((x) => x.userConsole !== null && x.userConsole !== undefined)
                         .filter((x) =>
-                            x.userConsole.console.name.toLowerCase().match(search.toLowerCase())
+                            (x.userConsole !== null && x.userConsole !== undefined
+                                ? x.userConsole.console.name
+                                : `${t('borrowing.borrowing')} #${x.borrowingId}`
+                            )
+                                .toLowerCase()
+                                .match(search.toLowerCase())
                         )
                         ?.map((conversation) => (
                             <Conversation
@@ -43,7 +47,11 @@ function ChatConversationSidebar({
                                 onClick={() => {
                                     setCurrentConversation(conversation.id)
                                 }}
-                                name={`${conversation.userConsole.console.name}`}
+                                name={
+                                    conversation.userConsole !== null
+                                        ? `${conversation.userConsole.console.name}`
+                                        : `${t('borrowing.borrowing')} #${conversation.borrowingId}`
+                                }
                                 info={
                                     conversation.messages.length > 0
                                         ? conversation.messages[conversation.messages.length - 1]
@@ -51,35 +59,15 @@ function ChatConversationSidebar({
                                         : ''
                                 }
                                 active={currentConversation === conversation.id}>
-                                <Avatar
-                                    src={imagePathToURL(
-                                        conversation.userConsole.images[0].path,
-                                        256
-                                    )}
-                                />
+                                {conversation.userConsole !== null && (
+                                    <Avatar
+                                        src={imagePathToURL(
+                                            conversation.userConsole.images[0].path,
+                                            256
+                                        )}
+                                    />
+                                )}
                             </Conversation>
-                        ))}
-                {conversations !== undefined &&
-                    conversations!.length > 0 &&
-                    conversations
-                        .filter((x) => x.borrowing !== null && x.borrowing !== undefined)
-                        .filter((x) =>
-                            `${t('borrowing.borrowing')} #${x.borrowingId}`.match(search)
-                        )
-                        ?.map((conversation) => (
-                            <Conversation
-                                key={conversation.id}
-                                onClick={() => {
-                                    setCurrentConversation(conversation.id)
-                                }}
-                                name={`${t('borrowing.borrowing')} #${conversation.borrowingId}`}
-                                info={
-                                    conversation.messages.length > 0
-                                        ? conversation.messages[conversation.messages.length - 1]
-                                              .text
-                                        : ''
-                                }
-                                active={currentConversation === conversation.id}></Conversation>
                         ))}
             </ConversationList>
         </Sidebar>

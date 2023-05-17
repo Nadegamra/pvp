@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import UserConsoleStatusSelectionAdmin from '../components/userConsoles/UserConsolesStatusSelectionAdmin'
 import UserConsolesGrid from '../components/userConsoles/UserConsolesGrid'
 import BorrowingsList from '../components/borrowings/BorrowingsList'
+import { getContainerHeight } from '../App'
 
 function UserConsolesPage() {
     const [status, setStatus] = useState<UserConsoleStatus>(UserConsoleStatus.UNCONFIRMED)
@@ -11,9 +12,7 @@ function UserConsolesPage() {
     const { user } = useAuth()
 
     return (
-        <div
-            className="flex flex-col"
-            style={{ height: document.getElementById('container')?.clientHeight }}>
+        <div className="flex flex-col" style={{ minHeight: getContainerHeight() }}>
             <div id="userConsolesContainer" className="flex-1">
                 {user?.role === 'admin' && (
                     <UserConsoleStatusSelectionAdmin status={status} setStatus={setStatus} />

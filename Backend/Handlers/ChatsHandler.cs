@@ -53,6 +53,7 @@ namespace Backend.Handlers
                 return;
             }
             var result = await _context.Conversations.AddAsync(new Conversation { UserConsoleId= userConsoleId });
+            await _context.SaveChangesAsync();
 
             var userConsole = _context.UserConsoles.Where(x => x.Id == userConsoleId).First();
             userConsole.ConversationId = result.Entity.Id;
