@@ -2,6 +2,7 @@ import { RegisterLegal, RegisterPhysical } from '../models/User'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { registerLenderLegal, registerLenderPhysical } from '../api/AuthApi'
+import { t } from 'i18next'
 
 interface UserRegisterPlus {
     username: string
@@ -38,7 +39,7 @@ export default function LenderRegisterPage() {
             )
                 .then(() => {
                     setLoading(false)
-                    setMessage('Please check your email for confirmation code')
+                    setMessage(t('register.checkEmail') ?? '')
                 })
                 .catch((error) => setError(error))
         } else {
@@ -53,7 +54,7 @@ export default function LenderRegisterPage() {
             )
                 .then(() => {
                     setLoading(false)
-                    setMessage('Please check your email for confirmation code')
+                    setMessage(t('register.checkEmail') ?? '')
                 })
                 .catch((error) => setError(error))
         }
@@ -67,10 +68,12 @@ export default function LenderRegisterPage() {
             className="flex flex-col items-center select-none bg-bg-primary text-t-primary pt-10"
             onSubmit={handleSubmit(onSubmit)}>
             <div className="w-80 bg-bg-secondary pb-5 rounded">
-                <div className="py-6 text-fs-h1 text-center">Register</div>
+                <div className="py-6 text-fs-h1 text-center">{t('register.title') ?? ''}</div>
                 <div className="mx-[30px]">
                     <div className="flex items-center justify-between mb-3">
-                        <label className="mr-3 text-fs-primary">Register as Company?</label>
+                        <label className="mr-3 text-fs-primary">
+                            {t('register.asCompany') ?? ''}
+                        </label>
                         <input type="checkbox" {...register('isCompany')} />
                     </div>
                     {watch('isCompany') ? (
@@ -78,26 +81,26 @@ export default function LenderRegisterPage() {
                             <input
                                 type="companyCode"
                                 className="w-full bg-bg-secondary border-b focus:outline-none"
-                                placeholder="Company code"
+                                placeholder={t('register.companyCode') ?? ''}
                                 {...register('companyCode', { required: true })}
                                 disabled={loading}
                             />
                             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                                 {errors.companyCode?.type === 'required'
-                                    ? 'Company code is required'
+                                    ? t('register.companyCodeError')
                                     : ''}
                             </p>
 
                             <input
                                 type="companyName"
                                 className="w-full bg-bg-secondary border-b focus:outline-none"
-                                placeholder="Company name"
+                                placeholder={t('register.companyName') ?? ''}
                                 {...register('companyName', { required: true })}
                                 disabled={loading}
                             />
                             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                                 {errors.companyName?.type === 'required'
-                                    ? 'Company name is required'
+                                    ? t('register.companyNameError')
                                     : ''}
                             </p>
                         </>
@@ -106,26 +109,26 @@ export default function LenderRegisterPage() {
                             <input
                                 type="firstName"
                                 className="w-full bg-bg-secondary border-b focus:outline-none"
-                                placeholder="First name"
+                                placeholder={t('register.firstName') ?? ''}
                                 {...register('firstName', { required: true })}
                                 disabled={loading}
                             />
                             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                                 {errors.firstName?.type === 'required'
-                                    ? 'First name is required'
+                                    ? t('register.firstNameError')
                                     : ''}
                             </p>
 
                             <input
                                 type="lastName"
                                 className="w-full bg-bg-secondary border-b focus:outline-none"
-                                placeholder="Last name"
+                                placeholder={t('register.lastName') ?? ''}
                                 {...register('lastName', { required: true })}
                                 disabled={loading}
                             />
                             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                                 {errors.lastName?.type === 'required'
-                                    ? 'Last name is required'
+                                    ? t('register.lastNameError')
                                     : ''}
                             </p>
                         </>
@@ -133,29 +136,29 @@ export default function LenderRegisterPage() {
                     <input
                         type="email"
                         className="w-full bg-bg-secondary border-b focus:outline-none"
-                        placeholder="Email"
+                        placeholder={t('register.email') ?? ''}
                         {...register('email', { required: true })}
                         disabled={loading}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.email?.type === 'required' ? 'Email is required' : ''}
+                        {errors.email?.type === 'required' ? t('register.emailError') : ''}
                     </p>
 
                     <input
                         type="password"
                         className="w-full bg-bg-secondary border-b focus:outline-none"
-                        placeholder="Password"
+                        placeholder={t('register.password') ?? ''}
                         {...register('password', { required: true })}
                         disabled={loading}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.password?.type === 'required' ? 'Password is required' : ''}
+                        {errors.password?.type === 'required' ? t('register.passwordError') : ''}
                     </p>
 
                     <input
                         type="password"
                         className="w-full bg-bg-secondary border-b focus:outline-none"
-                        placeholder="Repeat Password"
+                        placeholder={t('register.repeatPassword') ?? ''}
                         {...register('passwordConfirmed', {
                             required: true,
                             validate: (passwordConfirmed: string) => {
@@ -168,9 +171,9 @@ export default function LenderRegisterPage() {
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.passwordConfirmed?.type === 'required'
-                            ? 'Repeating the password is required'
+                            ? t('register.passwordError')
                             : errors.passwordConfirmed?.type === 'validate'
-                            ? 'Passwords do not match'
+                            ? t('register.passwordMismatchError')
                             : ''}
                     </p>
                 </div>
@@ -179,7 +182,7 @@ export default function LenderRegisterPage() {
                         type="submit"
                         className="bg-bg-extra py-1 px-7 rounded"
                         disabled={loading}>
-                        Register
+                        {t('register.registerButton') ?? ''}
                     </button>
                 </div>
             </div>
