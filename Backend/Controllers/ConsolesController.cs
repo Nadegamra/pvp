@@ -11,9 +11,9 @@ namespace Backend.Controllers
     public class ConsolesController: ControllerBase
     {
         private readonly ConsolesHandler _consolesHandler;
-        private readonly ImagesHandler _imagesHandler;
+        private readonly FilesHandler _imagesHandler;
 
-        public ConsolesController(ConsolesHandler consolesHandler, ImagesHandler imagesHandler)
+        public ConsolesController(ConsolesHandler consolesHandler, FilesHandler imagesHandler)
         {
             _consolesHandler = consolesHandler;
             _imagesHandler = imagesHandler;

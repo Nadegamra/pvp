@@ -13,11 +13,11 @@ namespace Backend.Handlers
     public class UserConsolesHandler
     {
         private readonly IMapper _mapper;
-        private readonly ImagesHandler _imagesHandler;
+        private readonly FilesHandler _imagesHandler;
         private readonly AppDbContext _context;
         private readonly UserManager<User> _userManager;
 
-        public UserConsolesHandler(IMapper mapper, ImagesHandler imagesHandler, AppDbContext context, UserManager<User> userManager)
+        public UserConsolesHandler(IMapper mapper, FilesHandler imagesHandler, AppDbContext context, UserManager<User> userManager)
         {
             _mapper = mapper;
             _imagesHandler = imagesHandler;

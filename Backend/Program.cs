@@ -70,7 +70,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddTransient<ConsolesHandler>();
     services.AddTransient<UsersHandler>();
     services.AddTransient<AccessoriesHandler>();
-    services.AddTransient<ImagesHandler>();
+    services.AddTransient<FilesHandler>();
     services.AddTransient<UserConsolesHandler>();
     services.AddTransient<BorrowingsHandler>();
     services.AddTransient<ChatsHandler>();
