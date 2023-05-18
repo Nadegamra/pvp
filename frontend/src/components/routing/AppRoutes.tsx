@@ -21,6 +21,8 @@ import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 import ChatsPage from '../../pages/ChatsPage'
 import BorrowerConsolesPage from '../../pages/BorrowerConsolesPage'
 import AdminBorrowingsPage from '../../pages/AdminBorrowingsPage'
+import ForgotPasswordPage from '../../pages/ForgotPasswordPage'
+import ResetPasswordPage from '../../pages/ResetPasswordPage'
 //TODO: In manageBorrowings page move status selection into borrowing
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -36,6 +38,8 @@ export default function AppRoutes() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<LenderRegisterPage />} />
                 <Route path="/registerBorrower" element={<BorrowerRegisterPage />} />
+                <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
+                <Route path="/resetPassword/:token" element={<ResetPasswordPage />} />
                 <Route path="/confirmEmail/:token" element={<EmailConfirmationPage />} />
             </Route>
             <Route element={<AppRoute condition={user !== undefined} redirectionPath="/" />}>

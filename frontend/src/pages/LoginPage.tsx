@@ -1,25 +1,26 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useAuth } from '../contexts/AuthContext';
-import { UserLogin } from '../models/User';
-import { useTranslation } from 'react-i18next';
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useAuth } from '../contexts/AuthContext'
+import { UserLogin } from '../models/User'
+import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 
 function LoginPage() {
-    const { t } = useTranslation();
+    const { t } = useTranslation()
     const {
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm<UserLogin>();
-    const [error, setError] = useState('');
-    const { login, loading } = useAuth();
+    } = useForm<UserLogin>()
+    const [error, setError] = useState('')
+    const { login, loading } = useAuth()
 
     return (
         <form
             className="flex flex-col items-center select-none bg-bg-primary text-t-primary pt-10"
             onSubmit={handleSubmit((data) => {
-                setError('');
-                login(data).then((error) => setError(error));
+                setError('')
+                login(data).then((error) => setError(error))
             })}>
             <div className="w-80 bg-bg-secondary pb-5 rounded">
                 <div className="py-6 text-fs-h1 text-center">{t('login.login')}</div>
@@ -45,7 +46,8 @@ function LoginPage() {
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.password?.type === 'required' ? 'Password is required' : ''}
                     </p>
-
+                </div>
+                <div className="flex flex-row content-around w-full ml-[30px]">
                     <label
                         htmlFor="remember"
                         className="text-left pb-[2px] cursor-pointer text-fs-primary">
@@ -58,8 +60,13 @@ function LoginPage() {
                         />
                         {t('login.rememberMe')}
                     </label>
-                    <br />
+                    <Link
+                        to="/forgotPassword"
+                        className="cursor-pointer select-none my-auto ml-auto text-fs-primary mr-12">
+                        {t('login.forgotPassword')}
+                    </Link>
                 </div>
+                <br />
                 <div className="flex flex-col items-center pt-5 text-fs-h2">
                     <button
                         className="bg-bg-extra py-1 px-7 rounded"
@@ -76,7 +83,7 @@ function LoginPage() {
                 </div>
             )}
         </form>
-    );
+    )
 }
 
-export default LoginPage;
+export default LoginPage
