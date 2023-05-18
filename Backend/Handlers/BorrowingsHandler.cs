@@ -118,5 +118,10 @@ namespace Backend.Handlers
             _context.Borrowings.Remove(borrowing);
             await _context.SaveChangesAsync();
         }
+
+        public bool CanDelete(int id)
+        {
+            return !_context.UserConsoles.Where(x=>x.BorrowingId == id).Any();
+        }
     }
 }

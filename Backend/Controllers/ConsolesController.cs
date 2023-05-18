@@ -34,7 +34,7 @@ namespace Backend.Controllers
             }
             
         }
-        [HttpGet("get")]
+        [HttpGet("get/{id}")]
         public async Task<ActionResult<ImageUploadResult>> GetConsole(int id)
         {
             try
@@ -80,7 +80,20 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("remove")]
+        [HttpGet("canDelete/{id}")]
+        public async Task<ActionResult<bool>> CanDelete(int id)
+        {
+            try
+            {
+                return Ok(_consolesHandler.CanDelete(id));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpDelete("remove/{id}")]
         public async Task<ActionResult<ImageUploadResult>> RemoveConsole(int id)
         {
             try
@@ -110,7 +123,7 @@ namespace Backend.Controllers
             }
         }
 
-        [HttpDelete("images/delete")]
+        [HttpDelete("images/delete/{id}")]
         public async Task<ActionResult> RemoveImage(int id)
         {
             try

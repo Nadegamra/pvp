@@ -1,31 +1,15 @@
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
-import {
-    Avatar,
-    ChatContainer,
-    Conversation,
-    ConversationHeader,
-    ConversationList,
-    MainContainer,
-    Message,
-    MessageInput,
-    MessageList,
-    Search,
-    Sidebar
-} from '@chatscope/chat-ui-kit-react'
+import { MainContainer } from '@chatscope/chat-ui-kit-react'
 import { useEffect, useState } from 'react'
 import { ConversationGet } from '../models/Conversation'
 import { useAuth } from '../contexts/AuthContext'
 import {
     getAllConversations,
     getBorrowerConversations,
-    getLenderConversations,
-    sendMessage
+    getLenderConversations
 } from '../api/ChatsApi'
 import { useParams } from 'react-router'
-import { imagePathToURL } from '../models/Image'
-import { MessageAdd } from '../models/Message'
 import { getContainerHeight } from '../App'
-import { t } from 'i18next'
 import ChatConversationSidebar from '../components/chat/ChatConversationSidebar'
 import ChatConversationContainer from '../components/chat/ChatConversationContainer'
 

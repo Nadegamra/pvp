@@ -23,9 +23,8 @@ import { useTranslation } from 'react-i18next'
 import { contactLender } from '../api/ChatsApi'
 import { Controller, useForm } from 'react-hook-form'
 import Select from 'react-select'
-import { BorrowingGet, BorrowingStatus, getBorrowingStatusString } from '../models/Borrowing'
+import { BorrowingGet, BorrowingStatus } from '../models/Borrowing'
 import { getBorrowingById } from '../api/BorrowingsApi'
-import { response } from 'express'
 
 interface Props {
     status: UserConsoleStatus

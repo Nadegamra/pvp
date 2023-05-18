@@ -106,5 +106,18 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("canDelete/{id}")]
+        public async Task<ActionResult<bool>> CanDelete(int id)
+        {
+            try
+            {
+                return Ok(_handler.CanDelete(id));
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
