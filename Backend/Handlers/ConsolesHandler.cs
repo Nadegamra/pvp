@@ -9,10 +9,10 @@ namespace Backend.Handlers
     public class ConsolesHandler
     {
         private readonly AppDbContext _context;
-        private readonly ImagesHandler _imagesHandler;
+        private readonly FilesHandler _imagesHandler;
         private readonly IMapper _mapper;
 
-        public ConsolesHandler(AppDbContext context, ImagesHandler imagesHandler, IMapper mapper)
+        public ConsolesHandler(AppDbContext context, FilesHandler imagesHandler, IMapper mapper)
         {
             _context = context;
             _imagesHandler = imagesHandler;

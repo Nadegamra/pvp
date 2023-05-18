@@ -1,4 +1,4 @@
-﻿using Backend.Data.Views.Chat;
+﻿using Backend.Data.Views.MessageFile;
 
 namespace Backend.Data.Views.Message
 {
@@ -9,5 +9,6 @@ namespace Backend.Data.Views.Message
         public string Text { get; set; }
         public bool FromAdmin { get; set; }
         public DateTime DateSent { get; set; }
+        public ICollection<MessageFileGetDto> MessageFiles { get; set; }
     }
 }

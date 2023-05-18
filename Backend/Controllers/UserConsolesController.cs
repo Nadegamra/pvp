@@ -14,7 +14,7 @@ namespace Backend.Controllers
     public class UserConsolesController: ControllerBase
     {
         private readonly UserConsolesHandler _userConsolesHandler;
-        private readonly ImagesHandler _imagesHandler;
+        private readonly FilesHandler _imagesHandler;
 
         public UserConsolesController(UserConsolesHandler handler)
         {
