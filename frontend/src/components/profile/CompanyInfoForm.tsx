@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useState } from 'react'
 import { updateLegal } from '../../api/UsersApi'
 import { UserLegalUpdate } from '../../models/User'
+import Button from '../ui/Button'
 
 function CompanyInfoForm() {
     const { t } = useTranslation()
@@ -26,8 +27,8 @@ function CompanyInfoForm() {
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
             />
-            <button
-                className="block bg-bg-extra p-2 rounded-md mt-5 mb-3"
+            <Button
+                text={t('profile.saveChanges')}
                 onClick={(e) => {
                     setInfoLoading(true)
                     setInfoMessage('')
@@ -39,9 +40,8 @@ function CompanyInfoForm() {
                             setInfoLoading(false)
                         })
                     e.preventDefault()
-                }}>
-                {t('profile.saveChanges')}
-            </button>
+                }}
+            />
             {infoMessage !== '' && (
                 <div className="pt-4 text-fs-primary text-success-500">{infoMessage}</div>
             )}

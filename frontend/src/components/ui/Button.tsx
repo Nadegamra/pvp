@@ -9,6 +9,7 @@ interface Props {
     color?: 'blue' | 'red'
     disabled?: boolean
     id?: number
+    submit?: boolean
 }
 
 function Button({
@@ -18,7 +19,8 @@ function Button({
     dialogBody = '',
     color = 'blue',
     disabled = false,
-    id = 1
+    id = 1,
+    submit = false
 }: Props) {
     const { t } = useTranslation()
     return (
@@ -38,10 +40,12 @@ function Button({
                 data-te-ripple-init
                 data-te-ripple-color="light"
                 onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                    if (onClick !== undefined && !dialog) {
-                        onClick(e)
+                    if (!submit) {
+                        if (onClick !== undefined && !dialog) {
+                            onClick(e)
+                        }
+                        e.preventDefault()
                     }
-                    e.preventDefault()
                 }}>
                 {text}
             </button>
@@ -108,10 +112,12 @@ function Button({
                                     data-te-modal-dismiss
                                     data-te-ripple-color="light"
                                     onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                                        if (onClick !== undefined) {
-                                            onClick(e)
+                                        if (!submit) {
+                                            if (onClick !== undefined && !dialog) {
+                                                onClick(e)
+                                            }
+                                            e.preventDefault()
                                         }
-                                        e.preventDefault()
                                     }}>
                                     {t('button.confirm')}
                                 </button>

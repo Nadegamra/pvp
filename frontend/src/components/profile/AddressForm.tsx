@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import { updateAddress } from '../../api/UsersApi'
 import { UserAddressUpdate } from '../../models/User'
+import Button from '../ui/Button'
 
 function AddressForm() {
     const { t } = useTranslation()
@@ -46,7 +47,6 @@ function AddressForm() {
                     .finally(() => {
                         setAddressLoading(false)
                     })
-                e?.preventDefault()
             })}>
             <div className="grid grid-cols-2 grid-rows-3 gap-x-5">
                 <div>
@@ -116,9 +116,7 @@ function AddressForm() {
                     )}
                 </div>
             </div>
-            <button className="block bg-bg-extra p-2 rounded-md mt-5 mb-3" type="submit">
-                {t('addressForm.saveChanges')}
-            </button>
+            <Button text={t('addressForm.saveChanges')} submit={true} />
             {addressMessage !== '' && (
                 <div className="pt-4 text-fs-primary text-success-500">{addressMessage}</div>
             )}

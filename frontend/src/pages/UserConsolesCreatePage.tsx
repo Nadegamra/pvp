@@ -7,6 +7,7 @@ import { addUserConsole } from '../api/UserConsolesApi'
 import { ConsoleGet } from '../models/Console'
 import { getConsoles } from '../api/ConsolesApi'
 import Select from 'react-select'
+import Button from '../components/ui/Button'
 
 interface Props {
     consoleId: number
@@ -84,7 +85,18 @@ function UserConsolesCreatePage() {
                         rules={{ required: true }}
                         render={() => (
                             <Select
-                                className="!bg-bg-secondary !text-[rgb(0,0,0)]"
+                                className="!text-t-primary"
+                                theme={(theme) => ({
+                                    ...theme,
+                                    colors: {
+                                        ...theme.colors,
+                                        text: `var(${'--color-text-primary'})`,
+                                        neutral0: `var(${'--color-bg-secondary'})`,
+                                        neutral80: `var(${'--color-text-primary'})`,
+                                        primary25: `var(${'--color-bg-primary'})`,
+                                        primary50: `var(${'--color-bg-primary'})`
+                                    }
+                                })}
                                 defaultValue={{
                                     value: 0,
                                     label: t('userConsoleManagementForm.consoleCategory')
@@ -128,7 +140,7 @@ function UserConsolesCreatePage() {
                             : ''}
                     </p>
                     <label htmlFor="images" className="cursor-pointer">
-                        <span className="p-1 mr-1 bg-[rgb(255,255,255)] text-[rgb(0,0,0)] rounded-sm">
+                        <span className="p-1 mr-1 bg-[rgb(255,255,255)] text-[rgb(0,0,0)] rounded-sm border">
                             {t('userConsoleManagementForm.selectImages')}
                         </span>
                         {watch('images') !== undefined &&
@@ -160,9 +172,7 @@ function UserConsolesCreatePage() {
                     </p>
                 </div>
                 <div className="flex flex-col items-center pt-5 text-fs-h2">
-                    <button className="bg-bg-extra py-1 px-7 rounded" type="submit">
-                        {t('userConsoleManagementForm.create') ?? ''}
-                    </button>
+                    <Button text={t('userConsoleManagementForm.create') ?? ''} submit={true} />
                 </div>
             </div>
             <div className="text-fs-primary text-danger-500 text-center">{error}</div>

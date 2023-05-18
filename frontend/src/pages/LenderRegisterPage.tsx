@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { registerLenderLegal, registerLenderPhysical } from '../api/AuthApi'
 import { t } from 'i18next'
+import Button from '../components/ui/Button'
 
 interface UserRegisterPlus {
     username: string
@@ -80,7 +81,7 @@ export default function LenderRegisterPage() {
                         <>
                             <input
                                 type="companyCode"
-                                className="w-full bg-bg-secondary border-b focus:outline-none"
+                                className="w-full bg-bg-primary border p-2 rounded-md"
                                 placeholder={t('register.companyCode') ?? ''}
                                 {...register('companyCode', { required: true })}
                                 disabled={loading}
@@ -93,7 +94,7 @@ export default function LenderRegisterPage() {
 
                             <input
                                 type="companyName"
-                                className="w-full bg-bg-secondary border-b focus:outline-none"
+                                className="w-full bg-bg-primary border p-2 rounded-md"
                                 placeholder={t('register.companyName') ?? ''}
                                 {...register('companyName', { required: true })}
                                 disabled={loading}
@@ -108,7 +109,7 @@ export default function LenderRegisterPage() {
                         <>
                             <input
                                 type="firstName"
-                                className="w-full bg-bg-secondary border-b focus:outline-none"
+                                className="w-full bg-bg-primary border p-2 rounded-md"
                                 placeholder={t('register.firstName') ?? ''}
                                 {...register('firstName', { required: true })}
                                 disabled={loading}
@@ -121,7 +122,7 @@ export default function LenderRegisterPage() {
 
                             <input
                                 type="lastName"
-                                className="w-full bg-bg-secondary border-b focus:outline-none"
+                                className="w-full bg-bg-primary border p-2 rounded-md"
                                 placeholder={t('register.lastName') ?? ''}
                                 {...register('lastName', { required: true })}
                                 disabled={loading}
@@ -135,7 +136,7 @@ export default function LenderRegisterPage() {
                     )}
                     <input
                         type="email"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.email') ?? ''}
                         {...register('email', { required: true })}
                         disabled={loading}
@@ -146,7 +147,7 @@ export default function LenderRegisterPage() {
 
                     <input
                         type="password"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.password') ?? ''}
                         {...register('password', { required: true })}
                         disabled={loading}
@@ -157,7 +158,7 @@ export default function LenderRegisterPage() {
 
                     <input
                         type="password"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.repeatPassword') ?? ''}
                         {...register('passwordConfirmed', {
                             required: true,
@@ -178,12 +179,11 @@ export default function LenderRegisterPage() {
                     </p>
                 </div>
                 <div className="flex flex-col items-center pt-3">
-                    <button
-                        type="submit"
-                        className="bg-bg-extra py-1 px-7 rounded"
-                        disabled={loading}>
-                        {t('register.registerButton') ?? ''}
-                    </button>
+                    <Button
+                        text={t('register.registerButton') ?? ''}
+                        disabled={loading}
+                        submit={true}
+                    />
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>

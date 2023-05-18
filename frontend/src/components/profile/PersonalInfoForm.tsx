@@ -3,6 +3,7 @@ import { UserPhysicalUpdate } from '../../models/User'
 import { updatePhysical } from '../../api/UsersApi'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../contexts/AuthContext'
+import Button from '../ui/Button'
 
 function PersonalInfoForm() {
     const { t } = useTranslation()
@@ -26,8 +27,8 @@ function PersonalInfoForm() {
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
             />
-            <button
-                className="block bg-bg-extra p-2 rounded-md mt-5 mb-3"
+            <Button
+                text={t('profile.saveChanges')}
                 onClick={() => {
                     setInfoLoading(true)
                     updatePhysical(new UserPhysicalUpdate(firstName, lastName))
@@ -37,9 +38,8 @@ function PersonalInfoForm() {
                         .finally(() => {
                             setInfoLoading(false)
                         })
-                }}>
-                {t('profile.saveChanges')}
-            </button>
+                }}
+            />
             {infoMessage !== '' && (
                 <div className="pt-4 text-fs-primary text-success-500">{infoMessage}</div>
             )}
