@@ -36,3 +36,7 @@ export async function updateBorrowingStatus(data: BorrowingUpdateStatus) {
 export async function deleteBorrowing(id: number) {
     return api.delete(`${id}`, headers)
 }
+
+export async function canDeleteBorrowing(id: number) {
+    return api.delete(`canDelete/${id}`, headers)
+}
