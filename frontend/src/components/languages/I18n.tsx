@@ -169,6 +169,30 @@ i18n
                         rememberMe: 'Remember Me',
                         forgotPassword: 'Forgot Password?'
                     },
+                    register: {
+                        title: 'Registration',
+                        titleBorrowers: 'Borrower registration',
+                        asCompany: 'Register as company?',
+                        companyCode: 'Company Code',
+                        companyCodeError: 'Company Code is required',
+                        companyName: 'Company Name',
+                        companyNameError: 'Company Name is required',
+                        firstName: 'First Name',
+                        firstNameError: 'First Name is required',
+                        lastName: 'Last Name',
+                        lastNameError: 'Last Name is required',
+                        email: 'Email Address',
+                        emailError: 'Email Address is required',
+                        password: 'Password',
+                        passwordError: 'Password is required',
+                        passwordMismatchError: 'Passwords do not match',
+                        repeatPassword: 'Repeat Password',
+                        registerButton: 'Register',
+                        requestButton: 'Submit',
+                        checkEmail: 'Please check your email for confirmation link',
+                        requestSuccess:
+                            'Registration request has been submitted successfully. Please wait for confirmation via email'
+                    },
                     footer: {
                         contacts: 'Contacts',
                         faq: 'Frequently asked questions',
@@ -436,6 +460,31 @@ i18n
                         password: 'Slaptažodis',
                         rememberMe: 'Prisimink mane',
                         forgotPassword: 'Pamiršai slaptažodį?'
+                    },
+                    register: {
+                        title: 'Registracija',
+                        titleBorrowers: 'Registracija besiskolinantiems',
+                        asCompany: 'Registruotis kaip įmonei?',
+                        companyCode: 'Įmonės kodas',
+                        companyCodeError: 'Reikia įvesti įmonės kodą',
+                        companyName: 'Įmonės pavadinimas',
+                        companyNameError: 'Reikia įvesti įmonės pavadinimą',
+                        firstName: 'Vardas',
+                        firstNameError: 'Reikia įvesti vardą',
+                        lastName: 'Pavardė',
+                        lastNameError: 'Reikia įvesti pavardę',
+                        email: 'El. paštas',
+                        emailError: 'Reikia įvesti el. pašto adresą',
+                        password: 'Slaptažodis',
+                        passwordError: 'Reikia įvesti Slaptažodį',
+                        passwordMismatchError: 'Slaptažodžiai nesutampa',
+                        repeatPassword: 'Pakartoti slaptažodį',
+                        registerButton: 'Registruotis',
+                        requestButton: 'Pateikti',
+                        checkEmail:
+                            'Išsiųsta patvirtinimo nuorodą. Prašome patikrinti savo el. paštą',
+                        requestSuccess:
+                            'Registracijos prašymas pateiktas sėkmingai. Prašome laukti patvirtinimo el. paštu.'
                     },
                     footer: {
                         contacts: 'Kontaktai',
