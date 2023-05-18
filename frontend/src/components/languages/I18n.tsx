@@ -166,7 +166,8 @@ i18n
                         login: 'Login',
                         username: 'Email',
                         password: 'Password',
-                        rememberMe: 'Remember Me'
+                        rememberMe: 'Remember Me',
+                        forgotPassword: 'Forgot Password?'
                     },
                     footer: {
                         contacts: 'Contacts',
@@ -245,6 +246,15 @@ i18n
                         success: 'The email has been confirmed. You can now ',
                         login: 'login',
                         failure: 'The email confirmation code is invalid or expired.'
+                    },
+                    passwordReset: {
+                        passwordReset: 'Reset password',
+                        resetPassword: 'Reset password',
+                        sendEmail: 'Send email',
+                        success: 'The password has been successfully updated',
+                        failure: 'The password reset link is invalid or expired',
+                        email: 'Email address',
+                        emailError: 'Email Address is required'
                     },
                     emailChange: {
                         success: 'The email has been changed. You can now ',
@@ -424,7 +434,8 @@ i18n
                         login: 'Prisijungimas',
                         username: 'El paštas',
                         password: 'Slaptažodis',
-                        rememberMe: 'Prisimink mane'
+                        rememberMe: 'Prisimink mane',
+                        forgotPassword: 'Pamiršai slaptažodį?'
                     },
                     footer: {
                         contacts: 'Kontaktai',
@@ -504,6 +515,16 @@ i18n
                         login: 'prisijungti',
                         failure:
                             'Elektroninio pašto patvirtinimo kodas yra neteisingas arba pasibaigusio galiojimo.'
+                    },
+                    passwordReset: {
+                        passwordReset: 'Slaptažodžio pakeitimas',
+                        resetPassword: 'Pakeisti slaptažodį',
+                        sendEmail: 'Išsiųsti el. laišką',
+                        success: 'Slaptažodis sėkmingai atnaujintas',
+                        failure:
+                            'Slaptažodžio pakeitimo nuoroda yra neteisinga arba pasibaigusiu galiojimo',
+                        email: 'El. pašto adresas',
+                        emailError: 'Įveskite el. pašto adresą'
                     },
                     emailChange: {
                         success: 'Elektroninis paštas sėkmingai pakeistas. Dabar galite ',

@@ -25,7 +25,7 @@ export async function confirmEmail(token: string) {
 }
 
 export async function sendPasswordResetEmail(email: string) {
-    return api.post(`passwordReset/send`, email, headers)
+    return api.post(`passwordReset/send`, { email: email }, headers)
 }
 
 export async function resetPassword(data: UserPasswordReset) {
