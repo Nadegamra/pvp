@@ -80,5 +80,9 @@ namespace Backend.Handlers
 
             return;
         }
+        public bool CanDelete(int id)
+        {
+            return !_context.UserConsoles.Where(x=>x.ConsoleId== id).Any();
+        }
     }
 }

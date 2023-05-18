@@ -1,5 +1,5 @@
 import { useAuth } from '../contexts/AuthContext'
-import { RegisterLegal, UserRole } from '../models/User'
+import { RegisterLegal } from '../models/User'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { submitRegisterRequest } from '../api/AuthApi'

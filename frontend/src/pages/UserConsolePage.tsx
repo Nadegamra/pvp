@@ -8,6 +8,7 @@ import {
 } from '../models/UserConsole'
 import { useEffect, useState } from 'react'
 import {
+    deleteUserConsole,
     getUserConsole,
     terminateContractByBorrower,
     terminateContractByLender,
@@ -22,9 +23,8 @@ import { useTranslation } from 'react-i18next'
 import { contactLender } from '../api/ChatsApi'
 import { Controller, useForm } from 'react-hook-form'
 import Select from 'react-select'
-import { BorrowingGet, BorrowingStatus, getBorrowingStatusString } from '../models/Borrowing'
+import { BorrowingGet, BorrowingStatus } from '../models/Borrowing'
 import { getBorrowingById } from '../api/BorrowingsApi'
-import { response } from 'express'
 
 interface Props {
     status: UserConsoleStatus
@@ -181,6 +181,7 @@ function UserConsolePage() {
                         <div className="mt-5">
                             <Button
                                 text={t('userConsolePage.initiateTermination')}
+                                id={1}
                                 dialog={true}
                                 dialogBody={t('button.dialogBody1')}
                                 onClick={() => {
@@ -198,6 +199,7 @@ function UserConsolePage() {
                         <div className="mt-5">
                             <Button
                                 text={t('userConsolePage.initiateTermination')}
+                                id={2}
                                 dialog={true}
                                 dialogBody={t('button.dialogBody1')}
                                 onClick={() => {
@@ -232,7 +234,7 @@ function UserConsolePage() {
                         <div className="ml-3 mb-3">{userConsole?.user.email}</div>
                         <Button
                             text={t('userConsolePage.contactUser')}
-                            dialog={false}
+                            id={3}
                             onClick={() => {
                                 contactLender(userConsole!.id).then(() => {
                                     getUserConsole(parseInt(id ?? '1')).then((result) => {
@@ -240,7 +242,23 @@ function UserConsolePage() {
                                     })
                                 })
                             }}
-                            dialogBody={t('button.dialogBody1')}
+                        />
+                    </div>
+                )}
+                {user?.role === 'admin' && !loading && (
+                    <div className=" w-max mt-10">
+                        <Button
+                            text={t('userConsolePage.delete')}
+                            id={4}
+                            color="red"
+                            onClick={() => {
+                                deleteUserConsole(userConsole!.id).then(
+                                    () => (window.location.href = '/userConsoles')
+                                )
+                            }}
+                            dialog={true}
+                            disabled={userConsole?.consoleStatus !== UserConsoleStatus.UNCONFIRMED}
+                            dialogBody={t('button.dialogBody4')}
                         />
                     </div>
                 )}

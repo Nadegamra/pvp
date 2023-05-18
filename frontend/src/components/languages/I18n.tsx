@@ -235,7 +235,8 @@ i18n
                         statusTerminatingLender: 'Awaiting to get back',
                         statusTerminatingBorrower: 'Awaiting to return',
                         changeStatus: 'Awaiting for return',
-                        dailyPrice: 'Daily price'
+                        dailyPrice: 'Daily price',
+                        delete: 'Delete'
                     },
                     borrowerConsolePage: {
                         selectConsole: 'Select'
@@ -255,6 +256,9 @@ i18n
                         dialogBody1: 'Do you really wish to terminate the contract?',
                         dialogBody2: 'Do you really wish to change the console state?',
                         dialogBody3: 'Do you really wish to select this console for borrow?',
+                        dialogBody4: 'Do you really wish to delete this console?',
+                        dialogBody5: 'Do you really wish to delete this console category?',
+                        dialogBody6: 'Do you really wish to delete this borrowing?',
                         confirm: 'Yes',
                         deny: 'No',
                         toUserConsole: 'To user console'
@@ -489,7 +493,8 @@ i18n
                         statusTerminatingLender: 'Norima atgauti',
                         statusTerminatingBorrower: 'Norima grąžinti',
                         changeStatus: 'Pakeisti būseną',
-                        dailyPrice: 'Dienos kaina'
+                        dailyPrice: 'Dienos kaina',
+                        delete: 'Ištrinti'
                     },
                     borrowerConsolePage: {
                         selectConsole: 'Pasirinkti'
@@ -511,6 +516,9 @@ i18n
                         dialogBody1: 'Ar tikrai norite inicijuoti konsolės grąžinimą?',
                         dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
                         dialogBody3: 'Ar tikrai norite pasirinkti šią konsolę?',
+                        dialogBody4: 'Ar tikrai norite ištrinti šią konsolę?',
+                        dialogBody5: 'Ar tikrai norite ištrinti šią konsolių kategoriją?',
+                        dialogBody6: 'Ar tikrai norite ištrinti šį pasiskolinimą?',
                         confirm: 'Taip',
                         deny: 'Ne',
                         toUserConsole: 'Į konsolės aprašymą'

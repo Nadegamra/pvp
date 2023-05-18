@@ -86,8 +86,8 @@ namespace Backend.Handlers
         {
             Image image = _context.Images.Where(x => x.Id == id).First();
             // Cloudinary
-            var cloudinary = new Cloudinary(new Account(_config.Value.Cloud, _config.Value.ApiKey, _config.Value.ApiSecret));
-            await cloudinary.DestroyAsync(new DeletionParams(image.Path));
+            //var cloudinary = new Cloudinary(new Account(_config.Value.Cloud, _config.Value.ApiKey, _config.Value.ApiSecret));
+            //await cloudinary.DestroyAsync(new DeletionParams(image.Path));
             // Database
             _context.Images.Remove(image);
             await _context.SaveChangesAsync();

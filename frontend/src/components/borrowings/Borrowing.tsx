@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { BorrowingGet, BorrowingStatus, BorrowingUpdateStatus } from '../../models/Borrowing'
-import { getBorrowingById } from '../../api/BorrowingsApi'
+import { canDeleteBorrowing, deleteBorrowing, getBorrowingById } from '../../api/BorrowingsApi'
 import { useAuth } from '../../contexts/AuthContext'
 import { UserConsoleStatus } from '../../models/UserConsole'
 import { imagePathToURL } from '../../models/Image'
@@ -30,12 +30,18 @@ function Borrowing({
     const handlePageClick = (event: { selected: number }) => {
         setOffset((event.selected * itemsPerPage) % borrowing!.userConsoles!.length)
     }
+    const [canDelete, setCanDelete] = useState<boolean>()
 
     useEffect(() => {
-        getBorrowingById(id).then((response) => {
-            setBorrowing(response.data)
-            setLoading(false)
-        })
+        getBorrowingById(id)
+            .then((response) => {
+                setBorrowing(response.data)
+            })
+            .finally(() =>
+                canDeleteBorrowing(id)
+                    .then((response) => setCanDelete(response.data))
+                    .finally(() => setLoading(false))
+            )
     }, [id, status])
 
     return (
@@ -72,6 +78,7 @@ function Borrowing({
             <div className="flex flex-row content-around">
                 <span className="inline-block ml-5">
                     <Button
+                        id={1}
                         text={
                             borrowing?.status === BorrowingStatus.PENDING
                                 ? t('borrowing.setStatusActive')
@@ -95,6 +102,7 @@ function Borrowing({
                 </span>
                 <span className="inline-block ml-auto mr-5">
                     <Button
+                        id={2}
                         text={t('borrowing.contactBorrower')}
                         dialog={false}
                         dialogBody=""
@@ -143,22 +151,43 @@ function Borrowing({
                         ))}
             </div>
             <div className="flex-1" />
-            {!loading && (
-                <ReactPaginate
-                    className="ml-5 flex flex-row my-5 list-style-none select-none"
-                    previousLabel="Previous"
-                    nextLabel="Next"
-                    activeClassName="!bg-bg-extra"
-                    pageClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
-                    previousLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
-                    nextLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
-                    breakLabel="..."
-                    onPageChange={(e) => handlePageClick(e)}
-                    pageRangeDisplayed={5}
-                    pageCount={Math.ceil(borrowing!.userConsoles.length / itemsPerPage)}
-                    renderOnZeroPageCount={null}
-                />
-            )}
+            <div className="flex flex-row content-between">
+                <span className="mr-auto">
+                    {!loading && (
+                        <ReactPaginate
+                            className="ml-5 flex flex-row my-5 list-style-none select-none"
+                            previousLabel="Previous"
+                            nextLabel="Next"
+                            activeClassName="!bg-bg-extra"
+                            pageClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                            previousLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                            nextLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
+                            breakLabel="..."
+                            onPageChange={(e) => handlePageClick(e)}
+                            pageRangeDisplayed={5}
+                            pageCount={Math.ceil(borrowing!.userConsoles.length / itemsPerPage)}
+                            renderOnZeroPageCount={null}
+                        />
+                    )}
+                </span>
+                <span className="mr-10">
+                    {!loading && (
+                        <Button
+                            text={t('userConsolePage.delete')}
+                            id={3}
+                            color="red"
+                            onClick={() => {
+                                deleteBorrowing(borrowing!.id).then(
+                                    () => (window.location.href = '/manageConsoles')
+                                )
+                            }}
+                            dialog={true}
+                            disabled={!canDelete!}
+                            dialogBody={t('button.dialogBody6')}
+                        />
+                    )}
+                </span>
+            </div>
         </div>
     )
 }
