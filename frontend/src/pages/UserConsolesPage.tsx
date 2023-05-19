@@ -10,15 +10,13 @@ function UserConsolesPage() {
     const { user } = useAuth()
 
     return (
-        <div>
-            <div id="userConsolesContainer" className="flex-1">
-                <div className="pt-3" id="adminUserConsolesButtons">
-                    {user?.role === 'admin' && (
-                        <UserConsolesStatusSelectionAdmin status={status} setStatus={setStatus} />
-                    )}
-                </div>
-                {status <= UserConsoleStatus.AT_PLATFORM && <UserConsolesGrid status={status} />}
+        <div id="userConsolesContainer" className="flex-1">
+            <div className="pt-3" id="adminUserConsolesButtons">
+                {user?.role === 'admin' && (
+                    <UserConsolesStatusSelectionAdmin status={status} setStatus={setStatus} />
+                )}
             </div>
+            {status <= UserConsoleStatus.AT_PLATFORM && <UserConsolesGrid status={status} />}
         </div>
     )
 }

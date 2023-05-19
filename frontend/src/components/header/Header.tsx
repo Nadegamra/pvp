@@ -32,11 +32,11 @@ function Header() {
 
     return (
         <nav
-            className="flex-no-wrap relative flex w-full items-center justify-between bg-bg-secondary py-2 shadow-md shadow-black/5 dark:shadow-black/10 md:flex-wrap md:justify-start md:py-4"
+            className="flex-no-wrap relative flex w-full items-center justify-between bg-bg-secondary py-2 shadow-md shadow-black/5 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4"
             data-te-navbar-ref>
             <div className="flex w-full flex-wrap items-center justify-between px-3">
                 <button
-                    className="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 md:hidden"
+                    className="block border-0 bg-transparent px-2 text-neutral-500 hover:no-underline hover:shadow-none focus:no-underline focus:shadow-none focus:outline-none focus:ring-0 dark:text-neutral-200 lg:hidden"
                     type="button"
                     data-te-collapse-init
                     data-te-target="#navbarSupportedContent1"
@@ -58,11 +58,11 @@ function Header() {
                     </span>
                 </button>
                 <div
-                    className="!visible hidden flex-grow basis-[100%] items-center md:!flex md:basis-auto"
+                    className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
                     id="navbarSupportedContent1"
                     data-te-collapse-item>
                     <Link
-                        className="mb-4 mr-2 mt-3 flex items-center md:mr-0 md:mb-0 md:mt-0"
+                        className="mb-4 mr-2 mt-3 flex items-center lg:mr-0 lg:mb-0 lg:mt-0"
                         to="/"
                         onClick={() => header.hideAll()}>
                         <img
@@ -73,12 +73,12 @@ function Header() {
                         />
                     </Link>
                     <ul
-                        className="list-style-none ml-auto flex flex-col pl-3 md:pl-0 md:flex-row "
+                        className="list-style-none ml-auto flex flex-col pl-3 lg:pl-0 lg:flex-row "
                         data-te-navbar-nav-ref>
                         {auth.user !== undefined && auth.user.role === 'lender' && (
                             <Link
                                 to="/consoles"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                                 onClick={() => header.hideAll()}>
                                 {t('header.myConsoles')}
                             </Link>
@@ -86,23 +86,33 @@ function Header() {
                         {auth.user !== undefined && auth.user.role === 'borrower' && (
                             <Link
                                 to="/borrowings"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                                 onClick={() => header.hideAll()}>
                                 {t('header.myConsoles')}
                             </Link>
                         )}
                         {auth.user !== undefined && auth.user.role === 'admin' && (
                             <Link
-                                to="/manageConsoles"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                                to="/approveRegistrations"
+                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                                 onClick={() => header.hideAll()}>
+                                {t('header.approveRegistrations')}
+                            </Link>
+                        )}
+                        {auth.user !== undefined && auth.user.role === 'admin' && (
+                            <Link
+                                to="/manageConsoles"
+                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
+                                onClick={() => {
+                                    header.hideAll()
+                                }}>
                                 {t('header.manageConsoles')}
                             </Link>
                         )}
                         {auth.user !== undefined && auth.user.role === 'admin' && (
                             <Link
                                 to="/userConsoles"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                                 onClick={() => header.hideAll()}>
                                 {t('header.lendRequests')}
                             </Link>
@@ -110,27 +120,27 @@ function Header() {
                         {auth.user !== undefined && auth.user.role === 'admin' && (
                             <Link
                                 to="/manageBorrowings"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                                 onClick={() => header.hideAll()}>
                                 {t('header.borrowRequests')}
                             </Link>
                         )}
                         <Link
                             to="/contacts"
-                            className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                            className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                             onClick={() => header.hideAll()}>
                             {t('header.contacts')}
                         </Link>
                         <Link
                             to="/faq"
-                            className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                            className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                             onClick={() => header.hideAll()}>
                             {t('header.FAQ')}
                         </Link>
                         {auth.user === undefined && (
                             <Link
                                 to="/login"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                                 onClick={() => header.hideAll()}>
                                 {t('header.login')}
                             </Link>
@@ -138,7 +148,7 @@ function Header() {
                         {auth.user === undefined && (
                             <Link
                                 to="/register"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 md:mb-0 md:pr-2"
+                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                                 onClick={() => header.hideAll()}>
                                 {t('header.register')}
                             </Link>
@@ -147,7 +157,7 @@ function Header() {
                 </div>
 
                 {/* <!-- Right elements --> */}
-                <div className="relative flex items-center pl-3 md:pl-0">
+                <div className="relative flex items-center pl-3 lg:pl-0">
                     <button
                         className="pr-3 select-none"
                         value="en"

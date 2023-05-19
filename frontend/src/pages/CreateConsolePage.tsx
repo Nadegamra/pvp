@@ -59,11 +59,11 @@ function CreateConsolePage() {
                     window.location.href = '/manageConsoles'
                 })
             })}>
-            <div className="w-[400px] bg-bg-secondary p-7 rounded min-w-max">
+            <div className="w-[400px] bg-bg-secondary p-7 rounded max-w-max">
                 <div className="py-6 text-fs-h1 text-center">
                     {t('consoleManagementForm.newConsole') ?? ''}
                 </div>
-                <div className="mx-[10px] min-w-max">
+                <div className="mx-[10px]">
                     <input
                         type="text"
                         className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
@@ -100,8 +100,10 @@ function CreateConsolePage() {
                             : ''}
                     </p>
 
-                    <label htmlFor="images" className="cursor-pointer text-t-primary w-max">
-                        <span className="p-1 mr-1 bg-bg-primary text-t-primary rounded-sm border">
+                    <label
+                        htmlFor="images"
+                        className="cursor-pointer text-t-primary w-max flex flex-col sm:flex-row">
+                        <span className="p-1 mr-1 bg-bg-primary text-t-primary rounded-sm border max-w-max">
                             {t('userConsoleManagementForm.selectImages')}
                         </span>
                         {watch('images') === undefined && t('userConsoleManagementForm.noImage')}

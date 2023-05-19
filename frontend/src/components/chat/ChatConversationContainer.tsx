@@ -74,7 +74,6 @@ function ChatConversationContainer({
                     {conversations?.filter((x) => x.id === currentConversation)[0].userConsole !==
                     null ? (
                         <ConversationHeader>
-                            <ConversationHeader.Back />
                             <Avatar
                                 src={imagePathToURL(
                                     conversations?.filter((x) => x.id === currentConversation)[0]

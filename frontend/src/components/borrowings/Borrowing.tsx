@@ -45,10 +45,69 @@ function Borrowing({
     }, [id, status])
 
     return (
-        <div className="flex flex-col" style={{ height: getContainerHeight() }}>
+        <div
+            className="flex flex-col"
+            style={{
+                minHeight:
+                    getContainerHeight() -
+                    (document.getElementById('adminUserConsolesButtons')?.clientHeight ?? 0)
+            }}>
             <div className="text-center font-bold text-fs-h1">
                 {t('borrowing.borrowing')} #{borrowing?.id}
             </div>
+
+            {user?.role === 'borrower' && (
+                <span className="inline-block mx-auto mb-3">
+                    <Button
+                        id={1}
+                        text={
+                            borrowing?.status === BorrowingStatus.PENDING
+                                ? t('borrowing.getStatusPending')
+                                : borrowing?.status === BorrowingStatus.ACTIVE
+                                ? t('borrowing.getStatusActive')
+                                : t('borrowing.getStatusTerminating')
+                        }
+                        disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
+                    />
+                </span>
+            )}
+            {user?.role === 'admin' && (
+                <span className="inline-block mx-auto mb-3">
+                    <Button
+                        id={1}
+                        text={
+                            borrowing?.status === BorrowingStatus.PENDING
+                                ? t('borrowing.setStatusActive')
+                                : borrowing?.status === BorrowingStatus.ACTIVE
+                                ? t('borrowing.setStatusTerminating')
+                                : t('borrowing.getStatusTerminating')
+                        }
+                        dialog={false}
+                        dialogBody=""
+                        onClick={() => {
+                            updateBorrowingStatus(
+                                new BorrowingUpdateStatus(
+                                    borrowing?.id ?? -1,
+                                    borrowing?.status === BorrowingStatus.PENDING
+                                        ? BorrowingStatus.ACTIVE
+                                        : BorrowingStatus.AWAITING_TERMINATION
+                                )
+                            ).finally(() =>
+                                getBorrowingById(id)
+                                    .then((response) => {
+                                        setBorrowing(response.data)
+                                    })
+                                    .finally(() =>
+                                        canDeleteBorrowing(id)
+                                            .then((response) => setCanDelete(response.data))
+                                            .finally(() => setLoading(false))
+                                    )
+                            )
+                        }}
+                        disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
+                    />
+                </span>
+            )}
             <div className="pb-3">
                 {!loading && (
                     <BorrowingConsolesStatusSelectionAdmin
@@ -77,40 +136,22 @@ function Borrowing({
             </div>
             {user?.role === 'admin' && (
                 <div className="flex flex-row content-around">
-                    <span className="inline-block ml-5">
-                        <Button
-                            id={1}
-                            text={
-                                borrowing?.status === BorrowingStatus.PENDING
-                                    ? t('borrowing.setStatusActive')
-                                    : borrowing?.status === BorrowingStatus.ACTIVE
-                                    ? t('borrowing.setStatusTerminating')
-                                    : t('borrowing.getStatusTerminating')
-                            }
-                            dialog={false}
-                            dialogBody=""
-                            onClick={() => {
-                                updateBorrowingStatus(
-                                    new BorrowingUpdateStatus(
-                                        borrowing?.id ?? -1,
-                                        borrowing?.status === BorrowingStatus.PENDING
-                                            ? BorrowingStatus.ACTIVE
-                                            : BorrowingStatus.AWAITING_TERMINATION
+                    <span className="ml-5">
+                        {user?.role === 'admin' && !loading && (
+                            <Button
+                                text={t('userConsolePage.delete')}
+                                id={3}
+                                color="red"
+                                onClick={() => {
+                                    deleteBorrowing(borrowing!.id).then(
+                                        () => (window.location.href = '/manageConsoles')
                                     )
-                                ).finally(() =>
-                                    getBorrowingById(id)
-                                        .then((response) => {
-                                            setBorrowing(response.data)
-                                        })
-                                        .finally(() =>
-                                            canDeleteBorrowing(id)
-                                                .then((response) => setCanDelete(response.data))
-                                                .finally(() => setLoading(false))
-                                        )
-                                )
-                            }}
-                            disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
-                        />
+                                }}
+                                dialog={true}
+                                disabled={!canDelete!}
+                                dialogBody={t('button.dialogBody6')}
+                            />
+                        )}
                     </span>
                     <span className="inline-block ml-auto mr-5">
                         <Button
@@ -131,23 +172,7 @@ function Borrowing({
                     </span>
                 </div>
             )}
-            {user?.role === 'borrower' && (
-                <span className="inline-block ml-5">
-                    <Button
-                        id={1}
-                        text={
-                            borrowing?.status === BorrowingStatus.PENDING
-                                ? t('borrowing.getStatusPending')
-                                : borrowing?.status === BorrowingStatus.ACTIVE
-                                ? t('borrowing.getStatusActive')
-                                : t('borrowing.getStatusTerminating')
-                        }
-                        disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
-                    />
-                </span>
-            )}
-
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-6">
                 {!loading &&
                     borrowing?.userConsoles
                         .filter((x) => x.consoleStatus === status)
@@ -155,7 +180,7 @@ function Borrowing({
                         .map((userConsole) => (
                             <Link
                                 key={userConsole.id}
-                                className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
+                                className="rounded-lg cursor-pointer select-none w-max h-max mx-auto"
                                 to={
                                     user?.role === 'lender'
                                         ? `/consoles/${userConsole.id}`
@@ -198,23 +223,6 @@ function Borrowing({
                             pageRangeDisplayed={5}
                             pageCount={Math.ceil(borrowing!.userConsoles.length / itemsPerPage)}
                             renderOnZeroPageCount={null}
-                        />
-                    )}
-                </span>
-                <span className="mr-10">
-                    {user?.role === 'admin' && !loading && (
-                        <Button
-                            text={t('userConsolePage.delete')}
-                            id={3}
-                            color="red"
-                            onClick={() => {
-                                deleteBorrowing(borrowing!.id).then(
-                                    () => (window.location.href = '/manageConsoles')
-                                )
-                            }}
-                            dialog={true}
-                            disabled={!canDelete!}
-                            dialogBody={t('button.dialogBody6')}
                         />
                     )}
                 </span>

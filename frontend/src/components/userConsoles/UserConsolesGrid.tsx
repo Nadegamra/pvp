@@ -45,12 +45,18 @@ function UserConsolesGrid({ status }: { status: UserConsoleStatus }) {
     }
 
     return (
-        <div className="flex flex-col" style={{ minHeight: getContainerHeight() }}>
+        <div
+            className="flex flex-col"
+            style={{
+                minHeight:
+                    getContainerHeight() -
+                    (document.getElementById('adminUserConsolesButtons')?.clientHeight ?? 0)
+            }}>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {consoles?.slice(offset, offset + itemsPerPage).map((userConsole) => (
                     <Link
                         key={userConsole.id}
-                        className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
+                        className="rounded-lg cursor-pointer select-none w-max h-max m-auto"
                         to={
                             user?.role !== 'admin'
                                 ? `/consoles/${userConsole.id}`

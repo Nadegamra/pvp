@@ -37,7 +37,8 @@ i18n
                         borrowConsoles: 'Borrow Consoles',
                         chats: 'Chats',
                         lendRequests: 'Lendings',
-                        borrowRequests: 'Borrowings'
+                        borrowRequests: 'Borrowings',
+                        approveRegistrations: 'Approve borrowers'
                     },
                     contacts: {
                         contactInfo: 'Contact Information',
@@ -191,7 +192,8 @@ i18n
                         requestButton: 'Submit',
                         checkEmail: 'Please check your email for confirmation link',
                         requestSuccess:
-                            'Registration request has been submitted successfully. Please wait for confirmation via email'
+                            'Registration request has been submitted successfully. Please wait for confirmation via email',
+                        noRequests: 'Currently there are no registration requests'
                     },
                     footer: {
                         contacts: 'Contacts',
@@ -301,13 +303,13 @@ i18n
                         statusPending: 'Awaiting contract signing',
                         statusActive: 'Active',
                         statusTerminating: 'Awaiting console return',
-                        contactBorrower: 'Contact borrower',
+                        contactBorrower: 'Contact',
                         borrowing: 'Borrowing',
-                        getStatusPending: 'Borrowing is pending',
+                        getStatusPending: 'Status: pending',
                         setStatusActive: 'Activate borrowing',
-                        getStatusActive: 'Borrowing is active',
+                        getStatusActive: 'Status: active',
                         setStatusTerminating: 'Mark borrowing as terminated',
-                        getStatusTerminating: 'Borrowing is awaiting termination'
+                        getStatusTerminating: 'Status: awaiting termination'
                     }
                 }
             },
@@ -332,7 +334,8 @@ i18n
                         borrowConsoles: 'Išnuomoti konsoles',
                         chats: 'Pokalbiai',
                         lendRequests: 'Skolinamos konsolės',
-                        borrowRequests: 'Pasiskolinimai'
+                        borrowRequests: 'Pasiskolinimai',
+                        approveRegistrations: 'Besiskolinančių patvirtinimas'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',
@@ -486,7 +489,8 @@ i18n
                         checkEmail:
                             'Išsiųsta patvirtinimo nuorodą. Prašome patikrinti savo el. paštą',
                         requestSuccess:
-                            'Registracijos prašymas pateiktas sėkmingai. Prašome laukti patvirtinimo el. paštu.'
+                            'Registracijos prašymas pateiktas sėkmingai. Prašome laukti patvirtinimo el. paštu.',
+                        noRequests: 'Šiuo metu registracijos užklausų nėra'
                     },
                     footer: {
                         contacts: 'Kontaktai',
@@ -600,7 +604,7 @@ i18n
                         statusPending: 'Laukiama sutarties pasirašymo',
                         statusActive: 'Aktyvu',
                         statusTerminating: 'Laukiama konsolės grąžinimo',
-                        contactBorrower: 'Susisiekti su besiskolinančia įmone',
+                        contactBorrower: 'Susisiekti',
                         getStatusPending: 'Pasiskolinimas nepatvirtintas',
                         setStatusActive: 'Aktyvuoti pasiskolinimą',
                         getStatusActive: 'Pasiskolinimas aktyvus',
