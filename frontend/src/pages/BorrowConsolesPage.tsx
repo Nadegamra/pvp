@@ -74,7 +74,7 @@ function BorrowConsolesPage() {
                                             strokeWidth="2"
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
-                                            className="w-4 h-4 absolute top-2 left-7 z-10">
+                                            className="w-4 h-4 absolute top-2 left-7 z-10 bg-white rounded-lg">
                                             <path d="M20 6L9 17l-5-5" />
                                         </svg>
                                     )}
