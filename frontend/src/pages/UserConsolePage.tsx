@@ -143,12 +143,23 @@ function UserConsolePage() {
                             rules={{ required: true }}
                             render={() => (
                                 <Select
-                                    className="!bg-bg-secondary !text-[rgb(0,0,0)] mb-5"
+                                    className="mb-5"
                                     defaultValue={
                                         options.filter(
                                             (x) => x.value === userConsole?.consoleStatus
                                         )[0]
                                     }
+                                    theme={(theme) => ({
+                                        ...theme,
+                                        colors: {
+                                            ...theme.colors,
+                                            text: `var(${'--color-text-primary'})`,
+                                            neutral0: `var(${'--color-bg-secondary'})`,
+                                            neutral80: `var(${'--color-text-primary'})`,
+                                            primary25: `var(${'--color-bg-primary'})`,
+                                            primary50: `var(${'--color-bg-primary'})`
+                                        }
+                                    })}
                                     options={options}
                                     onChange={(e) => {
                                         setValue(

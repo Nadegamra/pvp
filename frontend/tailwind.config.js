@@ -20,6 +20,8 @@ module.exports = {
             't-secondary': `var(${'--color-text-secondary'})`,
             't-tertiary': `var(${'--color-text-tertiary'})`,
             't-hover': `var(${'--color-text-hover'})`,
+            'white': 'rgb(255,255,255)',
+            'black': 'rgb(0,0,0)'
         },
         fontFamily: {
             'ff-primary': `var(${'--font-family-primary'})`,

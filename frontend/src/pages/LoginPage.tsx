@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { UserLogin } from '../models/User'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import Button from '../components/ui/Button'
 
 function LoginPage() {
     const { t } = useTranslation()
@@ -27,7 +28,7 @@ function LoginPage() {
                 <div className="mx-[30px]">
                     <input
                         type="text"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('login.username') ?? ''}
                         {...register('username', { required: true })}
                         disabled={loading}
@@ -38,7 +39,7 @@ function LoginPage() {
 
                     <input
                         type="password"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('login.password') ?? ''}
                         {...register('password', { required: true })}
                         disabled={loading}
@@ -47,7 +48,7 @@ function LoginPage() {
                         {errors.password?.type === 'required' ? 'Password is required' : ''}
                     </p>
                 </div>
-                <div className="flex flex-row content-around w-full ml-[30px]">
+                <div className="flex flex-row content-around w-full ml-[30px] mb-3">
                     <label
                         htmlFor="remember"
                         className="text-left pb-[2px] cursor-pointer text-fs-primary">
@@ -66,14 +67,8 @@ function LoginPage() {
                         {t('login.forgotPassword')}
                     </Link>
                 </div>
-                <br />
                 <div className="flex flex-col items-center pt-5 text-fs-h2">
-                    <button
-                        className="bg-bg-extra py-1 px-7 rounded"
-                        type="submit"
-                        disabled={loading}>
-                        {t('login.login')}
-                    </button>
+                    <Button disabled={loading} text={t('login.login')} submit={true} />
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>

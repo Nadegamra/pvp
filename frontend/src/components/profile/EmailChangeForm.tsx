@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { getUnconfirmedEmails, sendEmailChangeToken } from '../../api/UsersApi'
 import { UserEmailChange } from '../../models/User'
 import { useForm } from 'react-hook-form'
+import Button from '../ui/Button'
 
 interface Props {
     newEmail: string
@@ -60,14 +61,11 @@ function EmailChangeForm() {
                     placeholder={t('emailChangeForm.enterNewEmail') ?? ''}
                     {...register('newEmail', { required: true })}
                 />
-                {errors.newEmail?.type === 'required' && (
-                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {t('emailChangeForm.emailErrorRequired')}
-                    </p>
-                )}
-                <button className="block bg-bg-extra p-2 rounded-md mt-5 mb-3">
-                    {t('emailChangeForm.saveChanges')}
-                </button>
+                <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                    {errors.newEmail?.type === 'required' &&
+                        t('emailChangeForm.emailErrorRequired')}
+                </p>
+                <Button text={t('emailChangeForm.saveChanges')} submit={true} />
                 {emailLoading && (
                     <div>
                         <div className="w-8 h-8 border-b-2 border-gray-900 rounded-full animate-spin"></div>

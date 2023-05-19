@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { submitRegisterRequest } from '../api/AuthApi'
 import { t } from 'i18next'
+import Button from '../components/ui/Button'
 
 interface UserRegisterPlus {
     username: string
@@ -50,7 +51,7 @@ export default function BorrowerRegisterPage() {
                 <div className="py-6 text-center text-fs-h1">{t('register.titleBorrowers')}</div>
                 <div className="mx-[30px]">
                     <input
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.companyCode') ?? ''}
                         {...register('companyCode', { required: true })}
                         disabled={auth.loading}
@@ -62,7 +63,7 @@ export default function BorrowerRegisterPage() {
                     </p>
 
                     <input
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.companyName') ?? ''}
                         {...register('companyName', { required: true })}
                         disabled={auth.loading}
@@ -75,7 +76,7 @@ export default function BorrowerRegisterPage() {
 
                     <input
                         type="email"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.email') ?? ''}
                         {...register('email', { required: true })}
                         disabled={auth.loading}
@@ -86,7 +87,7 @@ export default function BorrowerRegisterPage() {
 
                     <input
                         type="password"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.password') ?? ''}
                         {...register('password', { required: true })}
                         disabled={auth.loading}
@@ -97,7 +98,7 @@ export default function BorrowerRegisterPage() {
 
                     <input
                         type="password"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.repeatPassword') ?? ''}
                         {...register('passwordConfirmed', {
                             required: true,
@@ -118,12 +119,11 @@ export default function BorrowerRegisterPage() {
                     </p>
                 </div>
                 <div className="flex flex-col items-center pt-3">
-                    <button
-                        type="submit"
-                        className="bg-bg-extra py-1 px-7 rounded"
-                        disabled={auth.loading}>
-                        {t('register.requestButton') ?? ''}
-                    </button>
+                    <Button
+                        text={t('register.requestButton') ?? ''}
+                        submit={true}
+                        disabled={auth.loading}
+                    />
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>
