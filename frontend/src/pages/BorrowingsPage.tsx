@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
-import { BorrowingGet } from '../../models/Borrowing'
-import { getAllBorrowings } from '../../api/BorrowingsApi'
-import { useAuth } from '../../contexts/AuthContext'
-import { UserConsoleStatus } from '../../models/UserConsole'
-import Borrowing from './Borrowing'
-import BorrowingConsolesStatusSelectionAdmin from './BorrowingConsolesStatusSelectionAdmin'
+import { BorrowingGet } from '../models/Borrowing'
+import { UserConsoleStatus } from '../models/UserConsole'
+import { getAllBorrowings, getBorrowingsByUser } from '../api/BorrowingsApi'
+import { useAuth } from '../contexts/AuthContext'
+import Borrowing from '../components/borrowings/Borrowing'
+import { Link } from 'react-router-dom'
+import { getContainerHeight } from '../App'
 
-function BorrowingsList() {
+function BorrowingsPage() {
     const [loading, setLoading] = useState<boolean>(true)
     const [borrowings, setBorrowings] = useState<BorrowingGet[]>()
     const [currentBorrowing, setCurrentBorrowing] = useState<number>(0)
@@ -18,6 +19,15 @@ function BorrowingsList() {
     useEffect(() => {
         if (user?.role === 'admin') {
             getAllBorrowings()
+                .then((response) => {
+                    setBorrowings(response.data)
+                    setBorrowingState(response.data)
+                })
+                .finally(() => {
+                    setLoading(false)
+                })
+        } else if (user?.role === 'borrower') {
+            getBorrowingsByUser()
                 .then((response) => {
                     setBorrowings(response.data)
                     setBorrowingState(response.data)
@@ -58,8 +68,11 @@ function BorrowingsList() {
 
     return (
         <div>
-            <div className="pt-3" id="adminUserConsolesButtons">
-                <div id="borrowingsListPagination">
+            <div
+                className="flex flex-col"
+                id="userConsolesContainer"
+                style={{ minHeight: getContainerHeight() }}>
+                <div className="pt-3" id="adminUserConsolesButtons">
                     {!loading && (
                         <ReactPaginate
                             className="mx-auto flex flex-row py-5 list-style-none select-none w-max"
@@ -77,22 +90,35 @@ function BorrowingsList() {
                         />
                     )}
                 </div>
-            </div>
-            {!loading && borrowings !== undefined && borrowings.length > 0 && (
-                <div>
-                    {borrowings[currentBorrowing].userConsoles.filter(
-                        (x) => x.consoleStatus === status
-                    ).length > 0 && (
-                        <Borrowing
-                            id={borrowings[currentBorrowing].id}
-                            status={status}
-                            setStatus={setStatus}
-                        />
-                    )}
+                <div id="borrowingContainer" className="flex-1">
+                    {!loading &&
+                        borrowings !== undefined &&
+                        borrowings.length > 0 &&
+                        borrowings[currentBorrowing].userConsoles.filter(
+                            (x) => x.consoleStatus === status
+                        ).length > 0 && (
+                            <Borrowing
+                                id={borrowings[currentBorrowing].id}
+                                status={status}
+                                setStatus={setStatus}
+                            />
+                        )}
                 </div>
+            </div>
+            {user?.role === 'borrower' && (
+                <Link
+                    key={-1}
+                    className="fixed bottom-5 right-5 cursor-pointer select-none"
+                    to={`/borrowings/new`}>
+                    <div className="">
+                        <span className="material-symbols-outlined text-[100px] w-full text-center">
+                            add_circle
+                        </span>
+                    </div>
+                </Link>
             )}
         </div>
     )
 }
 
-export default BorrowingsList
+export default BorrowingsPage
