@@ -50,7 +50,7 @@ function Borrowing({
                 {t('borrowing.borrowing')} #{borrowing?.id}
             </div>
             <div className="pb-3">
-                {!loading && user?.role === 'admin' && (
+                {!loading && (
                     <BorrowingConsolesStatusSelectionAdmin
                         status={status}
                         setStatus={setStatus}
@@ -75,49 +75,52 @@ function Borrowing({
                     />
                 )}
             </div>
-            <div className="flex flex-row content-around">
-                <span className="inline-block ml-5">
-                    <Button
-                        id={1}
-                        text={
-                            borrowing?.status === BorrowingStatus.PENDING
-                                ? t('borrowing.setStatusActive')
-                                : borrowing?.status === BorrowingStatus.ACTIVE
-                                ? t('borrowing.setStatusTerminating')
-                                : t('borrowing.getStatusTerminating')
-                        }
-                        dialog={false}
-                        dialogBody=""
-                        onClick={() => {
-                            updateBorrowingStatus(
-                                new BorrowingUpdateStatus(
-                                    borrowing?.id ?? -1,
-                                    borrowing?.status === BorrowingStatus.PENDING
-                                        ? BorrowingStatus.ACTIVE
-                                        : BorrowingStatus.AWAITING_TERMINATION
-                                )
-                            ).then(() => window.location.reload())
-                        }}
-                    />
-                </span>
-                <span className="inline-block ml-auto mr-5">
-                    <Button
-                        id={2}
-                        text={t('borrowing.contactBorrower')}
-                        dialog={false}
-                        dialogBody=""
-                        onClick={() => {
-                            contactBorrower(borrowing!.id).then(() => {
-                                getBorrowingById(borrowing!.id).then((response) => {
-                                    window.location.href = `/chats/${
-                                        (response.data as BorrowingGet).conversationId
-                                    }`
+            {user?.role === 'admin' && (
+                <div className="flex flex-row content-around">
+                    <span className="inline-block ml-5">
+                        <Button
+                            id={1}
+                            text={
+                                borrowing?.status === BorrowingStatus.PENDING
+                                    ? t('borrowing.setStatusActive')
+                                    : borrowing?.status === BorrowingStatus.ACTIVE
+                                    ? t('borrowing.setStatusTerminating')
+                                    : t('borrowing.getStatusTerminating')
+                            }
+                            dialog={false}
+                            dialogBody=""
+                            onClick={() => {
+                                updateBorrowingStatus(
+                                    new BorrowingUpdateStatus(
+                                        borrowing?.id ?? -1,
+                                        borrowing?.status === BorrowingStatus.PENDING
+                                            ? BorrowingStatus.ACTIVE
+                                            : BorrowingStatus.AWAITING_TERMINATION
+                                    )
+                                ).then(() => window.location.reload())
+                            }}
+                        />
+                    </span>
+                    <span className="inline-block ml-auto mr-5">
+                        <Button
+                            id={2}
+                            text={t('borrowing.contactBorrower')}
+                            dialog={false}
+                            dialogBody=""
+                            onClick={() => {
+                                contactBorrower(borrowing!.id).then(() => {
+                                    getBorrowingById(borrowing!.id).then((response) => {
+                                        window.location.href = `/chats/${
+                                            (response.data as BorrowingGet).conversationId
+                                        }`
+                                    })
                                 })
-                            })
-                        }}
-                    />
-                </span>
-            </div>
+                            }}
+                        />
+                    </span>
+                </div>
+            )}
+
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {!loading &&
                     borrowing?.userConsoles
@@ -128,9 +131,11 @@ function Borrowing({
                                 key={userConsole.id}
                                 className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
                                 to={
-                                    user?.role !== 'admin'
+                                    user?.role === 'lender'
                                         ? `/consoles/${userConsole.id}`
-                                        : `/userConsoles/${userConsole.id}`
+                                        : user?.role === 'admin'
+                                        ? `/userConsoles/${userConsole.id}`
+                                        : `/borrowedConsoles/${userConsole.id}`
                                 }>
                                 <div className="relative">
                                     <div className="absolute right-1 bottom-1 bg-bg-primary rounded-md px-1">
@@ -155,7 +160,7 @@ function Borrowing({
                 <span className="mr-auto">
                     {!loading && (
                         <ReactPaginate
-                            className="ml-5 flex flex-row my-5 list-style-none select-none"
+                            className="ml-5 flex flex-row py-5 list-style-none select-none"
                             previousLabel="Previous"
                             nextLabel="Next"
                             activeClassName="!bg-bg-extra"
@@ -171,7 +176,7 @@ function Borrowing({
                     )}
                 </span>
                 <span className="mr-10">
-                    {!loading && (
+                    {user?.role === 'admin' && !loading && (
                         <Button
                             text={t('userConsolePage.delete')}
                             id={3}
