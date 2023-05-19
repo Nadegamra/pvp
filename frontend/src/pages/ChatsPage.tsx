@@ -1,4 +1,3 @@
-import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css'
 import { MainContainer } from '@chatscope/chat-ui-kit-react'
 import { useEffect, useState } from 'react'
 import { ConversationGet } from '../models/Conversation'
@@ -74,7 +73,7 @@ function ChatsPage() {
 
     return (
         <div style={{ height: getContainerHeight() }}>
-            <MainContainer responsive>
+            <MainContainer>
                 <ChatConversationSidebar
                     search={search}
                     setSearch={setSearch}

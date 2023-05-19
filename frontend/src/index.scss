@@ -24,6 +24,9 @@ code {
         --color-text-secondary: black;
         --color-text-tertiary: black;
         --color-text-hover: rgb(37 99 235);
+
+        --color-text-inverted: white;
+        --color-bg-chat: #dedee0;
     }
     [data-theme='dark'] {
         --color-bg-primary: #0d1117;
@@ -34,5 +37,12 @@ code {
         --color-text-secondary: white;
         --color-text-tertiary: white;
         --color-text-hover: rgb(37 99 235);
+
+        --color-text-inverted: black;
+        --color-bg-chat: #3d3d3d;
     }
 }
+
+// @import "../node_modules/@chatscope/chat-ui-kit-styles/themes/default/variables";
+// @import "./components/chat/scss/variables.scss";
+@import "./components/chat/scss/main";       

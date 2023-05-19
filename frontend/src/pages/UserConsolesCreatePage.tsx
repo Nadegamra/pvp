@@ -118,7 +118,7 @@ function UserConsolesCreatePage() {
 
                     <input
                         type="text"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('userConsoleManagementForm.accessories') ?? ''}
                         {...register('accessories', { required: true })}
                     />
@@ -130,7 +130,7 @@ function UserConsolesCreatePage() {
 
                     <input
                         type="number"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('userConsoleManagementForm.amount') ?? ''}
                         {...register('amount', { required: true })}
                     />
@@ -140,7 +140,7 @@ function UserConsolesCreatePage() {
                             : ''}
                     </p>
                     <label htmlFor="images" className="cursor-pointer">
-                        <span className="p-1 mr-1 bg-[rgb(255,255,255)] text-[rgb(0,0,0)] rounded-sm border">
+                        <span className="p-1 mr-1 bg-bg-primary text-t-primary rounded-sm border">
                             {t('userConsoleManagementForm.selectImages')}
                         </span>
                         {watch('images') !== undefined &&

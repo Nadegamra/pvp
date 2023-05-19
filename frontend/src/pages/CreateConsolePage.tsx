@@ -66,7 +66,7 @@ function CreateConsolePage() {
                 <div className="mx-[10px] min-w-max">
                     <input
                         type="text"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('consoleManagementForm.name') ?? ''}
                         {...register('name', { required: true })}
                     />
@@ -78,7 +78,7 @@ function CreateConsolePage() {
 
                     <input
                         type="text"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('consoleManagementForm.description') ?? ''}
                         {...register('description', { required: true })}
                     />
@@ -90,7 +90,7 @@ function CreateConsolePage() {
 
                     <input
                         type="number"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('consoleManagementForm.dailyPrice') ?? ''}
                         {...register('dailyPrice', { required: true })}
                     />
@@ -101,7 +101,7 @@ function CreateConsolePage() {
                     </p>
 
                     <label htmlFor="images" className="cursor-pointer text-t-primary w-max">
-                        <span className="p-1 mr-1 bg-[rgb(255,255,255)] text-[rgb(0,0,0)] rounded-sm border">
+                        <span className="p-1 mr-1 bg-bg-primary text-t-primary rounded-sm border">
                             {t('userConsoleManagementForm.selectImages')}
                         </span>
                         {watch('images') === undefined && t('userConsoleManagementForm.noImage')}
