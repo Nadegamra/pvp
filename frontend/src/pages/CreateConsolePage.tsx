@@ -55,8 +55,8 @@ function CreateConsolePage() {
                     data.dailyPrice,
                     images
                 )
-                addConsole(consoleAdd).then((response) => {
-                    window.location.href = '/admin/consoles'
+                addConsole(consoleAdd).then(() => {
+                    window.location.href = '/manageConsoles'
                 })
             })}>
             <div className="w-[400px] bg-bg-secondary p-7 rounded min-w-max">

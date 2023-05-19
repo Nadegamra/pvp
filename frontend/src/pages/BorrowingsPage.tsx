@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { BorrowingGet } from '../models/Borrowing'
-import { UserConsoleStatus } from '../models/UserConsole'
+import { UserConsoleGet, UserConsoleStatus } from '../models/UserConsole'
 import { getAllBorrowings, getBorrowingsByUser } from '../api/BorrowingsApi'
 import { useAuth } from '../contexts/AuthContext'
 import Borrowing from '../components/borrowings/Borrowing'
@@ -21,7 +21,7 @@ function BorrowingsPage() {
             getAllBorrowings()
                 .then((response) => {
                     setBorrowings(response.data)
-                    setBorrowingState(response.data)
+                    setBorrowingState((response.data as BorrowingGet[])[0].userConsoles)
                 })
                 .finally(() => {
                     setLoading(false)
@@ -30,7 +30,7 @@ function BorrowingsPage() {
             getBorrowingsByUser()
                 .then((response) => {
                     setBorrowings(response.data)
-                    setBorrowingState(response.data)
+                    setBorrowingState((response.data as BorrowingGet[])[0].userConsoles)
                 })
                 .finally(() => {
                     setLoading(false)
@@ -40,21 +40,17 @@ function BorrowingsPage() {
 
     const handleBorrowingClick = (event: { selected: number }) => {
         setCurrentBorrowing(event.selected)
-        setBorrowingState(borrowings!)
+        setBorrowingState(borrowings![event.selected].userConsoles)
     }
 
-    const setBorrowingState = (borrowings: BorrowingGet[]) => {
+    const setBorrowingState = (userConsoles: UserConsoleGet[]) => {
         const states = [
-            borrowings![currentBorrowing].userConsoles.filter(
-                (x) => x.consoleStatus === UserConsoleStatus.RESERVED
-            ).length > 0,
-            borrowings![currentBorrowing].userConsoles.filter(
-                (x) => x.consoleStatus === UserConsoleStatus.AT_LENDER
-            ).length > 0,
-            borrowings![currentBorrowing].userConsoles.filter(
+            userConsoles.filter((x) => x.consoleStatus === UserConsoleStatus.RESERVED).length > 0,
+            userConsoles.filter((x) => x.consoleStatus === UserConsoleStatus.AT_LENDER).length > 0,
+            userConsoles.filter(
                 (x) => x.consoleStatus === UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
             ).length > 0,
-            borrowings![currentBorrowing].userConsoles.filter(
+            userConsoles.filter(
                 (x) => x.consoleStatus === UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER
             ).length > 0
         ]
@@ -91,18 +87,13 @@ function BorrowingsPage() {
                     )}
                 </div>
                 <div id="borrowingContainer" className="flex-1">
-                    {!loading &&
-                        borrowings !== undefined &&
-                        borrowings.length > 0 &&
-                        borrowings[currentBorrowing].userConsoles.filter(
-                            (x) => x.consoleStatus === status
-                        ).length > 0 && (
-                            <Borrowing
-                                id={borrowings[currentBorrowing].id}
-                                status={status}
-                                setStatus={setStatus}
-                            />
-                        )}
+                    {!loading && borrowings !== undefined && borrowings.length > 0 && (
+                        <Borrowing
+                            id={borrowings[currentBorrowing].id}
+                            status={status}
+                            setStatus={setStatus}
+                        />
+                    )}
                 </div>
             </div>
             {user?.role === 'borrower' && (

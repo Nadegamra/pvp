@@ -303,9 +303,11 @@ i18n
                         statusTerminating: 'Awaiting console return',
                         contactBorrower: 'Contact borrower',
                         borrowing: 'Borrowing',
+                        getStatusPending: 'Borrowing is pending',
                         setStatusActive: 'Activate borrowing',
+                        getStatusActive: 'Borrowing is active',
                         setStatusTerminating: 'Mark borrowing as terminated',
-                        getStatusTerminating: 'This borrowing is terminated'
+                        getStatusTerminating: 'Borrowing is awaiting termination'
                     }
                 }
             },
@@ -599,7 +601,9 @@ i18n
                         statusActive: 'Aktyvu',
                         statusTerminating: 'Laukiama konsolės grąžinimo',
                         contactBorrower: 'Susisiekti su besiskolinančia įmone',
+                        getStatusPending: 'Pasiskolinimas nepatvirtintas',
                         setStatusActive: 'Aktyvuoti pasiskolinimą',
+                        getStatusActive: 'Pasiskolinimas aktyvus',
                         setStatusTerminating: 'Pažymėti pasiskolinimą pasibagiusiu',
                         getStatusTerminating: 'Pasiskolinimas pasibaigęs'
                     }

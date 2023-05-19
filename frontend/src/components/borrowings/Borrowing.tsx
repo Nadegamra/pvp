@@ -97,8 +97,19 @@ function Borrowing({
                                             ? BorrowingStatus.ACTIVE
                                             : BorrowingStatus.AWAITING_TERMINATION
                                     )
-                                ).then(() => window.location.reload())
+                                ).finally(() =>
+                                    getBorrowingById(id)
+                                        .then((response) => {
+                                            setBorrowing(response.data)
+                                        })
+                                        .finally(() =>
+                                            canDeleteBorrowing(id)
+                                                .then((response) => setCanDelete(response.data))
+                                                .finally(() => setLoading(false))
+                                        )
+                                )
                             }}
+                            disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
                         />
                     </span>
                     <span className="inline-block ml-auto mr-5">
@@ -119,6 +130,21 @@ function Borrowing({
                         />
                     </span>
                 </div>
+            )}
+            {user?.role === 'borrower' && (
+                <span className="inline-block ml-5">
+                    <Button
+                        id={1}
+                        text={
+                            borrowing?.status === BorrowingStatus.PENDING
+                                ? t('borrowing.getStatusPending')
+                                : borrowing?.status === BorrowingStatus.ACTIVE
+                                ? t('borrowing.getStatusActive')
+                                : t('borrowing.getStatusTerminating')
+                        }
+                        disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
+                    />
+                </span>
             )}
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
