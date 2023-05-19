@@ -53,67 +53,58 @@ function AddressForm() {
                     <div className="font-bold">{t('addressForm.country')}</div>
                     <input
                         disabled
-                        className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                        className="bg-bg-primary border p-2 rounded-md w-[300px]"
                         placeholder={t('addressForm.enterCountry') ?? ''}
                         {...register('country', { required: true })}
                     />
-                    {errors.country?.type === 'required' && (
-                        <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                            {t('addressForm.countryError')}
-                        </p>
-                    )}
+                    <p className="mb-2 text-fs-primary text-danger-500 h-3">
+                        {errors.country?.type === 'required' && t('addressForm.countryError')}
+                    </p>
                 </div>
                 <div>
                     <div className="font-bold">{t('addressForm.county')}</div>
                     <input
-                        className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                        className="bg-bg-primary border p-2 rounded-md w-[300px]"
                         placeholder={t('addressForm.enterCounty') ?? ''}
                         {...register('county', { required: true })}
                     />
-                    {errors.county?.type === 'required' && (
-                        <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                            {t('addressForm.countyError')}
-                        </p>
-                    )}
+                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                        {errors.county?.type === 'required' && t('addressForm.countyError')}
+                    </p>
                 </div>
                 <div>
                     <div className="font-bold">{t('addressForm.city')}</div>
                     <input
-                        className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                        className="bg-bg-primary border p-2 rounded-md w-[300px]"
                         placeholder={t('addressForm.enterCity') ?? ''}
                         {...register('city', { required: true })}
                     />
-                    {errors.city?.type === 'required' && (
-                        <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                            {t('addressForm.cityError')}
-                        </p>
-                    )}
+                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                        {errors.city?.type === 'required' && t('addressForm.cityError')}
+                    </p>
                 </div>
                 <div>
                     <div className="font-bold">{t('addressForm.streetAddress')}</div>
                     <input
-                        className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                        className="bg-bg-primary border p-2 rounded-md w-[300px]"
                         placeholder={t('addressForm.enterStreetAddress') ?? ''}
                         {...register('streetAddress', { required: true })}
                     />
-                    {errors.streetAddress?.type === 'required' && (
-                        <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                            {t('addressForm.streetAddressError')}
-                        </p>
-                    )}
+                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                        {errors.streetAddress?.type === 'required' &&
+                            t('addressForm.streetAddressError')}
+                    </p>
                 </div>
                 <div>
                     <div className="font-bold">{t('addressForm.postalCode')}</div>
                     <input
-                        className="bg-bg-primary border p-2 rounded-md mb-3 w-[300px]"
+                        className="bg-bg-primary border p-2 rounded-md w-[300px]"
                         placeholder={t('addressForm.enterPostalCode') ?? ''}
                         {...register('postalCode', { required: true })}
                     />
-                    {errors.postalCode?.type === 'required' && (
-                        <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                            {t('addressForm.postalCodeError')}
-                        </p>
-                    )}
+                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                        {errors.postalCode?.type === 'required' && t('addressForm.postalCodeError')}
+                    </p>
                 </div>
             </div>
             <Button text={t('addressForm.saveChanges')} submit={true} />
