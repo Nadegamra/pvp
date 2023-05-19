@@ -1,6 +1,6 @@
 import { t } from 'i18next'
 import { Link } from 'react-router-dom'
-import { UserConsoleGet, ConsoleStatus, UserConsolesStatusRequest } from '../models/UserConsole'
+import { UserConsoleGet, UserConsoleStatus, UserConsolesStatusRequest } from '../models/UserConsole'
 import { useEffect, useState } from 'react'
 import { imagePathToURL } from '../models/Image'
 import Button from '../components/ui/Button'
@@ -17,7 +17,7 @@ function BorrowConsolesPage() {
     const handlePageClick = (event: { selected: number }) => {
         setOffset((event.selected * itemsPerPage) % consoles!.length)
     }
-    const [status, setStatus] = useState<ConsoleStatus>(ConsoleStatus.AT_PLATFORM)
+    const [status, setStatus] = useState<UserConsoleStatus>(UserConsoleStatus.AT_PLATFORM)
     const [selectedConsoles, setSelectedConsoles] = useState<string[]>([])
 
     const toggleConsoleSelection = (consoleId: string) => {
@@ -95,7 +95,7 @@ function BorrowConsolesPage() {
                             dialog={false}
                             dialogBody={t('button.dialogBody3')}
                             onClick={() => {
-                                setStatus(ConsoleStatus.AT_LENDER)
+                                setStatus(UserConsoleStatus.AT_LENDER)
                             }}
                         />
                         </div>
