@@ -5,15 +5,16 @@ import { UserConsoleGet, UserConsoleStatus } from '../models/UserConsole'
 import { getAllBorrowings, getBorrowingsByUser } from '../api/BorrowingsApi'
 import { useAuth } from '../contexts/AuthContext'
 import Borrowing from '../components/borrowings/Borrowing'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { getContainerHeight } from '../App'
 
 function BorrowingsPage() {
+    const { id } = useParams()
     const [loading, setLoading] = useState<boolean>(true)
     const [borrowings, setBorrowings] = useState<BorrowingGet[]>()
-    const [currentBorrowing, setCurrentBorrowing] = useState<number>(0)
     const [status, setStatus] = useState<UserConsoleStatus>(UserConsoleStatus.RESERVED)
-
+    const [currentBorrowing, setCurrentBorrowing] = useState<number>()
+    const [page, setPage] = useState<number>()
     const { user } = useAuth()
 
     useEffect(() => {
@@ -21,7 +22,27 @@ function BorrowingsPage() {
             getAllBorrowings()
                 .then((response) => {
                     setBorrowings(response.data)
-                    setBorrowingState((response.data as BorrowingGet[])[0].userConsoles)
+                    if (id !== undefined) {
+                        setCurrentBorrowing(parseInt(id))
+                        setBorrowingState(
+                            (response.data as BorrowingGet[]).filter(
+                                (x) => x.id === parseInt(id)
+                            )[0].userConsoles
+                        )
+
+                        setPage(
+                            (response.data as BorrowingGet[]).indexOf(
+                                (response.data as BorrowingGet[]).filter(
+                                    (x) => x.id === parseInt(id)
+                                )[0]
+                            )
+                        )
+                    } else {
+                        setCurrentBorrowing((response.data as BorrowingGet[])[0].id)
+                        setBorrowingState((response.data as BorrowingGet[])[0].userConsoles)
+                        console.log(0)
+                        setPage(0)
+                    }
                 })
                 .finally(() => {
                     setLoading(false)
@@ -30,7 +51,27 @@ function BorrowingsPage() {
             getBorrowingsByUser()
                 .then((response) => {
                     setBorrowings(response.data)
-                    setBorrowingState((response.data as BorrowingGet[])[0].userConsoles)
+                    if (id !== undefined) {
+                        setCurrentBorrowing(parseInt(id))
+                        setBorrowingState(
+                            (response.data as BorrowingGet[]).filter(
+                                (x) => x.id === parseInt(id)
+                            )[0].userConsoles
+                        )
+
+                        setPage(
+                            (response.data as BorrowingGet[]).indexOf(
+                                (response.data as BorrowingGet[]).filter(
+                                    (x) => x.id === parseInt(id)
+                                )[0]
+                            )
+                        )
+                    } else {
+                        setCurrentBorrowing((response.data as BorrowingGet[])[0].id)
+                        setBorrowingState((response.data as BorrowingGet[])[0].userConsoles)
+                        console.log(0)
+                        setPage(0)
+                    }
                 })
                 .finally(() => {
                     setLoading(false)
@@ -39,7 +80,7 @@ function BorrowingsPage() {
     }, [])
 
     const handleBorrowingClick = (event: { selected: number }) => {
-        setCurrentBorrowing(event.selected)
+        setCurrentBorrowing(borrowings![event.selected].id)
         setBorrowingState(borrowings![event.selected].userConsoles)
     }
 
@@ -83,13 +124,14 @@ function BorrowingsPage() {
                             pageRangeDisplayed={5}
                             pageCount={Math.ceil(borrowings!.length)}
                             renderOnZeroPageCount={null}
+                            forcePage={page}
                         />
                     )}
                 </div>
                 <div id="borrowingContainer" className="flex-1">
                     {!loading && borrowings !== undefined && borrowings.length > 0 && (
                         <Borrowing
-                            id={borrowings[currentBorrowing].id}
+                            id={currentBorrowing ?? -1}
                             status={status}
                             setStatus={setStatus}
                         />

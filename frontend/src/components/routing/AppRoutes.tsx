@@ -54,6 +54,7 @@ export default function AppRoutes() {
                 <Route path="/userConsoles" element={<UserConsolesPage />} />
                 <Route path="/userConsoles/:id" element={<UserConsolePage />} />
                 <Route path="/manageBorrowings" element={<BorrowingsPage />} />
+                <Route path="/manageBorrowings/:id" element={<BorrowingsPage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
                 <Route path="/consoles" element={<UserConsolesPage />} />
@@ -63,6 +64,7 @@ export default function AppRoutes() {
             <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
                 <Route path="/borrowings/new" element={<BorrowConsolesPage />} />
                 <Route path="/borrowings" element={<BorrowingsPage />} />
+                <Route path="/borrowings/:id" element={<BorrowingsPage />} />
                 <Route path="/borrowedConsoles/:id" element={<UserConsolePage />} />
             </Route>
         </Routes>

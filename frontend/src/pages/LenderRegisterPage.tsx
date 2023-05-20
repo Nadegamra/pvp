@@ -75,7 +75,11 @@ export default function LenderRegisterPage() {
                         <label className="mr-3 text-fs-primary">
                             {t('register.asCompany') ?? ''}
                         </label>
-                        <input type="checkbox" {...register('isCompany')} />
+                        <input
+                            type="checkbox"
+                            className="form-checkbox mr-[10px] w-4 h-4 rounded hover:bg-bg-extra checked:bg-bg-extra bg-bg-secondary focus:ring-0 focus:outline-none border-t-primary border-t-t-primary"
+                            {...register('isCompany')}
+                        />
                     </div>
                     {watch('isCompany') ? (
                         <>
