@@ -61,8 +61,8 @@ function Borrowing({
             </div>
 
             {user?.role === 'borrower' && !loading && (
-                <div className="flex flex-row content-around mb-3">
-                    <span className="inline-block mr-auto ml-5">
+                <div className="flex flex-col sm:flex-row content-around mb-3">
+                    <span className="inline-block mx-auto mb-1 sm:mr-auto sm:ml-5">
                         <Button
                             id={1}
                             text={
@@ -76,7 +76,7 @@ function Borrowing({
                         />
                     </span>
                     {borrowing?.conversationId !== null && (
-                        <span className="inline-block ml-auto mr-5">
+                        <span className="inline-block mx-auto sm:ml-auto sm:mr-5">
                             <Button
                                 id={2}
                                 text={t('borrowing.contactBorrower')}

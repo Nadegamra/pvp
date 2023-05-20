@@ -59,13 +59,28 @@ function ChatConversationSidebar({
                                         : ''
                                 }
                                 active={currentConversation === conversation.id}>
-                                {conversation.userConsole !== null && (
+                                {conversation.userConsole !== null ? (
                                     <Avatar
                                         src={imagePathToURL(
                                             conversation.userConsole.images[0].path,
                                             256
                                         )}
                                     />
+                                ) : (
+                                    <Avatar>
+                                        <img
+                                            src={
+                                                (localStorage.getItem('data-theme') ?? 'dark') ==
+                                                'dark'
+                                                    ? '/logoLight.png'
+                                                    : '/logoDark.png'
+                                            }
+                                            alt=""
+                                        />
+                                        <div className="translate-y-[-13px] translate-x-[-5px]">
+                                            #{conversation.borrowingId}
+                                        </div>
+                                    </Avatar>
                                 )}
                             </Conversation>
                         ))}
