@@ -168,6 +168,7 @@ i18n
                         title: 'Registration',
                         titleBorrowers: 'Borrower registration',
                         asCompany: 'Register as company?',
+                        asBorrower: 'Do you wish borrow consoles?',
                         companyCode: 'Company Code',
                         companyCodeError: 'Company Code is required',
                         companyName: 'Company Name',
@@ -458,7 +459,8 @@ i18n
                     register: {
                         title: 'Registracija',
                         titleBorrowers: 'Registracija besiskolinantiems',
-                        asCompany: 'Registruotis kaip įmonei?',
+                        asCompany: 'Norite registruotis kaip įmonė?',
+                        asBorrower: 'Ieškote konsolių savo verslui?',
                         companyCode: 'Įmonės kodas',
                         companyCodeError: 'Reikia įvesti įmonės kodą',
                         companyName: 'Įmonės pavadinimas',

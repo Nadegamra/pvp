@@ -1,7 +1,7 @@
 import { RegisterLegal, RegisterPhysical } from '../models/User'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
-import { registerLenderLegal, registerLenderPhysical } from '../api/AuthApi'
+import { registerLenderLegal, registerLenderPhysical, submitRegisterRequest } from '../api/AuthApi'
 import { t } from 'i18next'
 import Button from '../components/ui/Button'
 
@@ -16,9 +16,10 @@ interface UserRegisterPlus {
     companyCode?: string
     companyName?: string
     isCompany: boolean
+    isBorrower: boolean
 }
 
-export default function LenderRegisterPage() {
+export default function RegisterPage() {
     const {
         register,
         handleSubmit,
@@ -29,20 +30,37 @@ export default function LenderRegisterPage() {
         setLoading(true)
         setError('')
         if (watch('isCompany')) {
-            registerLenderLegal(
-                new RegisterLegal(
-                    watch('email'),
-                    watch('companyCode') ?? '',
-                    watch('companyName') ?? '',
-                    watch('email'),
-                    watch('password')
+            if (watch('isBorrower')) {
+                submitRegisterRequest(
+                    new RegisterLegal(
+                        watch('email'),
+                        watch('companyCode') ?? '',
+                        watch('companyName') ?? '',
+                        watch('email'),
+                        watch('password')
+                    )
                 )
-            )
-                .then(() => {
-                    setLoading(false)
-                    setMessage(t('register.checkEmail') ?? '')
-                })
-                .catch((error) => setError(error))
+                    .then(() => {
+                        setLoading(false)
+                        setMessage(t('register.requestSuccess') ?? '')
+                    })
+                    .catch((error) => setError(error))
+            } else {
+                registerLenderLegal(
+                    new RegisterLegal(
+                        watch('email'),
+                        watch('companyCode') ?? '',
+                        watch('companyName') ?? '',
+                        watch('email'),
+                        watch('password')
+                    )
+                )
+                    .then(() => {
+                        setLoading(false)
+                        setMessage(t('register.checkEmail') ?? '')
+                    })
+                    .catch((error) => setError(error))
+            }
         } else {
             registerLenderPhysical(
                 new RegisterPhysical(
@@ -71,73 +89,6 @@ export default function LenderRegisterPage() {
             <div className="w-80 bg-bg-secondary pb-5 rounded">
                 <div className="py-6 text-fs-h1 text-center">{t('register.title') ?? ''}</div>
                 <div className="mx-[30px]">
-                    <div className="flex items-center justify-between mb-3">
-                        <label className="mr-3 text-fs-primary">
-                            {t('register.asCompany') ?? ''}
-                        </label>
-                        <input
-                            type="checkbox"
-                            className="form-checkbox mr-[10px] w-4 h-4 rounded hover:bg-bg-extra checked:bg-bg-extra bg-bg-secondary focus:ring-0 focus:outline-none border-t-primary border-t-t-primary"
-                            {...register('isCompany')}
-                        />
-                    </div>
-                    {watch('isCompany') ? (
-                        <>
-                            <input
-                                type="companyCode"
-                                className="w-full bg-bg-primary border p-2 rounded-md"
-                                placeholder={t('register.companyCode') ?? ''}
-                                {...register('companyCode', { required: true })}
-                                disabled={loading}
-                            />
-                            <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                                {errors.companyCode?.type === 'required'
-                                    ? t('register.companyCodeError')
-                                    : ''}
-                            </p>
-
-                            <input
-                                type="companyName"
-                                className="w-full bg-bg-primary border p-2 rounded-md"
-                                placeholder={t('register.companyName') ?? ''}
-                                {...register('companyName', { required: true })}
-                                disabled={loading}
-                            />
-                            <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                                {errors.companyName?.type === 'required'
-                                    ? t('register.companyNameError')
-                                    : ''}
-                            </p>
-                        </>
-                    ) : (
-                        <>
-                            <input
-                                type="firstName"
-                                className="w-full bg-bg-primary border p-2 rounded-md"
-                                placeholder={t('register.firstName') ?? ''}
-                                {...register('firstName', { required: true })}
-                                disabled={loading}
-                            />
-                            <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                                {errors.firstName?.type === 'required'
-                                    ? t('register.firstNameError')
-                                    : ''}
-                            </p>
-
-                            <input
-                                type="lastName"
-                                className="w-full bg-bg-primary border p-2 rounded-md"
-                                placeholder={t('register.lastName') ?? ''}
-                                {...register('lastName', { required: true })}
-                                disabled={loading}
-                            />
-                            <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                                {errors.lastName?.type === 'required'
-                                    ? t('register.lastNameError')
-                                    : ''}
-                            </p>
-                        </>
-                    )}
                     <input
                         type="email"
                         className="w-full bg-bg-primary border p-2 rounded-md"
@@ -181,6 +132,87 @@ export default function LenderRegisterPage() {
                             ? t('register.passwordMismatchError')
                             : ''}
                     </p>
+                    <div className="flex items-center justify-between mb-3">
+                        <label className="mr-3 text-fs-primary">
+                            {t('register.asCompany') ?? ''}
+                        </label>
+                        <input
+                            type="checkbox"
+                            className="form-checkbox mr-[10px] w-4 h-4 rounded hover:bg-bg-extra checked:bg-bg-extra bg-bg-secondary focus:ring-0 focus:outline-none border-t-primary border-t-t-primary"
+                            {...register('isCompany')}
+                        />
+                    </div>
+                    {watch('isCompany') ? (
+                        <div>
+                            <input
+                                type="companyCode"
+                                className="w-full bg-bg-primary border p-2 rounded-md"
+                                placeholder={t('register.companyCode') ?? ''}
+                                {...register('companyCode', { required: true })}
+                                disabled={loading}
+                            />
+                            <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                                {errors.companyCode?.type === 'required'
+                                    ? t('register.companyCodeError')
+                                    : ''}
+                            </p>
+
+                            <input
+                                type="companyName"
+                                className="w-full bg-bg-primary border p-2 rounded-md"
+                                placeholder={t('register.companyName') ?? ''}
+                                {...register('companyName', { required: true })}
+                                disabled={loading}
+                            />
+                            <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                                {errors.companyName?.type === 'required'
+                                    ? t('register.companyNameError')
+                                    : ''}
+                            </p>
+                        </div>
+                    ) : (
+                        <div>
+                            <input
+                                type="firstName"
+                                className="w-full bg-bg-primary border p-2 rounded-md"
+                                placeholder={t('register.firstName') ?? ''}
+                                {...register('firstName', { required: true })}
+                                disabled={loading}
+                            />
+                            <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                                {errors.firstName?.type === 'required'
+                                    ? t('register.firstNameError')
+                                    : ''}
+                            </p>
+
+                            <input
+                                type="lastName"
+                                className="w-full bg-bg-primary border p-2 rounded-md"
+                                placeholder={t('register.lastName') ?? ''}
+                                {...register('lastName', { required: true })}
+                                disabled={loading}
+                            />
+                            <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                                {errors.lastName?.type === 'required'
+                                    ? t('register.lastNameError')
+                                    : ''}
+                            </p>
+                        </div>
+                    )}
+                    <div className="mb-3 h-4">
+                        {watch('isCompany') && (
+                            <div className="flex items-center justify-between">
+                                <label className="mr-3 text-fs-primary">
+                                    {t('register.asBorrower') ?? ''}
+                                </label>
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox mr-[10px] w-4 h-4 rounded hover:bg-bg-extra checked:bg-bg-extra bg-bg-secondary focus:ring-0 focus:outline-none border-t-primary border-t-t-primary"
+                                    {...register('isBorrower')}
+                                />
+                            </div>
+                        )}
+                    </div>
                 </div>
                 <div className="flex flex-col items-center pt-3">
                     <Button
@@ -195,8 +227,8 @@ export default function LenderRegisterPage() {
                 <div className="pt-4 text-fs-primary text-success-500 text-center">{message}</div>
             )}
             {loading && (
-                <div className="flex items-center justify-center pt-10">
-                    <div className="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                <div className="flex items-center justify-center">
+                    <div className="w-7 h-7 border-b-2 border-gray-900 rounded-full animate-spin"></div>
                 </div>
             )}
         </form>
