@@ -1,10 +1,10 @@
 import { ReactNode, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useHeader } from '../../contexts/HeaderContext'
 import { useTranslation } from 'react-i18next'
 import ReactCountryFlag from 'react-country-flag'
-
+import HeaderLink from './HeaderLink'
+import { useMediaQuery } from 'react-responsive'
 function Header() {
     const { t, i18n } = useTranslation()
     const [darkmode, setDarkmode] = useState<boolean>(
@@ -22,6 +22,7 @@ function Header() {
     }
 
     const header = useHeader()
+    const isBigScreen = useMediaQuery({ query: '(min-width: 1024px)' })
 
     useEffect(() => {
         document.documentElement.setAttribute(
@@ -32,7 +33,7 @@ function Header() {
 
     return (
         <nav
-            className="flex-no-wrap relative flex w-full items-center justify-between bg-bg-secondary py-2 shadow-md shadow-black/5 dark:shadow-black/10 lg:flex-wrap lg:justify-start lg:py-4"
+            className="flex-no-wrap relative flex w-full items-center justify-between bg-bg-secondary py-2 shadow-md shadow-black/5 dark:shadow-black/10 lg:flex-wrap lg:justify-start "
             data-te-navbar-ref>
             <div className="flex w-full flex-wrap items-center justify-between px-3">
                 <button
@@ -61,9 +62,10 @@ function Header() {
                     className="!visible hidden flex-grow basis-[100%] items-center lg:!flex lg:basis-auto"
                     id="navbarSupportedContent1"
                     data-te-collapse-item>
-                    <Link
+                    <HeaderLink
                         className="mb-4 mr-2 mt-3 flex items-center lg:mr-0 lg:mb-0 lg:mt-0"
                         to="/"
+                        text=""
                         onClick={() => header.hideAll()}>
                         <img
                             className="h-[30px]"
@@ -71,87 +73,88 @@ function Header() {
                             alt=""
                             loading="lazy"
                         />
-                    </Link>
+                    </HeaderLink>
+
                     <ul
                         className="list-style-none ml-auto flex flex-col pl-3 lg:pl-0 lg:flex-row "
                         data-te-navbar-nav-ref>
                         {auth.user !== undefined && auth.user.role === 'lender' && (
-                            <Link
+                            <HeaderLink
+                                className="cursor-pointer select-none mb-2 mr-5 pt-2"
                                 to="/consoles"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                                onClick={() => header.hideAll()}>
-                                {t('header.myConsoles')}
-                            </Link>
+                                onClick={() => header.hideAll()}
+                                text={t('header.myConsoles')}
+                            />
                         )}
                         {auth.user !== undefined && auth.user.role === 'borrower' && (
-                            <Link
+                            <HeaderLink
+                                className="cursor-pointer select-none mb-2 mr-5 pt-2"
                                 to="/borrowings"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                                onClick={() => header.hideAll()}>
-                                {t('header.myConsoles')}
-                            </Link>
+                                onClick={() => header.hideAll()}
+                                text={t('header.myConsoles')}
+                            />
                         )}
                         {auth.user !== undefined && auth.user.role === 'admin' && (
-                            <Link
+                            <HeaderLink
+                                className="cursor-pointer select-none mb-2 mr-5 pt-2"
                                 to="/approveRegistrations"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                                onClick={() => header.hideAll()}>
-                                {t('header.approveRegistrations')}
-                            </Link>
+                                onClick={() => header.hideAll()}
+                                text={t('header.approveRegistrations')}
+                            />
                         )}
                         {auth.user !== undefined && auth.user.role === 'admin' && (
-                            <Link
+                            <HeaderLink
+                                className="cursor-pointer select-none mb-2 mr-5 pt-2"
                                 to="/manageConsoles"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
                                 onClick={() => {
                                     header.hideAll()
-                                }}>
-                                {t('header.manageConsoles')}
-                            </Link>
+                                }}
+                                text={t('header.manageConsoles')}
+                            />
                         )}
                         {auth.user !== undefined && auth.user.role === 'admin' && (
-                            <Link
+                            <HeaderLink
+                                className="cursor-pointer select-none mb-2 mr-5 pt-2"
                                 to="/userConsoles"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                                onClick={() => header.hideAll()}>
-                                {t('header.lendRequests')}
-                            </Link>
+                                onClick={() => header.hideAll()}
+                                text={t('header.lendRequests')}
+                            />
                         )}
                         {auth.user !== undefined && auth.user.role === 'admin' && (
-                            <Link
+                            <HeaderLink
+                                className="cursor-pointer select-none mb-2 mr-5 pt-2"
                                 to="/manageBorrowings"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                                onClick={() => header.hideAll()}>
-                                {t('header.borrowRequests')}
-                            </Link>
+                                onClick={() => header.hideAll()}
+                                text={t('header.borrowRequests')}
+                            />
                         )}
-                        <Link
+                        <HeaderLink
+                            className="cursor-pointer select-none mb-2 mr-5 pt-2"
                             to="/contacts"
-                            className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                            onClick={() => header.hideAll()}>
-                            {t('header.contacts')}
-                        </Link>
-                        <Link
+                            onClick={() => header.hideAll()}
+                            text={t('header.contacts')}
+                        />
+                        <HeaderLink
+                            className="cursor-pointer select-none mb-2 mr-5 pt-2"
                             to="/faq"
-                            className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                            onClick={() => header.hideAll()}>
-                            {t('header.FAQ')}
-                        </Link>
+                            onClick={() => header.hideAll()}
+                            text={t('header.FAQ')}
+                        />
                         {auth.user === undefined && (
-                            <Link
+                            <HeaderLink
+                                className="cursor-pointer select-none mb-2 mr-5 pt-2"
                                 to="/login"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                                onClick={() => header.hideAll()}>
-                                {t('header.login')}
-                            </Link>
+                                onClick={() => header.hideAll()}
+                                text={t('header.login')}
+                            />
                         )}
                         {auth.user === undefined && (
-                            <Link
+                            <HeaderLink
+                                className="cursor-pointer select-none mb-2 mr-5 pt-2"
                                 to="/register"
-                                className="cursor-pointer select-none my-auto mr-7 hover:text-t-hover text-fs-h2 mb-4 lg:mb-0 lg:pr-2"
-                                onClick={() => header.hideAll()}>
-                                {t('header.register')}
-                            </Link>
+                                onClick={() => header.hideAll()}
+                                text={t('header.register')}
+                            />
                         )}
                     </ul>
                 </div>
@@ -171,14 +174,20 @@ function Header() {
                         <ReactCountryFlag countryCode="LT" svg />
                     </button>
                     {auth.user !== undefined && (
-                        <Link
-                            to="/chats"
+                        <HeaderLink
                             className="cursor-pointer select-none my-auto mr-5 pt-2"
-                            onClick={() => header.hideAll()}>
+                            to="/chats"
+                            text=""
+                            onClick={() => {
+                                header.hideAll()
+                                if (isBigScreen) {
+                                    window.location.assign('/chats')
+                                }
+                            }}>
                             <ButtonText>
                                 <span className="material-symbols-outlined">chat</span>
                             </ButtonText>
-                        </Link>
+                        </HeaderLink>
                     )}
                     <div
                         className="my-auto"
@@ -204,17 +213,18 @@ function Header() {
                             </button>
                             {header.profileShown && (
                                 <div className="fixed mt-5 translate-x-[-110px] w-[130px] bg-bg-secondary p-3 rounded-lg">
-                                    <Link
+                                    <HeaderLink
                                         onClick={() => header.hideAll()}
                                         to="/profile"
-                                        className="pb-1">
+                                        className="pb-1"
+                                        text="">
                                         <span className="material-symbols-outlined align-middle pr-3 cursor-pointer select-none">
                                             person
                                         </span>
                                         <span className="cursor-pointer select-none">
                                             {t('header.profile.profile')}
                                         </span>
-                                    </Link>
+                                    </HeaderLink>
                                     <button
                                         className="pt-1"
                                         onClick={() => {

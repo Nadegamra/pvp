@@ -101,7 +101,19 @@ function ChatConversationContainer({
                         </ConversationHeader>
                     ) : (
                         <ConversationHeader>
-                            <ConversationHeader.Back />
+                            <Avatar>
+                                <img
+                                    src={
+                                        (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
+                                            ? '/logoLight.png'
+                                            : '/logoDark.png'
+                                    }
+                                    alt=""
+                                />
+                                <div className="translate-y-[-13px] translate-x-[-5px]">
+                                    #{conversation.borrowingId}
+                                </div>
+                            </Avatar>
                             <ConversationHeader.Content
                                 userName={`${t('borrowing.borrowing')} #${
                                     conversation.borrowing.id

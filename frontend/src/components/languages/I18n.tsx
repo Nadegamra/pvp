@@ -32,11 +32,11 @@ i18n
                         },
                         login: 'Login',
                         register: 'Register',
-                        manageConsoles: 'Manage Consoles',
+                        manageConsoles: 'Manage Categories',
                         myConsoles: 'My Consoles',
                         borrowConsoles: 'Borrow Consoles',
                         chats: 'Chats',
-                        lendRequests: 'Lendings',
+                        lendRequests: 'Unborrowed consoles',
                         borrowRequests: 'Borrowings',
                         approveRegistrations: 'Approve borrowers'
                     },
@@ -325,13 +325,13 @@ i18n
                         },
                         login: 'Prisijungimas',
                         register: 'Registracija',
-                        manageConsoles: 'Konsolių valdymas',
+                        manageConsoles: 'Kategorijų valdymas',
                         myConsoles: 'Mano konsolės',
                         borrowConsoles: 'Išnuomoti konsoles',
                         chats: 'Pokalbiai',
-                        lendRequests: 'Skolinamos konsolės',
-                        borrowRequests: 'Pasiskolinimai',
-                        approveRegistrations: 'Besiskolinančių patvirtinimas'
+                        lendRequests: 'Neskolinamos konsolės',
+                        borrowRequests: 'Skolinimai',
+                        approveRegistrations: 'Registracijos užklausos'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',
