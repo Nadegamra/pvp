@@ -74,7 +74,7 @@ function UserConsolesCreatePage() {
                     window.location.href = '/consoles'
                 })
             })}>
-            <div className="min-w-[400px] w-max bg-bg-secondary p-7 rounded">
+            <div className="min-w-max bg-bg-secondary p-7 rounded">
                 <div className="py-6 text-fs-h1 text-center">
                     {t('userConsoleManagementForm.title') ?? ''}
                 </div>
@@ -139,8 +139,8 @@ function UserConsolesCreatePage() {
                             ? t('userConsoleManagementForm.amountError')
                             : ''}
                     </p>
-                    <label htmlFor="images" className="cursor-pointer">
-                        <span className="p-1 mr-1 bg-bg-primary text-t-primary rounded-sm border">
+                    <label htmlFor="images" className="cursor-pointer flex flex-col sm:flex-row">
+                        <span className="p-1 mr-1 bg-bg-primary text-t-primary rounded-sm border max-w-max">
                             {t('userConsoleManagementForm.selectImages')}
                         </span>
                         {watch('images') !== undefined &&

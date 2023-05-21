@@ -94,7 +94,7 @@ function UserConsolePage() {
                     </Carousel>
                 )}
             </div>
-            <div className="ml-5 md:ml-0 mb-10 min-w-[400px]">
+            <div className="ml-5 pr-10 md:pr-0 mb-10 min-w-[300px] md:min-w-[400px] w-screen  md:max-w-max">
                 <div className="text-fs-h1">{t('userConsolePage.consoleTitle')}</div>
                 <hr className="pb-2" />
                 <div className="font-bold">{t('userConsolePage.consoleName')}</div>
@@ -135,6 +135,18 @@ function UserConsolePage() {
                         )}
                     </div>
                 )}
+                {user?.role === 'lender' && !loading && userConsole?.conversationId !== null && (
+                    <div className="py-3">
+                        <Button
+                            text={t('userConsolePage.contact')}
+                            id={3}
+                            onClick={() => {
+                                window.location.href = `/chats/${userConsole?.conversationId}`
+                            }}
+                        />
+                    </div>
+                )}
+
                 {user?.role === 'admin' && !loading && (
                     <div>
                         <Controller
@@ -143,7 +155,7 @@ function UserConsolePage() {
                             rules={{ required: true }}
                             render={() => (
                                 <Select
-                                    className="mb-5"
+                                    className="mb-5 max-w-[300px]"
                                     defaultValue={
                                         options.filter(
                                             (x) => x.value === userConsole?.consoleStatus
@@ -244,7 +256,7 @@ function UserConsolePage() {
                         <div className="font-bold">{t('userConsolePage.userEmail')}</div>
                         <div className="ml-3 mb-3">{userConsole?.user.email}</div>
                         <Button
-                            text={t('userConsolePage.contactUser')}
+                            text={t('userConsolePage.contact')}
                             id={3}
                             onClick={() => {
                                 contactLender(userConsole!.id).then(() => {
@@ -257,7 +269,7 @@ function UserConsolePage() {
                     </div>
                 )}
                 {user?.role === 'admin' && !loading && (
-                    <div className=" w-max mt-10">
+                    <div className="w-max mt-3">
                         <Button
                             text={t('userConsolePage.delete')}
                             id={4}

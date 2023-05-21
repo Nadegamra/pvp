@@ -54,12 +54,12 @@ function BorrowConsolesPage() {
 
     return (
         <div className="flex flex-col" style={{ minHeight: getContainerHeight() }}>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-6">
                 {consoles?.slice(offset, offset + itemsPerPage).map((userConsole) => (
                     <div key={userConsole.id}>
-                        <div className="relative">
+                        <div className="relative w-max h-max m-auto">
                             {userConsole.images.length > 0 && (
-                                <div className="whitespace-nowrap">
+                                <div className="w-max h-max m-3">
                                     <img
                                         className="rounded-md cursor-pointer mx-auto"
                                         src={imagePathToURL(userConsole.images[0].path, 250)}
@@ -75,7 +75,7 @@ function BorrowConsolesPage() {
                                             strokeWidth="2"
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
-                                            className="w-4 h-4 absolute top-2 left-7 z-10">
+                                            className="w-4 h-4 absolute top-4 left-7 z-10 bg-white rounded-lg">
                                             <path d="M20 6L9 17l-5-5" />
                                         </svg>
                                     )}
@@ -88,23 +88,23 @@ function BorrowConsolesPage() {
                         <div className="text-t-secondary text-center">
                             {userConsole.accessories}
                         </div>
-                        {selectedConsoles.includes(userConsole.id) && (
-                            <div className="fixed bottom-10 right-10">
-                                <Button
-                                    text={t('borrowerConsolePage.selectConsole')}
-                                    dialog={false}
-                                    dialogBody={t('button.dialogBody3')}
-                                    onClick={() => {
-                                        addBorrowing(new BorrowingAdd(selectedConsoles)).then(
-                                            () => (window.location.href = '/borrowings')
-                                        )
-                                    }}
-                                />
-                            </div>
-                        )}
                     </div>
                 ))}
             </div>
+            {selectedConsoles.length > 0 && (
+                <div className="fixed bottom-10 right-10 z-50">
+                    <Button
+                        text={t('borrowerConsolePage.selectConsole')}
+                        dialog={false}
+                        dialogBody={t('button.dialogBody3')}
+                        onClick={() => {
+                            addBorrowing(new BorrowingAdd(selectedConsoles)).then(
+                                () => (window.location.href = '/borrowings')
+                            )
+                        }}
+                    />
+                </div>
+            )}
             <div className="flex-1" />
             {!loading && (
                 <ReactPaginate

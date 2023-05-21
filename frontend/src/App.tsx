@@ -7,8 +7,8 @@ function App() {
     const header = useHeader()
 
     return (
-        <div className="flex flex-col bg-bg-primary text-t-primary min-h-[100vh]">
-            <div className="sticky top-0 z-50">
+        <div className="flex flex-col bg-bg-primary text-t-primary min-h-screen">
+            <div id="header" className="sticky top-0 z-50">
                 <Header />
             </div>
             <div id="container" className="flex-1" onClick={() => header.hideAll()}>
@@ -19,11 +19,7 @@ function App() {
 }
 
 export function getContainerHeight() {
-    return (
-        window.innerHeight -
-        (document.getElementById('header')?.clientHeight ?? 0) -
-        (document.getElementById('adminUserConsolesButtons')?.clientHeight ?? 0)
-    )
+    return window.innerHeight - (document.getElementById('header')?.clientHeight ?? 0)
 }
 
 export default App

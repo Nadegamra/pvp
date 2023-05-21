@@ -1,31 +1,31 @@
 interface Props {
-    pos: 'top' | 'middle' | 'bottom';
-    buttonText: string;
-    content: string;
-    id: number;
+    pos: 'top' | 'middle' | 'bottom'
+    buttonText: string
+    content: string
+    id: number
 }
 
 export default function FaqCard({ pos, buttonText, content, id }: Props) {
     return (
         <div>
             {pos === 'top' ? (
-                <div className="border rounded-t-lg mx-5 bg-bg-primary">
+                <div className="rounded-t-lg mx-5 bg-bg-secondary border-b">
                     <FaqCardButton buttonText={buttonText} id={id} pos={pos} />
                     <FaqCardContent content={content} id={id} pos={pos} />
                 </div>
             ) : pos === 'bottom' ? (
-                <div className="border rounded-b-lg mx-5 bg-bg-primary">
+                <div className="rounded-b-lg mx-5 bg-bg-secondary">
                     <FaqCardButton buttonText={buttonText} id={id} pos={pos} />
                     <FaqCardContent content={content} id={id} pos={pos} />
                 </div>
             ) : (
-                <div className="border mx-5 bg-bg-primary">
+                <div className="mx-5 bg-bg-secondary border-b">
                     <FaqCardButton buttonText={buttonText} id={id} pos={pos} />
                     <FaqCardContent content={content} id={id} pos={pos} />
                 </div>
             )}
         </div>
-    );
+    )
 }
 
 function FaqCardButton({
@@ -33,9 +33,9 @@ function FaqCardButton({
     id,
     pos
 }: {
-    buttonText: string;
-    id: number;
-    pos: 'top' | 'middle' | 'bottom';
+    buttonText: string
+    id: number
+    pos: 'top' | 'middle' | 'bottom'
 }) {
     return (
         <h2 className="mb-0" id={'heading' + id}>
@@ -92,7 +92,7 @@ function FaqCardButton({
                 </button>
             )}
         </h2>
-    );
+    )
 }
 
 function FaqCardContent({
@@ -100,9 +100,9 @@ function FaqCardContent({
     id,
     pos
 }: {
-    content: string;
-    id: number;
-    pos: 'top' | 'middle' | 'bottom';
+    content: string
+    id: number
+    pos: 'top' | 'middle' | 'bottom'
 }) {
     return (
         <div>
@@ -124,5 +124,5 @@ function FaqCardContent({
                 </div>
             )}
         </div>
-    );
+    )
 }

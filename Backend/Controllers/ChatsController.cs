@@ -17,6 +17,7 @@ namespace Backend.Controllers
         {
             _handler = handler;
         }
+        [Authorize(Roles = "admin")]
         [HttpGet("getAll/admin")]
 
         public async Task<ActionResult<List<ConversationGetDto>>> GetAllConversations()
@@ -29,6 +30,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "lender")]
         [HttpGet("getAll/lender")]
         public async Task<ActionResult<List<ConversationGetDto>>> GetLenderConversations()
         {
@@ -41,6 +43,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "borrower")]
         [HttpGet("getAll/borrower")]
         public async Task<ActionResult<List<ConversationGetDto>>> GetBorrowerConversations()
         {
@@ -53,6 +56,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpGet("get/{userConsoleId}")]
         public async Task<ActionResult<ConversationGetDto>> GetConversation(int userConsoleId)
         {
@@ -93,6 +97,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize]
         [HttpPost("message")]
         public async Task<ActionResult> SendMessage(MessageAddDto addDto)
         {

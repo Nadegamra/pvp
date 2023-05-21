@@ -20,8 +20,7 @@ import { MessageFileAdd, messageFilePathToURL } from '../../models/MessageFile'
 import axios from 'axios'
 
 interface Props {
-    conversations: ConversationGet[] | undefined
-    currentConversation: number | undefined
+    conversation: ConversationGet | undefined
     message: string
     setMessage: Dispatch<SetStateAction<string>>
     updateConversations: () => void
@@ -55,8 +54,7 @@ const downloadFile = async (url: string, fileName: string) => {
 }
 
 function ChatConversationContainer({
-    conversations,
-    currentConversation,
+    conversation,
     message,
     setMessage,
     updateConversations
@@ -69,29 +67,21 @@ function ChatConversationContainer({
 
     return (
         <div className="w-full relative">
-            {conversations !== undefined && conversations?.length > 0 ? (
+            {conversation !== undefined ? (
                 <ChatContainer>
-                    {conversations?.filter((x) => x.id === currentConversation)[0].userConsole !==
-                    null ? (
+                    {conversation.userConsole !== null ? (
                         <ConversationHeader>
-                            <ConversationHeader.Back />
                             <Avatar
                                 src={imagePathToURL(
-                                    conversations?.filter((x) => x.id === currentConversation)[0]
-                                        .userConsole.images[0].path ?? '',
+                                    conversation.userConsole.images[0].path ?? '',
                                     256
                                 )}
                             />
                             <ConversationHeader.Content
-                                userName={`${
-                                    conversations?.filter((x) => x.id === currentConversation)[0]
-                                        .userConsole.console.name
-                                }`}
+                                userName={`${conversation.userConsole.console.name}`}
                                 info={t(
                                     getConsoleStatusString(
-                                        conversations?.filter(
-                                            (x) => x.id === currentConversation
-                                        )[0].userConsole?.consoleStatus ??
+                                        conversation.userConsole?.consoleStatus ??
                                             UserConsoleStatus.UNCONFIRMED
                                     )
                                 )}
@@ -102,77 +92,87 @@ function ChatConversationContainer({
                                     dialog={false}
                                     dialogBody=""
                                     onClick={() =>
-                                        (window.location.href = `/userConsoles/${
-                                            conversations?.filter(
-                                                (x) => x.id === currentConversation
-                                            )[0].userConsoleId
-                                        }`)
+                                        (window.location.href = `${
+                                            user?.role === 'admin' ? '/userConsoles/' : '/consoles/'
+                                        }${conversation.userConsoleId}`)
                                     }
                                 />
                             </ConversationHeader.Actions>
                         </ConversationHeader>
                     ) : (
                         <ConversationHeader>
-                            <ConversationHeader.Back />
+                            <Avatar>
+                                <img
+                                    src={
+                                        (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
+                                            ? '/logoLight.png'
+                                            : '/logoDark.png'
+                                    }
+                                    alt=""
+                                />
+                                <div className="translate-y-[-13px] translate-x-[-5px]">
+                                    #{conversation.borrowingId}
+                                </div>
+                            </Avatar>
                             <ConversationHeader.Content
                                 userName={`${t('borrowing.borrowing')} #${
-                                    conversations?.filter((x) => x.id === currentConversation)[0]
-                                        .borrowing.id
+                                    conversation.borrowing.id
                                 }`}
-                                info={t(
-                                    getBorrowingStatusString(
-                                        conversations?.filter(
-                                            (x) => x.id === currentConversation
-                                        )[0].borrowing.status
-                                    )
-                                )}
+                                info={t(getBorrowingStatusString(conversation.borrowing.status))}
                             />
+                            <ConversationHeader.Actions>
+                                <Button
+                                    text={t('button.toBorrowing')}
+                                    dialog={false}
+                                    dialogBody=""
+                                    onClick={() =>
+                                        (window.location.href = `${
+                                            user?.role === 'borrower'
+                                                ? '/borrowings/'
+                                                : '/manageBorrowings/'
+                                        }${conversation.borrowingId}`)
+                                    }
+                                />
+                            </ConversationHeader.Actions>
                         </ConversationHeader>
                     )}
                     <MessageList>
-                        {conversations !== undefined &&
-                            conversations!.length > 0 &&
-                            conversations
-                                ?.filter((x) => x.id === currentConversation)[0]
-                                .messages.map((message) => (
-                                    <Message
-                                        key={message.id}
-                                        model={{
-                                            message: message.text,
-                                            sentTime: '',
-                                            direction:
-                                                message.fromAdmin !== (user?.role === 'admin')
-                                                    ? 'incoming'
-                                                    : 'outgoing',
-                                            position: 0
-                                        }}>
-                                        <Message.CustomContent>
-                                            <div className="flex flex-row content-center items-center">
-                                                <span>
-                                                    {message.messageFiles.length > 0 && (
-                                                        <span
-                                                            className="material-symbols-outlined mr-3 cursor-pointer select-none"
-                                                            onClick={() => {
-                                                                message.messageFiles.forEach(
-                                                                    (file) => {
-                                                                        downloadFile(
-                                                                            messageFilePathToURL(
-                                                                                file.path
-                                                                            ),
-                                                                            file.name
-                                                                        )
-                                                                    }
+                        {conversation !== undefined &&
+                            conversation.messages.map((message) => (
+                                <Message
+                                    key={message.id}
+                                    model={{
+                                        message: message.text,
+                                        sentTime: '',
+                                        direction:
+                                            message.fromAdmin !== (user?.role === 'admin')
+                                                ? 'incoming'
+                                                : 'outgoing',
+                                        position: 0
+                                    }}>
+                                    <Message.CustomContent>
+                                        <div className="flex flex-row content-center items-center">
+                                            <span>
+                                                {message.messageFiles.length > 0 && (
+                                                    <span
+                                                        className="material-symbols-outlined mr-3 cursor-pointer select-none"
+                                                        onClick={() => {
+                                                            message.messageFiles.forEach((file) => {
+                                                                downloadFile(
+                                                                    messageFilePathToURL(file.path),
+                                                                    file.name
                                                                 )
-                                                            }}>
-                                                            download_for_offline
-                                                        </span>
-                                                    )}
-                                                </span>
-                                                <span>{message.text}</span>
-                                            </div>
-                                        </Message.CustomContent>
-                                    </Message>
-                                ))}
+                                                            })
+                                                        }}>
+                                                        download_for_offline
+                                                    </span>
+                                                )}
+                                            </span>
+                                            <span>{message.text}</span>
+                                        </div>
+                                    </Message.CustomContent>
+                                </Message>
+                            ))}
                     </MessageList>
                     <MessageInput
                         placeholder="Type message here"
@@ -200,7 +200,7 @@ function ChatConversationContainer({
                             }
 
                             const messageAdd: MessageAdd = new MessageAdd(
-                                currentConversation ?? -1,
+                                conversation.id,
                                 message,
                                 files
                             )
@@ -241,7 +241,7 @@ function ChatConversationContainer({
                 onChange={(e) => setFileCount(e.target.files !== null ? e.target.files.length : 0)}
             />
             {fileCount > 0 && (
-                <div className="absolute bottom-14 left-10 border rounded-md p-1">
+                <div className="absolute bottom-14 left-10  rounded-lg p-2 ml-1 bg-bg-secondary">
                     {fileCount} {fileCount === 1 ? 'file' : 'files'} selected
                 </div>
             )}

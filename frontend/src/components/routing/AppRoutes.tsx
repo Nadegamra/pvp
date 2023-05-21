@@ -3,9 +3,8 @@ import { useAuth } from '../../contexts/AuthContext'
 import HomePage from '../../pages/HomePage'
 import LoginPage from '../../pages/LoginPage'
 import ProfilePage from '../../pages/ProfilePage'
-import LenderRegisterPage from '../../pages/LenderRegisterPage'
+import RegisterPage from '../../pages/RegisterPage'
 import AppRoute from './AppRoute'
-import BorrowerRegisterPage from '../../pages/BorrowerRegisterPage'
 import RegistrationApprovePage from '../../pages/RegistrationApprovePage'
 import FAQPage from '../../pages/FAQPage'
 import ContactInfoPage from '../../pages/ContactInfoPage'
@@ -35,8 +34,7 @@ export default function AppRoutes() {
 
             <Route element={<AppRoute condition={user === undefined} redirectionPath="/" />}>
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<LenderRegisterPage />} />
-                <Route path="/registerBorrower" element={<BorrowerRegisterPage />} />
+                <Route path="/register" element={<RegisterPage />} />
                 <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
                 <Route path="/resetPassword/:token" element={<ResetPasswordPage />} />
                 <Route path="/confirmEmail/:token" element={<EmailConfirmationPage />} />
@@ -54,6 +52,7 @@ export default function AppRoutes() {
                 <Route path="/userConsoles" element={<UserConsolesPage />} />
                 <Route path="/userConsoles/:id" element={<UserConsolePage />} />
                 <Route path="/manageBorrowings" element={<BorrowingsPage />} />
+                <Route path="/manageBorrowings/:id" element={<BorrowingsPage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
                 <Route path="/consoles" element={<UserConsolesPage />} />
@@ -63,6 +62,7 @@ export default function AppRoutes() {
             <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
                 <Route path="/borrowings/new" element={<BorrowConsolesPage />} />
                 <Route path="/borrowings" element={<BorrowingsPage />} />
+                <Route path="/borrowings/:id" element={<BorrowingsPage />} />
                 <Route path="/borrowedConsoles/:id" element={<UserConsolePage />} />
             </Route>
         </Routes>

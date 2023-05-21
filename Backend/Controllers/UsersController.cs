@@ -10,6 +10,7 @@ namespace Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class UsersController: ControllerBase
     {
         private readonly IMapper _mapper;
@@ -35,7 +36,7 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [AllowAnonymous]
         [HttpPost("confirmEmail")]
         public async Task<ActionResult> ConfirmEmail([FromBody] UserEmailConfirmation token)
         {
@@ -162,7 +163,7 @@ namespace Backend.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [AllowAnonymous]
         [HttpPost("changeEmail/change")]
         public async Task<ActionResult> ChangeEmail([FromBody] UserEmailConfirmation token)
         {

@@ -1,5 +1,6 @@
 ﻿using Backend.Data.Views.BorrowedConsole;
 using Backend.Handlers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers
@@ -14,7 +15,7 @@ namespace Backend.Controllers
         {
             _handler = handler;
         }
-
+        [Authorize(Roles = "admin")]
         [HttpGet("all")]
         public async Task<ActionResult<List<BorrowingGetDto>>> GetAll()
         {
@@ -27,6 +28,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "borrower")]
         [HttpGet("user")]
         public async Task<ActionResult<List<BorrowingGetDto>>> GetByUser()
         {
@@ -40,7 +42,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize(Roles = "admin, borrower")]
         [HttpGet("{id}")]
         public async Task<ActionResult<BorrowingGetDto>> GetById(int id)
         {
@@ -54,6 +56,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "borrower")]
         [HttpPost("add")]
         public async Task<ActionResult> Add(BorrowingAddDto addDto)
         {
@@ -67,6 +70,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "admin")]
         [HttpPatch("update")]
         public async Task<ActionResult> Update(BorrowingUpdateDto updateDto)
         {
@@ -80,6 +84,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "admin, borrower")]
         [HttpPatch("status")]
         public async Task<ActionResult> UpdateStatus(BorrowingUpdateStatusDto statusDto)
         {
@@ -93,6 +98,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -106,6 +112,7 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "admin")]
         [HttpGet("canDelete/{id}")]
         public async Task<ActionResult<bool>> CanDelete(int id)
         {
