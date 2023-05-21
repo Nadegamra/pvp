@@ -135,6 +135,18 @@ function UserConsolePage() {
                         )}
                     </div>
                 )}
+                {user?.role === 'lender' && !loading && userConsole?.conversationId !== null && (
+                    <div className="py-3">
+                        <Button
+                            text={t('userConsolePage.contact')}
+                            id={3}
+                            onClick={() => {
+                                window.location.href = `/chats/${userConsole?.conversationId}`
+                            }}
+                        />
+                    </div>
+                )}
+
                 {user?.role === 'admin' && !loading && (
                     <div>
                         <Controller
@@ -244,7 +256,7 @@ function UserConsolePage() {
                         <div className="font-bold">{t('userConsolePage.userEmail')}</div>
                         <div className="ml-3 mb-3">{userConsole?.user.email}</div>
                         <Button
-                            text={t('userConsolePage.contactUser')}
+                            text={t('userConsolePage.contact')}
                             id={3}
                             onClick={() => {
                                 contactLender(userConsole!.id).then(() => {
@@ -257,7 +269,7 @@ function UserConsolePage() {
                     </div>
                 )}
                 {user?.role === 'admin' && !loading && (
-                    <div className=" w-max mt-10">
+                    <div className="w-max mt-3">
                         <Button
                             text={t('userConsolePage.delete')}
                             id={4}

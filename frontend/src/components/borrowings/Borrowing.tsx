@@ -37,11 +37,15 @@ function Borrowing({
             .then((response) => {
                 setBorrowing(response.data)
             })
-            .finally(() =>
-                canDeleteBorrowing(id)
-                    .then((response) => setCanDelete(response.data))
-                    .finally(() => setLoading(false))
-            )
+            .finally(() => {
+                if (user?.role === 'admin') {
+                    canDeleteBorrowing(id)
+                        .then((response) => setCanDelete(response.data))
+                        .finally(() => setLoading(false))
+                } else {
+                    setLoading(false)
+                }
+            })
     }, [id, status])
 
     return (
@@ -56,20 +60,35 @@ function Borrowing({
                 {t('borrowing.borrowing')} #{borrowing?.id}
             </div>
 
-            {user?.role === 'borrower' && (
-                <span className="inline-block mx-auto mb-3">
-                    <Button
-                        id={1}
-                        text={
-                            borrowing?.status === BorrowingStatus.PENDING
-                                ? t('borrowing.getStatusPending')
-                                : borrowing?.status === BorrowingStatus.ACTIVE
-                                ? t('borrowing.getStatusActive')
-                                : t('borrowing.getStatusTerminating')
-                        }
-                        disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
-                    />
-                </span>
+            {user?.role === 'borrower' && !loading && (
+                <div className="flex flex-row content-around mb-3">
+                    <span className="inline-block mr-auto ml-5">
+                        <Button
+                            id={1}
+                            text={
+                                borrowing?.status === BorrowingStatus.PENDING
+                                    ? t('borrowing.getStatusPending')
+                                    : borrowing?.status === BorrowingStatus.ACTIVE
+                                    ? t('borrowing.getStatusActive')
+                                    : t('borrowing.getStatusTerminating')
+                            }
+                            disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
+                        />
+                    </span>
+                    {borrowing?.conversationId !== null && (
+                        <span className="inline-block ml-auto mr-5">
+                            <Button
+                                id={2}
+                                text={t('borrowing.contactBorrower')}
+                                dialog={false}
+                                dialogBody=""
+                                onClick={() => {
+                                    window.location.href = `/chats/${borrowing?.conversationId}`
+                                }}
+                            />
+                        </span>
+                    )}
+                </div>
             )}
             {user?.role === 'admin' && (
                 <span className="inline-block mx-auto mb-3">

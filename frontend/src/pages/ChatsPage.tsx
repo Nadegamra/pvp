@@ -83,8 +83,7 @@ function ChatsPage() {
                     setCurrentConversation={setCurrentConversation}
                 />
                 <ChatConversationContainer
-                    conversations={conversations}
-                    currentConversation={currentConversation}
+                    conversation={conversations?.filter((x) => x.id === currentConversation)[0]}
                     message={message}
                     setMessage={setMessage}
                     updateConversations={updateConversations}
