@@ -40,11 +40,11 @@ function ConsoleImagesUpdateForm() {
 
     return (
         <form className="mb-10">
-            <div className="grid grid-cols-4 gap-4 items-center">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {consoleGet?.images
                     .filter((image) => !image.toDelete)
                     .map((image) => (
-                        <div key={image.id} className="whitespace-nowrap">
+                        <div key={image.id} className="whitespace-nowrap mb-5 md:mb-0">
                             <div className="inline-block h-full align-middle"></div>
                             <span
                                 className="material-symbols-outlined absolute translate-x-[-13px] translate-y-[-13px] cursor-pointer select-none"

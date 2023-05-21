@@ -37,7 +37,8 @@ i18n
                         borrowConsoles: 'Borrow Consoles',
                         chats: 'Chats',
                         lendRequests: 'Lendings',
-                        borrowRequests: 'Borrowings'
+                        borrowRequests: 'Borrowings',
+                        approveRegistrations: 'Approve borrowers'
                     },
                     contacts: {
                         contactInfo: 'Contact Information',
@@ -57,35 +58,29 @@ i18n
                         customerService: 'Customer service: '
                     },
                     faq: {
-                        faq: 'Frequently asked questions',
-                        q1: 'How is the protection of page data ensured?',
-                        q2: 'How is the delivery of the selected option organized?',
-                        q3: 'What to do if the delivery of the selected option is delayed?',
-                        q4: 'Is it safe to use electronic banking on your website? What are the security requirements?',
-                        q5: 'What is the goal of your website?',
-                        q6: 'How long does it take to receive an order?',
-                        q7: 'What rules do you apply for delivery and returns of goods?',
-                        q8: "Is it possible to track a customer's order?",
-                        q9: 'Are discounts or various benefits, gift coupons applied and used?',
-                        q10: 'What are the prices of goods?',
-                        q11: 'What to do if a customer wants to change an order?',
-                        q12: 'Can a customer change or cancel an order if the shipment is already prepared or is traveling?',
-                        q13: 'What to do if the shipment did not arrive?',
-                        q14: 'Is it possible to return and get a refund?',
-                        a1: 'It is ensured by European Union legislation, the General Data Protection Regulation, national data protection institutions, and their principles of operation.',
-                        a2: 'Deliveries are organized with the help of couriers, sending the package directly to the home post or the appropriate post office.',
-                        a3: 'In that case, you can wait up to 30 minutes. If the shipment is delayed for more than 30 minutes, ask for compensation.',
-                        a4: 'Yes, it is safe. Our website will be linked to the national cyber security center and the website of the State Consumer Rights Protection Service.',
-                        a5: 'Our goal is to create a website that acts as an intermediary between people who want to rent devices and companies that lend devices, and the measured impact corresponds to the result that lending companies will have more items that they can lend, and people who have rarely used devices will borrow them and earn from them.',
-                        a6: 'Within 3 business days.',
-                        a7: "The customer who comes to pick up the rented game console comes to pick it up himself. For example, if the customer rented a game console for 1 day, at 12:00, he can return it until 15:00 the next day. We give the customer time to make it convenient to return it. We usually adapt to the customer, how it suits him to return it. Extension is possible, but we ask customers to notify us in advance, not at the last minute, as there may be other customers waiting in line. We usually deduct the extension fee from the deposit and return a smaller deposit for the convenience of the customer, so that he does not have to think about the additional rental cost. Everything depends on the rental period. It can be 2, 4, 10 days, etc. We don't have specific hours for returning the item. The item is returned when both parties have time. Our shortest basic console rental period is 1 day. Some cheaper consoles are rented for 2 days. The customer is given the opportunity to extend the rental period as much as they want if the console is not reserved by another customer.",
-                        a8: 'Yes, in your account.',
-                        a9: 'Discounts are applied to older generation consoles, used devices, and poorly functioning devices.',
-                        a10: 'They depend on the product.',
-                        a11: 'It is possible to change or cancel the order no later than when the shipment is sent to the customer.',
-                        a12: 'It is possible to change or cancel the order no later than when the shipment is sent to the customer.',
-                        a13: 'In such a case, you may have to wait up to 30 minutes as you will not receive compensation until that time. If the shipment is delayed for more than 30 minutes, please request compensation.',
-                        a14: 'Yes'
+                        faq: 'Frequently Asked Questions',
+                        q1: 'What is the process of signing a contract when renting/leasing a console?',
+                        q2: 'What to do if delivery is late?',
+                        q3: 'How long will it take for my registration request to be reviewed?',
+                        q4: 'Where else can I turn to if the chat functionality of the page stops working?',
+                        q5: 'Can a customer change or cancel an order if the shipment is already prepared or in transit?',
+                        q6: 'Is it possible to get a refund?',
+                        q7: 'What to do if I want to reclaim my console?',
+                        q8: 'My console was returned to me with additional defects. Where can I turn in such a case?',
+                        q9: 'What is the minimum rental period for a console?',
+                        q10: 'How often will I be paid for my console rental?',
+                        q11: 'What happens if either party terminates the rental agreement?',
+                        a1: 'After submitting the appropriate request on the website, an administrator will contact you for contract matters.',
+                        a2: 'Please contact us using the chat functionality of the site or via email at support@nuoma.lt.',
+                        a3: 'Within 3 business days.',
+                        a4: 'In this case, you can contact us by email suitable for the situation, indicated on the "Contact" page.',
+                        a5: 'It is possible to cancel an order only until the shipment has not been sent.',
+                        a6: 'For refund issues, please contact us using the chat functionality of the site or via email at support@nuoma.lt.',
+                        a7: 'In this case, you can submit a request to return the console on its page. An administrator will contact you later on this matter.',
+                        a8: 'For warranty issues, please contact us using the chat functionality of the website or via email at support@nuoma.lt',
+                        a9: 'The minimum rental period is 1 month. To terminate the contract, the contract will remain in effect for the current month.',
+                        a10: 'Lenders are paid every month.',
+                        a11: 'If the console lender terminates the contract, the console is returned to him at the end of the month. If the borrowing company terminates the contract, the console is returned to the warehouse and the lender is contacted whether to terminate the contract or not.'
                     },
                     profile: {
                         personalInfo: 'Personal information',
@@ -191,7 +186,8 @@ i18n
                         requestButton: 'Submit',
                         checkEmail: 'Please check your email for confirmation link',
                         requestSuccess:
-                            'Registration request has been submitted successfully. Please wait for confirmation via email'
+                            'Registration request has been submitted successfully. Please wait for confirmation via email',
+                        noRequests: 'Currently there are no registration requests'
                     },
                     footer: {
                         contacts: 'Contacts',
@@ -301,13 +297,13 @@ i18n
                         statusPending: 'Awaiting contract signing',
                         statusActive: 'Active',
                         statusTerminating: 'Awaiting console return',
-                        contactBorrower: 'Contact borrower',
+                        contactBorrower: 'Contact',
                         borrowing: 'Borrowing',
-                        getStatusPending: 'Borrowing is pending',
+                        getStatusPending: 'Status: pending',
                         setStatusActive: 'Activate borrowing',
-                        getStatusActive: 'Borrowing is active',
+                        getStatusActive: 'Status: active',
                         setStatusTerminating: 'Mark borrowing as terminated',
-                        getStatusTerminating: 'Borrowing is awaiting termination'
+                        getStatusTerminating: 'Status: awaiting termination'
                     }
                 }
             },
@@ -332,7 +328,8 @@ i18n
                         borrowConsoles: 'Išnuomoti konsoles',
                         chats: 'Pokalbiai',
                         lendRequests: 'Skolinamos konsolės',
-                        borrowRequests: 'Pasiskolinimai'
+                        borrowRequests: 'Pasiskolinimai',
+                        approveRegistrations: 'Besiskolinančių patvirtinimas'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',
@@ -353,34 +350,28 @@ i18n
                     },
                     faq: {
                         faq: 'Dažnai užduodami klausimai',
-                        q1: 'Kaip užtikrinama puslapio duomenų apsauga?',
-                        q2: 'Kaip organizuojamas pasirinkto varianto pristatymas?',
-                        q3: 'Ką daryti jei pasirinkto varianto pristatymas vėluoja?',
-                        q4: 'Ar saugu naudotis elektronine bankininkyste jūsų svetainėje? Kokie taikomi saugumo reikalavimai?',
-                        q5: 'Koks jūsų svetainės tikslas?',
-                        q6: 'Per kiek laiko bus gautas užsakymas?',
-                        q7: 'Kokias taisykles taikote prekių pristatyme ir grąžinime?',
-                        q8: 'Ar įmanoma sekti kliento užsakymą?',
-                        q9: 'Ar taikomos ir naudojamos nuolaidos arba įvairios lengvatos, dovanų kuponai?',
-                        q10: 'Kokie yra prekių įkainiai?',
-                        q11: 'Ką daryti jei klientas nori pakeisti užsakymą?',
-                        q12: 'Ar klientas gali pakeisti arba nutraukti užsakymą jei siunta jau paruošta arba keliauja?',
-                        q13: 'Ką daryti jei siunta neatkeliavo?',
-                        q14: 'Ar įmanomas grąžinimas ir pinigų atgavimas?',
-                        a1: 'Ji yra užtikrinama Europos Sąjungos teisės aktais,bendruoju duomenų apsaugos reglamentu, nacionalinės duomenų apsaugos institucijomis ir jų veikimo principais.',
-                        a2: 'Pristatymai organizuojami kurjerių pagalba atsiunčiant siuntą tiesiai į namų paštą arba atitinkamą paštomatą.',
-                        a3: 'Tokiu atveju galite palaukti iki 30 minučių. Jei siunta vėluoja daugiau nei 30 minučių prašykite kompensacijos.',
-                        a4: 'Taip , saugu . Mūsų tinklapis bus susietas su nacionaliniu kibernetinio saugumo centru bei su valstybinės vartotojų tesių apsaugos tarnybos tinklapiu.',
-                        a5: 'Mūsų tikslas yra kuriamas interneto puslapis, skirtas tarpininkauti tarp žmonių, kurie nori skolinti įrenginius ir įmonių, kurios skolina įrenginius, o pamatuojamas poveikis atitinka rezultatą, kad skolinančios įmonės turės daugiau daiktų, kuriuos galės skolinti, o žmonės, kurie turi retai naudojamų įrenginių juos skolins ir iš jų užsidirbs.',
-                        a6: 'Per 3 darbo dienas.',
-                        a7: 'Klientas atvykęs atsiimti išsinuomotos žaidimo konsoles atvyksta pasiimti pats, jei klientas issinuomavo žaidimo konsolė 1 parai, kaip pavyzdys 12:00 valandą, tai sekančią dieną gali gražinti iki 15:00 valandos, mes duodame laiko klientui, kad būtų patogu gražinti. Dažniausiai prisitaikome prie kliento, kaip jam tinka grąžinti.Pratęsimas yra galimas, bet klientų prašome is anksto apie tai  pranešti, tai yra ne paskutinę minutę, kadangi galbūt yra jau yra laukiantys kiti klientai eilėje. Dažniausiai pratęsimo mokestį nuimame nuo depozito ir grąžiname mažesni depozitą dėl kliento patogumo, kad jam nereiktų galvoti dėl papildomos nuomos kainos.Viskas priklauso nuo to, kuriam laikotarpiui išnuomota konsolė. Gali būti 2,4,10 parų ir pan. Grąžinimo dieną konkrečios valandos neturime. Daiktas grąžinamas kuomet abi puses turi laiko. Mūsų trumpiausias bazinis konsolės skolinimosi terminas yra 1 para. Kaikurių pigių konsolių 2 paros. Klientui paliekama galimybė prasitesti nuomos laikotarpį tiek, kiek jis nori jeigu konsolė nėra rezervuota kito kliento.',
-                        a8: 'Taip, savo paskyroje.',
-                        a9: 'Taikomos  nuolaidos senesnių kartų konsolėms, naudotiems įrenginiams, bei prasčiau veikiantiems įrenginiams.',
-                        a10: 'Jie priklauso nuo prekės.',
-                        a11: 'Užsakymą pakeisti t.y atšaukti galima ne vėliau nei siunta yra pradėta siųsti klientui.',
-                        a12: 'Užsakymą pakeisti t.y atšaukti galima ne vėliau nei siunta yra pradėta siųsti klientui.',
-                        a13: 'Tokiu atveju galite palaukti iki 30 minučių, nes negausite kompensacijos iki tokio laiko. Jei siunta vėluoja daugiau nei 30 minučių prašykite kompensacijos.',
-                        a14: 'Taip'
+                        q1: 'Kokia sutarties pasirašymo eiga išnuomavus/išsinuomavus konsolę(-es)?',
+                        q2: 'Ką daryti, jei pristatymas vėluoja?',
+                        q3: 'Per kiek laiko bus peržiūrėtas mano registracijos prašymas?',
+                        q4: 'Kur dar galima kreiptis jeigu puslapio pokalbių funkcionalumas nustotų veikti?',
+                        q5: 'Ar klientas gali pakeisti arba nutraukti užsakymą jei siunta jau paruošta arba keliauja?',
+                        q6: 'Ar įmanomas pinigų atgavimas?',
+                        q7: 'Kada daryti jeigu noriu atgauti savo konsolę?',
+                        q8: 'Mano konsolė man buvo grąžinta su papildomais defektais. Kur galima kreipti tokiu atveju?',
+                        q9: 'Kokia yra minimali konsolės nuomos trukmė?',
+                        q10: 'Kaip dažnai man bus išmokami pinigai už mano konsolės nuomą?',
+                        q11: 'Kas vyksta jei bent viena pusė nutraukia nuomos sutartį?',
+                        a1: 'Pateikus atitinkamą prašymą svetainėje, dėl sutarties reikalų su jumis susisieks administratorius.',
+                        a2: 'Prašome kreiptis į mus naudojant puslapio pokalbių funkcionalumą arba el. paštu support@nuoma.lt.',
+                        a3: 'Per 3 darbo dienas.',
+                        a4: 'Tokiu atveju galite kreiptis situacijai tinkamiausiu el. paštu, nurodytu puslapyje "Kontaktai"',
+                        a5: 'Užsakymą atšaukti galima tik kol siunta dar nėra išsiųsta.',
+                        a6: 'Pinigų atgavimo klausimais prašome kreiptis naudojant puslapio pokalbių funkcionalumą arba el. paštu support@nuoma.lt.',
+                        a7: 'Tokioje situacijoje galite pateikti prašymą grąžinti konsolę jos puslapyje. Administratorius vėliau susisieks su jumis dėl šio klausimo.',
+                        a8: 'Dėl garantijos klausimų prašome kreiptis į mus naudojant svetainės pokalbių funkcionalumą arba el. paštu support@nuoma.lt',
+                        a9: 'Minimalus nuomos laikotarpis yra 1 mėnuo. Norint nutraukti sutartį, sutartis bus galiojanti iki einamojo mėnesio pabaigos.',
+                        a10: 'Nuomotojams pinigai yra išmokami kiekvieną mėnesį',
+                        a11: 'Jeigu konsolės skolintojas nutraukia sutartį, jam konsolė grąžinama mėnesio pabaigoje. Jeigu besiskolinanti įmonė nutraukia sutartį, konsolė yra grąžinama į sandėlį ir susisiekiama su skolintoju ar nutraukti sutartį, ar ne.'
                     },
                     addressForm: {
                         country: 'Šalis',
@@ -486,7 +477,8 @@ i18n
                         checkEmail:
                             'Išsiųsta patvirtinimo nuorodą. Prašome patikrinti savo el. paštą',
                         requestSuccess:
-                            'Registracijos prašymas pateiktas sėkmingai. Prašome laukti patvirtinimo el. paštu.'
+                            'Registracijos prašymas pateiktas sėkmingai. Prašome laukti patvirtinimo el. paštu.',
+                        noRequests: 'Šiuo metu registracijos užklausų nėra'
                     },
                     footer: {
                         contacts: 'Kontaktai',
@@ -600,7 +592,7 @@ i18n
                         statusPending: 'Laukiama sutarties pasirašymo',
                         statusActive: 'Aktyvu',
                         statusTerminating: 'Laukiama konsolės grąžinimo',
-                        contactBorrower: 'Susisiekti su besiskolinančia įmone',
+                        contactBorrower: 'Susisiekti',
                         getStatusPending: 'Pasiskolinimas nepatvirtintas',
                         setStatusActive: 'Aktyvuoti pasiskolinimą',
                         getStatusActive: 'Pasiskolinimas aktyvus',

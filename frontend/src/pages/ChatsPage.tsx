@@ -73,7 +73,7 @@ function ChatsPage() {
 
     return (
         <div style={{ height: getContainerHeight() }}>
-            <MainContainer>
+            <MainContainer responsive>
                 <ChatConversationSidebar
                     search={search}
                     setSearch={setSearch}

@@ -4,6 +4,7 @@ import { getConsoles } from '../api/ConsolesApi'
 import { imagePathToURL } from '../models/Image'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
+import { getContainerHeight } from '../App'
 
 function ConsolesManagementPage() {
     const [consoles, setConsoles] = useState<ConsoleGet[]>()
@@ -23,14 +24,12 @@ function ConsolesManagementPage() {
     }, [])
 
     return (
-        <div
-            className="flex flex-col"
-            style={{ height: document.getElementById('container')?.clientHeight }}>
+        <div className="flex flex-col" style={{ minHeight: getContainerHeight() }}>
             <div className="flex-1 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {consoles?.slice(offset, offset + itemsPerPage).map((console) => (
                     <Link
                         key={console.id}
-                        className="rounded-lg w-[250px] m-3 cursor-pointer select-none"
+                        className="rounded-lg cursor-pointer select-none w-max h-max mx-auto mt-5"
                         to={`/manageConsoles/${console.id}`}>
                         {console.images.length > 0 && (
                             <img

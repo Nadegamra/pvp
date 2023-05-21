@@ -48,7 +48,7 @@ function AddressForm() {
                         setAddressLoading(false)
                     })
             })}>
-            <div className="grid grid-cols-2 grid-rows-3 gap-x-5">
+            <div className="flex flex-col sm:grid sm:grid-cols-2 sm:grid-rows-3 sm:gap-x-5 ">
                 <div>
                     <div className="font-bold">{t('addressForm.country')}</div>
                     <input

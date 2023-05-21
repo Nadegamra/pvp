@@ -94,7 +94,7 @@ function UserConsolePage() {
                     </Carousel>
                 )}
             </div>
-            <div className="ml-5 md:ml-0 mb-10 min-w-[400px]">
+            <div className="ml-5 pr-10 md:pr-0 mb-10 min-w-[300px] md:min-w-[400px] w-screen  md:max-w-max">
                 <div className="text-fs-h1">{t('userConsolePage.consoleTitle')}</div>
                 <hr className="pb-2" />
                 <div className="font-bold">{t('userConsolePage.consoleName')}</div>
@@ -143,7 +143,7 @@ function UserConsolePage() {
                             rules={{ required: true }}
                             render={() => (
                                 <Select
-                                    className="mb-5"
+                                    className="mb-5 max-w-[300px]"
                                     defaultValue={
                                         options.filter(
                                             (x) => x.value === userConsole?.consoleStatus
