@@ -52,11 +52,11 @@ namespace Backend.Controllers
         }
         [AllowAnonymous]
         [HttpPost("passwordReset/send")]
-        public async Task<ActionResult> SendPasswordResetEmail([FromBody] string email)
+        public async Task<ActionResult> SendPasswordResetEmail(UserForgotPassword data)
         {
             try
             {
-                await _handler.SendPasswordResetEmail(email);
+                await _handler.SendPasswordResetEmail(data.Email);
                 return Ok();
             }
             catch (Exception e)

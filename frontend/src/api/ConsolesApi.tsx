@@ -15,7 +15,7 @@ export async function getConsoles() {
 }
 
 export async function getConsole(id: number) {
-    return api.get(`get?id=${id}`, headers)
+    return api.get(`get/${id}`, headers)
 }
 
 export async function addConsole(consoleDto: ConsoleAdd) {
@@ -26,8 +26,12 @@ export async function updateConsole(consoleDto: ConsoleUpdate) {
     return api.put(`update`, consoleDto, headers)
 }
 
+export async function canDeleteConsole(id: number) {
+    return api.get(`canDelete/${id}`, headers)
+}
+
 export async function removeConsole(id: number) {
-    return api.delete(`remove?id=${id}`, headers)
+    return api.delete(`remove/${id}`, headers)
 }
 
 export async function addImage(imageDto: ImageAdd) {
@@ -35,5 +39,5 @@ export async function addImage(imageDto: ImageAdd) {
 }
 
 export async function removeImage(id: number) {
-    return api.delete(`images/delete?id=${id}`, headers)
+    return api.delete(`images/delete/${id}`, headers)
 }

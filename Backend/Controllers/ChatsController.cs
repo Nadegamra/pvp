@@ -29,12 +29,24 @@ namespace Backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("getAll")]
-        public async Task<ActionResult<List<ConversationGetDto>>> GetUserConversations()
+        [HttpGet("getAll/lender")]
+        public async Task<ActionResult<List<ConversationGetDto>>> GetLenderConversations()
         {
             try
             {
-                return await _handler.GetUserConversations(User);
+                return await _handler.GetLenderConversations(User);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("getAll/borrower")]
+        public async Task<ActionResult<List<ConversationGetDto>>> GetBorrowerConversations()
+        {
+            try
+            {
+                return await _handler.GetBorrowerConversations(User);
             }
             catch (Exception ex)
             {
@@ -54,12 +66,26 @@ namespace Backend.Controllers
             }
         }
         [Authorize(Roles = "admin")]
-        [HttpPost("contact/{userConsoleId}")]
+        [HttpPost("contact/lender/{userConsoleId}")]
         public async Task<ActionResult> ContactLender(int userConsoleId)
         {
             try
             {
                 await _handler.ContactLender(userConsoleId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize(Roles = "admin")]
+        [HttpPost("contact/borrower/{borrowingId}")]
+        public async Task<ActionResult> ContactBorrower(int borrowingId)
+        {
+            try
+            {
+                await _handler.ContactBorrower(borrowingId);
                 return Ok();
             }
             catch (Exception ex)

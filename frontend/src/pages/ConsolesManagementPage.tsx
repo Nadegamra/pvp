@@ -3,11 +3,9 @@ import { ConsoleGet } from '../models/Console'
 import { getConsoles } from '../api/ConsolesApi'
 import { imagePathToURL } from '../models/Image'
 import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
 import ReactPaginate from 'react-paginate'
 
 function ConsolesManagementPage() {
-    const { t } = useTranslation()
     const [consoles, setConsoles] = useState<ConsoleGet[]>()
     const itemsPerPage = 24
     const [loading, setLoading] = useState<boolean>(true)
@@ -17,10 +15,11 @@ function ConsolesManagementPage() {
     }
 
     useEffect(() => {
-        getConsoles().then((response) => {
-            setConsoles(response.data)
-            setLoading(false)
-        })
+        getConsoles()
+            .then((response) => {
+                setConsoles(response.data)
+            })
+            .finally(() => setLoading(false))
     }, [])
 
     return (

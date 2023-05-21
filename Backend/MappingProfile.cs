@@ -5,6 +5,7 @@ using Backend.Data.Views.Chat;
 using Backend.Data.Views.Console;
 using Backend.Data.Views.Image;
 using Backend.Data.Views.Message;
+using Backend.Data.Views.MessageFile;
 using Backend.Data.Views.User;
 using Backend.Data.Views.UserConsole;
 
@@ -48,6 +49,9 @@ namespace Backend
             CreateMap<Image, ImageGetDto>(MemberList.None);
             CreateMap<ImageAddDto, Image>(MemberList.None);
             CreateMap<ImageUpdateDto, Image>(MemberList.None);
+
+            CreateMap<MessageFile, MessageFileGetDto>(MemberList.None);
+            CreateMap<MessageFileAddDto, MessageFile>(MemberList.None);
 
             CreateMap<UserConsole, UserConsoleGetDto>(MemberList.None);
             CreateMap<UserConsoleAddDto, UserConsole>(MemberList.None);

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 import { ConsoleGet, ConsoleUpdate } from '../../models/Console'
 import { useForm } from 'react-hook-form'
-import { getConsole, updateConsole } from '../../api/ConsolesApi'
+import { canDeleteConsole, getConsole, removeConsole, updateConsole } from '../../api/ConsolesApi'
 import Button from '../ui/Button'
 
 interface Props {
@@ -24,14 +24,24 @@ function ConsoleInfoUpdateForm() {
         setValue
     } = useForm<Props>()
     const [error, setError] = useState('')
+    const [canDelete, setCanDelete] = useState<boolean>()
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
-        getConsole(parseInt(id ?? '-1')).then((response) => {
-            setConsole(response.data)
-            setValue('name', response.data.name ?? '')
-            setValue('description', response.data.description ?? '')
-            setValue('dailyPrice', response.data.dailyPrice ?? 0)
-        })
+        getConsole(parseInt(id ?? '-1'))
+            .then((response) => {
+                setConsole(response.data)
+                setValue('name', response.data.name ?? '')
+                setValue('description', response.data.description ?? '')
+                setValue('dailyPrice', response.data.dailyPrice ?? 0)
+            })
+            .finally(() =>
+                canDeleteConsole(parseInt(id ?? '-1'))
+                    .then((response) => {
+                        setCanDelete(response.data)
+                    })
+                    .finally(() => setLoading(false))
+            )
     }, [])
 
     return (
@@ -75,30 +85,46 @@ function ConsoleInfoUpdateForm() {
                 </p>
             )}
 
-            <div className="pt-5 text-fs-h2">
-                <Button
-                    dialog={false}
-                    text={t('consoleManagementForm.update') ?? ''}
-                    dialogBody=""
-                    onClick={handleSubmit(async () => {
-                        setError('')
-                        await updateConsole(
-                            new ConsoleUpdate(
-                                consoleGet!.id,
-                                watch('name'),
-                                watch('description'),
-                                watch('dailyPrice'),
-                                []
-                            )
-                        ).then(() => {
-                            getConsole(parseInt(id ?? '-1')).then((response) => {
-                                setConsole(response.data)
-                                setValue('name', response.data.name ?? '')
-                                setValue('description', response.data.description ?? '')
-                                setValue('dailyPrice', response.data.dailyPrice ?? 0)
+            <div className="pt-5 text-fs-h2 flex flex-row content-between">
+                <span className="mr-auto">
+                    <Button
+                        id={1}
+                        dialog={false}
+                        text={t('consoleManagementForm.update') ?? ''}
+                        dialogBody=""
+                        onClick={handleSubmit(async () => {
+                            setError('')
+                            await updateConsole(
+                                new ConsoleUpdate(
+                                    consoleGet!.id,
+                                    watch('name'),
+                                    watch('description'),
+                                    watch('dailyPrice'),
+                                    []
+                                )
+                            ).then(() => {
+                                getConsole(parseInt(id ?? '-1')).then((response) => {
+                                    setConsole(response.data)
+                                    setValue('name', response.data.name ?? '')
+                                    setValue('description', response.data.description ?? '')
+                                    setValue('dailyPrice', response.data.dailyPrice ?? 0)
+                                })
                             })
-                        })
-                    })}
+                        })}
+                    />
+                </span>
+                <Button
+                    text={t('userConsolePage.delete')}
+                    id={2}
+                    color="red"
+                    onClick={() => {
+                        removeConsole(consoleGet!.id).then(
+                            () => (window.location.href = '/manageConsoles')
+                        )
+                    }}
+                    dialog={true}
+                    disabled={!canDelete!}
+                    dialogBody={t('button.dialogBody5')}
                 />
             </div>
         </form>

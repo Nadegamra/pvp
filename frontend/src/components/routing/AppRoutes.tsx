@@ -20,6 +20,8 @@ import BorrowConsolesPage from '../../pages/BorrowConsolesPage'
 import UserConsolesCreatePage from '../../pages/UserConsolesCreatePage'
 import ChatsPage from '../../pages/ChatsPage'
 import BorrowingsPage from '../../pages/BorrowingsPage'
+import ForgotPasswordPage from '../../pages/ForgotPasswordPage'
+import ResetPasswordPage from '../../pages/ResetPasswordPage'
 
 export default function AppRoutes() {
     const { user } = useAuth()
@@ -30,11 +32,13 @@ export default function AppRoutes() {
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contacts" element={<ContactInfoPage />} />
             <Route path="/changeEmail/:token" element={<EmailChangePage />} />
-            
+
             <Route element={<AppRoute condition={user === undefined} redirectionPath="/" />}>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<LenderRegisterPage />} />
                 <Route path="/registerBorrower" element={<BorrowerRegisterPage />} />
+                <Route path="/forgotPassword" element={<ForgotPasswordPage />} />
+                <Route path="/resetPassword/:token" element={<ResetPasswordPage />} />
                 <Route path="/confirmEmail/:token" element={<EmailConfirmationPage />} />
             </Route>
             <Route element={<AppRoute condition={user !== undefined} redirectionPath="/" />}>
@@ -49,6 +53,7 @@ export default function AppRoutes() {
                 <Route path="/manageConsoles/new" element={<CreateConsolePage />} />
                 <Route path="/userConsoles" element={<UserConsolesPage />} />
                 <Route path="/userConsoles/:id" element={<UserConsolePage />} />
+                <Route path="/manageBorrowings" element={<BorrowingsPage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'lender'} redirectionPath="/" />}>
                 <Route path="/consoles" element={<UserConsolesPage />} />
@@ -56,9 +61,9 @@ export default function AppRoutes() {
                 <Route path="/consoles/new" element={<UserConsolesCreatePage />} />
             </Route>
             <Route element={<AppRoute condition={user?.role === 'borrower'} redirectionPath="/" />}>
-                <Route path="/borrowConsoles" element={<BorrowConsolesPage />} />
+                <Route path="/borrowings/new" element={<BorrowConsolesPage />} />
                 <Route path="/borrowings" element={<BorrowingsPage />} />
-                <Route path="/borrowings/:id" element={<UserConsolePage />} />
+                <Route path="/borrowedConsoles/:id" element={<UserConsolePage />} />
             </Route>
         </Routes>
     )

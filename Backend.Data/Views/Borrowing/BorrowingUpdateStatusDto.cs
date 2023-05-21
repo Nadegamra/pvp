@@ -11,6 +11,5 @@ namespace Backend.Data.Views.BorrowedConsole
     {
         public int Id { get; set; }
         public BorrowingStatus BorrowingStatus { get; set; }
-        public UserConsoleStatus ConsolesStatus { get; set; }
     }
 }

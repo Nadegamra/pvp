@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { changePassword } from '../../api/UsersApi'
 import { UserPasswordChange } from '../../models/User'
 import { useForm } from 'react-hook-form'
+import Button from '../ui/Button'
 
 interface Props {
     password: string
@@ -46,31 +47,29 @@ function PasswordChangeForm() {
             })}>
             <div className="font-bold">{t('passwordChangeForm.currentPassword')}</div>
             <input
-                className="bg-bg-primary border p-2 rounded-md mb-1 w-[300px]"
+                className="bg-bg-primary border p-2 rounded-md w-[300px]"
                 type="password"
                 placeholder={t('passwordChangeForm.enterCurrentPassword') ?? ''}
                 {...register('password', { required: true })}
             />
-            {errors.password?.type === 'required' && (
-                <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                    {t('passwordChangeForm.currentPasswordError')}
-                </p>
-            )}
+            <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                {errors.password?.type === 'required' &&
+                    t('passwordChangeForm.currentPasswordError')}
+            </p>
             <div className="font-bold">{t('passwordChangeForm.newPassword')}</div>
             <input
-                className="bg-bg-primary border p-2 rounded-md mb-1 w-[300px]"
+                className="bg-bg-primary border p-2 rounded-md w-[300px]"
                 type="password"
                 placeholder={t('passwordChangeForm.enterNewPassword') ?? ''}
                 {...register('newPassword', { required: true })}
             />
-            {errors.newPassword?.type === 'required' && (
-                <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                    {t('passwordChangeForm.newPasswordError')}
-                </p>
-            )}
+            <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                {errors.newPassword?.type === 'required' &&
+                    t('passwordChangeForm.newPasswordError')}
+            </p>
             <div className="font-bold">{t('passwordChangeForm.repeatNewPassword')}</div>
             <input
-                className="bg-bg-primary border p-2 rounded-md mb-1 w-[300px]"
+                className="bg-bg-primary border p-2 rounded-md w-[300px]"
                 type="password"
                 placeholder={t('passwordChangeForm.enterRepeatNewPassword') ?? ''}
                 {...register('repeatNewPassword', {
@@ -82,19 +81,14 @@ function PasswordChangeForm() {
                     }
                 })}
             />
-            {errors.repeatNewPassword?.type === 'required' && (
-                <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                    {t('passwordChangeForm.repeatNewPasswordError')}
-                </p>
-            )}
-            {errors.repeatNewPassword?.type === 'validate' && (
-                <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                    {t('passwordChangeForm.passwordMatchError')}
-                </p>
-            )}
-            <button className="block bg-bg-extra p-2 rounded-md mt-5 mb-3" type="submit">
-                {t('passwordChangeForm.saveChanges')}
-            </button>
+            <p className="mb-3 text-fs-primary text-danger-500 h-3">
+                {errors.repeatNewPassword?.type === 'required'
+                    ? t('passwordChangeForm.repeatNewPasswordError')
+                    : errors.repeatNewPassword?.type === 'validate'
+                    ? t('passwordChangeForm.passwordMatchError')
+                    : ''}
+            </p>
+            <Button text={t('passwordChangeForm.saveChanges')} submit={true} />
             {passwordMessage !== '' && (
                 <div className="pt-4 text-fs-primary text-success-500">{passwordMessage}</div>
             )}

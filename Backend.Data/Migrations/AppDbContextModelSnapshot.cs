@@ -37,8 +37,6 @@ namespace Backend.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConversationId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Borrowings");
@@ -115,10 +113,16 @@ namespace Backend.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("UserConsoleId")
+                    b.Property<int?>("BorrowingId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserConsoleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BorrowingId")
+                        .IsUnique();
 
                     b.HasIndex("UserConsoleId")
                         .IsUnique();
@@ -560,6 +564,9 @@ namespace Backend.Data.Migrations
                     b.Property<int>("ConversationId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateSent")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<bool>("FromAdmin")
                         .HasColumnType("tinyint(1)");
 
@@ -572,6 +579,35 @@ namespace Backend.Data.Migrations
                     b.HasIndex("ConversationId");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Backend.Data.Models.MessageFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int?>("MessageId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MessageId");
+
+                    b.ToTable("MessageFiles");
                 });
 
             modelBuilder.Entity("Backend.Data.Models.PasswordResetToken", b =>
@@ -745,7 +781,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "e7716d11-8145-410d-bd0a-0f4a015bfef8",
+                            ConcurrencyStamp = "106fe607-4b1a-4c85-a0ba-5ebfe065301e",
                             Country = "",
                             County = "",
                             Email = "admin@admin.com",
@@ -759,7 +795,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "9af05da6-e869-4128-946e-695f35eb861c",
+                            SecurityStamp = "51914076-e20d-4e08-950c-20e7e38ef478",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
@@ -771,7 +807,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "",
                             CompanyName = "",
-                            ConcurrencyStamp = "856e48f0-0d74-4178-968d-ce5ce26690c8",
+                            ConcurrencyStamp = "973a209f-1964-4531-aee8-ecb6e5f6bdbc",
                             Country = "",
                             County = "",
                             Email = "customer@example.com",
@@ -785,7 +821,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "9b92c4b2-556e-4e24-9fff-2f92f07f2ebe",
+                            SecurityStamp = "27d004b3-8691-423f-ad37-6df0acff4e87",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "customer@example.com"
@@ -797,7 +833,7 @@ namespace Backend.Data.Migrations
                             City = "",
                             CompanyCode = "123456",
                             CompanyName = "UAB „Tikra įmonė“",
-                            ConcurrencyStamp = "f981517d-5f98-4977-970e-62f89f8378be",
+                            ConcurrencyStamp = "90749040-3a3c-4c2a-80da-9cf8ff01aa6c",
                             Country = "",
                             County = "",
                             Email = "company@example.com",
@@ -811,7 +847,7 @@ namespace Backend.Data.Migrations
                             PasswordHash = "AQAAAAEAACcQAAAAEK4hVsHx9G6FTUDDlJaY/l1aRXqpoUZU9nkEkvECUI2uQ+FHoFYHjlJpmP3KOss/qg==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "",
-                            SecurityStamp = "cf971ac6-e065-4ebf-b67a-c3bc9db8eb8f",
+                            SecurityStamp = "1936ba69-9f98-4200-877e-a497e1436244",
                             StreetAddress = "",
                             TwoFactorEnabled = false,
                             UserName = "company@example.com"
@@ -1188,28 +1224,26 @@ namespace Backend.Data.Migrations
 
             modelBuilder.Entity("Backend.Data.Models.Borrowing", b =>
                 {
-                    b.HasOne("Backend.Data.Models.Conversation", "Conversation")
-                        .WithMany()
-                        .HasForeignKey("ConversationId");
-
                     b.HasOne("Backend.Data.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Conversation");
-
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Conversation", b =>
                 {
+                    b.HasOne("Backend.Data.Models.Borrowing", "Borrowing")
+                        .WithOne("Conversation")
+                        .HasForeignKey("Backend.Data.Models.Conversation", "BorrowingId");
+
                     b.HasOne("Backend.Data.Models.UserConsole", "UserConsole")
                         .WithOne("Conversation")
-                        .HasForeignKey("Backend.Data.Models.Conversation", "UserConsoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Backend.Data.Models.Conversation", "UserConsoleId");
+
+                    b.Navigation("Borrowing");
 
                     b.Navigation("UserConsole");
                 });
@@ -1260,6 +1294,17 @@ namespace Backend.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Conversation");
+                });
+
+            modelBuilder.Entity("Backend.Data.Models.MessageFile", b =>
+                {
+                    b.HasOne("Backend.Data.Models.Message", "Message")
+                        .WithMany("MessageFiles")
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Message");
                 });
 
             modelBuilder.Entity("Backend.Data.Models.PasswordResetToken", b =>
@@ -1351,6 +1396,8 @@ namespace Backend.Data.Migrations
 
             modelBuilder.Entity("Backend.Data.Models.Borrowing", b =>
                 {
+                    b.Navigation("Conversation");
+
                     b.Navigation("UserConsoles");
                 });
 
@@ -1362,6 +1409,11 @@ namespace Backend.Data.Migrations
             modelBuilder.Entity("Backend.Data.Models.Conversation", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("Backend.Data.Models.Message", b =>
+                {
+                    b.Navigation("MessageFiles");
                 });
 
             modelBuilder.Entity("Backend.Data.Models.UserConsole", b =>

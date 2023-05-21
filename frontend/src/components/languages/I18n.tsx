@@ -36,7 +36,8 @@ i18n
                         myConsoles: 'My Consoles',
                         borrowConsoles: 'Borrow Consoles',
                         chats: 'Chats',
-                        lendRequests: 'Lend requests'
+                        lendRequests: 'Lendings',
+                        borrowRequests: 'Borrowings'
                     },
                     contacts: {
                         contactInfo: 'Contact Information',
@@ -165,7 +166,32 @@ i18n
                         login: 'Login',
                         username: 'Email',
                         password: 'Password',
-                        rememberMe: 'Remember Me'
+                        rememberMe: 'Remember Me',
+                        forgotPassword: 'Forgot Password?'
+                    },
+                    register: {
+                        title: 'Registration',
+                        titleBorrowers: 'Borrower registration',
+                        asCompany: 'Register as company?',
+                        companyCode: 'Company Code',
+                        companyCodeError: 'Company Code is required',
+                        companyName: 'Company Name',
+                        companyNameError: 'Company Name is required',
+                        firstName: 'First Name',
+                        firstNameError: 'First Name is required',
+                        lastName: 'Last Name',
+                        lastNameError: 'Last Name is required',
+                        email: 'Email Address',
+                        emailError: 'Email Address is required',
+                        password: 'Password',
+                        passwordError: 'Password is required',
+                        passwordMismatchError: 'Passwords do not match',
+                        repeatPassword: 'Repeat Password',
+                        registerButton: 'Register',
+                        requestButton: 'Submit',
+                        checkEmail: 'Please check your email for confirmation link',
+                        requestSuccess:
+                            'Registration request has been submitted successfully. Please wait for confirmation via email'
                     },
                     footer: {
                         contacts: 'Contacts',
@@ -181,7 +207,7 @@ i18n
                         description: 'Description',
                         descriptionError: 'Description is required',
                         dailyPrice: 'Daily Price',
-                        dailypriceError: 'Daily Price is required',
+                        dailyPriceError: 'Daily Price is required',
                         images: 'Images',
                         imagesError: 'At least 2 images are required',
                         update: 'Update',
@@ -229,12 +255,13 @@ i18n
                         statusUnconfirmed: 'No contract',
                         statusAtPlatform: 'Awaiting to be lended',
                         statusReserved: 'Reserved',
-                        statusAtLender: 'At lender',
+                        statusAtLender: 'Rented',
                         statusTerminating: 'Awaiting contract termination',
                         statusTerminatingLender: 'Awaiting to get back',
                         statusTerminatingBorrower: 'Awaiting to return',
                         changeStatus: 'Awaiting for return',
-                        dailyPrice: 'Daily price'
+                        dailyPrice: 'Daily price',
+                        delete: 'Delete'
                     },
                     borrowerConsolePage: {
                         selectConsole: 'Select'
@@ -243,6 +270,15 @@ i18n
                         success: 'The email has been confirmed. You can now ',
                         login: 'login',
                         failure: 'The email confirmation code is invalid or expired.'
+                    },
+                    passwordReset: {
+                        passwordReset: 'Reset password',
+                        resetPassword: 'Reset password',
+                        sendEmail: 'Send email',
+                        success: 'The password has been successfully updated',
+                        failure: 'The password reset link is invalid or expired',
+                        email: 'Email address',
+                        emailError: 'Email Address is required'
                     },
                     emailChange: {
                         success: 'The email has been changed. You can now ',
@@ -254,13 +290,22 @@ i18n
                         dialogBody1: 'Do you really wish to terminate the contract?',
                         dialogBody2: 'Do you really wish to change the console state?',
                         dialogBody3: 'Do you really wish to select this console for borrow?',
+                        dialogBody4: 'Do you really wish to delete this console?',
+                        dialogBody5: 'Do you really wish to delete this console category?',
+                        dialogBody6: 'Do you really wish to delete this borrowing?',
                         confirm: 'Yes',
-                        deny: 'No'
+                        deny: 'No',
+                        toUserConsole: 'To user console'
                     },
                     borrowing: {
                         statusPending: 'Awaiting contract signing',
                         statusActive: 'Active',
-                        statusTerminating: 'Awaiting console return'
+                        statusTerminating: 'Awaiting console return',
+                        contactBorrower: 'Contact borrower',
+                        borrowing: 'Borrowing',
+                        setStatusActive: 'Activate borrowing',
+                        setStatusTerminating: 'Mark borrowing as terminated',
+                        getStatusTerminating: 'This borrowing is terminated'
                     }
                 }
             },
@@ -284,7 +329,8 @@ i18n
                         myConsoles: 'Mano konsolės',
                         borrowConsoles: 'Išnuomoti konsoles',
                         chats: 'Pokalbiai',
-                        lendRequests: 'Skolinimo užklausos'
+                        lendRequests: 'Skolinamos konsolės',
+                        borrowRequests: 'Pasiskolinimai'
                     },
                     contacts: {
                         contactInfo: 'Kontaktinė informacija',
@@ -412,7 +458,33 @@ i18n
                         login: 'Prisijungimas',
                         username: 'El paštas',
                         password: 'Slaptažodis',
-                        rememberMe: 'Prisimink mane'
+                        rememberMe: 'Prisimink mane',
+                        forgotPassword: 'Pamiršai slaptažodį?'
+                    },
+                    register: {
+                        title: 'Registracija',
+                        titleBorrowers: 'Registracija besiskolinantiems',
+                        asCompany: 'Registruotis kaip įmonei?',
+                        companyCode: 'Įmonės kodas',
+                        companyCodeError: 'Reikia įvesti įmonės kodą',
+                        companyName: 'Įmonės pavadinimas',
+                        companyNameError: 'Reikia įvesti įmonės pavadinimą',
+                        firstName: 'Vardas',
+                        firstNameError: 'Reikia įvesti vardą',
+                        lastName: 'Pavardė',
+                        lastNameError: 'Reikia įvesti pavardę',
+                        email: 'El. paštas',
+                        emailError: 'Reikia įvesti el. pašto adresą',
+                        password: 'Slaptažodis',
+                        passwordError: 'Reikia įvesti Slaptažodį',
+                        passwordMismatchError: 'Slaptažodžiai nesutampa',
+                        repeatPassword: 'Pakartoti slaptažodį',
+                        registerButton: 'Registruotis',
+                        requestButton: 'Pateikti',
+                        checkEmail:
+                            'Išsiųsta patvirtinimo nuorodą. Prašome patikrinti savo el. paštą',
+                        requestSuccess:
+                            'Registracijos prašymas pateiktas sėkmingai. Prašome laukti patvirtinimo el. paštu.'
                     },
                     footer: {
                         contacts: 'Kontaktai',
@@ -428,7 +500,7 @@ i18n
                         description: 'Aprašymas',
                         descriptionError: 'Reikia nurodyti aprašymą',
                         dailyPrice: 'Dieninis tarifas',
-                        dailypriceError: 'Reikia nurodyti dieninį tarifą',
+                        dailyPriceError: 'Reikia nurodyti dieninį tarifą',
                         images: 'Nuotraukos',
                         imagesError: 'Reikia įkelti bent 2 nuotraukas',
                         update: 'Atnaujinti',
@@ -476,12 +548,13 @@ i18n
                         statusUnconfirmed: 'Nepasirašyta sutartis',
                         statusAtPlatform: 'Laukiama nuomos',
                         statusReserved: 'Rezervuota',
-                        statusAtLender: 'Pas nuomotoją',
+                        statusAtLender: 'Nuomojama',
                         statusTerminating: 'Laukiama sutarties nutraukimo',
                         statusTerminatingLender: 'Norima atgauti',
                         statusTerminatingBorrower: 'Norima grąžinti',
                         changeStatus: 'Pakeisti būseną',
-                        dailyPrice: 'Dienos kaina'
+                        dailyPrice: 'Dienos kaina',
+                        delete: 'Ištrinti'
                     },
                     borrowerConsolePage: {
                         selectConsole: 'Pasirinkti'
@@ -491,6 +564,16 @@ i18n
                         login: 'prisijungti',
                         failure:
                             'Elektroninio pašto patvirtinimo kodas yra neteisingas arba pasibaigusio galiojimo.'
+                    },
+                    passwordReset: {
+                        passwordReset: 'Slaptažodžio pakeitimas',
+                        resetPassword: 'Pakeisti slaptažodį',
+                        sendEmail: 'Išsiųsti el. laišką',
+                        success: 'Slaptažodis sėkmingai atnaujintas',
+                        failure:
+                            'Slaptažodžio pakeitimo nuoroda yra neteisinga arba pasibaigusiu galiojimo',
+                        email: 'El. pašto adresas',
+                        emailError: 'Įveskite el. pašto adresą'
                     },
                     emailChange: {
                         success: 'Elektroninis paštas sėkmingai pakeistas. Dabar galite ',
@@ -503,13 +586,22 @@ i18n
                         dialogBody1: 'Ar tikrai norite inicijuoti konsolės grąžinimą?',
                         dialogBody2: 'Ar tikrai norite pakeisti konsolės būseną?',
                         dialogBody3: 'Ar tikrai norite pasirinkti šią konsolę?',
+                        dialogBody4: 'Ar tikrai norite ištrinti šią konsolę?',
+                        dialogBody5: 'Ar tikrai norite ištrinti šią konsolių kategoriją?',
+                        dialogBody6: 'Ar tikrai norite ištrinti šį pasiskolinimą?',
                         confirm: 'Taip',
-                        deny: 'Ne'
+                        deny: 'Ne',
+                        toUserConsole: 'Į konsolės aprašymą'
                     },
                     borrowing: {
+                        borrowing: 'Pasiskolinimas',
                         statusPending: 'Laukiama sutarties pasirašymo',
                         statusActive: 'Aktyvu',
-                        statusTerminating: 'Laukiama konsolės grąžinimo'
+                        statusTerminating: 'Laukiama konsolės grąžinimo',
+                        contactBorrower: 'Susisiekti su besiskolinančia įmone',
+                        setStatusActive: 'Aktyvuoti pasiskolinimą',
+                        setStatusTerminating: 'Pažymėti pasiskolinimą pasibagiusiu',
+                        getStatusTerminating: 'Pasiskolinimas pasibaigęs'
                     }
                 }
             }

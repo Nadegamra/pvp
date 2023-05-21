@@ -46,12 +46,10 @@ export class BorrowingUpdate {
 
 export class BorrowingUpdateStatus {
     id: number
-    consolesStatus: UserConsoleStatus
     borrowingStatus: BorrowingStatus
 
-    constructor(id: number, consolesStatus: UserConsoleStatus, borrowingStatus: BorrowingStatus) {
+    constructor(id: number, borrowingStatus: BorrowingStatus) {
         this.id = id
-        this.consolesStatus = consolesStatus
         this.borrowingStatus = borrowingStatus
     }
 }

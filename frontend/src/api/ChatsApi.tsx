@@ -13,8 +13,12 @@ export async function getAllConversations() {
     return api.get(`getAll/admin`, headers)
 }
 
-export async function getUserConversations() {
-    return api.get(`getAll`, headers)
+export async function getLenderConversations() {
+    return api.get(`getAll/lender`, headers)
+}
+
+export async function getBorrowerConversations() {
+    return api.get(`getAll/borrower`, headers)
 }
 
 export async function getConversation(userConsoleId: number) {
@@ -22,7 +26,11 @@ export async function getConversation(userConsoleId: number) {
 }
 
 export async function contactLender(userConsoleId: number) {
-    return api.post(`contact/${userConsoleId}`, null, headers)
+    return api.post(`contact/lender/${userConsoleId}`, null, headers)
+}
+
+export async function contactBorrower(borrowingId: number) {
+    return api.post(`contact/borrower/${borrowingId}`, null, headers)
 }
 
 export async function sendMessage(data: MessageAdd) {

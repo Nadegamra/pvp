@@ -17,6 +17,7 @@ namespace Backend.Data
         public DbSet<Borrowing> Borrowings { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<MessageFile> MessageFiles { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

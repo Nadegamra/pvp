@@ -7,16 +7,17 @@ using CloudinaryDotNet;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Backend.Data.Views.Image;
+using Backend.Data.Views.MessageFile;
 
 namespace Backend.Handlers
 {
-    public class ImagesHandler
+    public class FilesHandler
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinaryConfig> _config;
 
-        public ImagesHandler(AppDbContext context, IMapper mapper, IOptions<CloudinaryConfig> config)
+        public FilesHandler(AppDbContext context, IMapper mapper, IOptions<CloudinaryConfig> config)
         {
             _context = context;
             _mapper = mapper;
@@ -86,12 +87,37 @@ namespace Backend.Handlers
         {
             Image image = _context.Images.Where(x => x.Id == id).First();
             // Cloudinary
-            var cloudinary = new Cloudinary(new Account(_config.Value.Cloud, _config.Value.ApiKey, _config.Value.ApiSecret));
-            await cloudinary.DestroyAsync(new DeletionParams(image.Path));
+            //var cloudinary = new Cloudinary(new Account(_config.Value.Cloud, _config.Value.ApiKey, _config.Value.ApiSecret));
+            //await cloudinary.DestroyAsync(new DeletionParams(image.Path));
             // Database
             _context.Images.Remove(image);
             await _context.SaveChangesAsync();
             return _mapper.Map<Image, ImageGetDto>(image);
+        }
+
+        public async Task AddMessageFileAsync(MessageFileAddDto fileDto)
+        {
+
+            byte[] bytes = Convert.FromBase64String(fileDto.Stream);
+
+            var stream = new MemoryStream(bytes);
+
+            //Cloudinary
+            var cloudinary = new Cloudinary(new Account(_config.Value.Cloud, _config.Value.ApiKey, _config.Value.ApiSecret));
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription("file.jpg", stream)
+            };
+            var uploadResult = cloudinary.Upload(uploadParams);
+
+
+            // Database
+            MessageFile file = new MessageFile { Name = fileDto.Name, Path = uploadResult.PublicId, Description = fileDto.Description, MessageId = fileDto.MessageId };
+
+            await _context.MessageFiles.AddAsync(file);
+            await _context.SaveChangesAsync();
+
+            return;
         }
     }
 }

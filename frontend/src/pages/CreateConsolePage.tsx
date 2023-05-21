@@ -4,6 +4,7 @@ import { addConsole } from '../api/ConsolesApi'
 import { ConsoleAdd } from '../models/Console'
 import { ImageAdd } from '../models/Image'
 import { useTranslation } from 'react-i18next'
+import Button from '../components/ui/Button'
 
 interface Props {
     name: string
@@ -58,14 +59,14 @@ function CreateConsolePage() {
                     window.location.href = '/admin/consoles'
                 })
             })}>
-            <div className="w-[400px] bg-bg-secondary p-7 rounded">
+            <div className="w-[400px] bg-bg-secondary p-7 rounded min-w-max">
                 <div className="py-6 text-fs-h1 text-center">
                     {t('consoleManagementForm.newConsole') ?? ''}
                 </div>
-                <div className="mx-[10px]">
+                <div className="mx-[10px] min-w-max">
                     <input
                         type="text"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('consoleManagementForm.name') ?? ''}
                         {...register('name', { required: true })}
                     />
@@ -77,7 +78,7 @@ function CreateConsolePage() {
 
                     <input
                         type="text"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('consoleManagementForm.description') ?? ''}
                         {...register('description', { required: true })}
                     />
@@ -89,7 +90,7 @@ function CreateConsolePage() {
 
                     <input
                         type="number"
-                        className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('consoleManagementForm.dailyPrice') ?? ''}
                         {...register('dailyPrice', { required: true })}
                     />
@@ -99,10 +100,11 @@ function CreateConsolePage() {
                             : ''}
                     </p>
 
-                    <label htmlFor="images" className="cursor-pointer">
-                        <span className="p-1 mr-1 bg-[rgb(255,255,255)] text-[rgb(0,0,0)] rounded-sm">
+                    <label htmlFor="images" className="cursor-pointer text-t-primary w-max">
+                        <span className="p-1 mr-1 bg-bg-primary text-t-primary rounded-sm border">
                             {t('userConsoleManagementForm.selectImages')}
                         </span>
+                        {watch('images') === undefined && t('userConsoleManagementForm.noImage')}
                         {watch('images') !== undefined &&
                             watch('images').length === 0 &&
                             t('userConsoleManagementForm.noImage')}
@@ -132,9 +134,7 @@ function CreateConsolePage() {
                     </p>
                 </div>
                 <div className="flex flex-col items-center pt-5 text-fs-h2">
-                    <button className="bg-bg-extra py-1 px-7 rounded" type="submit">
-                        {t('consoleManagementForm.create') ?? ''}
-                    </button>
+                    <Button text={t('consoleManagementForm.create') ?? ''} submit={true} />
                 </div>
             </div>
             <div className="text-fs-primary text-danger-500 text-center">{error}</div>

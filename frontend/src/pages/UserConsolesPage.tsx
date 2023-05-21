@@ -1,9 +1,8 @@
 import { UserConsoleStatus } from '../models/UserConsole'
 import { useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import UserConsoleStatusSelectionAdmin from '../components/userConsoles/UserConsolesStatusSelectionAdmin'
+import UserConsolesStatusSelectionAdmin from '../components/userConsoles/UserConsolesStatusSelectionAdmin'
 import UserConsolesGrid from '../components/userConsoles/UserConsolesGrid'
-import BorrowingsList from '../components/userConsoles/BorrowingsList'
 
 function UserConsolesPage() {
     const [status, setStatus] = useState<UserConsoleStatus>(UserConsoleStatus.UNCONFIRMED)
@@ -11,22 +10,14 @@ function UserConsolesPage() {
     const { user } = useAuth()
 
     return (
-        <div
-            className="flex flex-col"
-            style={{ height: document.getElementById('container')?.clientHeight }}>
+        <div>
             <div id="userConsolesContainer" className="flex-1">
-                {user?.role === 'admin' && (
-                    <UserConsoleStatusSelectionAdmin status={status} setStatus={setStatus} />
-                )}
+                <div className="pt-3" id="adminUserConsolesButtons">
+                    {user?.role === 'admin' && (
+                        <UserConsolesStatusSelectionAdmin status={status} setStatus={setStatus} />
+                    )}
+                </div>
                 {status <= UserConsoleStatus.AT_PLATFORM && <UserConsolesGrid status={status} />}
-                {status === UserConsoleStatus.RESERVED && <BorrowingsList status={status} />}
-                {status === UserConsoleStatus.AT_LENDER && <BorrowingsList status={status} />}
-                {status === UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER && (
-                    <BorrowingsList status={status} />
-                )}
-                {status === UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER && (
-                    <BorrowingsList status={status} />
-                )}
             </div>
         </div>
     )
