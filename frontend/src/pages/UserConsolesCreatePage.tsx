@@ -136,7 +136,7 @@ function UserConsolesCreatePage() {
                         {...register('accessories', { required: true })}
                     />
                     <div
-                        className="italic absolute w-full text-sm text-neutral-500 peer-focus:text-primary dark:text-neutral-200 dark:peer-focus:text-primary text-[12px]"
+                        className="italic absolute text-sm text-neutral-500 peer-focus:text-primary dark:text-neutral-200 dark:peer-focus:text-primary text-[12px]"
                         data-te-input-helper-ref>
                         {t('userConsoleManagementForm.accessoriesTooltip')}
                     </div>
@@ -187,7 +187,7 @@ function UserConsolesCreatePage() {
                         disabled={!isValid}
                         dialog={true}
                         dialogBody={t('button.dialogBody8')}
-                        onDisabledHover={() => trigger()}
+                        onDisabledClick={() => trigger()}
                     />
                 </div>
             </div>

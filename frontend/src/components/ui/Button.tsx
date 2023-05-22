@@ -1,4 +1,4 @@
-import { Fragment, MouseEvent } from 'react'
+import { MouseEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
     disabled?: boolean
     id?: number
     submit?: boolean
-    onDisabledHover?: () => void
+    onDisabledClick?: () => void
 }
 
 function Button({
@@ -22,16 +22,11 @@ function Button({
     disabled = false,
     id = 1,
     submit = false,
-    onDisabledHover
+    onDisabledClick
 }: Props) {
     const { t } = useTranslation()
     return (
-        <div
-            onMouseEnter={() => {
-                if (disabled && onDisabledHover !== undefined) {
-                    onDisabledHover()
-                }
-            }}>
+        <div>
             <button
                 className={
                     disabled
@@ -41,7 +36,6 @@ function Button({
                         : 'inline-block rounded bg-danger px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-danger-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-danger-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-danger-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]'
                 }
                 type={dialog ? 'button' : 'submit'}
-                disabled={disabled}
                 data-te-toggle="modal"
                 data-te-target={`#modal${id}`}
                 data-te-ripple-init
@@ -49,14 +43,20 @@ function Button({
                 onClick={(e: MouseEvent<HTMLButtonElement>) => {
                     if (!submit) {
                         if (onClick !== undefined && !dialog) {
-                            onClick(e)
+                            if (disabled) {
+                                if (onDisabledClick !== undefined) {
+                                    onDisabledClick()
+                                }
+                            } else {
+                                onClick(e)
+                            }
                         }
                         e.preventDefault()
                     }
                 }}>
                 {text}
             </button>
-            {dialog && (
+            {!disabled && dialog && (
                 <div
                     data-te-modal-init
                     className="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"

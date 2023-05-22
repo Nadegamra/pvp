@@ -143,7 +143,7 @@ function CreateConsolePage() {
                         text={t('consoleManagementForm.create') ?? ''}
                         submit={true}
                         disabled={!isValid}
-                        onDisabledHover={() => trigger()}
+                        onDisabledClick={() => trigger()}
                         dialog={true}
                         dialogBody={t('button.dialogBody9')}
                     />
