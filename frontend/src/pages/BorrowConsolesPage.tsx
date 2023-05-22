@@ -92,11 +92,11 @@ function BorrowConsolesPage() {
                 ))}
             </div>
             {selectedConsoles.length > 0 && (
-                <div className="fixed bottom-10 right-10 z-50">
+                <div className="absolute bottom-10 right-10">
                     <Button
                         text={t('borrowerConsolePage.selectConsole')}
-                        dialog={false}
-                        dialogBody={t('button.dialogBody3')}
+                        dialog={true}
+                        dialogBody={t('button.dialogBody7')}
                         onClick={() => {
                             addBorrowing(new BorrowingAdd(selectedConsoles)).then(
                                 () => (window.location.href = '/borrowings')

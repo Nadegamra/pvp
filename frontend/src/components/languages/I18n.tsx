@@ -219,10 +219,11 @@ i18n
                     },
                     userConsoleManagementForm: {
                         title: 'Console Information',
-                        amount: 'Amount',
+                        amount: 'Console amount',
                         amountError: 'Amount is required',
                         accessories: 'Accessories',
                         accessoriesError: 'Accessories is required',
+                        accessoriesTooltip: 'E.g.: 3 controllers',
                         consoleCategory: 'Console Category',
                         consoleCategoryError: 'Console Category is required',
                         images: 'Images',
@@ -242,7 +243,7 @@ i18n
                         consoleIncome: 'Average monthly income (1 unit)',
                         lendTitle: 'Product details',
                         lendAmount: 'Amount (units)',
-                        lendAccessories: 'Accessories',
+                        lendAccessories: 'Total accessories',
                         lendStatus: 'Current status',
                         userTitle: 'About lender',
                         userFname: 'First name',
@@ -295,6 +296,12 @@ i18n
                         dialogBody4: 'Do you really wish to delete this console?',
                         dialogBody5: 'Do you really wish to delete this console category?',
                         dialogBody6: 'Do you really wish to delete this borrowing?',
+                        dialogBody7:
+                            'Do you really wish to initiate the borrowing of these consoles?',
+                        dialogBody8: 'Do you really wish to lend this console(-s)?',
+                        dialogBody9: 'Do you really wish to create this console category?',
+                        dialogBody10: 'Do you really wish to activate this borrowing?',
+                        dialogBody11: 'Do you really wish to mark this borrowing as complete?',
                         confirm: 'Yes',
                         deny: 'No',
                         toUserConsole: 'To user console',
@@ -311,6 +318,10 @@ i18n
                         getStatusActive: 'Status: active',
                         setStatusTerminating: 'Mark borrowing as terminated',
                         getStatusTerminating: 'Status: awaiting termination'
+                    },
+                    forgotPassword: {
+                        checkEmail: 'Please check your email',
+                        emailNotExist: 'This email does not have an account'
                     }
                 }
             },
@@ -517,10 +528,11 @@ i18n
                     },
                     userConsoleManagementForm: {
                         title: 'Konsolės informacija',
-                        amount: 'Kiekis',
+                        amount: 'Konsolių kiekis',
                         amountError: 'Reikia nurodyti kiekį',
                         accessories: 'Priedai',
                         accessoriesError: 'Reikia nurodyti konsolės priedus',
+                        accessoriesTooltip: 'Pvz.: 3 pulteliai',
                         consoleCategory: 'Konsolės kategorija',
                         consoleCategoryError: 'Reikia nurodyti konsolės kategoriją',
                         images: 'Nuotraukos',
@@ -540,7 +552,7 @@ i18n
                         consoleIncome: 'Vidutinės mėnesio pajamos (1vnt.)',
                         lendTitle: 'Nuomos detalės',
                         lendAmount: 'Nuomojamas kiekis (vnt.)',
-                        lendAccessories: 'Priedai',
+                        lendAccessories: 'Iš viso priedų',
                         lendStatus: 'Dabartinė būsena',
                         userTitle: 'Apie skolintoją',
                         userFname: 'Vardas',
@@ -597,6 +609,11 @@ i18n
                         dialogBody4: 'Ar tikrai norite ištrinti šią konsolę?',
                         dialogBody5: 'Ar tikrai norite ištrinti šią konsolių kategoriją?',
                         dialogBody6: 'Ar tikrai norite ištrinti šį pasiskolinimą?',
+                        dialogBody7: 'Ar tikrai norite inicijuoti šių konsolių pasiskolinimą?',
+                        dialogBody8: 'Ar tikrai norite paleisti šią konsolę į nuomą?',
+                        dialogBody9: 'Ar tikrai norite sukurti šią konsolių kategoriją?',
+                        dialogBody10: 'Ar tikrai norite aktyvuoti šį pasiskolinimą?',
+                        dialogBody11: 'Ar tikrai norite pažymėti šį pasiskolinimą pasibaigusiu?',
                         confirm: 'Taip',
                         deny: 'Ne',
                         toUserConsole: 'Į konsolės puslapį',
@@ -613,6 +630,10 @@ i18n
                         getStatusActive: 'Pasiskolinimas aktyvus',
                         setStatusTerminating: 'Pažymėti pasiskolinimą pasibagiusiu',
                         getStatusTerminating: 'Pasiskolinimas pasibaigęs'
+                    },
+                    forgotPassword: {
+                        checkEmail: 'Prašome patikrinti savo el. paštą',
+                        emailNotExist: 'Šis elektroninis paštas neturi paskyros'
                     }
                 }
             }
