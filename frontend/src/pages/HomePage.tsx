@@ -77,14 +77,12 @@ function HomePage() {
             </div>
             <div className="h-60"></div>
             <div id="besiskolinantiems" className="h-20"></div>
-            <div className="bg-bg-tertiary mt-16 mb-8 border py-5 h-96 flex flex-col md:flex-row h-max flex-1">
-                <div>
+            <div className="bg-bg-tertiary mt-16 mb-8 border py-5 h-96 flex flex-col lg:flex-row h-max">
+                <div className="flex-1">
                     <div className="ml-10 text-fs-h1">{t('home.borrowers1')}</div>
                     <div className="ml-14 text-fs-h2">
-                        <div>{t('home.borrowers2')}</div>
-                        <div>{t('home.borrowers4')}</div> 
-                        <div>{t('home.borrowers5')}</div> 
-                        <div>{t('home.borrowers6')}</div>
+                        {t('home.borrowers2')} {t('home.borrowers4')} {t('home.borrowers5')}{' '} 
+                        {t('home.borrowers6')}
                         <div className="mt-5">
                             <Link
                                 to="/register"
@@ -94,7 +92,7 @@ function HomePage() {
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-end w-full my-5 md:my-0 ml-6 md:ml-0">
+                <div className="flex-1 flex justify-end w-full my-5 md:my-0 ml-6 md:ml-0">
                     <div className="max-w-[1000px] mr-12">
                         <Carousel
                             showThumbs={false}
