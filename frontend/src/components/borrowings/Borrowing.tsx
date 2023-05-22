@@ -101,8 +101,12 @@ function Borrowing({
                                 ? t('borrowing.setStatusTerminating')
                                 : t('borrowing.getStatusTerminating')
                         }
-                        dialog={false}
-                        dialogBody=""
+                        dialog={true}
+                        dialogBody={
+                            borrowing?.status === BorrowingStatus.PENDING
+                                ? t('button.dialogBody10')
+                                : t('button.dialogBody11')
+                        }
                         onClick={() => {
                             updateBorrowingStatus(
                                 new BorrowingUpdateStatus(

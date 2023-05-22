@@ -30,9 +30,10 @@ function UserConsolesCreatePage() {
         register,
         watch,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
         control,
-        setValue
+        setValue,
+        trigger
     } = useForm<Props>()
     const [error, setError] = useState('')
     const [categories, setCategories] = useState<ConsoleGet[]>()
@@ -117,18 +118,6 @@ function UserConsolesCreatePage() {
                     </p>
 
                     <input
-                        type="text"
-                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
-                        placeholder={t('userConsoleManagementForm.accessories') ?? ''}
-                        {...register('accessories', { required: true })}
-                    />
-                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.accessories?.type === 'required'
-                            ? t('userConsoleManagementForm.accessoriesError')
-                            : ''}
-                    </p>
-
-                    <input
                         type="number"
                         className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('userConsoleManagementForm.amount') ?? ''}
@@ -139,6 +128,24 @@ function UserConsolesCreatePage() {
                             ? t('userConsoleManagementForm.amountError')
                             : ''}
                     </p>
+
+                    <input
+                        type="text"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
+                        placeholder={t('userConsoleManagementForm.accessories') ?? ''}
+                        {...register('accessories', { required: true })}
+                    />
+                    <div
+                        className="italic absolute text-sm text-neutral-500 peer-focus:text-primary dark:text-neutral-200 dark:peer-focus:text-primary text-[12px]"
+                        data-te-input-helper-ref>
+                        {t('userConsoleManagementForm.accessoriesTooltip')}
+                    </div>
+                    <p className="mt-3 mb-3 text-fs-primary text-danger-500 h-3">
+                        {errors.accessories?.type === 'required'
+                            ? t('userConsoleManagementForm.accessoriesError')
+                            : ''}
+                    </p>
+
                     <label htmlFor="images" className="cursor-pointer flex flex-col sm:flex-row">
                         <span className="p-1 mr-1 bg-bg-primary text-t-primary rounded-sm border max-w-max">
                             {t('userConsoleManagementForm.selectImages')}
@@ -171,8 +178,17 @@ function UserConsolesCreatePage() {
                             : ''}
                     </p>
                 </div>
-                <div className="flex flex-col items-center pt-5 text-fs-h2">
-                    <Button text={t('userConsoleManagementForm.create') ?? ''} submit={true} />
+                <div
+                    className="flex flex-col items-center pt-5 text-fs-h2"
+                    onClick={() => trigger()}>
+                    <Button
+                        text={t('userConsoleManagementForm.create') ?? ''}
+                        submit={true}
+                        disabled={!isValid}
+                        dialog={true}
+                        dialogBody={t('button.dialogBody8')}
+                        onDisabledClick={() => trigger()}
+                    />
                 </div>
             </div>
             <div className="text-fs-primary text-danger-500 text-center">{error}</div>

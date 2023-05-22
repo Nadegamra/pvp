@@ -2,13 +2,14 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { sendPasswordResetEmail } from '../api/UsersApi'
 import { useState } from 'react'
 import { t } from 'i18next'
+import Button from '../components/ui/Button'
 
 interface Props {
     email: string
 }
 
 function ForgotPasswordPage() {
-    const [error, setError] = useState('')
+    const [error, setError] = useState<string>('')
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState<boolean>(false)
 
@@ -24,10 +25,10 @@ function ForgotPasswordPage() {
         setError('')
         sendPasswordResetEmail(watch('email'))
             .then(() => {
-                setLoading(false)
-                setMessage('Please check your email for password reset code')
+                setMessage(t('forgotPassword.checkEmail') ?? '')
             })
-            .catch((error) => setError(error))
+            .catch(() => setError(t('forgotPassword.emailNotExist') ?? ''))
+            .finally(() => setLoading(false))
     }
 
     return (
@@ -51,12 +52,7 @@ function ForgotPasswordPage() {
                     </p>
                 </div>
                 <div className="flex flex-col items-center pt-3">
-                    <button
-                        type="submit"
-                        className="bg-bg-extra py-1 px-7 rounded"
-                        disabled={loading}>
-                        {t('passwordReset.sendEmail')}
-                    </button>
+                    <Button submit={true} disabled={loading} text={t('passwordReset.sendEmail')} />
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>

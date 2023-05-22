@@ -27,7 +27,8 @@ function CreateConsolePage() {
         register,
         watch,
         handleSubmit,
-        formState: { errors }
+        formState: { errors, isValid },
+        trigger
     } = useForm<Props>()
     const [error, setError] = useState('')
 
@@ -135,8 +136,17 @@ function CreateConsolePage() {
                             : ''}
                     </p>
                 </div>
-                <div className="flex flex-col items-center pt-5 text-fs-h2">
-                    <Button text={t('consoleManagementForm.create') ?? ''} submit={true} />
+                <div
+                    className="flex flex-col items-center pt-5 text-fs-h2"
+                    onClick={() => trigger()}>
+                    <Button
+                        text={t('consoleManagementForm.create') ?? ''}
+                        submit={true}
+                        disabled={!isValid}
+                        onDisabledClick={() => trigger()}
+                        dialog={true}
+                        dialogBody={t('button.dialogBody9')}
+                    />
                 </div>
             </div>
             <div className="text-fs-primary text-danger-500 text-center">{error}</div>
