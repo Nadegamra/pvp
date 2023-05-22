@@ -80,7 +80,7 @@ function HomePage() {
             <div className="bg-bg-tertiary mt-16 mb-8 border py-5 h-96 flex flex-col lg:flex-row h-max">
                 <div className="flex-1">
                     <div className="ml-10 text-fs-h1">{t('home.borrowers1')}</div>
-                    <div className="ml-14 text-fs-h2">
+                    <div className="mx-14 text-fs-h2">
                         {t('home.borrowers2')} {t('home.borrowers4')} {t('home.borrowers5')}{' '} 
                         {t('home.borrowers6')}
                         <div className="mt-5">
