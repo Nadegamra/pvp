@@ -313,6 +313,10 @@ i18n
                         getStatusActive: 'Status: active',
                         setStatusTerminating: 'Mark borrowing as terminated',
                         getStatusTerminating: 'Status: awaiting termination'
+                    },
+                    forgotPassword: {
+                        checkEmail: 'Please check your email',
+                        emailNotExist: 'This email does not have an account'
                     }
                 }
             },
@@ -616,6 +620,10 @@ i18n
                         getStatusActive: 'Pasiskolinimas aktyvus',
                         setStatusTerminating: 'Pažymėti pasiskolinimą pasibagiusiu',
                         getStatusTerminating: 'Pasiskolinimas pasibaigęs'
+                    },
+                    forgotPassword: {
+                        checkEmail: 'Prašome patikrinti savo el. paštą',
+                        emailNotExist: 'Šis elektroninis paštas neturi paskyros'
                     }
                 }
             }
