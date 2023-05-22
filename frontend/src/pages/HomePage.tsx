@@ -77,11 +77,14 @@ function HomePage() {
             </div>
             <div className="h-60"></div>
             <div id="besiskolinantiems" className="h-20"></div>
-            <div className="bg-bg-tertiary mt-16 mb-8 border py-5 h-96 flex flex-col md:flex-row h-max">
+            <div className="bg-bg-tertiary mt-16 mb-8 border py-5 h-96 flex flex-col md:flex-row h-max flex-1">
                 <div>
                     <div className="ml-10 text-fs-h1">{t('home.borrowers1')}</div>
                     <div className="ml-14 text-fs-h2">
-                        {t('home.borrowers2')} {t('home.borrowers4')} {t('home.borrowers5')} {t('home.borrowers6')}
+                        <div>{t('home.borrowers2')}</div>
+                        <div>{t('home.borrowers4')}</div> 
+                        <div>{t('home.borrowers5')}</div> 
+                        <div>{t('home.borrowers6')}</div>
                         <div className="mt-5">
                             <Link
                                 to="/register"
@@ -117,7 +120,7 @@ function HomePage() {
                 </div>
             </div>
             <div id="skolintojams" className="h-20"></div>
-            <div className="bg-bg-tertiary mt-16 border py-5 h-96">
+            <div className="bg-bg-tertiary mt-16 border py-5 h-96 flex-1">
                 <div className="ml-10 text-fs-h1">{t('home.lenders1')}</div>
                 <div className="ml-14 text-fs-h2">
                     <div>{t('home.lenders2')}</div>
