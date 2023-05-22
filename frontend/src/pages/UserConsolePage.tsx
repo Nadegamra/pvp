@@ -186,6 +186,10 @@ function UserConsolePage() {
                             text={t('userConsolePage.changeStatus')}
                             dialog={true}
                             dialogBody={t('button.dialogBody2')}
+                            disabled={
+                                watch('status') === undefined ||
+                                watch('status') === userConsole!.consoleStatus
+                            }
                             onClick={() => {
                                 updateUserConsoleStatus(
                                     new UserConsoleStatusUpdate(userConsole!.id, watch('status'))

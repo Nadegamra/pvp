@@ -30,9 +30,10 @@ function UserConsolesCreatePage() {
         register,
         watch,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
         control,
-        setValue
+        setValue,
+        trigger
     } = useForm<Props>()
     const [error, setError] = useState('')
     const [categories, setCategories] = useState<ConsoleGet[]>()
@@ -171,8 +172,17 @@ function UserConsolesCreatePage() {
                             : ''}
                     </p>
                 </div>
-                <div className="flex flex-col items-center pt-5 text-fs-h2">
-                    <Button text={t('userConsoleManagementForm.create') ?? ''} submit={true} />
+                <div
+                    className="flex flex-col items-center pt-5 text-fs-h2"
+                    onClick={() => trigger()}>
+                    <Button
+                        text={t('userConsoleManagementForm.create') ?? ''}
+                        submit={true}
+                        disabled={!isValid}
+                        dialog={true}
+                        dialogBody={t('button.dialogBody8')}
+                        onDisabledHover={() => trigger()}
+                    />
                 </div>
             </div>
             <div className="text-fs-primary text-danger-500 text-center">{error}</div>
