@@ -148,13 +148,18 @@ i18n
                         selectLendButton: 'For Lenders',
                         borrowers1: 'For Borrowers',
                         borrowers2:
-                            'We can offer you a new source of consoles for rent for your business. You can borrow consoles from us for a fixed daily rate.',
+                            'Our business offers you a great opportunity to get a new source of consoles for rent. We are a specialized company that provides console rental services for a fixed daily rate. This offer will allow your customers to enjoy the latest game consoles without significant investments on your part.',
+                          
+                        borrowers4: 'At our place, you will find a wide selection of console accessories to meet all customer needs.',
+                        borrowers5: 'Our daily rate system is transparent and simple. You just need to choose the desired console model, rental duration, and the accessories that interest you. We ensure that you will receive a quality console with all the necessary accessories.',
+                        borrowers6: 'Our team is ready to provide you with all the necessary assistance and advice regarding console and accessory selection and ordering.',
                         borrowers3: 'Submit registration request',
                         lenders1: 'For Lenders',
+                        lenders5: 'If you have a rarely used console, you can offer it on our rental platform. We will give you the opportunity to rent out your console for a fixed daily rate, which will depend on the console model and condition. This will allow you to recoup the money you invested in the console while enabling another player to enjoy the world of gaming.',
                         lenders2:
                             "Do you have rarely used consoles? Maybe you bought a console for a specific game and don't use it anymore? Or do you just want to get your money back for it? In that case, this platform is for you.",
                         lenders3:
-                            'You can rent out your console to others for a fixed daily rate, which depends on the console.',
+                            'Our platform also ensures a secure and reliable rental process. We take care to protect your console from possible damage or loss and ensure that its condition is checked before and after the rental. This helps to ensure that both the renter and the tenant have a positive experience using our platform.',
                         lenders4: 'You can register now'
                     },
                     login: {
@@ -440,13 +445,18 @@ i18n
                         selectLendButton: 'Skolintojams',
                         borrowers1: 'Besiskolinantiems',
                         borrowers2:
-                            'Jūsų verslui galime pasiūlyti naują konsolių šaltinį nuomai. Pas mus galite skolintis konsoles nuomai už fiksuotą dieninį tarifą.',
+                            'Mūsų verslas siūlo jums puikią galimybę gauti naują konsolių šaltinį nuomai. Mes esame specializuota įmonė, kuri teikia konsoles nuomos paslaugas už fiksuotą dieninį tarifą. Šis pasiūlymas leis jūsų klientams mėgautis naujausiomis žaidimų konsolėmis be didelių investicijų jums.',
+                          
+                        borrowers4: 'Pas mus rasite platų konsolei priedų pasirinkimą, kad galėtumėte patenkinti visus klientų poreikius.',
+                        borrowers5: 'Mūsų dieninio tarifo sistema yra skaidri ir paprasta. Jums tereikia pasirinkti norimą konsoles modelį, nuomos trukmę ir priedus, kurie jus domina. Mes užtikriname, kad gausite kokybišką konsolę su visais reikalingais priedais.',
+                        borrowers6: 'Mūsų komanda yra pasirengusi suteikti jums visą reikiamą pagalbą ir patarimus dėl konsolės ir priedų pasirinkimo bei užsakymo.',
                         borrowers3: 'Pateikti registracijos prašymą',
                         lenders1: 'Skolintojams',
+                        lenders5: 'Mūsų platforma taip pat užtikrina saugią ir patikimą nuomos procesą. Mes rūpinamės, kad jūsų konsolė būtų apdrausta nuo galimų pažeidimų ar netekimo, ir užtikriname, kad jos būklė būtų tikrinama prieš ir po nuomos. Tai padeda užtikrinti, jog tiek nuomotojas, tiek ir nuomininkas turės teigiamą patirtį naudojantis mūsų platforma.',
                         lenders2:
                             'Ar jūs turite retai naudojamų konsolių? Galbūt jums pinigų nusipirktisekančios kartos konsolei? Ar tiesiog norite atgauti pinigus sumokėtus užją? Tokiu atveju ši platforma yra skirta jums.',
                         lenders3:
-                            'Pas mus galite nuomoti savo konsolę už nustatytą dieninį tarifą, kuris priklauso nuo konsolės.',
+                            'Jei turite retai naudojamą konsolę, galite ją pasiūlyti mūsų nuomos platformoje. Mes suteiksime jums galimybę nuomoti savo konsolę už nustatytą dieninį tarifą, kuris bus priklauso nuo konsolės modelio ir būklės. Tai leis jums atgauti pinigus, kuriuos investavote į konsolę, tuo pačiu padėdamas kitam žaidėjui mėgautis žaidimų pasauliu.',
                         lenders4: 'Galite užsiregistruoti dabar'
                     },
                     login: {
