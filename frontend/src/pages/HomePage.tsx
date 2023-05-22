@@ -118,7 +118,7 @@ function HomePage() {
                 </div>
             </div>
             <div id="skolintojams" className="h-20"></div>
-            <div className="bg-bg-tertiary mt-16 border py-5 h-96 flex-1">
+            <div className="bg-bg-tertiary mt-16 border py-5 h-96 flex-1 h-max">
                 <div className="ml-10 text-fs-h1">{t('home.lenders1')}</div>
                 <div className="mx-14 text-fs-h2">
                     <div>{t('home.lenders2')}</div>
