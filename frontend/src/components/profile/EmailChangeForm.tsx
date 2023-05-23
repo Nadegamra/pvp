@@ -22,7 +22,6 @@ function EmailChangeForm() {
         watch
     } = useForm<Props>()
 
-    const [email, setEmail] = useState<string>('')
     const [emailLoading, setEmailLoading] = useState<boolean>(false)
 
     useEffect(() => {
@@ -34,7 +33,7 @@ function EmailChangeForm() {
         <form
             onSubmit={handleSubmit(async (data, e) => {
                 setEmailLoading(true)
-                sendEmailChangeToken(new UserEmailChange(email)).finally(() => {
+                sendEmailChangeToken(new UserEmailChange(watch('newEmail'))).finally(() => {
                     getUnconfirmedEmails().then((response) => {
                         setUnconfirmedEmails(response.data)
                     })
