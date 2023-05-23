@@ -101,12 +101,16 @@ function UserConsolePage() {
                 <div className="ml-3">{userConsole?.console.name}</div>
                 <div className="font-bold">{t('userConsolePage.consoleDescription')}</div>
                 <div className="ml-3">{userConsole?.console.description}</div>
-                <div className="font-bold">{t('userConsolePage.dailyPrice')}</div>
+                <div className="font-bold">
+                    {user?.role === 'lender'
+                        ? t('userConsolePage.dailyPriceLender')
+                        : t('userConsolePage.dailyPrice')}
+                </div>
                 <div className="ml-3">
-                    {user?.role !== 'borrower'
+                    {user?.role === 'lender'
                         ? (Math.round((userConsole?.console.dailyPrice ?? 0) * 0.6 * 100) / 100) *
                           30
-                        : userConsole?.console.dailyPrice}{' '}
+                        : userConsole?.console.dailyPrice ?? 0}
                     €
                 </div>
 

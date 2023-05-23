@@ -197,7 +197,9 @@ i18n
                         checkEmail: 'Please check your email for confirmation link',
                         requestSuccess:
                             'Registration request has been submitted successfully. Please wait for confirmation via email',
-                        noRequests: 'Currently there are no registration requests'
+                        noRequests: 'Currently there are no registration requests',
+                        approve: 'Confirm',
+                        reject: 'Reject'
                     },
                     footer: {
                         contacts: 'Contacts',
@@ -267,7 +269,8 @@ i18n
                         statusTerminatingLender: 'Awaiting to get back',
                         statusTerminatingBorrower: 'Awaiting to return',
                         changeStatus: 'Awaiting for return',
-                        dailyPrice: 'Monthly price',
+                        dailyPrice: 'Daily price',
+                        dailyPriceLender: '30 days income',
                         delete: 'Delete'
                     },
                     borrowerConsolePage: {
@@ -474,7 +477,7 @@ i18n
                         lenders5:
                             'Mūsų platforma taip pat užtikrina saugią ir patikimą nuomos procesą. Mes rūpinamės, kad jūsų konsolė būtų apdrausta nuo galimų pažeidimų ar netekimo, ir užtikriname, kad jos būklė būtų tikrinama prieš ir po nuomos. Tai padeda užtikrinti, jog tiek nuomotojas, tiek ir nuomininkas turės teigiamą patirtį naudojantis mūsų platforma.',
                         lenders2:
-                            'Ar jūs turite retai naudojamų konsolių? Galbūt jums pinigų nusipirktisekančios kartos konsolei? Ar tiesiog norite atgauti pinigus sumokėtus užją? Tokiu atveju ši platforma yra skirta jums.',
+                            'Ar jūs turite retai naudojamų konsolių? Galbūt jums pinigų nusipirkti sekančios kartos konsolei? Ar tiesiog norite atgauti pinigus sumokėtus už ją? Tokiu atveju ši platforma yra skirta jums.',
                         lenders3:
                             'Jei turite retai naudojamą konsolę, galite ją pasiūlyti mūsų nuomos platformoje. Mes suteiksime jums galimybę nuomoti savo konsolę už nustatytą dieninį tarifą, kuris bus priklauso nuo konsolės modelio ir būklės. Tai leis jums atgauti pinigus, kuriuos investavote į konsolę, tuo pačiu padėdamas kitam žaidėjui mėgautis žaidimų pasauliu.',
                         lenders4: 'Galite užsiregistruoti dabar'
@@ -511,7 +514,9 @@ i18n
                             'Išsiųsta patvirtinimo nuorodą. Prašome patikrinti savo el. paštą',
                         requestSuccess:
                             'Registracijos prašymas pateiktas sėkmingai. Prašome laukti patvirtinimo el. paštu.',
-                        noRequests: 'Šiuo metu registracijos užklausų nėra'
+                        noRequests: 'Šiuo metu registracijos užklausų nėra',
+                        approve: 'Patvirtinti',
+                        reject: 'Atmesti'
                     },
                     footer: {
                         contacts: 'Kontaktai',
@@ -582,7 +587,8 @@ i18n
                         statusTerminatingLender: 'Norima atgauti',
                         statusTerminatingBorrower: 'Norima grąžinti',
                         changeStatus: 'Pakeisti būseną',
-                        dailyPrice: 'Mėnesio kaina',
+                        dailyPrice: 'Dienos kaina',
+                        dailyPriceLender: '30 dienų pajamos',
                         delete: 'Ištrinti'
                     },
                     borrowerConsolePage: {

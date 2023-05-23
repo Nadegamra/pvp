@@ -25,7 +25,7 @@ export default function CompanyRegisterPage() {
 
     return (
         <div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-6"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 mt-6 p-5"
             style={{
                 minHeight: getContainerHeight() - 100
             }}>
@@ -42,13 +42,13 @@ export default function CompanyRegisterPage() {
                     <div className="flex flex-row">
                         <span className="mr-[30px]">
                             <Button
-                                text="Approve"
+                                text={t('register.approve')}
                                 onClick={() => handleApprove(request.id, true)}
                             />
                         </span>
                         <span className="ml-auto">
                             <Button
-                                text="Reject"
+                                text={t('register.reject')}
                                 onClick={() => handleApprove(request.id, false)}
                             />
                         </span>
