@@ -112,7 +112,13 @@ namespace Backend.Handlers
         }
         public async Task DeleteAsync(int id)
         {
-            
+            var conversation = await _context.Conversations.Where(x=>x.BorrowingId == id).FirstOrDefaultAsync();
+            if(conversation != null)
+            {
+                conversation.BorrowingId = null;
+                _context.Conversations.Update(conversation);
+            }
+
             var borrowing = await _context.Borrowings.Where(x=>x.Id == id).FirstAsync();
 
             _context.Borrowings.Remove(borrowing);

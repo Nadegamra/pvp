@@ -38,5 +38,5 @@ export async function deleteBorrowing(id: number) {
 }
 
 export async function canDeleteBorrowing(id: number) {
-    return api.delete(`canDelete/${id}`, headers)
+    return api.get(`canDelete/${id}`, headers)
 }

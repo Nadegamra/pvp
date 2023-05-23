@@ -123,8 +123,7 @@ namespace Backend.Handlers
             UserConsoleStatus consoleStatus = status.ConsoleStatus;
 
             if (role == "admin" &&
-                (consoleStatus == UserConsoleStatus.UNCONFIRMED
-                || consoleStatus == UserConsoleStatus.RESERVED
+                (consoleStatus == UserConsoleStatus.RESERVED
                 || consoleStatus == UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
                 || consoleStatus == UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER))
             {
@@ -143,6 +142,10 @@ namespace Backend.Handlers
 
             UserConsole userConsole = _context.UserConsoles.Where(x=>x.Id == status.Id).First();
             userConsole.ConsoleStatus = status.ConsoleStatus;
+            if(status.ConsoleStatus == UserConsoleStatus.UNCONFIRMED || status.ConsoleStatus == UserConsoleStatus.AT_PLATFORM)
+            {
+                userConsole.BorrowingId = null;
+            }
             _context.UserConsoles.Update(userConsole);
             await _context.SaveChangesAsync();
             return;

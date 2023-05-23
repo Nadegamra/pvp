@@ -166,8 +166,8 @@ function Borrowing({
                                 id={3}
                                 color="red"
                                 onClick={() => {
-                                    deleteBorrowing(borrowing!.id).then(
-                                        () => (window.location.href = '/manageConsoles')
+                                    deleteBorrowing(borrowing!.id).then(() =>
+                                        window.location.reload()
                                     )
                                 }}
                                 dialog={true}
