@@ -6,8 +6,8 @@ function ContactInfoPage() {
         <div>
             <div className="font-bold p-5 text-[30px]">{t('contacts.contactInfo')}</div>
             <div className="flex flex-col lg:flex-row">
-                <div className="m-5 p-5 w-[300px] bg-bg-secondary rounded-lg">
-                    <span className="material-symbols-outlined align-middle pr-3 text-[70px]">
+                <div className="mx-auto lg:mx-5 my-5 p-10 w-max h-max bg-bg-secondary rounded-lg">
+                    <span className="material-symbols-outlined align-middle pr-3 text-[70px] w-full text-center">
                         article
                     </span>
                     <div className="text-fs-heading">{t('contacts.businessInfo')}</div>
@@ -21,16 +21,16 @@ function ContactInfoPage() {
                     <div className="text-fs-primary">{t('contacts.phone')}+370 6 123 4567 </div>
                     <div className="text-fs-primary">{t('contacts.fax')}+370 5 123 4567</div>
                 </div>
-                <div className="m-5 p-5 w-[200px] bg-bg-secondary rounded-lg">
-                    <span className="material-symbols-outlined align-middle pr-3 text-[70px]">
+                <div className="mx-auto lg:mx-5 my-5 p-10 w-max h-max bg-bg-secondary rounded-lg">
+                    <span className="material-symbols-outlined align-middle pr-3 text-[70px] w-full text-center">
                         schedule
                     </span>
                     <div className="text-fs-heading">{t('contacts.businessHours1')}</div>
                     <div className="text-fs-primary">{t('contacts.businessHours2')}</div>
                     <div className="text-fs-primary">{t('contacts.businessHours3')}</div>
                 </div>
-                <div className="m-5 p-5 w-[350px] bg-bg-secondary rounded-lg">
-                    <span className="material-symbols-outlined align-middle pr-3 text-[70px]">
+                <div className="mx-auto lg:mx-5 my-5 p-10 w-max h-max bg-bg-secondary rounded-lg">
+                    <span className="material-symbols-outlined align-middle pr-3 text-[70px] w-full text-center">
                         mail
                     </span>
                     <div className="text-fs-heading">{t('contacts.contactUs')}</div>
