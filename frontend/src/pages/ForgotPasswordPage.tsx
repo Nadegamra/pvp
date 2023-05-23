@@ -42,7 +42,7 @@ function ForgotPasswordPage() {
                 <div className="mx-[30px]">
                     <input
                         type="email"
-                        className="w-full bg-bg-secondary border-b focus:outline-none"
+                        className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('passwordReset.email') ?? ''}
                         {...register('email', { required: true })}
                         disabled={loading}
