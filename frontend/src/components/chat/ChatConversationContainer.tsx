@@ -14,7 +14,7 @@ import { MessageAdd } from '../../models/Message'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { ConversationGet } from '../../models/Conversation'
 import { UserConsoleStatus, getConsoleStatusString } from '../../models/UserConsole'
-import { getBorrowingStatusString } from '../../models/Borrowing'
+import { BorrowingStatus, getBorrowingStatusString } from '../../models/Borrowing'
 import Button from '../ui/Button'
 import { MessageFileAdd, messageFilePathToURL } from '../../models/MessageFile'
 import axios from 'axios'
@@ -99,7 +99,7 @@ function ChatConversationContainer({
                                 />
                             </ConversationHeader.Actions>
                         </ConversationHeader>
-                    ) : (
+                    ) : conversation.borrowing !== null ? (
                         <ConversationHeader>
                             <Avatar>
                                 <img
@@ -119,6 +119,38 @@ function ChatConversationContainer({
                                     conversation.borrowing.id
                                 }`}
                                 info={t(getBorrowingStatusString(conversation.borrowing.status))}
+                            />
+                            <ConversationHeader.Actions>
+                                <Button
+                                    text={t('button.toBorrowing')}
+                                    dialog={false}
+                                    dialogBody=""
+                                    onClick={() =>
+                                        (window.location.href = `${
+                                            user?.role === 'borrower'
+                                                ? '/borrowings/'
+                                                : '/manageBorrowings/'
+                                        }${conversation.borrowingId}`)
+                                    }
+                                />
+                            </ConversationHeader.Actions>
+                        </ConversationHeader>
+                    ) : (
+                        <ConversationHeader>
+                            <Avatar>
+                                <img
+                                    src={
+                                        (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
+                                            ? '/logoLight.png'
+                                            : '/logoDark.png'
+                                    }
+                                    alt=""
+                                />
+                                <div className="translate-y-[-13px] translate-x-[-5px]">#?</div>
+                            </Avatar>
+                            <ConversationHeader.Content
+                                userName={`${t('borrowing.borrowing')} #?`}
+                                info={t(getBorrowingStatusString(BorrowingStatus.TERMINATED))}
                             />
                             <ConversationHeader.Actions>
                                 <Button

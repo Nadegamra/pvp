@@ -50,7 +50,11 @@ function ChatConversationSidebar({
                                 name={
                                     conversation.userConsole !== null
                                         ? `${conversation.userConsole.console.name}`
-                                        : `${t('borrowing.borrowing')} #${conversation.borrowingId}`
+                                        : `${t('borrowing.borrowing')} #${
+                                              conversation.borrowingId === null
+                                                  ? '?'
+                                                  : conversation.borrowingId
+                                          }`
                                 }
                                 info={
                                     conversation.messages.length > 0

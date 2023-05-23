@@ -57,7 +57,8 @@ export class BorrowingUpdateStatus {
 export enum BorrowingStatus {
     PENDING,
     ACTIVE,
-    AWAITING_TERMINATION
+    AWAITING_TERMINATION,
+    TERMINATED
 }
 
 export function getBorrowingStatusString(status: BorrowingStatus) {
@@ -65,7 +66,9 @@ export function getBorrowingStatusString(status: BorrowingStatus) {
         return 'borrowing.statusPending'
     } else if (status === BorrowingStatus.ACTIVE) {
         return 'borrowing.statusActive'
-    } else {
+    } else if (status === BorrowingStatus.AWAITING_TERMINATION) {
         return 'borrowing.statusTerminating'
+    } else {
+        return 'borrowing.statusTerminated'
     }
 }
