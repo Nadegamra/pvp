@@ -250,7 +250,14 @@ function UserConsolePage() {
                         <div className="font-bold">{t('userConsolePage.borrowerCompanyCode')}</div>
                         <div className="ml-3">{borrowing?.user.companyCode}</div>
                         <div className="font-bold">{t('userConsolePage.borrowerEmail')}</div>
-                        <div className="ml-3 mb-3">{borrowing?.user.email}</div>
+                        <div className="ml-3">{borrowing?.user.email}</div>
+                        <div className="font-bold">{t('userConsolePage.userAddress')}</div>
+                        <div className="ml-3">
+                            {borrowing?.user.streetAddress}, {borrowing?.user.city},{' '}
+                            {borrowing?.user.country}
+                        </div>
+                        <div className="font-bold">{t('userConsolePage.userPostalCode')}</div>
+                        <div className="ml-3 mb-3">{userConsole?.user.postalCode}</div>
                     </div>
                 )}
                 {user?.role === 'admin' && !loading && (
@@ -262,7 +269,14 @@ function UserConsolePage() {
                         <div className="font-bold">{t('userConsolePage.userLname')}</div>
                         <div className="ml-3">{userConsole?.user.lastName}</div>
                         <div className="font-bold">{t('userConsolePage.userEmail')}</div>
-                        <div className="ml-3 mb-3">{userConsole?.user.email}</div>
+                        <div className="ml-3">{userConsole?.user.email}</div>
+                        <div className="font-bold">{t('userConsolePage.userAddress')}</div>
+                        <div className="ml-3">
+                            {userConsole?.user.streetAddress}, {userConsole?.user.city},{' '}
+                            {userConsole?.user.country}
+                        </div>
+                        <div className="font-bold">{t('userConsolePage.userPostalCode')}</div>
+                        <div className="ml-3 mb-3">{userConsole?.user.postalCode}</div>
                         <Button
                             text={t('userConsolePage.contact')}
                             id={3}
