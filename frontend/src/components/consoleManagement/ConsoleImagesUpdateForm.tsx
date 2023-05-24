@@ -30,12 +30,16 @@ function ConsoleImagesUpdateForm() {
         formState: { errors },
         setValue
     } = useForm<Props>()
-    const [error, setError] = useState('')
-
+    const [message, setMessage] = useState('')
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        getConsole(parseInt(id ?? '-1')).then((response) => {
-            setConsole(response.data)
-        })
+        getConsole(parseInt(id ?? '-1'))
+            .then((response) => {
+                setConsole(response.data)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }, [])
 
     return (
@@ -83,14 +87,13 @@ function ConsoleImagesUpdateForm() {
                     </p>
                 )}
             </div>
-            <div className="text-fs-primary text-danger-500 text-center">{error}</div>
             <div className="pt-5 text-fs-h2">
                 <Button
                     dialog={false}
                     text={t('consoleManagementForm.update') ?? ''}
                     dialogBody=""
                     onClick={async (e) => {
-                        setError('')
+                        setLoading(true)
                         // Delete images
                         const oldImages = consoleGet!.images
                         for (let i = 0; i < oldImages.length; i++) {
@@ -112,12 +115,22 @@ function ConsoleImagesUpdateForm() {
                             }
                         }
                         // Refresh data
-                        getConsole(parseInt(id ?? '-1')).then((response) => {
+                        await getConsole(parseInt(id ?? '-1')).then((response) => {
                             setConsole(response.data)
                         })
+                        setMessage(t('profile.dataSuccessMessage') ?? '')
+                        setLoading(false)
                     }}
                 />
             </div>
+            {message !== '' && (
+                <div className="pt-4 text-fs-primary text-success-500">{message}</div>
+            )}
+            {loading && (
+                <div>
+                    <div className="w-8 h-8 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                </div>
+            )}
         </form>
     )
 }

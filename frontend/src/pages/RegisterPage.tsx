@@ -235,11 +235,7 @@ export default function RegisterPage() {
                     </div>
                 </div>
                 <div className="flex flex-col items-center pt-3">
-                    <Button
-                        text={t('register.registerButton') ?? ''}
-                        disabled={loading}
-                        submit={true}
-                    />
+                    <Button text={t('register.registerButton') ?? ''} submit={true} />
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>

@@ -68,7 +68,7 @@ function LoginPage() {
                     </Link>
                 </div>
                 <div className="flex flex-col items-center pt-5 text-fs-h2">
-                    <Button disabled={loading} text={t('login.login')} submit={true} />
+                    <Button text={t('login.login')} submit={true} />
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>
