@@ -284,7 +284,8 @@ i18n
                         delete: 'Delete'
                     },
                     borrowerConsolePage: {
-                        selectConsole: 'Select'
+                        selectConsole: 'Select',
+                        noConsoles: 'There are currently no consoles available'
                     },
                     emailConfirmation: {
                         success: 'The email has been confirmed. You can now ',
@@ -612,7 +613,8 @@ i18n
                         delete: 'Ištrinti'
                     },
                     borrowerConsolePage: {
-                        selectConsole: 'Pasirinkti'
+                        selectConsole: 'Pasirinkti',
+                        noConsoles: 'Šiuo metu nėra konsolių, prieinamų nuomai'
                     },
                     emailConfirmation: {
                         success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',

@@ -103,6 +103,7 @@ namespace Backend.Handlers
         {
             var user = _mapper.Map<User>(data);
             user.UserName = data.Email;
+            user.IsCompany = false;
 
             var result = await _userManager.CreateAsync(user, data.Password);
 
@@ -124,6 +125,7 @@ namespace Backend.Handlers
         {
             var user = _mapper.Map<User>(data);
             user.UserName = data.Email;
+            user.IsCompany= true;
 
             var result = await _userManager.CreateAsync(user, data.Password);
 
@@ -157,6 +159,7 @@ namespace Backend.Handlers
         }
         public async Task<bool> ApproveRegistrationRequest(RegistrationRequestApproval requestApproval)
         {
+            
             var request = await _context.RegistrationRequests.Where(x => x.Id == requestApproval.RequestId).FirstOrDefaultAsync();
             if (request == null)
             {
@@ -175,7 +178,7 @@ namespace Backend.Handlers
 
             try
             {
-                await Register(dto);
+                await RegisterAsBorrower(dto);
                 return true;
             }
             catch (Exception ex)
@@ -183,5 +186,26 @@ namespace Backend.Handlers
                 throw new Exception(ex.Message);
             }
         }
+        private async Task RegisterAsBorrower(RegisterLegal data)
+        {
+            var user = _mapper.Map<User>(data);
+            user.UserName = data.Email;
+            user.IsCompany = true;
+            var result = await _userManager.CreateAsync(user, data.Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "borrower");
+                User createdUser = await _userManager.FindByEmailAsync(user.Email);
+                await _usersHandler.SendConfirmationEmail(createdUser);
+                return;
+            }
+            else
+            {
+                string errors = string.Join("\n", result.Errors.Select(e => e.Description));
+                throw new Exception(errors);
+            }
+        }
+        
     }
 }

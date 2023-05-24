@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate'
 import { BorrowingGet, BorrowingStatus, BorrowingUpdateStatus } from '../../models/Borrowing'
 import { canDeleteBorrowing, deleteBorrowing, getBorrowingById } from '../../api/BorrowingsApi'
 import { useAuth } from '../../contexts/AuthContext'
-import { UserConsoleStatus } from '../../models/UserConsole'
+import { UserConsoleGet, UserConsoleStatus } from '../../models/UserConsole'
 import { imagePathToURL } from '../../models/Image'
 import Button from '../ui/Button'
 import { t } from 'i18next'
@@ -33,9 +33,14 @@ function Borrowing({
     const [canDelete, setCanDelete] = useState<boolean>()
 
     useEffect(() => {
+        update()
+    }, [id, status])
+
+    const update = () => {
         getBorrowingById(id)
             .then((response) => {
                 setBorrowing(response.data)
+                setBorrowingState((response.data as BorrowingGet).userConsoles)
             })
             .finally(() => {
                 if (user?.role === 'admin') {
@@ -46,7 +51,26 @@ function Borrowing({
                     setLoading(false)
                 }
             })
-    }, [id, status])
+    }
+
+    const setBorrowingState = (userConsoles: UserConsoleGet[]) => {
+        const states = [
+            userConsoles.filter((x) => x.consoleStatus === UserConsoleStatus.RESERVED).length > 0,
+            userConsoles.filter((x) => x.consoleStatus === UserConsoleStatus.AT_LENDER).length > 0,
+            userConsoles.filter(
+                (x) => x.consoleStatus === UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
+            ).length > 0,
+            userConsoles.filter(
+                (x) => x.consoleStatus === UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER
+            ).length > 0
+        ]
+        for (let i = 0; i < states.length; i++) {
+            if (states[i]) {
+                setStatus(i + 2)
+                break
+            }
+        }
+    }
 
     return (
         <div
@@ -115,17 +139,9 @@ function Borrowing({
                                         ? BorrowingStatus.ACTIVE
                                         : BorrowingStatus.AWAITING_TERMINATION
                                 )
-                            ).finally(() =>
-                                getBorrowingById(id)
-                                    .then((response) => {
-                                        setBorrowing(response.data)
-                                    })
-                                    .finally(() =>
-                                        canDeleteBorrowing(id)
-                                            .then((response) => setCanDelete(response.data))
-                                            .finally(() => setLoading(false))
-                                    )
-                            )
+                            ).finally(() => {
+                                update()
+                            })
                         }}
                         disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
                     />

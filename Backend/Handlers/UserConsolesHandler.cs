@@ -95,6 +95,13 @@ namespace Backend.Handlers
 
         public async Task RemoveUserConsoleAsync(int id)
         {
+            // Remove conversation
+            var conversation = await _context.Conversations.Where(x => x.UserConsoleId == id).FirstOrDefaultAsync();
+            if (conversation != null)
+            {
+                _context.Conversations.Remove(conversation);
+            }
+
             // Remove Images
             List<int> imagesIds = (await _imagesHandler.GetUserConsoleImagesAsync(id)).Select(x => x.Id).ToList();
             foreach (int imageId in imagesIds)

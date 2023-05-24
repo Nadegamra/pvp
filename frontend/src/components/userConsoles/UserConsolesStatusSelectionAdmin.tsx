@@ -27,11 +27,21 @@ function UserConsolesStatusSelectionAdmin({
                 type="button"
                 className={
                     status === UserConsoleStatus.AT_PLATFORM
-                        ? 'select-none inline-block rounded-r bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
-                        : 'select-none inline-block rounded-r bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                        ? 'select-none inline-block bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                        : 'select-none inline-block bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
                 }
                 onClick={() => setStatus(UserConsoleStatus.AT_PLATFORM)}>
                 {t('userConsolePage.statusAtPlatform')}
+            </button>
+            <button
+                type="button"
+                className={
+                    status === UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
+                        ? 'select-none inline-block rounded-r bg-primary-700 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                        : 'select-none inline-block rounded-r bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-primary-600 focus:bg-primary-600 focus:outline-none focus:ring-0 active:bg-primary-700'
+                }
+                onClick={() => setStatus(UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER)}>
+                {t('userConsolePage.statusTerminatingLender')}
             </button>
         </div>
     )

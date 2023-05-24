@@ -115,8 +115,7 @@ namespace Backend.Handlers
             var conversation = await _context.Conversations.Where(x=>x.BorrowingId == id).FirstOrDefaultAsync();
             if(conversation != null)
             {
-                conversation.BorrowingId = null;
-                _context.Conversations.Update(conversation);
+                _context.Conversations.Remove(conversation);
             }
 
             var borrowing = await _context.Borrowings.Where(x=>x.Id == id).FirstAsync();

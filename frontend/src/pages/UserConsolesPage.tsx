@@ -16,7 +16,7 @@ function UserConsolesPage() {
                     <UserConsolesStatusSelectionAdmin status={status} setStatus={setStatus} />
                 )}
             </div>
-            {status <= UserConsoleStatus.AT_PLATFORM && <UserConsolesGrid status={status} />}
+            <UserConsolesGrid status={status} />
         </div>
     )
 }
