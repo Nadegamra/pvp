@@ -91,20 +91,6 @@ function BorrowConsolesPage() {
                     </div>
                 ))}
             </div>
-            {selectedConsoles.length > 0 && (
-                <div className="absolute bottom-10 right-10">
-                    <Button
-                        text={t('borrowerConsolePage.selectConsole')}
-                        dialog={true}
-                        dialogBody={t('button.dialogBody7')}
-                        onClick={() => {
-                            addBorrowing(new BorrowingAdd(selectedConsoles)).then(
-                                () => (window.location.href = '/borrowings')
-                            )
-                        }}
-                    />
-                </div>
-            )}
             <div className="flex-1" />
             {!loading && (
                 <ReactPaginate
@@ -121,6 +107,20 @@ function BorrowConsolesPage() {
                     pageCount={Math.ceil(consoles!.length / itemsPerPage)}
                     renderOnZeroPageCount={null}
                 />
+            )}
+            {selectedConsoles.length > 0 && (
+                <div className="mx-auto mb-5 sm:m-0 sm:absolute bottom-5 right-5 sm:bottom-10 sm:right-10">
+                    <Button
+                        text={t('borrowerConsolePage.selectConsole')}
+                        dialog={true}
+                        dialogBody={t('button.dialogBody7')}
+                        onClick={() => {
+                            addBorrowing(new BorrowingAdd(selectedConsoles)).then(
+                                () => (window.location.href = '/borrowings')
+                            )
+                        }}
+                    />
+                </div>
             )}
         </div>
     )
