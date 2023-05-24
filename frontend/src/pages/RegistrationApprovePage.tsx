@@ -16,7 +16,6 @@ export default function CompanyRegisterPage() {
 
     const handleApprove = (requestId: number, isApproved: boolean) => {
         approveRegistrationRequest(new RegisterRequestApproval(requestId, isApproved)).then(() => {
-            // refresh the request list
             getRegisterRequests().then((response) => {
                 setRequests(response.data)
             })
