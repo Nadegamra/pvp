@@ -487,7 +487,7 @@ i18n
                         borrowers5:
                             'Mūsų dieninio tarifo sistema yra skaidri ir paprasta. Jums tereikia pasirinkti norimą konsoles modelį, nuomos trukmę ir priedus, kurie jus domina. Mes užtikriname, kad gausite kokybišką konsolę su visais reikalingais priedais.',
                         borrowers6:
-                            'Mūsų komanda yra pasirengusi suteikti jums visą reikiamą pagalbą ir patarimus dėl konsolės ir priedų pasirinkimo bei užsakymo.',
+                            'Mūsų komanda yra pasiruošusi suteikti jums visą reikiamą pagalbą ir patarimus dėl konsolės ir priedų pasirinkimo bei užsakymo.',
                         borrowers3: 'Pateikti registracijos prašymą',
                         lenders1: 'Skolintojams',
                         lenders5:
@@ -666,7 +666,7 @@ i18n
                         getStatusPending: 'Pasiskolinimas nepatvirtintas',
                         setStatusActive: 'Aktyvuoti pasiskolinimą',
                         getStatusActive: 'Pasiskolinimas aktyvus',
-                        setStatusTerminating: 'Pažymėti pasiskolinimą pasibagiusiu',
+                        setStatusTerminating: 'Pažymėti pasiskolinimą pasibaigusiu',
                         getStatusTerminating: 'Pasiskolinimas pasibaigęs'
                     },
                     forgotPassword: {
