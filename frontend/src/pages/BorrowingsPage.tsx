@@ -7,6 +7,7 @@ import { useAuth } from '../contexts/AuthContext'
 import Borrowing from '../components/borrowings/Borrowing'
 import { Link, useParams } from 'react-router-dom'
 import { getContainerHeight } from '../App'
+import { useNavigate } from 'react-router-dom'
 
 function BorrowingsPage() {
     const { id } = useParams()
@@ -16,6 +17,7 @@ function BorrowingsPage() {
     const [currentBorrowing, setCurrentBorrowing] = useState<number>()
     const [page, setPage] = useState<number>()
     const { user } = useAuth()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (user?.role === 'admin') {
@@ -80,6 +82,7 @@ function BorrowingsPage() {
     }, [])
 
     const handleBorrowingClick = (event: { selected: number }) => {
+        navigate(`/manageBorrowings/${borrowings![event.selected].id}`, { replace: true })
         setCurrentBorrowing(borrowings![event.selected].id)
         setBorrowingState(borrowings![event.selected].userConsoles)
     }
