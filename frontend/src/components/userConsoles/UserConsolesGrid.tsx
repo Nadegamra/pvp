@@ -34,9 +34,7 @@ function UserConsolesGrid({ status }: { status: UserConsoleStatus }) {
         } else if (user?.role === 'lender') {
             getUserConsoles()
                 .then((response) => {
-                    setConsoles(
-                        (response.data as UserConsoleGet[])
-                    )
+                    setConsoles(response.data as UserConsoleGet[])
                 })
                 .finally(() => {
                     setLoading(false)

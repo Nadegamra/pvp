@@ -34,7 +34,7 @@ function Borrowing({
 
     useEffect(() => {
         update()
-    }, [id, status])
+    }, [id])
 
     const update = () => {
         getBorrowingById(id)
