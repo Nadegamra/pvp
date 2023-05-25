@@ -35,7 +35,7 @@ function UserConsolesGrid({ status }: { status: UserConsoleStatus }) {
             getUserConsoles()
                 .then((response) => {
                     setConsoles(
-                        (response.data as UserConsoleGet[]).filter((x) => x.borrowingId === null)
+                        (response.data as UserConsoleGet[])
                     )
                 })
                 .finally(() => {
