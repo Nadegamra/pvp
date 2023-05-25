@@ -43,7 +43,37 @@ function ConsoleImagesUpdateForm() {
     }, [])
 
     return (
-        <form className="mb-10">
+        <form
+            className="mb-10"
+            onSubmit={handleSubmit(async () => {
+                setLoading(true)
+                // Delete images
+                const oldImages = consoleGet!.images
+                for (let i = 0; i < oldImages.length; i++) {
+                    if (oldImages[i].toDelete) {
+                        await removeImage(oldImages[i].id)
+                    }
+                }
+                // Add new images
+                const newImageFiles = watch('images')
+                for (let i = 0; i < newImageFiles.length; i++) {
+                    const image = newImageFiles.item(i)
+                    if (image !== null) {
+                        let base64 = await toBase64(image)
+                        do {
+                            base64 = base64.substring(1)
+                        } while (base64[0] != ',')
+                        base64 = base64.substring(1)
+                        await addImage(new ImageAdd(image.name, '', base64, consoleGet!.id))
+                    }
+                }
+                // Refresh data
+                await getConsole(parseInt(id ?? '-1')).then((response) => {
+                    setConsole(response.data)
+                })
+                setMessage(t('profile.dataSuccessMessage') ?? '')
+                setLoading(false)
+            })}>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {consoleGet?.images
                     .filter((image) => !image.toDelete)
@@ -79,48 +109,28 @@ function ConsoleImagesUpdateForm() {
                     id="formFileLg"
                     type="file"
                     multiple
-                    {...register('images', { required: true })}
+                    accept="image/*"
+                    {...register('images', {
+                        validate: (files) => {
+                            for (let i = 0; i < files.length; i++) {
+                                const file = files.item(i)
+                                if (file === null || !file.type.startsWith('image/')) {
+                                    return 'userConsoleManagementForm.invalidFileError'
+                                }
+                            }
+                        }
+                    })}
                 />
-                {errors.images?.type === 'required' && (
-                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {t('consoleManagementForm.imagesError')}
-                    </p>
-                )}
+                <p className="text-fs-primary text-danger-500 h-3">
+                    {t(errors.images?.message ?? '')}
+                </p>
             </div>
             <div className="pt-5 text-fs-h2">
                 <Button
                     dialog={false}
                     text={t('consoleManagementForm.update') ?? ''}
                     dialogBody=""
-                    onClick={async (e) => {
-                        setLoading(true)
-                        // Delete images
-                        const oldImages = consoleGet!.images
-                        for (let i = 0; i < oldImages.length; i++) {
-                            if (oldImages[i].toDelete) {
-                                await removeImage(oldImages[i].id)
-                            }
-                        }
-                        // Add new images
-                        const newImageFiles = watch('images')
-                        for (let i = 0; i < newImageFiles.length; i++) {
-                            const image = newImageFiles.item(i)
-                            if (image !== null) {
-                                let base64 = await toBase64(image)
-                                do {
-                                    base64 = base64.substring(1)
-                                } while (base64[0] != ',')
-                                base64 = base64.substring(1)
-                                await addImage(new ImageAdd(image.name, '', base64, consoleGet!.id))
-                            }
-                        }
-                        // Refresh data
-                        await getConsole(parseInt(id ?? '-1')).then((response) => {
-                            setConsole(response.data)
-                        })
-                        setMessage(t('profile.dataSuccessMessage') ?? '')
-                        setLoading(false)
-                    }}
+                    submit={true}
                 />
             </div>
             {message !== '' && (
