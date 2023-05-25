@@ -9,6 +9,7 @@ import { imagePathToURL } from '../../models/Image'
 import { Dispatch, SetStateAction } from 'react'
 import { ConversationGet } from '../../models/Conversation'
 import { t } from 'i18next'
+import { useNavigate } from 'react-router'
 interface Props {
     search: string
     setSearch: Dispatch<SetStateAction<string>>
@@ -26,6 +27,7 @@ function ChatConversationSidebar({
     currentConversation,
     setCurrentConversation
 }: Props) {
+    const navigate = useNavigate()
     return (
         <Sidebar position="left">
             <Search placeholder="Search..." value={search} onChange={(text) => setSearch(text)} />
@@ -46,6 +48,7 @@ function ChatConversationSidebar({
                                 key={conversation.id}
                                 onClick={() => {
                                     setCurrentConversation(conversation.id)
+                                    navigate(`/chats/${conversation.id}`, { replace: true })
                                 }}
                                 name={
                                     conversation.userConsole !== null

@@ -82,7 +82,11 @@ function BorrowingsPage() {
     }, [])
 
     const handleBorrowingClick = (event: { selected: number }) => {
-        navigate(`/manageBorrowings/${borrowings![event.selected].id}`, { replace: true })
+        if (user?.role === 'admin') {
+            navigate(`/manageBorrowings/${borrowings![event.selected].id}`, { replace: true })
+        } else {
+            navigate(`/borrowings/${borrowings![event.selected].id}`, { replace: true })
+        }
         setCurrentBorrowing(borrowings![event.selected].id)
         setBorrowingState(borrowings![event.selected].userConsoles)
     }
