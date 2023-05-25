@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { BorrowingGet, BorrowingStatus, BorrowingUpdateStatus } from '../../models/Borrowing'
@@ -24,6 +24,7 @@ function Borrowing({
 }) {
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
     const { user } = useAuth()
+    const navigate = useNavigate()
     const itemsPerPage = 24
     const [loading, setLoading] = useState<boolean>(true)
     const [offset, setOffset] = useState<number>(0)
@@ -107,7 +108,7 @@ function Borrowing({
                                 dialog={false}
                                 dialogBody=""
                                 onClick={() => {
-                                    window.location.href = `/chats/${borrowing?.conversationId}`
+                                    navigate(`/chats/${borrowing?.conversationId}`)
                                 }}
                             />
                         </span>
@@ -201,9 +202,11 @@ function Borrowing({
                             onClick={() => {
                                 contactBorrower(borrowing!.id).then(() => {
                                     getBorrowingById(borrowing!.id).then((response) => {
-                                        window.location.href = `/chats/${
-                                            (response.data as BorrowingGet).conversationId
-                                        }`
+                                        navigate(
+                                            `/chats/${
+                                                (response.data as BorrowingGet).conversationId
+                                            }`
+                                        )
                                     })
                                 })
                             }}

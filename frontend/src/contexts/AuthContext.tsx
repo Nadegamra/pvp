@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext, useEffect, useMemo } from 'react'
 import { getProfile, login, logout } from '../api/AuthApi'
 import { UserGet, UserLogin } from '../models/User'
+import { useNavigate } from 'react-router'
 
 export default interface AuthContextProps {
     user?: UserGet
@@ -15,7 +16,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<UserGet>()
     const [loading, setLoading] = useState<boolean>(false)
     const [loadingInitial, setLoadingInitial] = useState<boolean>(true)
-
+    const navigate = useNavigate()
     useEffect(() => {
         getProfile()
             .then((result) => {
@@ -35,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .then((result) => {
                 setUser(result.data)
                 setLoading(false)
-                window.location.href = '/'
+                navigate('/')
                 return ''
             })
             .catch((error) => {
@@ -51,7 +52,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             .then(() => {
                 setUser(undefined)
             })
-            .finally(() => (window.location.href = '/'))
+            .finally(() => navigate('/'))
     }
 
     const memoedValue = useMemo(

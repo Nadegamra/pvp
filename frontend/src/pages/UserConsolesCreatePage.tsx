@@ -8,7 +8,7 @@ import { ConsoleGet } from '../models/Console'
 import { getConsoles } from '../api/ConsolesApi'
 import Select from 'react-select'
 import Button from '../components/ui/Button'
-
+import { useNavigate } from 'react-router'
 interface Props {
     consoleId: number
     amount: number
@@ -26,6 +26,7 @@ const toBase64 = (file: File): Promise<string> =>
 
 function UserConsolesCreatePage() {
     const { t } = useTranslation()
+    const navigation = useNavigate()
     const {
         register,
         watch,
@@ -72,7 +73,7 @@ function UserConsolesCreatePage() {
                 )
                 addUserConsole(userConsoleAdd).then((response) => {
                     setLoading(false)
-                    window.location.href = '/consoles'
+                    navigation('/consoles')
                 })
             })}>
             <div className="min-w-max bg-bg-secondary p-7 rounded">

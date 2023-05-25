@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import {
     UserConsoleStatus,
     UserConsoleGet,
@@ -58,6 +58,7 @@ function UserConsolePage() {
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
     const [userConsole, setUserConsole] = useState<UserConsoleGet>()
     const { user } = useAuth()
+    const navigate = useNavigate()
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(() => {
         update()
@@ -283,7 +284,7 @@ function UserConsolePage() {
                             onClick={() => {
                                 contactLender(userConsole!.id).then(() => {
                                     getUserConsole(parseInt(id ?? '1')).then((result) => {
-                                        window.location.href = `/chats/${result.data.conversationId}`
+                                        navigate(`/chats/${result.data.conversationId}`)
                                     })
                                 })
                             }}
@@ -297,8 +298,8 @@ function UserConsolePage() {
                             id={4}
                             color="red"
                             onClick={() => {
-                                deleteUserConsole(userConsole!.id).then(
-                                    () => (window.location.href = '/userConsoles')
+                                deleteUserConsole(userConsole!.id).then(() =>
+                                    navigate('/userConsoles')
                                 )
                             }}
                             dialog={true}

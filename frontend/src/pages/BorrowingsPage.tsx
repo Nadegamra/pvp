@@ -128,7 +128,8 @@ function BorrowingsPage() {
                             nextLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
                             breakLabel="..."
                             onPageChange={(e) => handleBorrowingClick(e)}
-                            pageRangeDisplayed={5}
+                            pageRangeDisplayed={2}
+                            marginPagesDisplayed={1}
                             pageCount={Math.ceil(borrowings!.length)}
                             renderOnZeroPageCount={null}
                             forcePage={page}
