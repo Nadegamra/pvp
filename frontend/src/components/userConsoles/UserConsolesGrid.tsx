@@ -24,15 +24,17 @@ function UserConsolesGrid({ status }: { status: UserConsoleStatus }) {
         if (user?.role === 'admin') {
             getUserConsolesByStatus(new UserConsolesStatusRequest(status))
                 .then((response) => {
-                    setConsoles(response.data)
+                    setConsoles(
+                        (response.data as UserConsoleGet[]).filter((x) => x.borrowingId === null)
+                    )
                 })
                 .finally(() => {
                     setLoading(false)
                 })
         } else if (user?.role === 'lender') {
             getUserConsoles()
-                .then((result) => {
-                    setConsoles(result.data)
+                .then((response) => {
+                    setConsoles(response.data as UserConsoleGet[])
                 })
                 .finally(() => {
                     setLoading(false)

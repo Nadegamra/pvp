@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import {
     UserConsoleStatus,
     UserConsoleGet,
@@ -58,6 +58,7 @@ function UserConsolePage() {
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
     const [userConsole, setUserConsole] = useState<UserConsoleGet>()
     const { user } = useAuth()
+    const navigate = useNavigate()
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(() => {
         update()
@@ -101,12 +102,16 @@ function UserConsolePage() {
                 <div className="ml-3">{userConsole?.console.name}</div>
                 <div className="font-bold">{t('userConsolePage.consoleDescription')}</div>
                 <div className="ml-3">{userConsole?.console.description}</div>
-                <div className="font-bold">{t('userConsolePage.dailyPrice')}</div>
+                <div className="font-bold">
+                    {user?.role === 'lender'
+                        ? t('userConsolePage.dailyPriceLender')
+                        : t('userConsolePage.dailyPrice')}
+                </div>
                 <div className="ml-3">
-                    {user?.role !== 'borrower'
+                    {user?.role === 'lender'
                         ? (Math.round((userConsole?.console.dailyPrice ?? 0) * 0.6 * 100) / 100) *
                           30
-                        : userConsole?.console.dailyPrice}{' '}
+                        : userConsole?.console.dailyPrice ?? 0}
                     €
                 </div>
 
@@ -246,7 +251,14 @@ function UserConsolePage() {
                         <div className="font-bold">{t('userConsolePage.borrowerCompanyCode')}</div>
                         <div className="ml-3">{borrowing?.user.companyCode}</div>
                         <div className="font-bold">{t('userConsolePage.borrowerEmail')}</div>
-                        <div className="ml-3 mb-3">{borrowing?.user.email}</div>
+                        <div className="ml-3">{borrowing?.user.email}</div>
+                        <div className="font-bold">{t('userConsolePage.userAddress')}</div>
+                        <div className="ml-3">
+                            {borrowing?.user.streetAddress}, {borrowing?.user.city},{' '}
+                            {borrowing?.user.country}
+                        </div>
+                        <div className="font-bold">{t('userConsolePage.userPostalCode')}</div>
+                        <div className="ml-3 mb-3">{userConsole?.user.postalCode}</div>
                     </div>
                 )}
                 {user?.role === 'admin' && !loading && (
@@ -258,14 +270,21 @@ function UserConsolePage() {
                         <div className="font-bold">{t('userConsolePage.userLname')}</div>
                         <div className="ml-3">{userConsole?.user.lastName}</div>
                         <div className="font-bold">{t('userConsolePage.userEmail')}</div>
-                        <div className="ml-3 mb-3">{userConsole?.user.email}</div>
+                        <div className="ml-3">{userConsole?.user.email}</div>
+                        <div className="font-bold">{t('userConsolePage.userAddress')}</div>
+                        <div className="ml-3">
+                            {userConsole?.user.streetAddress}, {userConsole?.user.city},{' '}
+                            {userConsole?.user.country}
+                        </div>
+                        <div className="font-bold">{t('userConsolePage.userPostalCode')}</div>
+                        <div className="ml-3 mb-3">{userConsole?.user.postalCode}</div>
                         <Button
                             text={t('userConsolePage.contact')}
                             id={3}
                             onClick={() => {
                                 contactLender(userConsole!.id).then(() => {
                                     getUserConsole(parseInt(id ?? '1')).then((result) => {
-                                        window.location.href = `/chats/${result.data.conversationId}`
+                                        navigate(`/chats/${result.data.conversationId}`)
                                     })
                                 })
                             }}
@@ -279,8 +298,8 @@ function UserConsolePage() {
                             id={4}
                             color="red"
                             onClick={() => {
-                                deleteUserConsole(userConsole!.id).then(
-                                    () => (window.location.href = '/userConsoles')
+                                deleteUserConsole(userConsole!.id).then(() =>
+                                    navigate('/userConsoles')
                                 )
                             }}
                             dialog={true}

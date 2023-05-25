@@ -104,11 +104,31 @@ export default function RegisterPage() {
                         type="password"
                         className="w-full bg-bg-primary border p-2 rounded-md"
                         placeholder={t('register.password') ?? ''}
-                        {...register('password', { required: true })}
+                        {...register('password', {
+                            required: true,
+                            validate: () => {
+                                if (watch('password').length < 8) {
+                                    return 'passwordChangeForm.shortError'
+                                }
+                                if (!/\d/.test(watch('password'))) {
+                                    return 'passwordChangeForm.noDigitError'
+                                }
+                                if (!/[a-z]/.test(watch('password'))) {
+                                    return 'passwordChangeForm.noLowerError'
+                                }
+                                if (!/[A-Z]/.test(watch('password'))) {
+                                    return 'passwordChangeForm.noUpperError'
+                                }
+                                if (!/\W/.test(watch('password'))) {
+                                    return 'passwordChangeForm.noNonAlphaError'
+                                }
+                            }
+                        })}
                         disabled={loading}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
                         {errors.password?.type === 'required' ? t('register.passwordError') : ''}
+                        {errors.password?.message !== undefined && t(errors.password?.message)}
                     </p>
 
                     <input
@@ -215,11 +235,7 @@ export default function RegisterPage() {
                     </div>
                 </div>
                 <div className="flex flex-col items-center pt-3">
-                    <Button
-                        text={t('register.registerButton') ?? ''}
-                        disabled={loading}
-                        submit={true}
-                    />
+                    <Button text={t('register.registerButton') ?? ''} submit={true} />
                 </div>
             </div>
             <div className="pt-4 text-fs-primary text-danger-500 text-center">{error}</div>

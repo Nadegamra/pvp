@@ -23,7 +23,7 @@ function ConsoleInfoUpdateForm() {
         formState: { errors },
         setValue
     } = useForm<Props>()
-    const [error, setError] = useState('')
+    const [message, setMessage] = useState('')
     const [canDelete, setCanDelete] = useState<boolean>()
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -76,6 +76,7 @@ function ConsoleInfoUpdateForm() {
             <input
                 className="bg-bg-primary border p-2 rounded-md w-[300px] mb-3"
                 type="number"
+                step={0.01}
                 {...register('dailyPrice', { required: true })}
                 placeholder={t('consoleManagementForm.dailyPrice') ?? ''}
             />
@@ -93,23 +94,28 @@ function ConsoleInfoUpdateForm() {
                         text={t('consoleManagementForm.update') ?? ''}
                         dialogBody=""
                         onClick={handleSubmit(async () => {
-                            setError('')
+                            setLoading(true)
                             await updateConsole(
                                 new ConsoleUpdate(
                                     consoleGet!.id,
                                     watch('name'),
                                     watch('description'),
-                                    watch('dailyPrice'),
+                                    Math.trunc(watch('dailyPrice') * 100) / 100,
                                     []
                                 )
-                            ).then(() => {
-                                getConsole(parseInt(id ?? '-1')).then((response) => {
-                                    setConsole(response.data)
-                                    setValue('name', response.data.name ?? '')
-                                    setValue('description', response.data.description ?? '')
-                                    setValue('dailyPrice', response.data.dailyPrice ?? 0)
+                            )
+                                .then(() => {
+                                    getConsole(parseInt(id ?? '-1')).then((response) => {
+                                        setConsole(response.data)
+                                        setValue('name', response.data.name ?? '')
+                                        setValue('description', response.data.description ?? '')
+                                        setValue('dailyPrice', response.data.dailyPrice ?? 0)
+                                    })
+                                    setMessage(t('profile.dataSuccessMessage') ?? '')
                                 })
-                            })
+                                .finally(() => {
+                                    setLoading(false)
+                                })
                         })}
                     />
                 </span>
@@ -127,6 +133,14 @@ function ConsoleInfoUpdateForm() {
                     dialogBody={t('button.dialogBody5')}
                 />
             </div>
+            {message !== '' && (
+                <div className="pt-4 text-fs-primary text-success-500">{message}</div>
+            )}
+            {loading && (
+                <div>
+                    <div className="w-8 h-8 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                </div>
+            )}
         </form>
     )
 }

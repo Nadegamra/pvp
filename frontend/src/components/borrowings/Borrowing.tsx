@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import ReactPaginate from 'react-paginate'
 import { BorrowingGet, BorrowingStatus, BorrowingUpdateStatus } from '../../models/Borrowing'
 import { canDeleteBorrowing, deleteBorrowing, getBorrowingById } from '../../api/BorrowingsApi'
 import { useAuth } from '../../contexts/AuthContext'
-import { UserConsoleStatus } from '../../models/UserConsole'
+import { UserConsoleGet, UserConsoleStatus } from '../../models/UserConsole'
 import { imagePathToURL } from '../../models/Image'
 import Button from '../ui/Button'
 import { t } from 'i18next'
@@ -24,6 +24,7 @@ function Borrowing({
 }) {
     const [borrowing, setBorrowing] = useState<BorrowingGet>()
     const { user } = useAuth()
+    const navigate = useNavigate()
     const itemsPerPage = 24
     const [loading, setLoading] = useState<boolean>(true)
     const [offset, setOffset] = useState<number>(0)
@@ -33,9 +34,14 @@ function Borrowing({
     const [canDelete, setCanDelete] = useState<boolean>()
 
     useEffect(() => {
+        update()
+    }, [id])
+
+    const update = () => {
         getBorrowingById(id)
             .then((response) => {
                 setBorrowing(response.data)
+                setBorrowingState((response.data as BorrowingGet).userConsoles)
             })
             .finally(() => {
                 if (user?.role === 'admin') {
@@ -46,7 +52,26 @@ function Borrowing({
                     setLoading(false)
                 }
             })
-    }, [id, status])
+    }
+
+    const setBorrowingState = (userConsoles: UserConsoleGet[]) => {
+        const states = [
+            userConsoles.filter((x) => x.consoleStatus === UserConsoleStatus.RESERVED).length > 0,
+            userConsoles.filter((x) => x.consoleStatus === UserConsoleStatus.AT_LENDER).length > 0,
+            userConsoles.filter(
+                (x) => x.consoleStatus === UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
+            ).length > 0,
+            userConsoles.filter(
+                (x) => x.consoleStatus === UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER
+            ).length > 0
+        ]
+        for (let i = 0; i < states.length; i++) {
+            if (states[i]) {
+                setStatus(i + 2)
+                break
+            }
+        }
+    }
 
     return (
         <div
@@ -83,7 +108,7 @@ function Borrowing({
                                 dialog={false}
                                 dialogBody=""
                                 onClick={() => {
-                                    window.location.href = `/chats/${borrowing?.conversationId}`
+                                    navigate(`/chats/${borrowing?.conversationId}`)
                                 }}
                             />
                         </span>
@@ -115,17 +140,9 @@ function Borrowing({
                                         ? BorrowingStatus.ACTIVE
                                         : BorrowingStatus.AWAITING_TERMINATION
                                 )
-                            ).finally(() =>
-                                getBorrowingById(id)
-                                    .then((response) => {
-                                        setBorrowing(response.data)
-                                    })
-                                    .finally(() =>
-                                        canDeleteBorrowing(id)
-                                            .then((response) => setCanDelete(response.data))
-                                            .finally(() => setLoading(false))
-                                    )
-                            )
+                            ).finally(() => {
+                                update()
+                            })
                         }}
                         disabled={borrowing?.status === BorrowingStatus.AWAITING_TERMINATION}
                     />
@@ -166,8 +183,8 @@ function Borrowing({
                                 id={3}
                                 color="red"
                                 onClick={() => {
-                                    deleteBorrowing(borrowing!.id).then(
-                                        () => (window.location.href = '/manageConsoles')
+                                    deleteBorrowing(borrowing!.id).then(() =>
+                                        window.location.reload()
                                     )
                                 }}
                                 dialog={true}
@@ -185,9 +202,11 @@ function Borrowing({
                             onClick={() => {
                                 contactBorrower(borrowing!.id).then(() => {
                                     getBorrowingById(borrowing!.id).then((response) => {
-                                        window.location.href = `/chats/${
-                                            (response.data as BorrowingGet).conversationId
-                                        }`
+                                        navigate(
+                                            `/chats/${
+                                                (response.data as BorrowingGet).conversationId
+                                            }`
+                                        )
                                     })
                                 })
                             }}

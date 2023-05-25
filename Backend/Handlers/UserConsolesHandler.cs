@@ -95,6 +95,13 @@ namespace Backend.Handlers
 
         public async Task RemoveUserConsoleAsync(int id)
         {
+            // Remove conversation
+            var conversation = await _context.Conversations.Where(x => x.UserConsoleId == id).FirstOrDefaultAsync();
+            if (conversation != null)
+            {
+                _context.Conversations.Remove(conversation);
+            }
+
             // Remove Images
             List<int> imagesIds = (await _imagesHandler.GetUserConsoleImagesAsync(id)).Select(x => x.Id).ToList();
             foreach (int imageId in imagesIds)
@@ -123,8 +130,7 @@ namespace Backend.Handlers
             UserConsoleStatus consoleStatus = status.ConsoleStatus;
 
             if (role == "admin" &&
-                (consoleStatus == UserConsoleStatus.UNCONFIRMED
-                || consoleStatus == UserConsoleStatus.RESERVED
+                (consoleStatus == UserConsoleStatus.RESERVED
                 || consoleStatus == UserConsoleStatus.AWAITING_TERMINATION_BY_LENDER
                 || consoleStatus == UserConsoleStatus.AWAITING_TERMINATION_BY_BORROWER))
             {
@@ -143,6 +149,10 @@ namespace Backend.Handlers
 
             UserConsole userConsole = _context.UserConsoles.Where(x=>x.Id == status.Id).First();
             userConsole.ConsoleStatus = status.ConsoleStatus;
+            if(status.ConsoleStatus == UserConsoleStatus.UNCONFIRMED || status.ConsoleStatus == UserConsoleStatus.AT_PLATFORM)
+            {
+                userConsole.BorrowingId = null;
+            }
             _context.UserConsoles.Update(userConsole);
             await _context.SaveChangesAsync();
             return;

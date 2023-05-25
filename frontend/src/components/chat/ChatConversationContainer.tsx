@@ -14,10 +14,11 @@ import { MessageAdd } from '../../models/Message'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { ConversationGet } from '../../models/Conversation'
 import { UserConsoleStatus, getConsoleStatusString } from '../../models/UserConsole'
-import { getBorrowingStatusString } from '../../models/Borrowing'
+import { BorrowingStatus, getBorrowingStatusString } from '../../models/Borrowing'
 import Button from '../ui/Button'
 import { MessageFileAdd, messageFilePathToURL } from '../../models/MessageFile'
 import axios from 'axios'
+import { useNavigate } from 'react-router'
 
 interface Props {
     conversation: ConversationGet | undefined
@@ -60,7 +61,7 @@ function ChatConversationContainer({
     updateConversations
 }: Props) {
     const { user } = useAuth()
-
+    const navigate = useNavigate()
     const fileRef = useRef<HTMLInputElement>(null)
 
     const [fileCount, setFileCount] = useState<number>(0)
@@ -92,14 +93,18 @@ function ChatConversationContainer({
                                     dialog={false}
                                     dialogBody=""
                                     onClick={() =>
-                                        (window.location.href = `${
-                                            user?.role === 'admin' ? '/userConsoles/' : '/consoles/'
-                                        }${conversation.userConsoleId}`)
+                                        navigate(
+                                            `${
+                                                user?.role === 'admin'
+                                                    ? '/userConsoles/'
+                                                    : '/consoles/'
+                                            }${conversation.userConsoleId}`
+                                        )
                                     }
                                 />
                             </ConversationHeader.Actions>
                         </ConversationHeader>
-                    ) : (
+                    ) : conversation.borrowing !== null ? (
                         <ConversationHeader>
                             <Avatar>
                                 <img
@@ -126,11 +131,47 @@ function ChatConversationContainer({
                                     dialog={false}
                                     dialogBody=""
                                     onClick={() =>
-                                        (window.location.href = `${
-                                            user?.role === 'borrower'
-                                                ? '/borrowings/'
-                                                : '/manageBorrowings/'
-                                        }${conversation.borrowingId}`)
+                                        navigate(
+                                            `${
+                                                user?.role === 'borrower'
+                                                    ? '/borrowings/'
+                                                    : '/manageBorrowings/'
+                                            }${conversation.borrowingId}`
+                                        )
+                                    }
+                                />
+                            </ConversationHeader.Actions>
+                        </ConversationHeader>
+                    ) : (
+                        <ConversationHeader>
+                            <Avatar>
+                                <img
+                                    src={
+                                        (localStorage.getItem('data-theme') ?? 'dark') == 'dark'
+                                            ? '/logoLight.png'
+                                            : '/logoDark.png'
+                                    }
+                                    alt=""
+                                />
+                                <div className="translate-y-[-13px] translate-x-[-5px]">#?</div>
+                            </Avatar>
+                            <ConversationHeader.Content
+                                userName={`${t('borrowing.borrowing')} #?`}
+                                info={t(getBorrowingStatusString(BorrowingStatus.TERMINATED))}
+                            />
+                            <ConversationHeader.Actions>
+                                <Button
+                                    text={t('button.toBorrowing')}
+                                    dialog={false}
+                                    dialogBody=""
+                                    onClick={() =>
+                                        navigate(
+                                            `${
+                                                user?.role === 'borrower'
+                                                    ? '/borrowings/'
+                                                    : '/manageBorrowings/'
+                                            }${conversation.borrowingId}`
+                                        )
                                     }
                                 />
                             </ConversationHeader.Actions>

@@ -91,14 +91,26 @@ function CreateConsolePage() {
 
                     <input
                         type="number"
+                        step={0.01}
                         className="w-full bg-bg-primary border p-2 rounded-md text-fs-h2"
                         placeholder={t('consoleManagementForm.dailyPrice') ?? ''}
-                        {...register('dailyPrice', { required: true })}
+                        {...register('dailyPrice', {
+                            required: true,
+                            validate: () => {
+                                if ((watch('dailyPrice') * 100) % 1 > 0) {
+                                    return 'notMoney'
+                                }
+                                if (watch('dailyPrice') < 0) {
+                                    return 'neg'
+                                }
+                            }
+                        })}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.dailyPrice?.type === 'required'
-                            ? t('consoleManagementForm.dailyPriceError')
-                            : ''}
+                        {errors.dailyPrice?.type === 'required' &&
+                            t('consoleManagementForm.dailyPriceError')}
+                        {errors.dailyPrice?.type === 'validate' &&
+                            t('consoleManagementForm.invalidPriceError')}
                     </p>
 
                     <label
@@ -122,18 +134,29 @@ function CreateConsolePage() {
                         id="images"
                         type="file"
                         multiple
+                        accept="image/*"
                         hidden
                         className="w-full bg-bg-secondary border-b focus:outline-none text-fs-h2"
                         placeholder={t('userConsoleManagementForm.images') ?? ''}
                         {...register('images', {
                             required: true,
-                            validate: (files) => files.length > 1 || 'aaa'
+                            validate: (files) => {
+                                if (files.length < 2) {
+                                    return 'userConsoleManagementForm.imagesError'
+                                }
+                                for (let i = 0; i < files.length; i++) {
+                                    const file = files.item(i)
+                                    if (file === null || !file.type.startsWith('image/')) {
+                                        return 'userConsoleManagementForm.invalidFileError'
+                                    }
+                                }
+                            }
                         })}
                     />
                     <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {errors.images?.type === 'required'
-                            ? t('consoleManagementForm.imagesError')
-                            : ''}
+                        {errors.images?.type === 'required' &&
+                            t('userConsoleManagementForm.imagesError')}
+                        {t(errors.images?.message ?? '')}
                     </p>
                 </div>
                 <div

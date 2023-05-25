@@ -111,6 +111,11 @@ i18n
                         newPassword: 'New password',
                         enterNewPassword: 'Enter new password',
                         newPasswordError: 'New password is required',
+                        shortError: 'Entered password is too short',
+                        noDigitError: 'At least 1 digit is required',
+                        noLowerError: 'At least 1 lowercase letter is required',
+                        noUpperError: 'At least 1 uppercase letter is required',
+                        noNonAlphaError: 'At least 1 non-alphanumeric character is required',
                         repeatNewPassword: 'Repeat new password',
                         enterRepeatNewPassword: 'Repeat new password',
                         repeatNewPasswordError: 'Repeating new password is required',
@@ -149,13 +154,17 @@ i18n
                         borrowers1: 'For Borrowers',
                         borrowers2:
                             'Our business offers you a great opportunity to get a new source of consoles for rent. We are a specialized company that provides console rental services for a fixed daily rate. This offer will allow your customers to enjoy the latest game consoles without significant investments on your part.',
-                          
-                        borrowers4: 'At our place, you will find a wide selection of console accessories to meet all customer needs.',
-                        borrowers5: 'Our daily rate system is transparent and simple. You just need to choose the desired console model, rental duration, and the accessories that interest you. We ensure that you will receive a quality console with all the necessary accessories.',
-                        borrowers6: 'Our team is ready to provide you with all the necessary assistance and advice regarding console and accessory selection and ordering.',
+
+                        borrowers4:
+                            'At our place, you will find a wide selection of console accessories to meet all customer needs.',
+                        borrowers5:
+                            'Our daily rate system is transparent and simple. You just need to choose the desired console model, rental duration, and the accessories that interest you. We ensure that you will receive a quality console with all the necessary accessories.',
+                        borrowers6:
+                            'Our team is ready to provide you with all the necessary assistance and advice regarding console and accessory selection and ordering.',
                         borrowers3: 'Submit registration request',
                         lenders1: 'For Lenders',
-                        lenders5: 'If you have a rarely used console, you can offer it on our rental platform. We will give you the opportunity to rent out your console for a fixed daily rate, which will depend on the console model and condition. This will allow you to recoup the money you invested in the console while enabling another player to enjoy the world of gaming.',
+                        lenders5:
+                            'If you have a rarely used console, you can offer it on our rental platform. We will give you the opportunity to rent out your console for a fixed daily rate, which will depend on the console model and condition. This will allow you to recoup the money you invested in the console while enabling another player to enjoy the world of gaming.',
                         lenders2:
                             "Do you have rarely used consoles? Maybe you bought a console for a specific game and don't use it anymore? Or do you just want to get your money back for it? In that case, this platform is for you.",
                         lenders3:
@@ -193,7 +202,9 @@ i18n
                         checkEmail: 'Please check your email for confirmation link',
                         requestSuccess:
                             'Registration request has been submitted successfully. Please wait for confirmation via email',
-                        noRequests: 'Currently there are no registration requests'
+                        noRequests: 'Currently there are no registration requests',
+                        approve: 'Confirm',
+                        reject: 'Reject'
                     },
                     footer: {
                         contacts: 'Contacts',
@@ -210,6 +221,7 @@ i18n
                         descriptionError: 'Description is required',
                         dailyPrice: 'Daily Price',
                         dailyPriceError: 'Daily Price is required',
+                        invalidPriceError: 'Daily Price is invalid',
                         images: 'Images',
                         imagesError: 'At least 2 images are required',
                         update: 'Update',
@@ -221,6 +233,7 @@ i18n
                         title: 'Console Information',
                         amount: 'Console amount',
                         amountError: 'Amount is required',
+                        invalidAmountError: 'Amount is invalid',
                         accessories: 'Accessories',
                         accessoriesError: 'Accessories is required',
                         accessoriesTooltip: 'E.g.: 3 controllers',
@@ -228,6 +241,7 @@ i18n
                         consoleCategoryError: 'Console Category is required',
                         images: 'Images',
                         imagesError: 'At least 2 images are required',
+                        invalidFileError: 'At least 1 uploaded file is not an image',
                         update: 'Update',
                         create: 'Create',
                         newConsole: 'New Console',
@@ -249,6 +263,8 @@ i18n
                         userFname: 'First name',
                         userLname: 'Last name',
                         userEmail: 'Email',
+                        userAddress: 'Address',
+                        userPostalCode: 'Postal Code:',
                         contact: 'To console conversation',
                         borrowerTitle: 'Borrower company',
                         borrowerCompanyName: 'Company Name',
@@ -264,10 +280,12 @@ i18n
                         statusTerminatingBorrower: 'Awaiting to return',
                         changeStatus: 'Awaiting for return',
                         dailyPrice: 'Daily price',
+                        dailyPriceLender: '30 days income',
                         delete: 'Delete'
                     },
                     borrowerConsolePage: {
-                        selectConsole: 'Select'
+                        selectConsole: 'Select',
+                        noConsoles: 'There are currently no consoles available'
                     },
                     emailConfirmation: {
                         success: 'The email has been confirmed. You can now ',
@@ -311,6 +329,7 @@ i18n
                         statusPending: 'Awaiting contract signing',
                         statusActive: 'Active',
                         statusTerminating: 'Awaiting consoles return',
+                        statusTerminated: 'Terminated',
                         contactBorrower: 'To conversation',
                         borrowing: 'Borrowing',
                         getStatusPending: 'Status: pending',
@@ -439,6 +458,11 @@ i18n
                         newPassword: 'Naujas slaptažodis',
                         enterNewPassword: 'Įveskite naują slaptažodį',
                         newPasswordError: 'Naujas slaptažodis yra privalomas',
+                        shortError: 'Įvestas slaptažodis yra per trumpas',
+                        noDigitError: 'Reikia įvesti bent 1 skaičių',
+                        noLowerError: 'Reikia įvesti bent 1 mažąją raidę',
+                        noUpperError: 'Reikia įvesti bent 1 didžiąją raidę',
+                        noNonAlphaError: 'Reikia įvesti bent 1 specialųjį simbolį',
                         repeatNewPassword: 'Pakartokite naują slaptažodį',
                         enterRepeatNewPassword: 'Pakartokite naują slaptažodį',
                         repeatNewPasswordError: 'Naujo slaptažodžio pakartojimas yra privalomas',
@@ -457,15 +481,19 @@ i18n
                         borrowers1: 'Besiskolinantiems',
                         borrowers2:
                             'Mūsų verslas siūlo jums puikią galimybę gauti naują konsolių šaltinį nuomai. Mes esame specializuota įmonė, kuri teikia konsoles nuomos paslaugas už fiksuotą dieninį tarifą. Šis pasiūlymas leis jūsų klientams mėgautis naujausiomis žaidimų konsolėmis be didelių investicijų jums.',
-                          
-                        borrowers4: 'Pas mus rasite platų konsolei priedų pasirinkimą, kad galėtumėte patenkinti visus klientų poreikius.',
-                        borrowers5: 'Mūsų dieninio tarifo sistema yra skaidri ir paprasta. Jums tereikia pasirinkti norimą konsoles modelį, nuomos trukmę ir priedus, kurie jus domina. Mes užtikriname, kad gausite kokybišką konsolę su visais reikalingais priedais.',
-                        borrowers6: 'Mūsų komanda yra pasirengusi suteikti jums visą reikiamą pagalbą ir patarimus dėl konsolės ir priedų pasirinkimo bei užsakymo.',
+
+                        borrowers4:
+                            'Pas mus rasite platų konsolei priedų pasirinkimą, kad galėtumėte patenkinti visus klientų poreikius.',
+                        borrowers5:
+                            'Mūsų dieninio tarifo sistema yra skaidri ir paprasta. Jums tereikia pasirinkti norimą konsoles modelį, nuomos trukmę ir priedus, kurie jus domina. Mes užtikriname, kad gausite kokybišką konsolę su visais reikalingais priedais.',
+                        borrowers6:
+                            'Mūsų komanda yra pasiruošusi suteikti jums visą reikiamą pagalbą ir patarimus dėl konsolės ir priedų pasirinkimo bei užsakymo.',
                         borrowers3: 'Pateikti registracijos prašymą',
                         lenders1: 'Skolintojams',
-                        lenders5: 'Mūsų platforma taip pat užtikrina saugią ir patikimą nuomos procesą. Mes rūpinamės, kad jūsų konsolė būtų apdrausta nuo galimų pažeidimų ar netekimo, ir užtikriname, kad jos būklė būtų tikrinama prieš ir po nuomos. Tai padeda užtikrinti, jog tiek nuomotojas, tiek ir nuomininkas turės teigiamą patirtį naudojantis mūsų platforma.',
+                        lenders5:
+                            'Mūsų platforma taip pat užtikrina saugią ir patikimą nuomos procesą. Mes rūpinamės, kad jūsų konsolė būtų apdrausta nuo galimų pažeidimų ar netekimo, ir užtikriname, kad jos būklė būtų tikrinama prieš ir po nuomos. Tai padeda užtikrinti, jog tiek nuomotojas, tiek ir nuomininkas turės teigiamą patirtį naudojantis mūsų platforma.',
                         lenders2:
-                            'Ar jūs turite retai naudojamų konsolių? Galbūt jums pinigų nusipirktisekančios kartos konsolei? Ar tiesiog norite atgauti pinigus sumokėtus užją? Tokiu atveju ši platforma yra skirta jums.',
+                            'Ar jūs turite retai naudojamų konsolių? Galbūt jums pinigų nusipirkti sekančios kartos konsolei? Ar tiesiog norite atgauti pinigus sumokėtus už ją? Tokiu atveju ši platforma yra skirta jums.',
                         lenders3:
                             'Jei turite retai naudojamą konsolę, galite ją pasiūlyti mūsų nuomos platformoje. Mes suteiksime jums galimybę nuomoti savo konsolę už nustatytą dieninį tarifą, kuris bus priklauso nuo konsolės modelio ir būklės. Tai leis jums atgauti pinigus, kuriuos investavote į konsolę, tuo pačiu padėdamas kitam žaidėjui mėgautis žaidimų pasauliu.',
                         lenders4: 'Galite užsiregistruoti dabar'
@@ -493,7 +521,7 @@ i18n
                         email: 'El. paštas',
                         emailError: 'Reikia įvesti el. pašto adresą',
                         password: 'Slaptažodis',
-                        passwordError: 'Reikia įvesti Slaptažodį',
+                        passwordError: 'Reikia įvesti slaptažodį',
                         passwordMismatchError: 'Slaptažodžiai nesutampa',
                         repeatPassword: 'Pakartoti slaptažodį',
                         registerButton: 'Registruotis',
@@ -502,7 +530,9 @@ i18n
                             'Išsiųsta patvirtinimo nuorodą. Prašome patikrinti savo el. paštą',
                         requestSuccess:
                             'Registracijos prašymas pateiktas sėkmingai. Prašome laukti patvirtinimo el. paštu.',
-                        noRequests: 'Šiuo metu registracijos užklausų nėra'
+                        noRequests: 'Šiuo metu registracijos užklausų nėra',
+                        approve: 'Patvirtinti',
+                        reject: 'Atmesti'
                     },
                     footer: {
                         contacts: 'Kontaktai',
@@ -519,6 +549,7 @@ i18n
                         descriptionError: 'Reikia nurodyti aprašymą',
                         dailyPrice: 'Dieninis tarifas',
                         dailyPriceError: 'Reikia nurodyti dieninį tarifą',
+                        invalidPriceError: 'Netinkamas skaičius',
                         images: 'Nuotraukos',
                         imagesError: 'Reikia įkelti bent 2 nuotraukas',
                         update: 'Atnaujinti',
@@ -530,6 +561,7 @@ i18n
                         title: 'Konsolės informacija',
                         amount: 'Konsolių kiekis',
                         amountError: 'Reikia nurodyti kiekį',
+                        invalidAmountError: 'Neteisingas kiekis',
                         accessories: 'Priedai',
                         accessoriesError: 'Reikia nurodyti konsolės priedus',
                         accessoriesTooltip: 'Pvz.: 3 pulteliai',
@@ -537,6 +569,7 @@ i18n
                         consoleCategoryError: 'Reikia nurodyti konsolės kategoriją',
                         images: 'Nuotraukos',
                         imagesError: 'Reikia įkelti bent 2 nuotraukas',
+                        invalidFileError: 'Bent 1 įkeltas failas nėra nuotrauka',
                         update: 'Atnaujinti',
                         create: 'Sukurti',
                         newConsole: 'Nauja konsolė',
@@ -558,6 +591,8 @@ i18n
                         userFname: 'Vardas',
                         userLname: 'Pavardė',
                         userEmail: 'El. paštas',
+                        userAddress: 'Adresas',
+                        userPostalCode: 'Pašto kodas:',
                         borrowerTitle: 'Pasiskolinusi įmonė',
                         borrowerCompanyName: 'Įmonės pavadinimas',
                         borrowerCompanyCode: 'Įmonės kodas',
@@ -574,10 +609,12 @@ i18n
                         statusTerminatingBorrower: 'Norima grąžinti',
                         changeStatus: 'Pakeisti būseną',
                         dailyPrice: 'Dienos kaina',
+                        dailyPriceLender: '30 dienų pajamos',
                         delete: 'Ištrinti'
                     },
                     borrowerConsolePage: {
-                        selectConsole: 'Pasirinkti'
+                        selectConsole: 'Pasirinkti',
+                        noConsoles: 'Šiuo metu nėra konsolių, prieinamų nuomai'
                     },
                     emailConfirmation: {
                         success: 'Elektroninis paštas sėkmingai patvirtintas. Dabar galite ',
@@ -624,11 +661,12 @@ i18n
                         statusPending: 'Laukiama sutarties pasirašymo',
                         statusActive: 'Aktyvu',
                         statusTerminating: 'Laukiama konsolių grąžinimo',
+                        statusTerminated: 'Sutartis nutraukta',
                         contactBorrower: 'Į pokalbį',
                         getStatusPending: 'Pasiskolinimas nepatvirtintas',
                         setStatusActive: 'Aktyvuoti pasiskolinimą',
                         getStatusActive: 'Pasiskolinimas aktyvus',
-                        setStatusTerminating: 'Pažymėti pasiskolinimą pasibagiusiu',
+                        setStatusTerminating: 'Pažymėti pasiskolinimą pasibaigusiu',
                         getStatusTerminating: 'Pasiskolinimas pasibaigęs'
                     },
                     forgotPassword: {

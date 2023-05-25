@@ -7,6 +7,7 @@ import { useAuth } from '../contexts/AuthContext'
 import Borrowing from '../components/borrowings/Borrowing'
 import { Link, useParams } from 'react-router-dom'
 import { getContainerHeight } from '../App'
+import { useNavigate } from 'react-router-dom'
 
 function BorrowingsPage() {
     const { id } = useParams()
@@ -16,6 +17,7 @@ function BorrowingsPage() {
     const [currentBorrowing, setCurrentBorrowing] = useState<number>()
     const [page, setPage] = useState<number>()
     const { user } = useAuth()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (user?.role === 'admin') {
@@ -80,6 +82,11 @@ function BorrowingsPage() {
     }, [])
 
     const handleBorrowingClick = (event: { selected: number }) => {
+        if (user?.role === 'admin') {
+            navigate(`/manageBorrowings/${borrowings![event.selected].id}`, { replace: true })
+        } else {
+            navigate(`/borrowings/${borrowings![event.selected].id}`, { replace: true })
+        }
         setCurrentBorrowing(borrowings![event.selected].id)
         setBorrowingState(borrowings![event.selected].userConsoles)
     }
@@ -121,7 +128,8 @@ function BorrowingsPage() {
                             nextLinkClassName="relative block rounded bg-primary-100 px-3 py-1.5 text-sm font-medium text-primary-700 transition-all duration-300 mx-1"
                             breakLabel="..."
                             onPageChange={(e) => handleBorrowingClick(e)}
-                            pageRangeDisplayed={5}
+                            pageRangeDisplayed={2}
+                            marginPagesDisplayed={1}
                             pageCount={Math.ceil(borrowings!.length)}
                             renderOnZeroPageCount={null}
                             forcePage={page}

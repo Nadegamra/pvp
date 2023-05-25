@@ -30,21 +30,55 @@ function ConsoleImagesUpdateForm() {
         formState: { errors },
         setValue
     } = useForm<Props>()
-    const [error, setError] = useState('')
-
+    const [message, setMessage] = useState('')
+    const [loading, setLoading] = useState(true)
     useEffect(() => {
-        getConsole(parseInt(id ?? '-1')).then((response) => {
-            setConsole(response.data)
-        })
+        getConsole(parseInt(id ?? '-1'))
+            .then((response) => {
+                setConsole(response.data)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }, [])
 
     return (
-        <form className="mb-10">
+        <form
+            className="mb-10"
+            onSubmit={handleSubmit(async () => {
+                setLoading(true)
+                // Delete images
+                const oldImages = consoleGet!.images
+                for (let i = 0; i < oldImages.length; i++) {
+                    if (oldImages[i].toDelete) {
+                        await removeImage(oldImages[i].id)
+                    }
+                }
+                // Add new images
+                const newImageFiles = watch('images')
+                for (let i = 0; i < newImageFiles.length; i++) {
+                    const image = newImageFiles.item(i)
+                    if (image !== null) {
+                        let base64 = await toBase64(image)
+                        do {
+                            base64 = base64.substring(1)
+                        } while (base64[0] != ',')
+                        base64 = base64.substring(1)
+                        await addImage(new ImageAdd(image.name, '', base64, consoleGet!.id))
+                    }
+                }
+                // Refresh data
+                await getConsole(parseInt(id ?? '-1')).then((response) => {
+                    setConsole(response.data)
+                })
+                setMessage(t('profile.dataSuccessMessage') ?? '')
+                setLoading(false)
+            })}>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-5 m-3">
                 {consoleGet?.images
                     .filter((image) => !image.toDelete)
                     .map((image) => (
-                        <div key={image.id} className="whitespace-nowrap mb-5 md:mb-0">
+                        <div key={image.id} className="whitespace-nowrap mb-5 md:mb-0 mx-auto">
                             <div className="inline-block h-full align-middle"></div>
                             <span
                                 className="material-symbols-outlined absolute translate-x-[-13px] translate-y-[-13px] cursor-pointer select-none"
@@ -75,49 +109,38 @@ function ConsoleImagesUpdateForm() {
                     id="formFileLg"
                     type="file"
                     multiple
-                    {...register('images', { required: true })}
+                    accept="image/*"
+                    {...register('images', {
+                        validate: (files) => {
+                            for (let i = 0; i < files.length; i++) {
+                                const file = files.item(i)
+                                if (file === null || !file.type.startsWith('image/')) {
+                                    return 'userConsoleManagementForm.invalidFileError'
+                                }
+                            }
+                        }
+                    })}
                 />
-                {errors.images?.type === 'required' && (
-                    <p className="mb-3 text-fs-primary text-danger-500 h-3">
-                        {t('consoleManagementForm.imagesError')}
-                    </p>
-                )}
+                <p className="text-fs-primary text-danger-500 h-3">
+                    {t(errors.images?.message ?? '')}
+                </p>
             </div>
-            <div className="text-fs-primary text-danger-500 text-center">{error}</div>
             <div className="pt-5 text-fs-h2">
                 <Button
                     dialog={false}
                     text={t('consoleManagementForm.update') ?? ''}
                     dialogBody=""
-                    onClick={async (e) => {
-                        setError('')
-                        // Delete images
-                        const oldImages = consoleGet!.images
-                        for (let i = 0; i < oldImages.length; i++) {
-                            if (oldImages[i].toDelete) {
-                                await removeImage(oldImages[i].id)
-                            }
-                        }
-                        // Add new images
-                        const newImageFiles = watch('images')
-                        for (let i = 0; i < newImageFiles.length; i++) {
-                            const image = newImageFiles.item(i)
-                            if (image !== null) {
-                                let base64 = await toBase64(image)
-                                do {
-                                    base64 = base64.substring(1)
-                                } while (base64[0] != ',')
-                                base64 = base64.substring(1)
-                                await addImage(new ImageAdd(image.name, '', base64, consoleGet!.id))
-                            }
-                        }
-                        // Refresh data
-                        getConsole(parseInt(id ?? '-1')).then((response) => {
-                            setConsole(response.data)
-                        })
-                    }}
+                    submit={true}
                 />
             </div>
+            {message !== '' && (
+                <div className="pt-4 text-fs-primary text-success-500">{message}</div>
+            )}
+            {loading && (
+                <div>
+                    <div className="w-8 h-8 border-b-2 border-gray-900 rounded-full animate-spin"></div>
+                </div>
+            )}
         </form>
     )
 }

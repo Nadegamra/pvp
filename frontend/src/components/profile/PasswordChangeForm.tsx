@@ -61,11 +61,31 @@ function PasswordChangeForm() {
                 className="bg-bg-primary border p-2 rounded-md w-[300px]"
                 type="password"
                 placeholder={t('passwordChangeForm.enterNewPassword') ?? ''}
-                {...register('newPassword', { required: true })}
+                {...register('newPassword', {
+                    required: true,
+                    validate: () => {
+                        if (watch('newPassword').length < 8) {
+                            return 'passwordChangeForm.shortError'
+                        }
+                        if (!/\d/.test(watch('newPassword'))) {
+                            return 'passwordChangeForm.noDigitError'
+                        }
+                        if (!/[a-z]/.test(watch('newPassword'))) {
+                            return 'passwordChangeForm.noLowerError'
+                        }
+                        if (!/[A-Z]/.test(watch('newPassword'))) {
+                            return 'passwordChangeForm.noUpperError'
+                        }
+                        if (!/\W/.test(watch('newPassword'))) {
+                            return 'passwordChangeForm.noNonAlphaError'
+                        }
+                    }
+                })}
             />
             <p className="mb-3 text-fs-primary text-danger-500 h-3">
                 {errors.newPassword?.type === 'required' &&
                     t('passwordChangeForm.newPasswordError')}
+                {errors.newPassword?.message !== undefined && t(errors.newPassword?.message)}
             </p>
             <div className="font-bold">{t('passwordChangeForm.repeatNewPassword')}</div>
             <input
